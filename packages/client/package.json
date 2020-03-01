@@ -1,9 +1,12 @@
 {
-  "name": "nuxt-template",
+  "name": "client",
   "version": "1.0.0",
   "description": "My wonderful Nuxt.js project",
   "author": "TomokiMiyauci",
   "private": true,
+  "engines": {
+    "node": "10"
+  },
   "scripts": {
     "dev": "nuxt-ts -o",
     "build": "nuxt-ts build",

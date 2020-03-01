@@ -12,6 +12,9 @@
     "sourceMap": true,
     "strict": true,
     "noEmit": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
     "baseUrl": "./"                       /* Base directory to resolve non-absolute module names. */
-  }
+  },
+  "compileOnSave": true
 }
