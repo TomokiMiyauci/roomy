@@ -2,6 +2,8 @@ import * as path from 'path'
 import { Configuration } from '@nuxt/types'
 import i18n from './nuxt-i18n.config'
 
+const dev = process.env.NODE_ENV !== 'production'
+
 const config: Configuration = {
   mode: 'universal',
 
@@ -34,7 +36,7 @@ const config: Configuration = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/composition-api'],
+  plugins: ['@/plugins/composition-api', '@/plugins/firebase'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -43,7 +45,6 @@ const config: Configuration = {
     '@nuxt/typescript-build',
     '@nuxtjs/eslint-module',
     '@nuxtjs/vuetify',
-    '@nuxtjs/dotenv',
     '@nuxtjs/stylelint-module'
   ],
   /*
@@ -51,7 +52,7 @@ const config: Configuration = {
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
+    // '@nuxtjs/axios',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
@@ -61,7 +62,7 @@ const config: Configuration = {
    ** dotenv options
    */
   dotenv: {
-    path: `../..${process.cwd()}`
+    path: process.cwd()
   },
   /*
    ** vuetify module configuration
@@ -81,6 +82,25 @@ const config: Configuration = {
     terser: {
       terserOptions: {
         compress: { drop_console: process.env.NODE_ENV === 'production' }
+      }
+    },
+
+    extractCSS: !dev,
+
+    postcss: {
+      plugins: {
+        '@fullhuman/postcss-purgecss': dev
+          ? false
+          : {
+              content: [
+                './pages/**/*.vue',
+                './layouts/**/*.vue',
+                './components/**/*.vue',
+                './node_modules/vuetify/dist/vuetify.js'
+              ],
+              whitelist: ['html', 'body', 'nuxt-progress'],
+              whitelistPatternsChildren: [/^v-/]
+            }
       }
     },
 

@@ -1,23 +1,7 @@
 {
-  "eslint.enable": true,
+  "editor.renderControlCharacters": true,
   "editor.formatOnSave": false,
-  "eslint.validate": [
-    {
-      "language": "vue",
-      "autoFix": true
-    },
-    {
-      "language": "javascript",
-      "autoFix": true
-    },
-    {
-      "language": "typescript",
-      "autoFix": true
-    }
-  ],
-  "vetur.format.defaultFormatter.js": "prettier-eslint",
   "editor.renderWhitespace": "boundary",
-  "files.autoSave": "onWindowChange",
   "editor.quickSuggestions": {
     "other": true,
     "comments": false,
@@ -26,5 +10,20 @@
 
   "editor.codeActionsOnSave": {
     "source.fixAll": true
-  }
+  },
+
+  "eslint.packageManager": "yarn",
+  "eslint.workingDirectories": ["./"],
+  "eslint.validate": [
+    "javascript",
+    "vue"
+  ],
+  "eslint.enable": true,
+
+  "vetur.format.defaultFormatter.js": "prettier-eslint",
+  "files.autoSave": "onWindowChange",
+  "vetur.experimental.templateInterpolationService": true,
+  "vetur.format.defaultFormatter.html": "prettier"
 }
+
+

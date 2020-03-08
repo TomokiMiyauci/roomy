@@ -11,10 +11,14 @@
     "esModuleInterop": true,
     "sourceMap": true,
     "strict": true,
-    "noEmit": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
-    "baseUrl": "./"                       /* Base directory to resolve non-absolute module names. */
+    "baseUrl": "./",                       /* Base directory to resolve non-absolute module names. */
+    "paths": {
+      "@/*": [
+        "packages/client/src/*"
+      ]
+    },
   },
   "compileOnSave": true
 }
