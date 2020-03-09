@@ -2,8 +2,6 @@ import * as path from 'path'
 import { Configuration } from '@nuxt/types'
 import i18n from './nuxt-i18n.config'
 
-const dev = process.env.NODE_ENV !== 'production'
-
 const config: Configuration = {
   mode: 'universal',
 
@@ -85,24 +83,11 @@ const config: Configuration = {
       }
     },
 
-    extractCSS: !dev,
-
-    postcss: {
-      plugins: {
-        '@fullhuman/postcss-purgecss': dev
-          ? false
-          : {
-              content: [
-                './pages/**/*.vue',
-                './layouts/**/*.vue',
-                './components/**/*.vue',
-                './node_modules/vuetify/dist/vuetify.js'
-              ],
-              whitelist: ['html', 'body', 'nuxt-progress'],
-              whitelistPatternsChildren: [/^v-/]
-            }
-      }
+    splitChunks: {
+      layouts: true
     },
+
+    hardSource: process.env.NODE_ENV === 'development',
 
     extend(config) {
       return Object.assign({}, config, {
