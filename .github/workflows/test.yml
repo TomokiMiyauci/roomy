@@ -62,36 +62,36 @@ jobs:
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
 
       - name: lint by ESlint
-        run: yarn lint
+        run: yarn workspace client lint
 
       - name: lint by Stylelint
-        run: yarn lint:css
+        run: yarn workspace client lint:css
 
-  # audit:
-  #   needs: setup
-  #   runs-on: ${{ matrix.os }}
+  audit:
+    needs: setup
+    runs-on: ${{ matrix.os }}
 
-  #   strategy:
-  #     matrix:
-  #       os: [ubuntu-latest]
-  #       node: [12]
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [12]
 
-  #   steps:
-  #     - uses: actions/setup-node@v1
-  #       with:
-  #         node-version: ${{ matrix.node }}
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
 
-  #     - name: checkout
-  #       uses: actions/checkout@master
+      - name: checkout
+        uses: actions/checkout@master
 
-  #     - name: restore workspace cache
-  #       uses: actions/cache@v1
-  #       with:
-  #         path: ${{ github.workspace }}
-  #         key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
+      - name: restore workspace cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
 
-  #     - name: audit
-  #       run: yarn run audit
+      - name: audit
+        run: yarn workspace client run audit
 
   # test-unit:
   #   needs: setup
