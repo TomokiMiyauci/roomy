@@ -93,7 +93,9 @@ const config: Configuration = {
       return Object.assign({}, config, {
         devtool: 'source-map'
       })
-    }
+    },
+
+    publicPath: process.env.AUTH_DOMAIN
   },
 
   typescript: {
