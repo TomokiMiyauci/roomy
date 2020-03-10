@@ -24,17 +24,6 @@
     "hygen:vuex": "hygen vuex new",
     "audit": "improved-yarn-audit --min-severity moderate"
   },
-  "lint-staged": {
-    "*": [
-      "git secrets --scan"
-    ],
-    "*.{js,vue,ts}": "eslint"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "dependencies": {
     "@mdi/js": "^4.9.95",
     "@nuxt/typescript-runtime": "^0.3.5",
@@ -77,12 +66,10 @@
     "eslint-plugin-nuxt": ">=0.4.2",
     "eslint-plugin-prettier": "^3.0.1",
     "fork-ts-checker-webpack-plugin": "^3.1.1",
-    "husky": "^2.6.0",
     "hygen": "^5.0.1",
     "improved-yarn-audit": "^1.0.1",
     "jest": "^24.1.0",
     "jest-transform-stub": "^2.0.0",
-    "lint-staged": "^8.2.1",
     "prettier": "^1.16.4",
     "storybook-addon-vue-info": "^1.4.1",
     "storybook-chromatic": "^3.5.2",

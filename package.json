@@ -3,8 +3,25 @@
   "version": "1.0.0",
   "license": "MIT",
   "private": true,
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "engines": {
     "node": "^10.19.0"
+  },
+  "devDependencies": {
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.8"
+  },
+  "lint-staged": {
+    "*": [
+      "git secrets --scan"
+    ],
+    "./packages/{client,server}/**/*.{js,vue,ts}": "eslint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
