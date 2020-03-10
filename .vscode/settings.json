@@ -13,11 +13,8 @@
   },
 
   "eslint.packageManager": "yarn",
-  "eslint.workingDirectories": ["./"],
-  "eslint.validate": [
-    "javascript",
-    "vue"
-  ],
+  "eslint.workingDirectories": ["./packages/client", "./packages/server"],
+  "eslint.validate": ["javascript", "vue"],
   "eslint.enable": true,
 
   "vetur.format.defaultFormatter.js": "prettier-eslint",
@@ -25,5 +22,3 @@
   "vetur.experimental.templateInterpolationService": true,
   "vetur.format.defaultFormatter.html": "prettier"
 }
-
-
