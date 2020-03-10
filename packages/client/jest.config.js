@@ -1,4 +1,6 @@
 module.exports = {
+  name: 'client',
+  displayName: 'client',
   roots: ['<rootDir>/test'],
   preset: 'ts-jest',
   setupFilesAfterEnv: [
@@ -14,7 +16,7 @@ module.exports = {
     '^@/(.*)$': '<rootDir>/src/$1',
     '^~/(.*)$': '<rootDir>/src/$1',
     '^vue$': 'vue/dist/vue.common.js',
-    '^.+\\.(css|less)$': '<rootDir>/node_modules/jest-transform-stub'
+    '^.+\\.(css|less)$': 'jest-transform-stub'
   },
   modulePathIgnorePatterns: ['<rootDir>/.firebase'],
   moduleFileExtensions: ['js', 'vue', 'ts', 'json'],

@@ -14,7 +14,7 @@ module.exports = {
   transform: {
     '^.+\\.stories\\.(js|ts)$': '@storybook/addon-storyshots/injectFileName',
     '^.+\\.js$': 'babel-jest',
-    '.*\\.(vue)$': '<rootDir>/node_modules/jest-vue-preprocessor',
+    '.*\\.(vue)$': 'jest-vue-preprocessor',
     '^.+\\.(ts|tsx)$': 'ts-jest',
     '.+\\.(css|scss|png|jpg|svg)$': 'jest-transform-stub'
   },
