@@ -70,6 +70,7 @@
     "improved-yarn-audit": "^1.0.1",
     "jest": "^24.1.0",
     "jest-transform-stub": "^2.0.0",
+    "jest-vue-preprocessor": "^1.7.1",
     "prettier": "^1.16.4",
     "storybook-addon-vue-info": "^1.4.1",
     "storybook-chromatic": "^3.5.2",
