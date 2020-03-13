@@ -35,7 +35,7 @@ addDecorator(withKnobs)
 
 addDecorator(() => ({
   vuetify,
-  template: '<v-app><v-content><story /></v-content></v-app>',
+  template: '<v-app><v-content><v-container fluid><story /></v-container></v-content></v-app>',
 }))
 
 if (typeof jest === "undefined") {
