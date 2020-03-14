@@ -36,15 +36,17 @@ export default createComponent({
 
 .speech-balloon::after {
   position: absolute;
-  bottom: 0;
   border: 20px solid transparent;
-  border-bottom-color: #ececec;
   content: '';
 }
 .left::after {
+  bottom: 0;
   left: -10px;
+  border-bottom-color: #ececec;
 }
 .right::after {
+  top: 0;
   right: -10px;
+  border-top-color: #ececec;
 }
 </style>
