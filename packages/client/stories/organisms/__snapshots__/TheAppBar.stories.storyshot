@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots organisms|TheAppBar Default 1`] = `
+<div
+  class="v-application v-application--is-ltr theme--light"
+  data-app="true"
+  id="app"
+>
+  <div
+    class="v-application--wrap"
+  >
+    <main
+      class="v-content"
+      style="padding: 0px 0px 0px 0px;"
+    >
+      <div
+        class="v-content__wrap"
+      >
+        <div
+          class="container container--fluid"
+        >
+          <header
+            class="v-sheet v-sheet--tile theme--light v-toolbar v-app-bar v-app-bar--fixed v-app-bar--hide-shadow"
+            style="height: 64px; margin-top: 0px; transform: translateY(-64px); left: 0px; right: 0px;"
+          >
+            <div
+              class="v-toolbar__image"
+            >
+              <div
+                class="v-responsive v-image"
+                style="height: 64px;"
+              >
+                <div
+                  class="v-image__image v-image__image--preload v-image__image--cover"
+                  style="background-position: center center;"
+                />
+                <div
+                  class="v-responsive__content"
+                />
+              </div>
+            </div>
+            <div
+              class="v-toolbar__content"
+              style="height: 64px;"
+            >
+              <button
+                class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
+                type="button"
+              >
+                <span
+                  class="v-btn__content"
+                >
+                  <span
+                    aria-hidden="true"
+                    class="v-icon notranslate v-icon--svg theme--light"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      height="24"
+                      role="img"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </button>
+               
+              <hr
+                aria-orientation="horizontal"
+                class="v-divider theme--light"
+                role="separator"
+              />
+               
+              <button
+                class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
+                type="button"
+              >
+                <span
+                  class="v-btn__content"
+                >
+                  <span
+                    aria-hidden="true"
+                    class="v-icon notranslate v-icon--svg theme--light"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      height="24"
+                      role="img"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </button>
+            </div>
+          </header>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+`;
