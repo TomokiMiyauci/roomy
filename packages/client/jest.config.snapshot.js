@@ -2,7 +2,6 @@ const baseConfig = require('./jest.config')
 
 module.exports = {
   ...baseConfig,
-
   setupFilesAfterEnv: [
     '<rootDir>/test/setup/vue.ts',
     '<rootDir>/test/setup/composition-api.ts',
@@ -14,7 +13,7 @@ module.exports = {
   transform: {
     '^.+\\.stories\\.(js|ts)$': '@storybook/addon-storyshots/injectFileName',
     '^.+\\.js$': 'babel-jest',
-    '.*\\.(vue)$': 'jest-vue-preprocessor',
+    '^.+\\.(vue)$': 'jest-vue-preprocessor',
     '^.+\\.(ts|tsx)$': 'ts-jest',
     '.+\\.(css|scss|png|jpg|svg)$': 'jest-transform-stub'
   },
