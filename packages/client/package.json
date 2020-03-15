@@ -30,7 +30,9 @@
     "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/pwa": "^3.0.0-0",
     "@vue/composition-api": "^0.3.4",
+    "dayjs": "^1.8.22",
     "firebase": "^7.10.0",
+    "gsap": "^3.2.4",
     "nuxt": "^2.0.0",
     "nuxt-i18n": "^6.5.0",
     "vuex-module-decorators": "^0.16.1"

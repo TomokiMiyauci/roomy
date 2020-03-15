@@ -17,7 +17,7 @@
     "*": [
       "git secrets --scan"
     ],
-    "./packages/{client,server}/**/*.{js,vue,ts}": "eslint"
+    "./packages/client/**/*.{js,vue,ts}": "eslint"
   },
   "husky": {
     "hooks": {
