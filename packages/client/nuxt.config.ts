@@ -1,6 +1,7 @@
 import * as path from 'path'
 import { Configuration } from '@nuxt/types'
 import i18n from './nuxt-i18n.config'
+const autoprefixer = require('autoprefixer')
 
 const config: Configuration = {
   mode: 'universal',
@@ -85,6 +86,10 @@ const config: Configuration = {
 
     splitChunks: {
       layouts: true
+    },
+
+    postcss: {
+      plugins: [autoprefixer({ grid: 'autoplace' })]
     },
 
     hardSource: process.env.NODE_ENV === 'development',
