@@ -2913,6 +2913,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/dom-mediacapture-record@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@types/dom-mediacapture-record/-/dom-mediacapture-record-1.0.3.tgz#9b44ef242c17e7dbb559c4d031675ddd156260f7"
+  integrity sha512-mhm2/YFH+oS+aTqLVdoj1CI1BBQy2CiZmpASRa3WMXi4O69IKjOZ3jBvw6o51UTA1qNM6P+Bl4Mx3Q0JI9uVOA==
+
 "@types/eslint-visitor-keys@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@types/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#1ee30d79544ca84d68d4b3cdb0af4f205663dd2d"
