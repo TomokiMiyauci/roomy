@@ -1,7 +1,7 @@
 ---
 to: stories/<%= category %>/<%= componentName || 'unnamed'%>.stories.ts
 ---
-import <%= componentName %> from '~/components/<%= category %>/<%= componentName || 'unnamed'%>.vue'
+import <%= componentName %> from '@/components/<%= category %>/<%= componentName || 'unnamed'%>.vue'
 
 export default {
   title: `<%= category %>|<%= componentName || 'unnamed'%>`,
