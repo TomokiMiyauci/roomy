@@ -2,6 +2,12 @@ type MessageKinds =
   | { kind: 'TEXT'; text: string }
   | { kind: 'AUDIO'; audioURL: string }
 
-export type Message = {
+export type MessageSet = MessageKinds
+
+export type Public = FirestoreFieldValue & MessageSet
+
+export type FirestoreFieldValue = {
   id?: string
-} & MessageKinds
+  createdAt: firebase.firestore.FieldValue
+  updatedAt: firebase.firestore.FieldValue
+}
