@@ -24,6 +24,7 @@ export default createComponent({
 <style lang="scss">
 .speech-balloon {
   position: relative; /* Set to fix triangle position */
+  z-index: auto;
   display: inline-block;
   max-width: 180px;
   padding: 8px 15px;
@@ -36,6 +37,7 @@ export default createComponent({
 
 .speech-balloon::after {
   position: absolute;
+  z-index: -1;
   border: 20px solid transparent;
   content: '';
 }
