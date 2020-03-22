@@ -50,6 +50,7 @@
 <script lang="ts">
 import { mdiSend, mdiMicrophone } from '@mdi/js'
 import { reactive, createComponent, toRefs } from '@vue/composition-api'
+import { storage } from '@/plugins/firebase'
 
 import { createMessage } from '@/repositories/public'
 
@@ -68,8 +69,19 @@ export default createComponent({
 
     const postImage = async (e: File) => {
       console.log(e)
-      await createMessage({ kind: 'TEXT', text: 'image' })
-      await context.root.$nextTick()
+      const firstPath = 'test'
+      const filePath = firstPath + '/' + e.size
+      const storageRef = storage.ref('test')
+      const fileSnapshot = await storageRef.child(filePath).put(e)
+
+      const imageURL = await fileSnapshot.ref.getDownloadURL()
+      console.log(imageURL)
+
+      await createMessage({
+        kind: 'IMAGE',
+        imageURL,
+        size: fileSnapshot.totalBytes
+      })
       context.emit('postend')
     }
 
@@ -86,8 +98,6 @@ export default createComponent({
       }, 1000)
 
       await createMessage({ kind: 'TEXT', text: state.text })
-
-      await context.root.$nextTick()
 
       context.emit('postend')
 
