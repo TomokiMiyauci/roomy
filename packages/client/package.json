@@ -24,9 +24,21 @@
     "hygen:vuex": "hygen vuex new",
     "audit": "improved-yarn-audit --min-severity moderate -e 1488"
   },
+  "lint-staged": {
+    "*": [
+      "git secrets --scan"
+    ],
+    "src/**/*.{js,vue,ts}": "eslint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "dependencies": {
     "@mdi/js": "^4.9.95",
     "@nuxt/typescript-runtime": "^0.3.5",
+    "@nuxtjs/axios": "^5.9.5",
     "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/pwa": "^3.0.0-0",
     "@vue/composition-api": "^0.3.4",
@@ -35,6 +47,7 @@
     "gsap": "^3.2.4",
     "nuxt": "^2.0.0",
     "nuxt-i18n": "^6.5.0",
+    "vue-filter-pretty-bytes": "^0.1.4",
     "vuex-module-decorators": "^0.16.1"
   },
   "devDependencies": {
@@ -69,11 +82,13 @@
     "eslint-plugin-nuxt": ">=0.4.2",
     "eslint-plugin-prettier": "^3.0.1",
     "fork-ts-checker-webpack-plugin": "^3.1.1",
+    "husky": "^4.2.3",
     "hygen": "^5.0.1",
     "improved-yarn-audit": "^1.0.1",
     "jest": "^24.1.0",
     "jest-transform-stub": "^2.0.0",
     "jest-vue-preprocessor": "^1.7.1",
+    "lint-staged": "^10.0.8",
     "prettier": "^1.16.4",
     "storybook-addon-vue-info": "^1.4.1",
     "storybook-chromatic": "^3.5.2",
@@ -83,7 +98,7 @@
     "stylelint-config-rational-order": "^0.1.2",
     "stylelint-config-standard": "^19.0.0",
     "stylelint-prettier": "^1.1.2",
-    "stylelint-scss": "^3.14.2",
+    "stylelint-scss": "^3.16.0",
     "ts-jest": "^24.2.0",
     "ts-loader": "^6.2.1",
     "ts-node": "^8.6.2",
