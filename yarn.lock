@@ -8593,9 +8593,9 @@ grpc@1.24.2:
     protobufjs "^5.0.3"
 
 gsap@^3.2.4:
-  version "3.2.5"
-  resolved "https://registry.yarnpkg.com/gsap/-/gsap-3.2.5.tgz#4e4841e8c219b06d0d0d54c1c09c0681e2351c0a"
-  integrity sha512-3D5YZFnuoTj8hkMREadLq4+joYIGk+XE7DUVzWRu5ErtyfrDqRNDKFLMvJBsZP1u8VlMpcqFXmPBCZjKjOUbQw==
+  version "3.2.6"
+  resolved "https://registry.yarnpkg.com/gsap/-/gsap-3.2.6.tgz#fbaddab30c8c2fb029d61ef56f667b42f99c932f"
+  integrity sha512-QX7WQWZUAooS9tOCYg4kKLcnjBreA4Xyu11EVx6zp4BbKijnMK+NtzkB47las/E0luFE84hGscOZm5vd13KzZA==
 
 gtoken@^4.1.0:
   version "4.1.4"
@@ -13155,10 +13155,15 @@ performance-now@^2.1.0:
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
   integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
 
-picomatch@^2.0.4, picomatch@^2.0.5, picomatch@^2.0.7, picomatch@^2.2.1:
+picomatch@^2.0.4, picomatch@^2.0.7, picomatch@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.2.1.tgz#21bac888b6ed8601f831ce7816e335bc779f0a4a"
   integrity sha512-ISBaA8xQNmwELC7eOjqFKMESB2VIqt4PPDD0nsS95b/9dZXvVKOlz9keMSnoGGKcOHXfTvDD6WMaRoSc9UuhRA==
+
+picomatch@^2.0.5:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.2.2.tgz#21f333e9b6b8eaff02468f5146ea406d345f4dad"
+  integrity sha512-q0M/9eZHzmr0AulXyPwNfZjtwZ/RBZlbN3K3CErVrk50T2ASYI7Bye0EvekFY3IP1Nt2DHu0re+V2ZHIpMkuWg==
 
 pidtree@^0.3.0:
   version "0.3.0"
@@ -17130,9 +17135,9 @@ ts-jest@^24.1.0, ts-jest@^24.2.0:
     yargs-parser "10.x"
 
 ts-loader@^6.2.1:
-  version "6.2.1"
-  resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-6.2.1.tgz#67939d5772e8a8c6bdaf6277ca023a4812da02ef"
-  integrity sha512-Dd9FekWuABGgjE1g0TlQJ+4dFUfYGbYcs52/HQObE0ZmUNjQlmLAS7xXsSzy23AMaMwipsx5sNHvoEpT2CZq1g==
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-6.2.2.tgz#dffa3879b01a1a1e0a4b85e2b8421dc0dfff1c58"
+  integrity sha512-HDo5kXZCBml3EUPcc7RlZOV/JGlLHwppTLEHb3SHnr5V7NXD4klMEkrhJe5wgRbaWsSXi+Y1SIBN/K9B6zWGWQ==
   dependencies:
     chalk "^2.3.0"
     enhanced-resolve "^4.0.0"
@@ -17146,9 +17151,9 @@ ts-map@^1.0.3:
   integrity sha512-vDWbsl26LIcPGmDpoVzjEP6+hvHZkBkLW7JpvwbCv/5IYPJlsbzCVXY3wsCeAxAUeTclNOUZxnLdGh3VBD/J6w==
 
 ts-node@^8.6.2:
-  version "8.8.0"
-  resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-8.8.0.tgz#41a301811ac96174db75c24462ec7ebadfa9668b"
-  integrity sha512-cHZpac2e71Df6/kC7AmqXObjHLs+oooxXmBqeiml9TBJk1Car9IsF12iPEeXxYVqwN/b/ZLoAsRcQ587wdwSkw==
+  version "8.8.1"
+  resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-8.8.1.tgz#7c4d3e9ed33aa703b64b28d7f9d194768be5064d"
+  integrity sha512-10DE9ONho06QORKAaCBpPiFCdW+tZJuY/84tyypGtl6r+/C7Asq0dhqbRZURuUlLQtZxxDvT8eoj8cGW0ha6Bg==
   dependencies:
     arg "^4.1.0"
     diff "^4.0.1"
