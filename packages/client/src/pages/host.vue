@@ -1,72 +1,55 @@
 <template>
-  <div>
-    <p>{{ store }}</p>
-    <video
-      id="local_video"
-      autoplay
-      style="width: 160px; height: 120px; border: 1px solid black;"
-    ></video>
-    <video
-      id="global_video"
-      autoplay
-      style="width: 160px; height: 120px; border: 1px solid black;"
-    ></video>
+  <v-container class="fill-height">
+    <v-row class="fill-height">
+      <v-col>
+        <video
+          id="local_video"
+          autoplay
+          style="width:100%;height:100%;border: 1px solid black;"
+        ></video>
+      </v-col>
+      <v-col>
+        <video
+          id="global_video"
+          autoplay
+          style="width:100%;height:100%;border:1px solid black;"
+        ></video>
+      </v-col>
+    </v-row>
     <v-btn color="success" @click="init">INIT</v-btn>
-    <v-btn color="success" @click="con">recieve</v-btn>
-  </div>
+  </v-container>
 </template>
 
 <script lang="ts">
-import { createComponent, reactive } from '@vue/composition-api'
+import {
+  createComponent,
+  reactive,
+  watch,
+  onUnmounted
+} from '@vue/composition-api'
 import { firestore } from '@/plugins/firebase'
 import { useFirestore } from '@/core/useFirestore'
+import { playVideo } from '@/utils/dom'
+import { useMediaStream } from '@/core/useMediaStream'
+import { createSessionDesc, createPeerConnection } from '@/core/useRTC'
+import { createP2P } from '@/repositories/p2p'
+
 type State = {
   peerConnetcion: RTCPeerConnection | undefined
-  answer: string
   localStream: MediaStream | undefined
 }
 export default createComponent({
   setup() {
     const state = reactive<State>({
       peerConnetcion: undefined,
-      answer: '',
       localStream: undefined
     })
 
-    const store = useFirestore(firestore.collection('peer').doc('1'))
-    // watch(store, (now, prev) => {
-    //   if (!prev && !!now && 'answerSDP' in now) {
-    //     console.log('get anwswer ===')
-    //     console.log(now.answerSDP)
-    //     createAnswer(now.answerSDP)
-    //   }
-    // })
-
-    const startVideo = async () => {
-      const mediaStream = await navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: false
-      })
-
-      state.localStream = mediaStream
-      const videoElement = document.getElementById('local_video')
-
-      playVideo(videoElement as HTMLVideoElement, mediaStream)
-    }
+    const store = useFirestore(firestore.collection('p2p').doc('1'))
 
     const setLocalVideo = (mediaStream: MediaStream) => {
       const el = document.getElementById('local_video') as HTMLVideoElement
       playVideo(el, mediaStream)
-    }
-
-    const createSessionDesc = (
-      type: RTCSessionDescriptionInit['type'],
-      sdp: string
-    ): RTCSessionDescription => {
-      return new RTCSessionDescription({
-        type,
-        sdp
-      })
     }
 
     const con = async () => {
@@ -77,22 +60,11 @@ export default createComponent({
       await state.peerConnetcion!.setRemoteDescription(sessionDesc)
     }
 
-    const createMediaStream = (): Promise<MediaStream> => {
-      return navigator.mediaDevices.getUserMedia({
+    const init = async () => {
+      const mediaStream = await useMediaStream({
         video: true,
         audio: false
       })
-    }
-
-    const createPeerConnection = (): RTCPeerConnection => {
-      const configuration = { iceServers: [] }
-      const peerConnection = new RTCPeerConnection(configuration)
-
-      return peerConnection
-    }
-
-    const init = async () => {
-      const mediaStream = await createMediaStream()
       state.localStream = mediaStream
 
       setLocalVideo(state.localStream)
@@ -120,7 +92,7 @@ export default createComponent({
 
           if (!peer.localDescription) return
 
-          sendOfferSDP(peer.localDescription)
+          createP2P(peer.localDescription.sdp)
         }
       }
 
@@ -129,23 +101,23 @@ export default createComponent({
       await state.peerConnetcion.setLocalDescription(sessionDesc)
     }
 
-    const sendOfferSDP = async (sessionDescription: RTCSessionDescription) => {
-      console.log('---sending offer sdp ---')
-      await firestore
-        .collection('peer')
-        .doc('1')
-        .set({
-          offerSDP: sessionDescription.sdp
-        })
-    }
+    const stop = watch(store, (now, prev) => {
+      if (
+        !!now &&
+        'answerSDP' in now &&
+        prev &&
+        now.updatedAt > prev.updatedAt
+      ) {
+        con()
+        console.log(1)
+      }
+    })
 
-    const playVideo = (el: HTMLVideoElement, stream: MediaStream) => {
-      el.srcObject = stream
-      el.play()
-      el.volume = 0
-    }
+    onUnmounted(() => {
+      stop()
+    })
 
-    return { state, startVideo, store, init, con }
+    return { init }
   }
 })
 </script>
