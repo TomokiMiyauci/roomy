@@ -1,6 +1,7 @@
 type MessageKinds =
   | { kind: 'TEXT'; text: string }
-  | { kind: 'AUDIO'; audioURL: string }
+  | { kind: 'IMAGE'; imageURL: string; size: number }
+  | { kind: 'AUDIO'; audioURL: string; size: number }
 
 export type MessageSet = MessageKinds
 
