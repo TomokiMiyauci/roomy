@@ -1,29 +1,21 @@
 <template>
   <v-app>
-    <the-app-bar :login="login" :photo-u-r-l="photoURL" />
+    <the-app-bar-chat />
     <v-content>
       <transition name="fade">
         <nuxt />
       </transition>
     </v-content>
-    <the-bottom-navigation />
   </v-app>
 </template>
 
 <script lang="ts">
 import { createComponent } from '@vue/composition-api'
-import TheAppBar from '@/components/organisms/TheAppBar.vue'
-import TheBottomNavigation from '@/components/organisms/TheBottomNavigation.vue'
-import { user } from '@/store'
+import TheAppBarChat from '@/components/organisms/TheAppBarChat.vue'
 
 export default createComponent({
   components: {
-    TheAppBar,
-    TheBottomNavigation
-  },
-
-  setup() {
-    return { photoURL: user.photoURL, login: user.login }
+    TheAppBarChat
   }
 })
 </script>
