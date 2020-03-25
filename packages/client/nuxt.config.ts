@@ -7,6 +7,10 @@ const config: Configuration = {
   mode: 'universal',
 
   srcDir: 'src',
+
+  router: {
+    middleware: ['authenticator']
+  },
   /*
    ** Headers of the page
    */
@@ -35,7 +39,12 @@ const config: Configuration = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/composition-api', '@/plugins/firebase'],
+  plugins: [
+    '@/plugins/composition-api',
+    '@/plugins/firebase',
+    '@/plugins/pretty-bytes',
+    '@/plugins/axios'
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -51,7 +60,7 @@ const config: Configuration = {
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    // '@nuxtjs/axios',
+    '@nuxtjs/axios',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
@@ -105,14 +114,16 @@ const config: Configuration = {
 
   typescript: {
     typeCheck: {
+      vue: true,
+      memoryLimit: 4096,
       eslint: true
     }
   },
 
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
-      '~': path.resolve(__dirname, './src')
+      '@': path.resolve(__dirname, 'src'),
+      '~': path.resolve(__dirname, 'src')
     }
   }
 }
