@@ -6,8 +6,9 @@
 </template>
 
 <script lang="ts">
-import { createComponent } from '@vue/composition-api'
 import { mdiFileImage } from '@mdi/js'
+import { createComponent } from '@vue/composition-api'
+
 import BaseChip from '@/components/atoms/BaseChip.vue'
 
 export default createComponent({

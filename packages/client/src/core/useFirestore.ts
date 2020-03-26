@@ -1,4 +1,5 @@
-import { ref, onUnmounted, Ref } from '@vue/composition-api'
+import { onUnmounted, Ref, ref } from '@vue/composition-api'
+
 import firebase from '@/plugins/firebase'
 
 const isDef = <T = any>(val?: T): val is T => typeof val !== 'undefined'

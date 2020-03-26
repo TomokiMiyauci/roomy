@@ -12,6 +12,7 @@
 
 <script lang="ts">
 import { createComponent } from '@vue/composition-api'
+
 import TheAppBar from '@/components/organisms/TheAppBar.vue'
 import TheBottomNavigation from '@/components/organisms/TheBottomNavigation.vue'
 import { user } from '@/store'

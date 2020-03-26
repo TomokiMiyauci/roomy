@@ -23,16 +23,17 @@
 <script lang="ts">
 import {
   createComponent,
+  onUnmounted,
   reactive,
-  watch,
-  onUnmounted
+  watch
 } from '@vue/composition-api'
-import { firestore } from '@/plugins/firebase'
+
 import { useFirestore } from '@/core/useFirestore'
-import { playVideo } from '@/utils/dom'
 import { useMediaStream } from '@/core/useMediaStream'
-import { createSessionDesc, createPeerConnection } from '@/core/useRTC'
+import { createPeerConnection, createSessionDesc } from '@/core/useRTC'
+import { firestore } from '@/plugins/firebase'
 import { createP2P } from '@/repositories/p2p'
+import { playVideo } from '@/utils/dom'
 
 type State = {
   peerConnetcion: RTCPeerConnection | undefined

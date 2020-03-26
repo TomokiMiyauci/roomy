@@ -48,13 +48,12 @@
 </template>
 
 <script lang="ts">
-import { mdiSend, mdiMicrophone } from '@mdi/js'
-import { reactive, createComponent, toRefs } from '@vue/composition-api'
-import { storage } from '@/plugins/firebase'
-
-import { createMessage } from '@/repositories/public'
+import { mdiMicrophone, mdiSend } from '@mdi/js'
+import { createComponent, reactive, toRefs } from '@vue/composition-api'
 
 import ButtonImage from '@/components/molecules/ButtonImage.vue'
+import { storage } from '@/plugins/firebase'
+import { createMessage } from '@/repositories/public'
 
 export default createComponent({
   components: {

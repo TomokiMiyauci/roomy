@@ -1,4 +1,5 @@
 import { Middleware } from '@nuxt/types'
+
 import { auth } from '@/plugins/firebase'
 import { user as userStore } from '@/store'
 

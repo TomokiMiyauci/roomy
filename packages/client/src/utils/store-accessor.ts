@@ -1,6 +1,8 @@
 /* eslint-disable import/no-mutable-exports */
+
 import { Store } from 'vuex'
 import { getModule } from 'vuex-module-decorators'
+
 import Firestore from '@/store/firestore'
 import Rtc from '@/store/rtc'
 import User from '@/store/user'

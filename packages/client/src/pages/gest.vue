@@ -16,18 +16,17 @@
 <script lang="ts">
 import {
   createComponent,
+  onUnmounted,
   reactive,
-  watch,
-  onUnmounted
+  watch
 } from '@vue/composition-api'
-// import { rtc } from '@/store'
-import { useMediaStream } from '@/core/useMediaStream'
-import { createSessionDesc, createPeerConnection } from '@/core/useRTC'
-import { playVideo } from '@/utils/dom'
 
-import { firestore } from '@/plugins/firebase'
 import { useFirestore } from '@/core/useFirestore'
+import { useMediaStream } from '@/core/useMediaStream'
+import { createPeerConnection, createSessionDesc } from '@/core/useRTC'
+import { firestore } from '@/plugins/firebase'
 import { updateP2P } from '@/repositories/p2p'
+import { playVideo } from '@/utils/dom'
 
 type State = {
   mediaStream: MediaStream | undefined

@@ -11,6 +11,7 @@
 
 <script lang="ts">
 import { createComponent } from '@vue/composition-api'
+
 import TheAppBarChat from '@/components/organisms/TheAppBarChat.vue'
 
 export default createComponent({

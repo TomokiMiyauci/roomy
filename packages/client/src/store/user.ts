@@ -1,4 +1,5 @@
-import { Module, VuexModule, Mutation } from 'vuex-module-decorators'
+import { Module, Mutation, VuexModule } from 'vuex-module-decorators'
+
 import firebase from '@/plugins/firebase'
 
 @Module({

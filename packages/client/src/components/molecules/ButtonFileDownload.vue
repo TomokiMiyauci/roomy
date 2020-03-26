@@ -5,14 +5,16 @@
 </template>
 
 <script lang="ts">
-import { createComponent } from '@vue/composition-api'
 import { mdiFileDownload } from '@mdi/js'
-import BaseButton from '@/components/atoms/BaseButton.vue'
+import { createComponent } from '@vue/composition-api'
+import axios from 'axios'
 
+import BaseButton from '@/components/atoms/BaseButton.vue'
 type Props = {
   blob: Blob
   originUrl: string
 }
+
 export default createComponent({
   components: {
     BaseButton
@@ -28,9 +30,9 @@ export default createComponent({
     }
   },
 
-  setup(props: Props, { emit, root }) {
+  setup(props: Props, { emit }) {
     const getBlob = async () => {
-      const result = await root.$axios
+      const result = await axios
         .get(props.originUrl, {
           responseType: 'blob'
         })
