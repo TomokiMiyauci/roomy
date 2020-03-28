@@ -1,6 +1,8 @@
-import * as path from 'path'
 import { Configuration } from '@nuxt/types'
+import path from 'path'
+
 import i18n from './nuxt-i18n.config'
+
 const autoprefixer = require('autoprefixer')
 
 const config: Configuration = {
