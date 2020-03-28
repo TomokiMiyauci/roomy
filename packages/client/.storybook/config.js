@@ -28,14 +28,17 @@ addParameters({
   backgrounds: [
   { name: 'default', value: '#e7e2f3', default: true },
   { name: 'twitter', value: '#00aced' },
-  { name: 'facebook', value: '#3b5998' }]
+  { name: 'facebook', value: '#3b5998' },
+  { name: 'grey', value: '#808080' }
+]
 });
 
 addDecorator(withKnobs)
 
 addDecorator(() => ({
   vuetify,
-  template: '<v-app><v-content><v-container fluid><story /></v-container></v-content></v-app>',
+  template: '<v-app style="background-color: transparent;"><v-content><v-container fluid><story /></v-container></v-content></v-app>',
+  style: '.theme--light.application { background-color: transparent; }'
 }))
 
 if (typeof jest === "undefined") {
