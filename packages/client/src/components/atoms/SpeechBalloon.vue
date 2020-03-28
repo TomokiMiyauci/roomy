@@ -2,8 +2,7 @@
   <!-- Check if component’s slot is empty -->
   <div
     v-if="$slots.default"
-    class="speech-balloon"
-    :class="left ? 'left' : 'right'"
+    :class="[$style.base, left ? $style.left : $style.right]"
   >
     <slot></slot>
   </div>
@@ -21,13 +20,13 @@ export default createComponent({
 })
 </script>
 
-<style lang="scss">
-.speech-balloon {
+<style lang="scss" module>
+.base {
   position: relative; /* Set to fix triangle position */
   z-index: auto;
   display: inline-block;
   max-width: 180px;
-  padding: 8px 15px;
+  padding: 6px 12px;
   white-space: pre-line;
   text-align: left;
   word-wrap: break-word;
@@ -35,12 +34,13 @@ export default createComponent({
   border-radius: 20px;
 }
 
-.speech-balloon::after {
+.base::after {
   position: absolute;
   z-index: -1;
   border: 20px solid transparent;
   content: '';
 }
+
 .left::after {
   bottom: 0;
   left: -10px;
