@@ -9,6 +9,7 @@ import firebase from '@/plugins/firebase'
 })
 export default class User extends VuexModule {
   private _user: firebase.UserInfo | null = null
+  private _id: string = ''
 
   @Mutation
   setUser(user: firebase.User) {
@@ -22,12 +23,21 @@ export default class User extends VuexModule {
     this._user = null
   }
 
+  @Mutation
+  setId(id: string) {
+    this._id = id
+  }
+
   get user() {
     return this._user
   }
 
   get login(): boolean {
     return !!this._user
+  }
+
+  get id(): string {
+    return this._id
   }
 
   get photoURL(): string {
