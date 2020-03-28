@@ -15,12 +15,13 @@ module.exports = {
     'plugin:nuxt/recommended'
   ],
   plugins: [
-    'prettier',
-    'simple-import-sort'
+    'simple-import-sort',
+    'prettier'
   ],
   // add your custom rules here
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warning' : 'off',
-    'simple-import-sort/sort': 'error'
+    'simple-import-sort/sort': 'error',
+    "import/order": "off"
   }
 }
