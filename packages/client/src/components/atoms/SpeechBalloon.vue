@@ -37,13 +37,13 @@ export default createComponent({
 .base::after {
   position: absolute;
   z-index: -1;
-  border: 20px solid transparent;
+  border: 10px solid transparent;
   content: '';
 }
 
 .left::after {
   bottom: 0;
-  left: -10px;
+  left: -3px;
   border-bottom-color: #ececec;
 }
 .right::after {
