@@ -40,6 +40,11 @@ export default class User extends VuexModule {
     return this._id
   }
 
+  get displayName(): string {
+    if (!this._user || !this._user.displayName) return ''
+    return this._user.displayName
+  }
+
   get photoURL(): string {
     if (!this._user || !this._user.photoURL) return ''
     return this._user.photoURL
