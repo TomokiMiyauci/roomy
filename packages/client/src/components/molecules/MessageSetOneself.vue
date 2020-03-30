@@ -71,11 +71,6 @@ export default createComponent({
     message: {
       type: Object as () => Public,
       required: true
-    },
-
-    isOwn: {
-      type: Boolean,
-      required: true
     }
   },
 
