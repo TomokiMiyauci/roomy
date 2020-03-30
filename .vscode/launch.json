@@ -9,7 +9,7 @@
         "request": "launch",
         "name": "Launch Chrome",
         "url": "http://localhost:3000",
-        "webRoot": "${workspaceFolder}",
+        "webRoot": "${workspaceFolder}/packages/client",
       },
 
       {
@@ -20,6 +20,7 @@
         "runtimeArgs": [
           "debug"
         ],
+        "cwd": "${workspaceRoot}/packages/client",
         "sourceMaps": true,
         "port": 9229
       },
