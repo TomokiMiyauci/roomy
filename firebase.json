@@ -14,7 +14,7 @@
     "source": "packages/server"
   },
   "hosting": {
-    "public": "public",
+    "public": "packages/client/dist",
     "ignore": [
       "firebase.json",
       "**/.*",
