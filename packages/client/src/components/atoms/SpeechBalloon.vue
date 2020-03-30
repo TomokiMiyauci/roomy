@@ -48,7 +48,7 @@ export default createComponent({
 }
 .right::after {
   top: 0;
-  right: -10px;
+  right: -3px;
   border-top-color: #ececec;
 }
 </style>
