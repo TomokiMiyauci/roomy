@@ -13,13 +13,32 @@ export type FirestoreFieldValue = {
   updatedAt: firebase.firestore.FieldValue
 }
 
-export type User = UserReference | Anonymous
+export type User = Contributor | Anonymous
+
+export type Contributor = {
+  contributor: UserInfo
+  isAnonymous: false
+}
+
+export type UserInfo = {
+  name: string
+  photoURL: string
+}
 
 export type UserReference = {
   userRef: firebase.firestore.DocumentReference
-  isAnonymous: true
+  isAnonymous: false
 }
 
 export type Anonymous = {
-  isAnonymous: false
+  isAnonymous: true
+}
+
+export type Room = {
+  recent: {
+    message: string
+    contributor: User
+  }
+  name: string
+  photoURL: string
 }
