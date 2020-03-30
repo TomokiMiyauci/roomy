@@ -5,8 +5,9 @@
 </template>
 
 <script lang="ts">
-import { createComponent } from '@vue/composition-api'
 import { mdiImage } from '@mdi/js'
+import { createComponent } from '@vue/composition-api'
+
 import BaseButton from '@/components/atoms/BaseButton.vue'
 
 export default createComponent({
@@ -21,7 +22,9 @@ export default createComponent({
       a.click()
 
       a.onchange = (e) => {
-        emit('post:image', e.target!.files[0])
+        if (e.target instanceof HTMLInputElement && e.target.files) {
+          emit('post:image', e.target.files[0])
+        }
       }
     }
     return { onClick, mdiImage }
