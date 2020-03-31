@@ -1,11 +1,10 @@
 <template>
-  <v-card max-width="450" class="mx-auto">
-    <v-list two-two>
-      <v-btn fab color="success" @click="createRoom">
-        <v-icon>{{ mdiHomePlus }}</v-icon>
-      </v-btn>
-      <transition-group class="list" name="vue-anime-list">
-        <!-- <v-subheader
+  <v-list two-two>
+    <v-btn fab color="success" @click="createRoom">
+      <v-icon>{{ mdiHomePlus }}</v-icon>
+    </v-btn>
+    <transition-group class="list" name="vue-anime-list">
+      <!-- <v-subheader
           v-if="item.header"
           :key="item.header"
           v-text="item.header"
@@ -17,10 +16,9 @@
           :inset="item.inset"
         ></v-divider> -->
 
-        <room-set v-for="room in rooms" :key="room.id" :room="room" />
-      </transition-group>
-    </v-list>
-  </v-card>
+      <room-set v-for="room in rooms" :key="room.id" :room="room" />
+    </transition-group>
+  </v-list>
 </template>
 
 <script lang="ts">
