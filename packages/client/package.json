@@ -105,6 +105,7 @@
     "ts-node": "^8.6.2",
     "vue-docgen-api": "^4.8.1",
     "vue-docgen-loader": "^1.4.0",
-    "vue-jest": "^4.0.0-0"
+    "vue-jest": "^4.0.0-0",
+    "vue-type-check": "^1.0.0"
   }
 }
