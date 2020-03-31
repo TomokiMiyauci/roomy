@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer right clipped app>
+  <v-navigation-drawer :width="350" right clipped app>
     <TheRooms :rooms="rooms" />
   </v-navigation-drawer>
 </template>
@@ -16,7 +16,9 @@ export default createComponent({
   },
 
   setup() {
-    const rooms = useFirestore(firestore.collection('rooms'))
+    const rooms = useFirestore(
+      firestore.collection('rooms').orderBy('recent.updatedAt', 'desc')
+    )
 
     return { rooms }
   }
