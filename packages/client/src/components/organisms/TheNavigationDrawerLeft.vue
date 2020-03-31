@@ -35,7 +35,7 @@ export default createComponent({
     return {
       items: [
         { title: 'Public', icon: mdiWeb, to: '/public' },
-        { title: 'Private', icon: mdiHomeLock, to: 'private' }
+        { title: 'Private', icon: mdiHomeLock, to: '/private' }
       ]
     }
   },

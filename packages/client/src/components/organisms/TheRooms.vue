@@ -1,8 +1,17 @@
 <template>
   <v-list two-two>
-    <v-btn fab color="success" @click="createRoom">
+    <v-btn
+      style="z-index:100;"
+      fab
+      color="primary"
+      absolute
+      top
+      left
+      @click="createRoom"
+    >
       <v-icon>{{ mdiHomePlus }}</v-icon>
     </v-btn>
+
     <transition-group class="list" name="vue-anime-list">
       <!-- <v-subheader
           v-if="item.header"
