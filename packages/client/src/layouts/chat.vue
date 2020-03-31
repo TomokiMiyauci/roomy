@@ -1,6 +1,8 @@
 <template>
   <v-app>
     <the-app-bar-chat />
+    <the-navigation-drawer-left />
+    <the-navigation-drawer-right />
     <v-content>
       <transition name="fade">
         <nuxt />
@@ -13,10 +15,14 @@
 import { createComponent } from '@vue/composition-api'
 
 import TheAppBarChat from '@/components/organisms/TheAppBarChat.vue'
+import TheNavigationDrawerLeft from '@/components/organisms/TheNavigationDrawerLeft.vue'
+import TheNavigationDrawerRight from '@/components/organisms/TheNavigationDrawerRight.vue'
 
 export default createComponent({
   components: {
-    TheAppBarChat
+    TheAppBarChat,
+    TheNavigationDrawerLeft,
+    TheNavigationDrawerRight
   }
 })
 </script>
