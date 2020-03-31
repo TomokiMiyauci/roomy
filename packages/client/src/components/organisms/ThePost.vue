@@ -53,7 +53,8 @@ import { createComponent, reactive, toRefs } from '@vue/composition-api'
 
 import ButtonImage from '@/components/molecules/ButtonImage.vue'
 import { storage } from '@/plugins/firebase'
-import { createMessage } from '@/repositories/public'
+import { createMessage } from '@/repositories/message'
+import { updateRecent } from '@/repositories/room'
 
 export default createComponent({
   components: {
@@ -81,6 +82,8 @@ export default createComponent({
         imageURL,
         size: fileSnapshot.totalBytes
       })
+      updateRecent('post image')
+
       context.emit('postend')
     }
 
@@ -97,6 +100,7 @@ export default createComponent({
       }, 1000)
 
       await createMessage({ kind: 'TEXT', text: state.text })
+      updateRecent(state.text)
 
       context.emit('postend')
 
