@@ -41,7 +41,7 @@
     "@nuxtjs/axios": "^5.9.5",
     "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/pwa": "^3.0.0-0",
-    "@vue/composition-api": "^0.3.4",
+    "@vue/composition-api": "^0.5.0",
     "dayjs": "^1.8.22",
     "firebase": "^7.10.0",
     "gsap": "^3.2.4",
