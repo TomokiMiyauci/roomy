@@ -12,8 +12,10 @@
   </v-app>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { createComponent } from '@vue/composition-api'
+
+export default createComponent({
   layout: 'empty',
   props: {
     error: {
@@ -34,7 +36,7 @@ export default {
       title
     }
   }
-}
+})
 </script>
 
 <style scoped>

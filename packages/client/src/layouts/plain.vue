@@ -8,6 +8,12 @@
   </v-app>
 </template>
 
+<script lang="ts">
+import { createComponent } from '@vue/composition-api'
+
+export default createComponent({})
+</script>
+
 <style lang="scss">
 .fade-enter {
   opacity: 0;
