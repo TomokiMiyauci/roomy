@@ -6,21 +6,27 @@
       "@nuxt/types",
       "@types/jest",
       "@nuxtjs/vuetify",
-      "@types/dom-mediacapture-record"
+      "@types/dom-mediacapture-record",
+      "@types/qrcode"
     ],
-    "rootDirs": ["src", "stories"],
+    "rootDirs": ["src"],
     "forceConsistentCasingInFileNames": true  /* Disallow inconsistently-cased references to the same file. */,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "sourceMap": true
-  },
-  "files": ["src/types/shims-vue.d.ts"],
+    "sourceMap": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+  }},
+
   "exclude": [
     "node_modules",
     ".nuxt",
     "dist"
   ],
   "include": [
-    "./src/**/*"
+    "./src/**/*",
   ]
 }
