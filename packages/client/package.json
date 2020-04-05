@@ -15,6 +15,7 @@
     "debug": "node --inspect node_modules/.bin/nuxt-ts",
     "lint": "eslint --ext .ts,.js,.vue .",
     "lint:css": "stylelint 'src/**/*.{vue,css,scss}'",
+    "lint:template": "vtc --workspace src --onlyTemplate true",
     "test:unit": "jest",
     "test:snapshot": "jest --config ./jest.config.snapshot.js",
     "storybook": "start-storybook -p 6006",
@@ -28,7 +29,7 @@
     "*": [
       "git secrets --scan"
     ],
-    "src/**/*.{js,vue,ts}": "eslint"
+    "src/**/*.{js,vue,ts}": "eslint --fix"
   },
   "husky": {
     "hooks": {
