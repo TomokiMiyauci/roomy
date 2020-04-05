@@ -1,4 +1,5 @@
 import { text } from '@storybook/addon-knobs'
+
 import ButtonAudio from '@/components/molecules/ButtonAudio.vue'
 
 export default {

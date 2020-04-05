@@ -1,4 +1,5 @@
-import { object, boolean } from '@storybook/addon-knobs'
+import { boolean, object } from '@storybook/addon-knobs'
+
 import MessageSet from '@/components/molecules/MessageSet.vue'
 
 export default {
@@ -11,10 +12,12 @@ export default {
 }
 
 const message = {
+  kind: 'TEXT',
   text: 'hello',
   createdAt: {
     seconds: 1000000000
-  }
+  },
+  isAnonymous: true
 }
 
 const template = `<message-set :message="message" :isOwn="isOwn" />`
@@ -28,7 +31,7 @@ export const Default = () => ({
     },
 
     isOwn: {
-      default: boolean('isOwn', true)
+      default: boolean('isOwn', false)
     }
   }
 })

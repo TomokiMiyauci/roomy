@@ -1,4 +1,5 @@
 import { boolean } from '@storybook/addon-knobs'
+
 import SpeechBalloon from '@/components/atoms/SpeechBalloon.vue'
 
 export default {
