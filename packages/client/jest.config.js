@@ -3,6 +3,7 @@ module.exports = {
   displayName: 'client',
   roots: ['<rootDir>/test'],
   preset: 'ts-jest',
+  setupFiles: ['<rootDir>/test/setup/env.ts'],
   setupFilesAfterEnv: [
     '<rootDir>/test/setup/composition-api.ts',
     '<rootDir>/test/setup/vuetify.ts'
