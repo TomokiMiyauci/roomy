@@ -1,4 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
+
 import MessageSet from '@/components/molecules/MessageSet.vue'
 
 describe('MessageSet.vue', () => {

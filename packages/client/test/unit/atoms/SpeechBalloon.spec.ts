@@ -1,4 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
+
 import SpeechBalloon from '@/components/atoms/SpeechBalloon.vue'
 
 describe('SpeechBalloon.vue', () => {

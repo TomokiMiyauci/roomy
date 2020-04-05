@@ -1,5 +1,6 @@
-import { shallowMount } from '@vue/test-utils'
 import { mdiMicrophoneSettings } from '@mdi/js'
+import { shallowMount } from '@vue/test-utils'
+
 import MdiMicrophoneSettings from '@/components/atoms/MdiMicrophoneSettings.vue'
 
 describe('MdiMicrophoneSettings.vue', () => {

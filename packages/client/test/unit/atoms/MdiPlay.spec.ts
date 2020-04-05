@@ -1,5 +1,6 @@
-import { shallowMount } from '@vue/test-utils'
 import { mdiPlay } from '@mdi/js'
+import { shallowMount } from '@vue/test-utils'
+
 import MdiPlay from '@/components/atoms/MdiPlay.vue'
 
 describe('MdiPlay.vue', () => {

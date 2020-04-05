@@ -1,4 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
+
 import ButtonAudio from '@/components/molecules/ButtonAudio.vue'
 
 describe('ButtonAudio.vue', () => {
