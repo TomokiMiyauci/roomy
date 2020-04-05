@@ -35,10 +35,45 @@ export type Anonymous = {
 }
 
 export type Room = {
+  isPrivate: boolean
+  members: string[]
   recent: {
     message: string
-    contributor: User
-  }
+  } & User &
+    FirestoreFieldValue
   name: string
   photoURL: string
+} & FirestoreFieldValue
+
+export type Private = {
+  isPrivate: true
+  secretKey: string
+}
+
+export type MessageSets = MessageKinds & User & FirestoreFieldValue
+
+export type ShortMessage = 'Image posted' | 'Audio posted' | 'No messages'
+
+type BaseRoom = {
+  members: string[]
+  name: string
+  photoURL: string
+} & RecentMessage &
+  FirestoreFieldValue
+
+export type RecentMessage = {
+  recent: {
+    shortMessage: ShortMessage
+    kind: 'TEXT' | 'IMAGE' | 'AUDIO'
+  } & User &
+    FirestoreFieldValue
+}
+
+export type PublicRoom = BaseRoom & {
+  isPrivate: false
+}
+
+export type PrivateRoom = BaseRoom & {
+  isPrivate: true
+  key: string
 }
