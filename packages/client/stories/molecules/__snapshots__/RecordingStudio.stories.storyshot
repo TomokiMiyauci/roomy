@@ -1,0 +1,146 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots molecules|RecordingStudio Default 1`] = `
+<div
+  class="v-application v-application--is-ltr theme--light"
+  data-app="true"
+  id="app"
+>
+  <div
+    class="v-application--wrap"
+  >
+    <main
+      class="v-content"
+      style="padding: 0px 0px 0px 0px;"
+    >
+      <div
+        class="v-content__wrap"
+      >
+        <div
+          class="container container--fluid"
+        >
+          <div
+            class="text-center v-sheet theme--light"
+            style="height: 200px;"
+          >
+            <button
+              class="mt-6 v-btn v-btn--contained theme--light v-size--default error"
+              type="button"
+            >
+              <span
+                class="v-btn__content"
+              >
+                <span
+                  aria-hidden="true"
+                  class="v-icon notranslate v-icon--left v-icon--svg theme--light"
+                >
+                  <svg
+                    aria-hidden="true"
+                    height="24"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+                    />
+                  </svg>
+                </span>
+                close
+              </span>
+            </button>
+             
+            <div>
+              <button
+                class="mt-3 v-btn v-btn--contained v-btn--fab v-btn--round theme--light v-size--default"
+                type="button"
+              >
+                <span
+                  class="v-btn__content"
+                >
+                   
+                  <span
+                    aria-hidden="true"
+                    class="v-icon notranslate v-icon--svg theme--light"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      height="24"
+                      role="img"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12,2A3,3 0 0,1 15,5V11A3,3 0 0,1 12,14A3,3 0 0,1 9,11V5A3,3 0 0,1 12,2M19,11C19,14.53 16.39,17.44 13,17.93V21H11V17.93C7.61,17.44 5,14.53 5,11H7A5,5 0 0,0 12,16A5,5 0 0,0 17,11H19Z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </button>
+            </div>
+             
+            <div>
+              <button
+                class="mt-3 v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
+                type="button"
+              >
+                <span
+                  class="v-btn__content"
+                >
+                   
+                  <span
+                    aria-hidden="true"
+                    class="v-icon notranslate v-icon--svg theme--light"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      height="24"
+                      role="img"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M8,5.14V19.14L19,12.14L8,5.14Z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </button>
+               
+              <button
+                class="v-btn v-btn--absolute v-btn--bottom v-btn--flat v-btn--icon v-btn--right v-btn--round theme--light v-size--default"
+                type="button"
+              >
+                <span
+                  class="v-btn__content"
+                >
+                  <span
+                    aria-hidden="true"
+                    class="v-icon notranslate v-icon--svg theme--light"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      height="24"
+                      role="img"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M2,21L23,12L2,3V10L17,12L2,14V21Z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+`;

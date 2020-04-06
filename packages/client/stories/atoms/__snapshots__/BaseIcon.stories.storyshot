@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots atoms|icons/MdiPlay Default 1`] = `
+exports[`Storyshots atoms|BaseIcon Default 1`] = `
 <div
   class="v-application v-application--is-ltr theme--light"
   data-app="true"
@@ -20,9 +20,7 @@ exports[`Storyshots atoms|icons/MdiPlay Default 1`] = `
         <div
           class="container container--fluid"
         >
-          <base-icon>
-            M8,5.14V19.14L19,12.14L8,5.14Z
-          </base-icon>
+          <!--function (a, b, c, d) { return createElement(vm, a, b, c, d, true); }-->
         </div>
       </div>
     </main>

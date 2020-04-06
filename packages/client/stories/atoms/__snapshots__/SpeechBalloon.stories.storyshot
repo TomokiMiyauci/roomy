@@ -5,6 +5,7 @@ exports[`Storyshots atoms|SpeechBalloon Default 1`] = `
   class="v-application v-application--is-ltr theme--light"
   data-app="true"
   id="app"
+  style="background-color: transparent;"
 >
   <div
     class="v-application--wrap"
@@ -19,11 +20,7 @@ exports[`Storyshots atoms|SpeechBalloon Default 1`] = `
         <div
           class="container container--fluid"
         >
-          <div
-            class="speech-balloon left"
-          >
-            This is a sample message
-          </div>
+          <!---->
         </div>
       </div>
     </main>

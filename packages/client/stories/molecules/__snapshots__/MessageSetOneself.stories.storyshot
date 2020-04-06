@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots molecules|MessageSetOneself Default 1`] = `
+<div
+  class="v-application v-application--is-ltr theme--light"
+  data-app="true"
+  id="app"
+  style="background-color: transparent;"
+>
+  <div
+    class="v-application--wrap"
+  >
+    <main
+      class="v-content"
+      style="padding: 0px 0px 0px 0px;"
+    >
+      <div
+        class="v-content__wrap"
+      >
+        <div
+          class="container container--fluid"
+        >
+          <div
+            class="row no-gutters justify-end"
+            style="padding: 12px;"
+          >
+            <div
+              class="col col-auto align-self-end"
+            >
+              <message-timestamp
+                class="mr-2"
+                timestamp="[object Object]"
+              />
+            </div>
+             
+            <div
+              class="col col-auto align-self-end"
+            >
+              <box-callout>
+                hello
+              </box-callout>
+               
+              <!---->
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+`;

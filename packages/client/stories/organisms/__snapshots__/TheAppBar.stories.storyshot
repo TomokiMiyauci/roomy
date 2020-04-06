@@ -5,6 +5,7 @@ exports[`Storyshots organisms|TheAppBar Default 1`] = `
   class="v-application v-application--is-ltr theme--light"
   data-app="true"
   id="app"
+  style="background-color: transparent;"
 >
   <div
     class="v-application--wrap"
@@ -19,91 +20,49 @@ exports[`Storyshots organisms|TheAppBar Default 1`] = `
         <div
           class="container container--fluid"
         >
-          <header
-            class="v-sheet v-sheet--tile theme--light v-toolbar v-app-bar v-app-bar--fixed v-app-bar--hide-shadow"
-            style="height: 64px; margin-top: 0px; transform: translateY(-64px); left: 0px; right: 0px;"
+          <base-app-bar
+            app=""
+            fixed=""
           >
-            <div
-              class="v-toolbar__image"
+            <button
+              class="v-btn v-btn--absolute v-btn--bottom v-btn--contained v-btn--fab v-btn--left v-btn--round theme--light v-size--default primary"
+              type="button"
             >
-              <div
-                class="v-responsive v-image"
-                style="height: 64px;"
-              >
-                <div
-                  class="v-image__image v-image__image--preload v-image__image--cover"
-                  style="background-position: center center;"
-                />
-                <div
-                  class="v-responsive__content"
-                />
-              </div>
-            </div>
-            <div
-              class="v-toolbar__content"
-              style="height: 64px;"
-            >
-              <button
-                class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
-                type="button"
+              <span
+                class="v-btn__content"
               >
                 <span
-                  class="v-btn__content"
+                  aria-hidden="true"
+                  class="v-icon notranslate v-icon--svg theme--light"
                 >
-                  <span
+                  <svg
                     aria-hidden="true"
-                    class="v-icon notranslate v-icon--svg theme--light"
+                    height="24"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <svg
-                      aria-hidden="true"
-                      height="24"
-                      role="img"
-                      viewBox="0 0 24 24"
-                      width="24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"
-                      />
-                    </svg>
-                  </span>
+                    <path
+                      d="M9,22A1,1 0 0,1 8,21V18H4A2,2 0 0,1 2,16V4C2,2.89 2.9,2 4,2H20A2,2 0 0,1 22,4V16A2,2 0 0,1 20,18H13.9L10.2,21.71C10,21.9 9.75,22 9.5,22H9M11,6V9H8V11H11V14H13V11H16V9H13V6H11Z"
+                    />
+                  </svg>
                 </span>
-              </button>
-               
-              <hr
-                aria-orientation="horizontal"
-                class="v-divider theme--light"
-                role="separator"
-              />
-               
-              <button
-                class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
-                type="button"
-              >
-                <span
-                  class="v-btn__content"
-                >
-                  <span
-                    aria-hidden="true"
-                    class="v-icon notranslate v-icon--svg theme--light"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      height="24"
-                      role="img"
-                      viewBox="0 0 24 24"
-                      width="24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"
-                      />
-                    </svg>
-                  </span>
-                </span>
-              </button>
-            </div>
-          </header>
+              </span>
+            </button>
+             
+            <div
+              class="spacer"
+            />
+             
+            <base-button
+              icon=""
+            >
+              <base-icon>
+                M10,17V14H3V10H10V7L15,12L10,17M10,2H19A2,2 0 0,1 21,4V20A2,2 0 0,1 19,22H10A2,2 0 0,1 8,20V18H10V20H19V4H10V6H8V4A2,2 0 0,1 10,2Z
+              </base-icon>
+            </base-button>
+          </base-app-bar>
         </div>
       </div>
     </main>

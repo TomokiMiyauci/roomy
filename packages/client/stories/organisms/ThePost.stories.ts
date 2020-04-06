@@ -1,5 +1,6 @@
-import ThePost from '@/components/organisms/ThePost.vue'
+import { object } from '@storybook/addon-knobs'
 
+import ThePost from '@/components/organisms/ThePost.vue'
 export default {
   title: `organisms|ThePost`,
   parameters: {
@@ -9,9 +10,25 @@ export default {
   }
 }
 
-const template = `<the-post />`
+const rooms = [
+  {
+    avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+    name: 'Brunch this weekend?',
+    recent: {
+      message:
+        "Ali Connors I'll be in your neighborhood doing errands this weekend. Do you want to hang out?"
+    }
+  }
+]
+
+const template = `<the-post :rooms="rooms" />`
 
 export const Default = () => ({
   components: { ThePost },
-  template
+  template,
+  props: {
+    rooms: {
+      default: object('rooms', rooms)
+    }
+  }
 })

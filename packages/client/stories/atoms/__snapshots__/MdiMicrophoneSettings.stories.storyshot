@@ -5,6 +5,7 @@ exports[`Storyshots atoms|icons/MdiMicrophoneSettings Default 1`] = `
   class="v-application v-application--is-ltr theme--light"
   data-app="true"
   id="app"
+  style="background-color: transparent;"
 >
   <div
     class="v-application--wrap"
