@@ -1,7 +1,7 @@
 import { Configuration } from '@nuxt/types'
 import path from 'path'
 
-import i18n from './nuxt-i18n.config'
+// import i18n from './nuxt-i18n.config'
 
 const autoprefixer = require('autoprefixer')
 
@@ -28,7 +28,13 @@ const config: Configuration = {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+
+    script: [
+      {
+        src: 'https://polyfill.io/v3/polyfill.min.js?features=WebAnimations'
+      }
+    ]
   },
   /*
    ** Customize the progress-bar color
@@ -65,8 +71,8 @@ const config: Configuration = {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv',
-    ['nuxt-i18n', i18n]
+    '@nuxtjs/dotenv'
+    // ['nuxt-i18n', i18n]
   ],
   /*
    ** dotenv options
@@ -89,6 +95,7 @@ const config: Configuration = {
    ** Build configuration
    */
   build: {
+    extractCSS: true,
     terser: {
       terserOptions: {
         compress: { drop_console: process.env.NODE_ENV === 'production' }
