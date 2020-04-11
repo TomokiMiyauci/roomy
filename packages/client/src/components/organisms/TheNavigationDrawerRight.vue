@@ -9,15 +9,21 @@ import { createComponent } from '@vue/composition-api'
 
 import TheRooms from '@/components/organisms/TheRooms.vue'
 import { useFirestore } from '@/core/useFirestore'
-import { firestore } from '@/plugins/firebase'
+import { roomReference } from '@/core/useFirestoreReference'
+import { user } from '@/store'
+
 export default createComponent({
   components: {
     TheRooms
   },
 
   setup() {
+    const { collectionRef } = roomReference()
     const rooms = useFirestore(
-      firestore.collection('rooms').orderBy('recent.updatedAt', 'desc')
+      collectionRef.value
+        .where('isPrivate', '==', true)
+        .where('members', 'array-contains', user.id)
+        .orderBy('recent.updatedAt', 'desc')
     )
 
     return { rooms }

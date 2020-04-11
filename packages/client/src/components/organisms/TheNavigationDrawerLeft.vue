@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer expand-on-hover mini-variant left app>
+  <v-navigation-drawer expand-on-hover mini-variant clipped left app>
     <v-list class="py-0">
       <v-list-item two-line class="px-0">
         <v-list-item-avatar>
