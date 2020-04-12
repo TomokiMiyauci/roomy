@@ -1,52 +1,80 @@
 <template>
-  <v-list-item :to="`/public/${room.id}`">
+  <v-list-item :to="`/${room.isPrivate ? 'private' : 'public'}/${room.id}`">
     <v-list-item-avatar tile>
       <v-icon v-if="room.photoURL" color="primary">{{ room.photoURL }}</v-icon>
       <v-icon v-else color="primary">{{ mdiNewBox }}</v-icon>
     </v-list-item-avatar>
 
-    <v-list-item-content>
+    <v-list-item-content class="pt-1 pb-1">
+      <!-- <span class="grey--text caption" style="position:absolute;bottom:-5px;">{{
+        room.recent.updatedAt | time
+      }}</span> -->
       <v-list-item-title>
         {{ room.name }}
       </v-list-item-title>
       <v-list-item-subtitle>
         <v-avatar color="grey" size="24">
-          <v-icon v-if="room.recent.isAnonymous">{{ mdiAccountCircle }}</v-icon>
-          <img
-            v-else
-            :src="room.recent.contributor.photoURL"
-            alt="user image"
-          />
+          <v-icon v-if="room.recent.author.isAnonymous">{{
+            mdiAccountCircle
+          }}</v-icon>
+          <img v-else :src="room.recent.author.photoURL" alt="user image" />
         </v-avatar>
-        {{ room.recent.message }}
+        {{ room.recent.shortMessage }}
       </v-list-item-subtitle>
+
+      <div class="grey--text caption">
+        <v-icon small left>{{ mdiChatProcessing }}</v-icon
+        >{{ room.messageCount }}
+      </div>
     </v-list-item-content>
 
     <v-list-item-action>
-      <v-btn icon>
-        <v-icon color="grey lighten-1">mdi-information</v-icon>
+      <span class="grey--text caption" style="position:absolute;bottom:0;">{{
+        room.recent.updatedAt | time
+      }}</span>
+      <v-btn icon @click.prevent="$emit('click:qrcode')">
+        <v-icon color="grey lighten-1">{{ mdiQrcode }}</v-icon>
       </v-btn>
     </v-list-item-action>
   </v-list-item>
 </template>
 
 <script lang="ts">
-import { mdiAccountCircle, mdiNewBox } from '@mdi/js'
+import {
+  mdiAccountCircle,
+  mdiChatProcessing,
+  mdiNewBox,
+  mdiQrcode
+} from '@mdi/js'
 import { createComponent } from '@vue/composition-api'
+import dayjs from 'dayjs'
 
-import { Room } from '@/types/core'
+import { PrivateRoom, PublicRoom } from '@/types/core'
 export default createComponent({
+  filters: {
+    time(timestamp: { seconds: number }) {
+      if (!timestamp) {
+        return
+      }
+      dayjs.locale('en')
+
+      return dayjs(timestamp.seconds * 1000).format('dddd')
+    }
+  },
   layout: 'app',
 
   props: {
     room: {
-      type: Object as () => Room,
+      type: Object as () => PrivateRoom | PublicRoom,
       required: true
     }
   },
 
   setup() {
-    return { mdiNewBox, mdiAccountCircle }
+    const click = () => {
+      alert()
+    }
+    return { mdiNewBox, mdiAccountCircle, mdiQrcode, click, mdiChatProcessing }
   }
 })
 </script>

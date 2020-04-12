@@ -1,18 +1,7 @@
 <template>
   <v-list two-two>
-    <v-btn
-      style="z-index:100;"
-      fab
-      color="primary"
-      absolute
-      top
-      left
-      @click="createRoom"
-    >
-      <v-icon>{{ mdiHomePlus }}</v-icon>
-    </v-btn>
-
-    <transition-group class="list" name="vue-anime-list">
+    <v-subheader inset>Recent</v-subheader>
+    <transition-group name="vue-anime-list">
       <!-- <v-subheader
           v-if="item.header"
           :key="item.header"
@@ -25,19 +14,24 @@
           :inset="item.inset"
         ></v-divider> -->
 
-      <room-set v-for="room in rooms" :key="room.id" :room="room" />
+      <room-set
+        v-for="room in rooms"
+        :key="room.id"
+        :room="room"
+        @click:qrcode="$emit('open:qrcode', room)"
+      />
     </transition-group>
   </v-list>
 </template>
 
 <script lang="ts">
 import { mdiAccountCircle, mdiHomePlus, mdiNewBox } from '@mdi/js'
-import { createComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 
 import RoomSet from '@/components/molecules/RoomSet.vue'
 import { createRoom } from '@/repositories/room'
-import { Room } from '@/types/core'
-export default createComponent({
+import { PrivateRoom, PublicRoom } from '@/types/core'
+export default defineComponent({
   layout: 'app',
 
   components: {
@@ -46,13 +40,18 @@ export default createComponent({
 
   props: {
     rooms: {
-      type: Array as () => Room[],
+      type: Array as () => PrivateRoom[] | PublicRoom[],
       default: []
     }
   },
 
   setup() {
-    return { mdiNewBox, mdiAccountCircle, mdiHomePlus, createRoom }
+    return {
+      mdiNewBox,
+      mdiAccountCircle,
+      mdiHomePlus,
+      createRoom
+    }
   }
 })
 </script>
