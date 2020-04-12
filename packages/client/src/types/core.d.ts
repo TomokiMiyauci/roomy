@@ -1,3 +1,5 @@
+import firebase from '../plugins/firebase'
+
 type MessageKinds =
   | { kind: 'TEXT'; text: string }
   | { kind: 'IMAGE'; imageURL: string; size: number }
@@ -6,6 +8,14 @@ type MessageKinds =
 export type MessageSet = MessageKinds
 
 export type Public = FirestoreFieldValue & MessageSet & User
+
+export type Message = MessageSet & { author: Author | Anonymous } & BaseField
+
+export type BaseField = {
+  id?: string
+  createdAt: firebase.firestore.FieldValue
+  updatedAt: firebase.firestore.FieldValue
+}
 
 export type FirestoreFieldValue = {
   id?: string
@@ -20,18 +30,24 @@ export type Contributor = {
   isAnonymous: false
 }
 
+export type Author = {
+  name: string
+  photoURL: string
+  isAnonymous: false
+}
+
 export type UserInfo = {
   name: string
   photoURL: string
 }
 
-export type UserReference = {
-  userRef: firebase.firestore.DocumentReference
-  isAnonymous: false
-}
-
 export type Anonymous = {
   isAnonymous: true
+}
+
+export type UserReference = {
+  userRef: firebase.firestore.DocumentReference<firebase.firestore.DocumentData>
+  isAnonymous: boolean
 }
 
 export type Room = {
@@ -45,29 +61,21 @@ export type Room = {
   photoURL: string
 } & FirestoreFieldValue
 
-export type Private = {
-  isPrivate: true
-  secretKey: string
-}
-
-export type MessageSets = MessageKinds & User & FirestoreFieldValue
-
 export type ShortMessage = 'Image posted' | 'Audio posted' | 'No messages'
 
 type BaseRoom = {
   members: string[]
   name: string
   photoURL: string
-} & RecentMessage &
-  FirestoreFieldValue
+  recent: RecentMessage
+  messageCount: number
+} & BaseField
 
 export type RecentMessage = {
-  recent: {
-    shortMessage: ShortMessage
-    kind: 'TEXT' | 'IMAGE' | 'AUDIO'
-  } & User &
-    FirestoreFieldValue
-}
+  shortMessage: ShortMessage
+  kind: 'TEXT' | 'IMAGE' | 'AUDIO'
+  author: Author | Anonymous
+} & BaseField
 
 export type PublicRoom = BaseRoom & {
   isPrivate: false
