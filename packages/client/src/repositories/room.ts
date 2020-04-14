@@ -2,7 +2,7 @@ import { roomReference } from '@/core/useFirestoreReference'
 import firebase from '@/plugins/firebase'
 import { getUser } from '@/repositories/public'
 import { user } from '@/store'
-import { PrivateRoom, Room } from '@/types/core'
+import { PrivateRoom, PublicRoom, Room } from '@/types/core'
 import { getTimestamp, getTimestamps } from '@/utils/firestore'
 import { generateRandomB64 } from '@/utils/secret'
 
@@ -22,6 +22,28 @@ export const createRoom = () => {
     ...getTimestamps()
   }
 
+  return collectionRef.value.add(room)
+}
+
+export const createPublicRoom = () => {
+  const { collectionRef } = roomReference()
+
+  const room: PublicRoom = {
+    isPrivate: false,
+    name: 'New Room',
+    members: [],
+    messageCount: 0,
+    photoURL: '',
+    recent: {
+      shortMessage: 'No messages',
+      kind: 'TEXT',
+      author: {
+        isAnonymous: true
+      },
+      ...getTimestamps()
+    },
+    ...getTimestamps()
+  }
   return collectionRef.value.add(room)
 }
 
