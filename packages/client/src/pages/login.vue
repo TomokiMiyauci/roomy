@@ -1,10 +1,38 @@
 <template>
   <v-container class="fill-height">
+    <client-only>
+      <v-btn
+        v-if="$vuetify.breakpoint.mdAndDown"
+        top
+        style="top:10px;"
+        left
+        absolute
+        fab
+        @click="onClick"
+      >
+        <v-icon>{{ mdiArrowLeft }}</v-icon>
+      </v-btn>
+    </client-only>
     <v-row justify="center" align="center">
-      <v-card min-width="200px" max-width="300px">
-        <v-card-title>Login</v-card-title>
+      <v-card min-width="320px" max-width="320px">
+        <v-card-title class="display-1" style="justify-content:center;">
+          Login
+        </v-card-title>
+        <v-card-text>
+          Welcome to roomy
+        </v-card-text>
+
+        <v-card-title style="justify-content:center;">
+          <v-icon color="purple" :size="250">{{ mdiWebpack }}</v-icon>
+        </v-card-title>
+        <v-card-text>
+          Signed in with
+        </v-card-text>
         <v-card-actions>
-          <v-btn block color="success" @click="signin">text</v-btn>
+          <v-btn block class="white--text" color="blue" @click="signin">
+            <v-icon color="red" left>{{ mdiGoogle }}</v-icon
+            >oogle</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-row>
@@ -12,6 +40,7 @@
 </template>
 
 <script lang="ts">
+import { mdiArrowLeft, mdiGoogle, mdiWebpack } from '@mdi/js'
 import { createComponent } from '@vue/composition-api'
 
 import firebase, { auth } from '@/plugins/firebase'
@@ -30,7 +59,7 @@ export default createComponent({
       })
 
       console.log(result)
-      root.$router.push('/rooms')
+      root.$router.push('/public')
     }
 
     const check = () => {
@@ -40,7 +69,11 @@ export default createComponent({
         }
       })
     }
-    return { signin, check }
+
+    const onClick = () => {
+      root.$router.back()
+    }
+    return { signin, check, mdiGoogle, mdiWebpack, mdiArrowLeft, onClick }
   }
 })
 </script>
