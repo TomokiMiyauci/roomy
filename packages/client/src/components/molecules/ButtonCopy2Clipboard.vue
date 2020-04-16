@@ -5,7 +5,7 @@
         icon
         @mouseenter="onMouseleave(on.mouseenter)"
         @mouseleave="on.mouseleave"
-        @click="onClick(on)"
+        @click="onClick"
       >
         <v-icon>{{ mdiContentCopy }}</v-icon>
       </v-btn>
