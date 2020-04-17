@@ -7,11 +7,11 @@
 
 <script lang="ts">
 import { mdiFileImage } from '@mdi/js'
-import { createComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 
 import BaseChip from '@/components/atoms/BaseChip.vue'
 
-export default createComponent({
+export default defineComponent({
   props: {
     size: {
       type: Number,

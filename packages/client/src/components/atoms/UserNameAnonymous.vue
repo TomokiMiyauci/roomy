@@ -3,11 +3,11 @@
 </template>
 
 <script lang="ts">
-import { createComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 
 import BaseUserName from '@/components/atoms/BaseUserName.vue'
 
-export default createComponent({
+export default defineComponent({
   components: {
     BaseUserName
   }

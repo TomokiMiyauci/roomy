@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import { mdiAccountCircle, mdiFileImage } from '@mdi/js'
-import { createComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 
@@ -18,8 +18,8 @@ import ButtonAudio from '@/components/molecules/ButtonAudio.vue'
 import ButtonFileDownload from '@/components/molecules/ButtonFileDownload.vue'
 import MessageSetOneself from '@/components/molecules/MessageSetOneself.vue'
 import MessageSetOthers from '@/components/molecules/MessageSetOthers.vue'
-import { Public } from '@/types/core'
-export default createComponent({
+import { Message } from '@/types/core'
+export default defineComponent({
   components: {
     BoxCallout,
     ButtonAudio,
@@ -44,7 +44,7 @@ export default createComponent({
 
   props: {
     message: {
-      type: Object as () => Public,
+      type: Object as () => Message,
       required: true
     },
 

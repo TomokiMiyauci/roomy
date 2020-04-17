@@ -50,15 +50,15 @@
 
 <script lang="ts">
 import { mdiAccountCircle, mdiFileImage } from '@mdi/js'
-import { createComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 
 import ChipFileSize from '@/components/atoms/ChipFileSize.vue'
 import MessageTimestamp from '@/components/atoms/MessageTimestamp.vue'
 import BoxCallout from '@/components/atoms/SpeechBalloon.vue'
 import ButtonAudio from '@/components/molecules/ButtonAudio.vue'
 import ButtonFileDownload from '@/components/molecules/ButtonFileDownload.vue'
-import { Public } from '@/types/core'
-export default createComponent({
+import { Message } from '@/types/core'
+export default defineComponent({
   components: {
     BoxCallout,
     ButtonAudio,
@@ -69,7 +69,7 @@ export default createComponent({
 
   props: {
     message: {
-      type: Object as () => Public,
+      type: Object as () => Message,
       required: true
     }
   },

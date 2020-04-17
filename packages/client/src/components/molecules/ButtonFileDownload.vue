@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { mdiFileDownload } from '@mdi/js'
-import { createComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 import axios from 'axios'
 
 import BaseButton from '@/components/atoms/BaseButton.vue'
@@ -15,7 +15,7 @@ type Props = {
   originUrl: string
 }
 
-export default createComponent({
+export default defineComponent({
   components: {
     BaseButton
   },

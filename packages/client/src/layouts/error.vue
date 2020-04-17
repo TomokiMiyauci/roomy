@@ -13,9 +13,9 @@
 </template>
 
 <script lang="ts">
-import { createComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 
-export default createComponent({
+export default defineComponent({
   layout: 'empty',
   props: {
     error: {
@@ -28,14 +28,14 @@ export default createComponent({
       pageNotFound: '404 Not Found',
       otherError: 'An error occurred'
     }
-  },
-  head() {
-    const title =
-      this.error.statusCode === 404 ? this.pageNotFound : this.otherError
-    return {
-      title
-    }
   }
+  // head() {
+  //   const title =
+  //     this.error.statusCode === 404 ? this.pageNotFound : this.otherError
+  //   return {
+  //     title
+  //   }
+  // }
 })
 </script>
 

@@ -10,13 +10,13 @@
 
 <script lang="ts">
 import { mdiMicrophone, mdiPause, mdiPlayPause } from '@mdi/js'
-import { createComponent, reactive, toRefs } from '@vue/composition-api'
+import { defineComponent, reactive, toRefs } from '@vue/composition-api'
 
 type Props = {
   src: string
 }
 
-export default createComponent({
+export default defineComponent({
   props: {
     src: {
       type: String,

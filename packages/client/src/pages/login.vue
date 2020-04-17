@@ -41,11 +41,11 @@
 
 <script lang="ts">
 import { mdiArrowLeft, mdiGoogle, mdiWebpack } from '@mdi/js'
-import { createComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 
 import firebase, { auth } from '@/plugins/firebase'
 
-export default createComponent({
+export default defineComponent({
   layout: 'plain',
 
   setup(_, { root }) {

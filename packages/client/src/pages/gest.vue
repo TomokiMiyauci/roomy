@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import {
-  createComponent,
+  defineComponent,
   onUnmounted,
   reactive,
   watch
@@ -33,7 +33,7 @@ type State = {
   peerConnection: RTCPeerConnection | undefined
 }
 
-export default createComponent({
+export default defineComponent({
   setup() {
     const state = reactive<State>({
       mediaStream: undefined,

@@ -39,7 +39,7 @@
 
 <script lang="ts">
 import { mdiClose, mdiMicrophone, mdiPause, mdiSend } from '@mdi/js'
-import { createComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 
 import MdiMicrophoneSettings from '@/components/atoms/MdiMicrophoneSettings.vue'
 import MdiPlay from '@/components/atoms/MdiPlay.vue'
@@ -48,7 +48,7 @@ import { storage } from '@/plugins/firebase'
 import { createMessage } from '@/repositories/message'
 import { updateRecent } from '@/repositories/room'
 
-export default createComponent({
+export default defineComponent({
   components: {
     MdiPlay,
     MdiMicrophoneSettings

@@ -46,11 +46,11 @@ import {
   mdiNewBox,
   mdiQrcode
 } from '@mdi/js'
-import { createComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 import dayjs from 'dayjs'
 
 import { PrivateRoom, PublicRoom } from '@/types/core'
-export default createComponent({
+export default defineComponent({
   filters: {
     time(timestamp: { seconds: number }) {
       if (!timestamp) {

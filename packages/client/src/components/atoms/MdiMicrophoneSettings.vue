@@ -4,11 +4,11 @@
 
 <script lang="ts">
 import { mdiMicrophoneSettings } from '@mdi/js'
-import { createComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 
 import BaseIcon from '@/components/atoms/BaseIcon.vue'
 
-export default createComponent({
+export default defineComponent({
   components: {
     BaseIcon
   },

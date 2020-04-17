@@ -3,11 +3,11 @@
 </template>
 
 <script lang="ts">
-import { createComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 
-export default createComponent({
+export default defineComponent({
   filters: {
     time(timestamp: { seconds: number }) {
       if (!timestamp) {
@@ -16,7 +16,7 @@ export default createComponent({
       dayjs.locale('en')
       dayjs.extend(relativeTime)
 
-      return dayjs(timestamp.seconds * 1000).to(dayjs())
+      return dayjs(timestamp.seconds * 1000).fromNow(true)
     }
   },
 
