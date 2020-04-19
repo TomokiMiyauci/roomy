@@ -10,6 +10,13 @@ const config: Configuration = {
 
   srcDir: 'src',
 
+  env: {
+    baseUrl:
+      process.env.NODE_ENV === 'development'
+        ? 'http://localhost:3000'
+        : process.env.AUTH_DOMAIN!
+  },
+
   router: {
     middleware: ['authenticator']
   },
@@ -110,7 +117,7 @@ const config: Configuration = {
       plugins: [autoprefixer({ grid: 'autoplace' })]
     },
 
-    hardSource: process.env.NODE_ENV === 'development',
+    // hardSource: process.env.NODE_ENV === 'development',
 
     extend(config) {
       return Object.assign({}, config, {

@@ -7,7 +7,7 @@ export default {
   theme: {
     themes: {
       light: {
-        primary: '#EF5350',
+        primary: '#009688',
         secondary: '#66BB6A',
         accent: '#84FFFF',
         error: '#AB47BC',
@@ -16,7 +16,7 @@ export default {
         warning: '#FFC107'
       },
       dark: {
-        primary: '#1976D2',
+        primary: '#009688',
         secondary: '#424242',
         accent: '#82B1FF',
         error: '#FF5252',
