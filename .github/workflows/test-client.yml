@@ -170,7 +170,7 @@ jobs:
       MESSAGING_SENDER_ID: ${{ secrets.MESSAGING_SENDER_ID_DEV }}
       APP_ID: ${{ secrets.APP_ID_DEV }}
       MEASUREMENT_ID: ${{ secrets.MEASUREMENT_ID_DEV }}
-      TTTT: hello
+      TTTT: ${{ secrets.hello }}
 
     strategy:
       matrix:
