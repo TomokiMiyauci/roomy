@@ -2,12 +2,12 @@
   <div style="padding:12px;">
     <v-row justify="start" no-gutters class="flex-nowrap">
       <v-col cols="auto" align-self="end">
-        <v-avatar v-if="message.isAnonymous" color="grey" size="36">
+        <v-avatar v-if="message.author.isAnonymous" color="grey" size="36">
           <v-icon>{{ mdiAccountCircle }}</v-icon>
         </v-avatar>
 
         <v-avatar v-else color="indigo" right size="36">
-          <img :src="message.contributor.photoURL" />
+          <img :src="message.author.photoURL" />
         </v-avatar>
       </v-col>
 
@@ -58,8 +58,8 @@
     </v-row>
     <v-row no-gutters>
       <v-col cols="auto">
-        <user-name-anonymous v-if="message.isAnonymous" />
-        <base-user-name v-else>{{ message.contributor.name }}</base-user-name>
+        <user-name-anonymous v-if="message.author.isAnonymous" />
+        <base-user-name v-else>{{ message.author.name }}</base-user-name>
       </v-col>
     </v-row>
   </div>
@@ -67,7 +67,7 @@
 
 <script lang="ts">
 import { mdiAccountCircle, mdiFileImage } from '@mdi/js'
-import { createComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 
 import BaseUserName from '@/components/atoms/BaseUserName.vue'
 import ChipFileSize from '@/components/atoms/ChipFileSize.vue'
@@ -76,8 +76,8 @@ import BoxCallout from '@/components/atoms/SpeechBalloon.vue'
 import UserNameAnonymous from '@/components/atoms/UserNameAnonymous.vue'
 import ButtonAudio from '@/components/molecules/ButtonAudio.vue'
 import ButtonFileDownload from '@/components/molecules/ButtonFileDownload.vue'
-import { Public } from '@/types/core'
-export default createComponent({
+import { Message } from '@/types/core'
+export default defineComponent({
   components: {
     BoxCallout,
     ButtonAudio,
@@ -90,7 +90,7 @@ export default createComponent({
 
   props: {
     message: {
-      type: Object as () => Public,
+      type: Object as () => Message,
       required: true
     }
   },
