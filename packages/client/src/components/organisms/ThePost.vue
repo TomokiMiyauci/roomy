@@ -15,7 +15,7 @@
             dense
             rows="1"
             hide-details
-            label="fill message"
+            label="Enter message"
             solo-inverted
             light
             auto-focus
