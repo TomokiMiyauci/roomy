@@ -40,9 +40,7 @@
             />
           </v-col>
           <v-col cols="auto">
-            <v-btn icon>
-              <v-icon>{{ mdiContentCopy }}</v-icon>
-            </v-btn>
+            <button-copy-2-clipboard :text="url" />
           </v-col>
         </v-row>
       </v-container>
@@ -63,7 +61,9 @@ import { defineComponent } from '@vue/composition-api'
 
 export default defineComponent({
   components: {
-    SvgQrcode: () => import('@/components/atoms/SvgQrcode.vue')
+    SvgQrcode: () => import('@/components/atoms/SvgQrcode.vue'),
+    ButtonCopy2Clipboard: () =>
+      import('@/components/molecules/ButtonCopy2Clipboard.vue')
   },
   props: {
     url: {
