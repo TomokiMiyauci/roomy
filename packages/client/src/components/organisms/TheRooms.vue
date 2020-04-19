@@ -21,6 +21,14 @@
         @click:qrcode="$emit('open:qrcode', room)"
       />
     </transition-group>
+    <template v-if="!rooms.length">
+      <v-skeleton-loader
+        v-for="i in 12"
+        :key="i"
+        tile
+        type="list-item-avatar-three-line"
+      ></v-skeleton-loader>
+    </template>
   </v-list>
 </template>
 
