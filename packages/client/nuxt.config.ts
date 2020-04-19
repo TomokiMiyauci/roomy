@@ -68,7 +68,8 @@ const config: Configuration = {
     '@nuxt/typescript-build',
     '@nuxtjs/eslint-module',
     '@nuxtjs/vuetify',
-    '@nuxtjs/stylelint-module'
+    '@nuxtjs/stylelint-module',
+    ['@nuxtjs/dotenv', { systemvars: true }]
   ],
   /*
    ** Nuxt.js modules
@@ -76,9 +77,8 @@ const config: Configuration = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa',
+    '@nuxtjs/pwa'
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
     // ['nuxt-i18n', i18n]
   ],
   /*
