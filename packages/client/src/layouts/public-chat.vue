@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <the-navigation-drawer-left />
-    <the-navigation-drawer-right :rooms="rooms" />
+    <the-navigation-drawer-right :rooms="rooms" @open:qrcode="a" />
     <the-app-bar-chat />
 
     <v-content>
@@ -37,7 +37,11 @@ export default defineComponent({
         .orderBy('recent.updatedAt', 'desc')
     )
 
-    return { rooms }
+    const a = () => {
+      alert()
+    }
+
+    return { rooms, a }
   }
 })
 </script>
