@@ -1,16 +1,12 @@
 <template>
-  <div>
-    {{ hello }}
-  </div>
+  <div></div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
 export default defineComponent({
-  setup(_) {
-    // root.$router.push('/public')
-
-    return { hello: process.env.TTTT }
+  setup(_, { root }) {
+    root.$router.push('/public')
   }
 })
 </script>
