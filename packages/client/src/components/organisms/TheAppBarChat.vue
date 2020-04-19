@@ -1,6 +1,6 @@
 <template>
-  <base-app-bar app hide-on-scroll src="https://picsum.photos/1920/1080?random">
-    <v-btn icon to="/public">
+  <base-app-bar fixed app clipped-right clipped-left color="primary">
+    <v-btn v-if="$vuetify.breakpoint.mdAndDown" icon @click="$router.back()">
       <v-icon>{{ mdiArrowLeft }}</v-icon>
     </v-btn>
     <v-spacer />
@@ -13,13 +13,13 @@
 
 <script lang="ts">
 import { mdiArrowLeft, mdiWifi } from '@mdi/js'
-import { createComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 
 import BaseButton from '@/components/atoms/BaseButton.vue'
 import BaseIcon from '@/components/atoms/BaseIcon.vue'
 import BaseAppBar from '@/components/organisms/BaseAppBar.vue'
 
-export default createComponent({
+export default defineComponent({
   components: {
     BaseAppBar,
     BaseButton,

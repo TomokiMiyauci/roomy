@@ -1,5 +1,9 @@
 <template>
-  <base-app-bar app hide-on-scroll clipped-left clipped-right>
+  <base-app-bar fixed app>
+    <v-btn fab absolute left bottom color="primary" @click="createRoom">
+      <v-icon>{{ mdiCommentPlus }}</v-icon></v-btn
+    >
+
     <v-spacer />
     <v-menu
       v-if="login"
@@ -34,14 +38,15 @@
 </template>
 
 <script lang="ts">
-import { mdiLogin } from '@mdi/js'
-import { createComponent, ref } from '@vue/composition-api'
+import { mdiCommentPlus, mdiLogin } from '@mdi/js'
+import { computed, defineComponent, ref } from '@vue/composition-api'
 
 import BaseButton from '@/components/atoms/BaseButton.vue'
 import BaseIcon from '@/components/atoms/BaseIcon.vue'
 import BaseAppBar from '@/components/organisms/BaseAppBar.vue'
-import { auth } from '@/plugins/firebase'
-export default createComponent({
+import { signOut } from '@/repositories/auth'
+import { createRoom } from '@/repositories/room'
+export default defineComponent({
   props: {
     photoURL: {
       type: String,
@@ -61,13 +66,14 @@ export default createComponent({
   },
 
   setup(_, { root }) {
+    const hide = computed(() => root.$vuetify.breakpoint.mdAndDown)
     const showMenu = ref(false)
 
     const logout = async () => {
-      await auth.signOut()
+      await signOut()
       root.$router.push('/login')
     }
-    return { mdiLogin, showMenu, logout }
+    return { mdiLogin, showMenu, logout, mdiCommentPlus, hide, createRoom }
   }
 })
 </script>

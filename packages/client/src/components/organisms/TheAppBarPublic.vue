@@ -2,18 +2,14 @@
   <v-app-bar fixed app clipped-right clipped-left>
     <template #default>
       <client-only>
-        <v-btn
+        <ButtonCreateRoom
           v-if="$vuetify.breakpoint.mdAndDown"
-          fab
           absolute
           left
           bottom
-          style="z-index:1000;"
-          color="primary"
-          v-on="$listeners"
-        >
-          <v-icon>{{ mdiCommentPlus }}</v-icon></v-btn
-        >
+          :login="login"
+          @click="$nuxt.$emit('close')"
+        ></ButtonCreateRoom>
       </client-only>
 
       <v-spacer />
@@ -47,32 +43,6 @@
         <base-icon>{{ mdiLogin }}</base-icon>
       </base-button>
     </template>
-
-    <template
-      v-if="$vuetify.breakpoint.mdAndDown"
-      #extension
-      style="z-index:-100;"
-    >
-      <v-tabs
-        v-model="tabs"
-        style="z-index:-100;"
-        grow
-        icons-and-text
-        v-on="$listeners"
-      >
-        <v-tabs-slider></v-tabs-slider>
-        <span style="z-index:-100;width:80px;height:1px;"></span>
-        <v-tab class="primary--text">
-          favorite
-          <v-icon>{{ mdiTagHeart }}</v-icon>
-        </v-tab>
-
-        <v-tab class="primary--text">
-          hot
-          <v-icon>{{ mdiFire }}</v-icon>
-        </v-tab>
-      </v-tabs>
-    </template>
   </v-app-bar>
 </template>
 
@@ -82,9 +52,11 @@ import { computed, defineComponent, ref } from '@vue/composition-api'
 
 import BaseButton from '@/components/atoms/BaseButton.vue'
 import BaseIcon from '@/components/atoms/BaseIcon.vue'
+import ButtonCreateRoom from '@/components/molecules/ButtonCreateRoom.vue'
 import BaseAppBar from '@/components/organisms/BaseAppBar.vue'
 import { auth } from '@/plugins/firebase'
 import { createRoom } from '@/repositories/room'
+
 export default defineComponent({
   props: {
     photoURL: {
@@ -101,7 +73,8 @@ export default defineComponent({
   components: {
     BaseAppBar,
     BaseButton,
-    BaseIcon
+    BaseIcon,
+    ButtonCreateRoom
   },
 
   setup(_, { root }) {
