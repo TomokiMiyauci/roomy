@@ -1,0 +1,159 @@
+name: test
+
+on:
+  push:
+      branches:
+        - develop
+      paths:
+        - 'packages/server/**'
+
+jobs:
+  setup:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [10.19.0]
+
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: checkout
+        uses: actions/checkout@master
+
+      - name: cache node_modules
+        id: node_modules_cache_id
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+
+      - name: install
+        run: yarn --check-files --frozen-lockfile --non-interactive
+
+      - name: cache workspace
+        uses: actions/cache@v1
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
+
+  # lint:
+  #   needs: setup
+  #   runs-on: ${{ matrix.os }}
+
+  #   strategy:
+  #     matrix:
+  #       os: [ubuntu-latest]
+  #       node: [10.19.0, 12]
+
+  #   steps:
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: ${{ matrix.node }}
+
+  #     - name: checkout
+  #       uses: actions/checkout@master
+
+  #     - name: restore workspace cache
+  #       uses: actions/cache@v1
+  #       with:
+  #         path: ${{ github.workspace }}
+  #         key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
+
+  #     - name: lint by ESlint
+  #       run: yarn workspace client lint
+
+  #     - name: lint by VTC
+  #       run: yarn workspace client lint:template
+
+  #     - name: lint by Stylelint
+  #       run: yarn workspace client lint:css
+
+  # audit:
+  #   needs: setup
+  #   runs-on: ${{ matrix.os }}
+
+  #   strategy:
+  #     matrix:
+  #       os: [ubuntu-latest]
+  #       node: [10.19.0, 12]
+
+  #   steps:
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: ${{ matrix.node }}
+
+  #     - name: checkout
+  #       uses: actions/checkout@master
+
+  #     - name: restore workspace cache
+  #       uses: actions/cache@v1
+  #       with:
+  #         path: ${{ github.workspace }}
+  #         key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
+
+  #     - name: audit
+  #       run: yarn workspace client run audit
+
+  # test-unit:
+  #   needs: setup
+  #   runs-on: ${{ matrix.os }}
+
+  #   strategy:
+  #     matrix:
+  #       os: [ubuntu-latest]
+  #       node: [10, 12]
+
+  #   steps:
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: ${{ matrix.node }}
+
+  #     - name: checkout
+  #       uses: actions/checkout@master
+
+  #     - name: restore workspace cache
+  #       uses: actions/cache@v1
+  #       with:
+  #         path: ${{ github.workspace }}
+  #         key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
+
+  #     - name: test unit
+  #       run: yarn workspace client test:unit --ci
+
+  #     - name: upload coverage
+  #       if: matrix.node == 12
+  #       uses: codecov/codecov-action@master
+  #       with:
+  #         token: ${{ secrets.CODECOV_TOKEN }}
+  #         file: ./coverage/clover.xml
+
+
+  # test-snapshot:
+  #   needs: setup
+  #   runs-on: ${{ matrix.os }}
+
+  #   strategy:
+  #     matrix:
+  #       os: [ubuntu-latest]
+  #       node: [10, 12]
+
+  #   steps:
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: ${{ matrix.node }}
+
+  #     - name: checkout
+  #       uses: actions/checkout@master
+
+  #     - name: restore workspace cache
+  #       uses: actions/cache@v1
+  #       with:
+  #         path: ${{ github.workspace }}
+  #         key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
+
+  #     - name: test snapshot
+  #       run: yarn test:snapshot --ci
