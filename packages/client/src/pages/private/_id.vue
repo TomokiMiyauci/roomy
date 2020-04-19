@@ -4,11 +4,7 @@
       <recording-studio @close="onClose" />
     </v-bottom-sheet>
 
-    <div
-      ref="hello"
-      class="aaa"
-      style="position:sticky;top:64px;text-align:center;"
-    >
+    <div ref="hello" class="date">
       <chip-date v-if="data" :unixtime="data * 1000" format="YYYY-MM-DD" />
     </div>
 
@@ -65,13 +61,31 @@
       </v-row>
     </v-container>
 
-    <v-footer absolute style="position:sticky;" padless>
+    <!-- <div
+      style="position:absolute;right:0;bottom:0;left:0;display:flex;background-color:red;"
+    >
+      hello
+    </div> -->
+
+    <!-- <v-footer absolute padless>
       <the-post
         style="padding:8px;"
         @postend="onPostend"
         @audio="sheet = true"
       />
-    </v-footer>
+    </v-footer> -->
+    <div
+      style="position:fixed;bottom:0;"
+      :style="{
+        width: $vuetify.breakpoint.mdAndDown ? '100%' : 'calc(100% - 406px)'
+      }"
+    >
+      <the-post
+        style="padding:8px;"
+        @postend="onPostend"
+        @audio="sheet = true"
+      />
+    </div>
   </div>
 </template>
 
@@ -84,10 +98,11 @@ import {
   mdiMicrophoneSettings
 } from '@mdi/js'
 import {
-  createComponent,
+  defineComponent,
   onMounted,
   onUpdated,
-  ref
+  ref,
+  watch
 } from '@vue/composition-api'
 import dayjs from 'dayjs'
 import gsap from 'gsap'
@@ -102,7 +117,8 @@ import ThePost from '@/components/organisms/ThePost.vue'
 import { useFirestore } from '@/core/useFirestore'
 import { messageReference } from '@/core/useFirestoreReference'
 import { reference, user } from '@/store'
-export default createComponent({
+import { Message } from '@/types/core'
+export default defineComponent({
   layout: 'chat',
 
   components: {
@@ -121,13 +137,20 @@ export default createComponent({
   // },
 
   setup(_, { root }) {
-    const isOwn = (any: any): boolean => {
+    const isOwn = (message: Message): boolean => {
       return (
         !!user.id &&
-        !any.isAnonymous &&
-        any.contributor.name === user.displayName
+        !message.author.isAnonymous &&
+        message.author.name === user.displayName
       )
     }
+
+    const div = ref<any>()
+
+    watch(div, (con) => {
+      if (!con) return
+      console.log(1111, con.$vnode.elm.offsetTop, con.$vnode)
+    })
 
     const sheet = ref(false)
 
@@ -238,7 +261,8 @@ export default createComponent({
       isOwn,
       hello,
       data,
-      onInter
+      onInter,
+      div
     }
   }
 })
@@ -274,7 +298,11 @@ export default createComponent({
     stroke-width: 1;
   }
 }
-
+.date {
+  position: sticky;
+  top: 64px;
+  text-align: center;
+}
 // .list-enter-active,
 // .list-leave-active {
 //   transition: all 1s;

@@ -1,7 +1,14 @@
 <template>
   <div class="fill-height">
     <client-only>
-      <the-rooms v-if="$vuetify.breakpoint.mdAndDown" :rooms="rooms" />
+      <v-tabs-items v-if="$vuetify.breakpoint.mdAndDown" v-model="tabs">
+        <v-tab-item>
+          <the-rooms :rooms="rooms" @open:qrcode="o" />
+        </v-tab-item>
+        <v-tab-item>
+          hello
+        </v-tab-item>
+      </v-tabs-items>
       <v-row
         v-else
         justify="center"
@@ -19,6 +26,26 @@
         </v-col>
       </v-row>
     </client-only>
+
+    <v-dialog
+      :value="open"
+      :fullscreen="$vuetify.breakpoint.mdAndDown"
+      hide-overlay
+      transition="dialog-bottom-transition"
+    >
+      <v-card>
+        <v-toolbar dark color="primary">
+          <v-btn icon dark @click="open = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <v-toolbar-title>Settings</v-toolbar-title>
+        </v-toolbar>
+        <v-card-text>
+          <svg-qrcode :text="text" />
+          {{ text }}
+        </v-card-text>
+      </v-card>
+    </v-dialog>
 
     <v-dialog
       :value="dialog"
@@ -42,28 +69,6 @@
         </v-card-text>
       </v-card>
     </v-dialog>
-    <!-- <template>
-      <v-row
-        class="fill-height flex-column"
-        justify="center"
-        align-content="center"
-      >
-        <v-col cols="auto">
-          <div style="color:grey;" class="display-1 text--grey">
-            Select room
-          </div>
-        </v-col>
-        <v-col class="pa-0" align-self="center" cols="auto">
-          <div style="color:grey;" class="headline text--grey">or</div>
-        </v-col>
-
-        <v-col align-self="center" cols="auto">
-          <v-btn fab x-large color="primary"
-            ><v-icon size="48px">{{ mdiCommentPlus }}</v-icon></v-btn
-          >
-        </v-col>
-      </v-row>
-    </template> -->
   </div>
 </template>
 
@@ -94,6 +99,16 @@ export default defineComponent({
 
   setup(_, { root }) {
     const dialog = ref(false)
+    const open = ref(false)
+    const tabs = ref(0)
+
+    const o = (room: any) => {
+      text.value = `https://${process.env.AUTH_DOMAIN}/private/invite?roomId=${room.id}&key=${room.key}`
+      open.value = true
+    }
+
+    const text = ref('')
+
     const newRoom = reactive({
       id: '',
       key: ''
@@ -103,10 +118,15 @@ export default defineComponent({
       root.$nuxt.$on('close', () => {
         dialog.value = true
       })
+
+      root.$nuxt.$on('tab', (a: any) => {
+        tabs.value = a
+      })
     })
 
     onUnmounted(() => {
       root.$nuxt.$off('close')
+      root.$nuxt.$off('tab')
     })
 
     const roomURL = computed(() => {
@@ -119,7 +139,10 @@ export default defineComponent({
       collectionRef.value
         .where('isPrivate', '==', true)
         .where('members', 'array-contains', user.id)
-        .orderBy('recent.updatedAt', 'desc')
+        .orderBy('recent.updatedAt', 'desc'),
+      (err) => {
+        console.log(1111, err)
+      }
     )
 
     const create = async () => {
@@ -135,7 +158,11 @@ export default defineComponent({
       mdiCommentPlus,
       dialog,
       create,
-      roomURL
+      roomURL,
+      open,
+      o,
+      text,
+      tabs
     }
   }
 })
