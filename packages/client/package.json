@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "1.0.0",
-  "description": "My wonderful Nuxt.js project",
+  "description": "client for roomy",
   "author": "TomokiMiyauci",
   "private": true,
   "engines": {
