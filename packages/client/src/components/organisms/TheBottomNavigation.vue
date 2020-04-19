@@ -1,30 +1,49 @@
 <template>
-  <v-bottom-navigation
-    class="d-lg-none d-md-flex"
-    app
-    :value="activeBtn"
-    grow
-    color="teal"
-  >
+  <v-bottom-navigation app fixed grow color="teal">
     <v-btn to="/public">
       <span>Public</span>
       <v-icon>{{ mdiWeb }}</v-icon>
     </v-btn>
 
-    <v-btn to="/private">
-      <span>Private</span>
-      <v-icon>{{ mdiHomeLock }}</v-icon>
-    </v-btn>
+    <v-menu
+      v-model="menu"
+      close-on-click
+      close-on-content-click
+      open-on-click
+      top
+      offset-y
+    >
+      <template v-slot:activator="{ on }">
+        <v-btn nuxt :to="login ? '/private' : ''" v-on="on">
+          <span>Private</span>
+          <v-icon>{{ mdiHomeLock }}</v-icon>
+        </v-btn>
+      </template>
+      <card-signin-prompt @close="menu = false" />
+    </v-menu>
   </v-bottom-navigation>
 </template>
 
 <script lang="ts">
 import { mdiHomeLock, mdiWeb } from '@mdi/js'
-import { createComponent, ref } from '@vue/composition-api'
-export default createComponent({
+import { defineComponent, ref } from '@vue/composition-api'
+
+export default defineComponent({
+  components: {
+    CardSigninPrompt: () =>
+      import('@/components/molecules/CardSigninPrompt.vue')
+  },
+
+  props: {
+    login: {
+      type: Boolean,
+      default: false
+    }
+  },
+
   setup() {
-    const activeBtn = ref(0)
-    return { activeBtn, mdiWeb, mdiHomeLock }
+    const menu = ref(false)
+    return { mdiWeb, mdiHomeLock, menu }
   }
 })
 </script>
