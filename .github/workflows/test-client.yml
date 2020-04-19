@@ -192,7 +192,9 @@ jobs:
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
 
       - name: generate
-        run: yarn workspace client generate --fail-on-page-error
+        run: |
+          env
+          yarn workspace client generate --fail-on-page-error
 
       - name: deploy to Firebase
         uses: w9jds/firebase-action@master
@@ -210,6 +212,11 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
+      - name: debug
+        run:
+          ls -a
+          ls packages/client
+
       - uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
