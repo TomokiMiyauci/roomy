@@ -5,12 +5,12 @@
 </template>
 
 <script lang="ts">
-import { createComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 
 import TheRooms from '@/components/organisms/TheRooms.vue'
 import { useFirestore } from '@/core/useFirestore'
 import { firestore } from '@/plugins/firebase'
-export default createComponent({
+export default defineComponent({
   layout: 'app',
 
   components: {

@@ -14,7 +14,7 @@ export default defineComponent({
     TheInvitation
   },
 
-  middleware: ['gateKeeper'],
+  middleware: ['roomKeeper'],
 
   // validate({ query }: { query: any }) {
   //   console.log(query.key)
