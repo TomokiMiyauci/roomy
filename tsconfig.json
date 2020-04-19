@@ -19,6 +19,7 @@
         "packages/client/src/*"
       ]
     },
+    "typeRoots": ["packages/share", "node_modules/@types"]
   },
   "compileOnSave": true
 }
