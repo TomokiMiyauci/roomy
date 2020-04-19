@@ -2,9 +2,11 @@ import firebase, { firestore } from '@/plugins/firebase'
 import { user } from '@/store'
 import {
   Anonymous,
+  Contributor,
   FirestoreFieldValue,
   MessageSet,
   Public,
+  UserInfo,
   UserReference
 } from '@/types/core'
 
@@ -35,17 +37,28 @@ export const createMessage = (
 }
 
 export const getUser = (documentPath?: string) => {
-  return documentPath ? getUserReference(documentPath) : getAnonymous()
+  return documentPath ? getContributor() : getAnonymous()
+}
+
+export const getContributor = (): Contributor => {
+  return { contributor: getUserInfo(), isAnonymous: false }
+}
+
+export const getUserInfo = (): UserInfo => {
+  return {
+    name: user.displayName,
+    photoURL: user.photoURL
+  }
 }
 
 export const getUserReference = (documentPath: string): UserReference => {
   return {
     userRef: firestore.collection('users').doc(documentPath),
-    isAnonymous: true
+    isAnonymous: false
   }
 }
 export const getAnonymous = (): Anonymous => {
   return {
-    isAnonymous: false
+    isAnonymous: true
   }
 }

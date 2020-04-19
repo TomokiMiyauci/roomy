@@ -3,10 +3,11 @@ import firebase, { firestore } from '@/plugins/firebase'
 import { user } from '@/store'
 import {
   Anonymous,
+  Author,
   Contributor,
   FirestoreFieldValue,
+  Message,
   MessageSet,
-  Public,
   UserInfo,
   UserReference
 } from '@/types/core'
@@ -23,15 +24,30 @@ export const createMessage = (
 >> => {
   const { collectionRef } = messageReference()
 
-  const data: Public = {
+  const data: Message = {
     ...getTimestamps(),
     ...messageSet,
-    ...getUser(user.id)
+    ...getAuthor()
   }
 
   return collectionRef.value.add(data).catch((e) => {
     console.log(e)
   })
+}
+
+export const getAuthor = (
+  documentPath?: string
+): { author: Author | Anonymous } => {
+  const author: Author | Anonymous = documentPath
+    ? {
+        ...getUserInfo(),
+        isAnonymous: false
+      }
+    : getAnonymous()
+
+  return {
+    author
+  }
 }
 
 export const getUser = (documentPath?: string) => {
