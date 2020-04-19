@@ -6,24 +6,38 @@
 
 <script lang="ts">
 import { mdiImage } from '@mdi/js'
-import { createComponent } from '@vue/composition-api'
+import { defineComponent, onBeforeMount, ref } from '@vue/composition-api'
+import Compressor from 'compressorjs'
 
-import BaseButton from '@/components/atoms/BaseButton.vue'
-
-export default createComponent({
+export default defineComponent({
   components: {
-    BaseButton
+    BaseButton: () => import('@/components/atoms/BaseButton.vue')
   },
 
   setup(_, { emit }) {
-    const onClick = () => {
-      const a = document.createElement('input')
-      a.type = 'file'
-      a.click()
+    const input = ref<HTMLInputElement>()
 
-      a.onchange = (e) => {
+    onBeforeMount(() => {
+      input.value = document.createElement('input')
+      input.value.type = 'file'
+    })
+
+    const onClick = () => {
+      if (!input.value) return
+      input.value.click()
+
+      input.value.onchange = (e) => {
         if (e.target instanceof HTMLInputElement && e.target.files) {
-          emit('post:image', e.target.files[0])
+          const file = e.target.files[0]
+
+          // eslint-disable-next-line no-new
+          new Compressor(file, {
+            quality: 0.6,
+            success: (result) => {
+              emit('post:image', result)
+            }
+          })
+          input.value!.value = ''
         }
       }
     }
