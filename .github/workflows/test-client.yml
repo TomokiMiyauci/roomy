@@ -214,8 +214,7 @@ jobs:
     steps:
       - name: debug
         run: |
-          ls -a
-          ls packages/client
+          pwd
 
       - uses: 8398a7/action-slack@v3
         with:
