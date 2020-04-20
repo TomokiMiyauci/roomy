@@ -1,5 +1,8 @@
 import firebase from '@/plugins/firebase'
+import { user } from '@/store'
 import { PrivateRoom, PublicRoom } from '@/types/core'
+import { Message } from '~types/core'
+
 type Sometime = 'createdAt' | 'updatedAt'
 
 export const getTimestamps = (): {
@@ -22,4 +25,12 @@ export const generateInviteURL = (room: PrivateRoom | PublicRoom) => {
   return room.isPrivate
     ? `${baseURL}/private/${room.id}`
     : `${baseURL}/public/${room.id}`
+}
+
+export const isOwn = (message: Message): boolean => {
+  return (
+    !!user.id &&
+    !message.author.isAnonymous &&
+    message.author.name === user.displayName
+  )
 }
