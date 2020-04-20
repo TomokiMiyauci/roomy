@@ -193,7 +193,6 @@ jobs:
 
       - name: generate
         run: |
-          env
           yarn workspace client generate --fail-on-page-error
 
       - name: deploy to Firebase
