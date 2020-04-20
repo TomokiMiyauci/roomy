@@ -17,6 +17,9 @@
     "paths": {
       "@/*": [
         "packages/client/src/*"
+      ],
+      "~types/*": [
+        "packages/share/*"
       ]
     },
     "typeRoots": ["packages/share", "node_modules/@types"]

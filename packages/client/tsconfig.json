@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "target": "es2018",
     "types": [
       "@types/node",
       "@nuxt/types",
@@ -18,6 +19,9 @@
     "paths": {
       "@/*": [
         "src/*"
+      ],
+      "~types/*": [
+        "../share/*"
       ]
   }},
 
@@ -27,6 +31,7 @@
     "dist"
   ],
   "include": [
-    "./src/**/*"
+    "./src/**/*",
+    "./test/**/*"
   ]
 }
