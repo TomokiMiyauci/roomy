@@ -213,7 +213,7 @@ jobs:
 
     steps:
       - name: debug
-        run:
+        run: |
           ls -a
           ls packages/client
 
