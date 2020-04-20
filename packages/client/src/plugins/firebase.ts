@@ -5,6 +5,8 @@ import 'firebase/auth'
 import firebase from 'firebase/app'
 // import 'firebase/messaging'
 
+console.log('this is firebase config', process.env.PROJECT_ID)
+
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
   authDomain: process.env.AUTH_DOMAIN,
