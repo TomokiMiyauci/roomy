@@ -1,6 +1,7 @@
 import { onUnmounted, Ref, ref } from '@vue/composition-api'
 
 import firebase from '@/plugins/firebase'
+import { Id } from '@/types/core'
 
 const isDef = <T = any>(val?: T): val is T => typeof val !== 'undefined'
 
@@ -28,11 +29,11 @@ const getData = <T>(
 export function useFirestore<T extends firebase.firestore.DocumentData>(
   docRef: firebase.firestore.DocumentReference<T>,
   errorHandler?: (err: Error) => void
-): Ref<T | null>
+): Ref<(T & Id) | null>
 export function useFirestore<T extends firebase.firestore.DocumentData>(
-  docRef: firebase.firestore.Query<T>,
+  docRef: firebase.firestore.Query,
   errorHandler?: (err: Error) => void
-): Ref<T[]>
+): Ref<(T & Id)[]>
 export function useFirestore<T extends firebase.firestore.DocumentData>(
   docRef: FirebaseDocRef<T>,
   errorHandler = (err: Error) => {
