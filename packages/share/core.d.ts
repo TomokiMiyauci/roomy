@@ -11,16 +11,20 @@ export type Public = FirestoreFieldValue & MessageSet & User
 
 export type Message = MessageSet & { author: Author | Anonymous } & BaseField
 
+export type Id = {
+  id: string
+}
+
 export type BaseField = {
   id?: string
-  createdAt: firebase.firestore.FieldValue
-  updatedAt: firebase.firestore.FieldValue
+  createdAt: firebase.firestore.Timestamp
+  updatedAt: firebase.firestore.Timestamp
 }
 
 export type FirestoreFieldValue = {
   id?: string
-  createdAt: firebase.firestore.FieldValue
-  updatedAt: firebase.firestore.FieldValue
+  createdAt: firebase.firestore.Timestamp
+  updatedAt: firebase.firestore.Timestamp
 }
 
 export type User = Contributor | Anonymous
@@ -61,7 +65,7 @@ export type Room = {
   photoURL: string
 } & FirestoreFieldValue
 
-export type ShortMessage = 'Image posted' | 'Audio posted' | 'No messages' | string
+export type ShortMessage = 'Image posted' | 'Audio posted' | 'No messages'
 
 type BaseRoom = {
   members: string[]
