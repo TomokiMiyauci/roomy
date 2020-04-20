@@ -2,7 +2,7 @@ import firebase, { firestore } from '@/plugins/firebase'
 import { FirestoreFieldValue } from '@/types/core'
 
 const getTimestamps = (): FirestoreFieldValue => {
-  const timestamp = firebase.firestore.FieldValue.serverTimestamp()
+  const timestamp = firebase.firestore.FieldValue.serverTimestamp() as firebase.firestore.Timestamp
   return { createdAt: timestamp, updatedAt: timestamp }
 }
 

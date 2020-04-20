@@ -6,10 +6,10 @@ import { Message } from '~types/core'
 type Sometime = 'createdAt' | 'updatedAt'
 
 export const getTimestamps = (): {
-  createdAt: firebase.firestore.FieldValue
-  updatedAt: firebase.firestore.FieldValue
+  createdAt: firebase.firestore.Timestamp
+  updatedAt: firebase.firestore.Timestamp
 } => {
-  const timestamp = firebase.firestore.FieldValue.serverTimestamp()
+  const timestamp = firebase.firestore.FieldValue.serverTimestamp() as firebase.firestore.Timestamp
 
   return { createdAt: timestamp, updatedAt: timestamp }
 }
