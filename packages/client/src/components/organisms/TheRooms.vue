@@ -2,24 +2,14 @@
   <v-list two-two>
     <v-subheader inset>Recent</v-subheader>
     <transition-group name="vue-anime-list">
-      <!-- <v-subheader
-          v-if="item.header"
-          :key="item.header"
-          v-text="item.header"
-        ></v-subheader>
-
-        <v-divider
-          v-else-if="item.divider"
-          :key="index"
-          :inset="item.inset"
-        ></v-divider> -->
-
-      <room-set
-        v-for="room in rooms"
-        :key="room.id"
-        :room="room"
-        @click:qrcode="$emit('open:qrcode', room)"
-      />
+      <template v-for="(room, index) in rooms">
+        <room-set
+          :key="room.id"
+          :room="room"
+          @click:qrcode="$emit('open:qrcode', room)"
+        />
+        <v-divider :key="index + 'hello'"></v-divider>
+      </template>
     </transition-group>
     <template v-if="!rooms.length">
       <v-skeleton-loader
