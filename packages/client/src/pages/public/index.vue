@@ -57,7 +57,7 @@ import {
 } from '@vue/composition-api'
 
 import { createPublicRoom } from '@/repositories/room'
-import { privateRoom, user } from '@/store'
+import { publicRoom, user } from '@/store'
 import { generateInviteURL } from '@/utils/firestore'
 import { PublicRoom } from '~types/core'
 export default defineComponent({
@@ -73,7 +73,7 @@ export default defineComponent({
   },
 
   setup(_, { root }) {
-    privateRoom.subscribe()
+    publicRoom.subscribe()
     const mobile = computed(() => {
       return (
         (root.$vuetify.breakpoint.mdAndDown && !!rooms.value.length) ||
@@ -90,7 +90,7 @@ export default defineComponent({
 
     const text = ref('')
 
-    const rooms = computed(() => privateRoom.rooms)
+    const rooms = computed(() => publicRoom.rooms)
 
     setTimeout(() => {
       if (!rooms.value.length) {

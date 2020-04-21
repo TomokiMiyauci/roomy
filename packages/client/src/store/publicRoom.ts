@@ -2,17 +2,17 @@ import { Action, Module, Mutation, VuexModule } from 'vuex-module-decorators'
 
 import { getData, isDef } from '@/core/useFirestore'
 import { roomReference } from '@/core/useFirestoreReference'
-import { PrivateRoom } from '@/types/core'
+import { PublicRoom } from '@/types/core'
 @Module({
-  name: 'private',
+  name: 'publicRoom',
   stateFactory: true,
   namespaced: true
 })
-export default class Private extends VuexModule {
-  private _rooms: PrivateRoom[] = []
+export default class Public extends VuexModule {
+  private _rooms: PublicRoom[] = []
 
   @Mutation
-  setRoom(rooms: PrivateRoom[]) {
+  setRoom(rooms: PublicRoom[]) {
     this._rooms = rooms
   }
 
@@ -24,7 +24,7 @@ export default class Private extends VuexModule {
       .where('isPrivate', '==', false)
       .orderBy('recent.updatedAt', 'desc')
       .onSnapshot((snapshot) => {
-        this.setRoom(snapshot.docs.map(getData).filter(isDef) as PrivateRoom[])
+        this.setRoom(snapshot.docs.map(getData).filter(isDef) as PublicRoom[])
       })
   }
 

@@ -18,7 +18,7 @@ import { computed, defineComponent } from '@vue/composition-api'
 import TheAppBarChat from '@/components/organisms/TheAppBarChat.vue'
 import TheNavigationDrawerLeft from '@/components/organisms/TheNavigationDrawerLeft.vue'
 import TheNavigationDrawerRight from '@/components/organisms/TheNavigationDrawerRight.vue'
-import { privateRoom } from '@/store'
+import { publicRoom } from '@/store'
 import { PublicRoom } from '~types/core'
 export default defineComponent({
   components: {
@@ -32,7 +32,7 @@ export default defineComponent({
       root.$nuxt.$emit('open:qrcode', room)
     }
 
-    return { rooms: computed(() => privateRoom.rooms), onOpenQrcode }
+    return { rooms: computed(() => publicRoom.rooms), onOpenQrcode }
   }
 })
 </script>

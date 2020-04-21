@@ -26,8 +26,8 @@
 <script lang="ts">
 import { computed, defineComponent } from '@vue/composition-api'
 
-import { privateRoom, user } from '@/store'
-import { PrivateRoom } from '~types/core'
+import { publicRoom, user } from '@/store'
+import { PublicRoom } from '~types/core'
 export default defineComponent({
   components: {
     TheAppBar: () => import('@/components/organisms/TheAppBarPublic.vue'),
@@ -40,14 +40,14 @@ export default defineComponent({
   },
 
   setup(_, { root }) {
-    const onOpenQrcode = (room: PrivateRoom) => {
+    const onOpenQrcode = (room: PublicRoom) => {
       root.$nuxt.$emit('open:qrcode', room)
     }
 
     return {
       photoURL: user.photoURL,
       login: user.login,
-      rooms: computed(() => privateRoom.rooms),
+      rooms: computed(() => publicRoom.rooms),
       onOpenQrcode
     }
   }
