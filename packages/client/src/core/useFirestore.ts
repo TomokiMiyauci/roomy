@@ -1,15 +1,15 @@
 import { onUnmounted, Ref, ref } from '@vue/composition-api'
 
 import firebase from '@/plugins/firebase'
-import { Id } from '@/types/core'
+import { Id } from '~types/core'
 
-const isDef = <T = any>(val?: T): val is T => typeof val !== 'undefined'
+export const isDef = <T = any>(val?: T): val is T => typeof val !== 'undefined'
 
 export type FirebaseDocRef<T> =
   | firebase.firestore.Query<T>
   | firebase.firestore.DocumentReference<T>
 
-const getData = <T>(
+export const getData = <T>(
   docRef:
     | firebase.firestore.DocumentSnapshot<T>
     | firebase.firestore.QueryDocumentSnapshot<T>

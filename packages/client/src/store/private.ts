@@ -1,7 +1,7 @@
 import { Action, Module, Mutation, VuexModule } from 'vuex-module-decorators'
 
-import { useFirestore } from '@/core/useFirestore'
-import { firestore } from '@/plugins/firebase'
+import { getData, isDef } from '@/core/useFirestore'
+import { roomReference } from '@/core/useFirestoreReference'
 import { PrivateRoom } from '@/types/core'
 @Module({
   name: 'private',
@@ -17,12 +17,18 @@ export default class Private extends VuexModule {
   }
 
   @Action
-  sRoom() {
-    const rooms = useFirestore(firestore.collection('rooms'))
-    this.setRoom(rooms.value as PrivateRoom[])
+  subscribe() {
+    if (this._rooms.length) return
+    const { collectionRef } = roomReference()
+    collectionRef.value
+      .where('isPrivate', '==', false)
+      .orderBy('recent.updatedAt', 'desc')
+      .onSnapshot((snapshot) => {
+        this.setRoom(snapshot.docs.map(getData).filter(isDef) as PrivateRoom[])
+      })
   }
 
-  get roomId() {
+  get rooms() {
     return this._rooms
   }
 }
