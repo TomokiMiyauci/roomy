@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <the-navigation-drawer-left />
-    <the-navigation-drawer-right :rooms="rooms" @open:qrcode="a" />
+    <the-navigation-drawer-right :rooms="rooms" @open:qrcode="onOpenQrcode" />
     <the-app-bar-chat />
 
     <v-content>
@@ -13,14 +13,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api'
+import { computed, defineComponent } from '@vue/composition-api'
 
 import TheAppBarChat from '@/components/organisms/TheAppBarChat.vue'
 import TheNavigationDrawerLeft from '@/components/organisms/TheNavigationDrawerLeft.vue'
 import TheNavigationDrawerRight from '@/components/organisms/TheNavigationDrawerRight.vue'
-import { useFirestore } from '@/core/useFirestore'
-import { roomReference } from '@/core/useFirestoreReference'
-
+import { privateRoom } from '@/store'
+import { PublicRoom } from '~types/core'
 export default defineComponent({
   components: {
     TheAppBarChat,
@@ -28,20 +27,12 @@ export default defineComponent({
     TheNavigationDrawerRight
   },
 
-  setup() {
-    const { collectionRef } = roomReference()
-
-    const rooms = useFirestore(
-      collectionRef.value
-        .where('isPrivate', '==', false)
-        .orderBy('recent.updatedAt', 'desc')
-    )
-
-    const a = () => {
-      alert()
+  setup(_, { root }) {
+    const onOpenQrcode = (room: PublicRoom) => {
+      root.$nuxt.$emit('open:qrcode', room)
     }
 
-    return { rooms, a }
+    return { rooms: computed(() => privateRoom.rooms), onOpenQrcode }
   }
 })
 </script>

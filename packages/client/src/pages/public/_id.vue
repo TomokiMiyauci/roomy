@@ -57,6 +57,20 @@
       </v-row>
     </v-container>
 
+    <v-dialog
+      v-model="dialog"
+      :fullscreen="$vuetify.breakpoint.mdAndDown"
+      max-width="600px"
+      hide-overlay
+      :transition="
+        $vuetify.breakpoint.mdAndDown
+          ? 'dialog-bottom-transition'
+          : 'fab-transition'
+      "
+    >
+      <card-room-share :url="text" @close="dialog = false" />
+    </v-dialog>
+
     <client-only>
       <div
         style="position:fixed;bottom:0;"
@@ -78,15 +92,20 @@ import {
   mdiMicrophone,
   mdiMicrophoneSettings
 } from '@mdi/js'
-import { defineComponent, ref } from '@vue/composition-api'
+import {
+  defineComponent,
+  onMounted,
+  onUnmounted,
+  ref
+} from '@vue/composition-api'
 import dayjs from 'dayjs'
 import { gsap } from 'gsap'
 
 import { useFirestore } from '@/core/useFirestore'
 import { messageReference } from '@/core/useFirestoreReference'
 import { reference } from '@/store'
-import { isOwn } from '@/utils/firestore'
-import { Message } from '~types/core'
+import { generateInviteURL, isOwn } from '@/utils/firestore'
+import { Message, PublicRoom } from '~types/core'
 
 export default defineComponent({
   layout: 'public-chat',
@@ -100,11 +119,14 @@ export default defineComponent({
     BaseChip: () => import('@/components/atoms/BaseChip.vue'),
     ChipDate: () => import('@/components/atoms/ChipDate.vue'),
     SkeletonLoaderMessageSet: () =>
-      import('@/components/molecules/SkeletonLoaderMessageSet.vue')
+      import('@/components/molecules/SkeletonLoaderMessageSet.vue'),
+    CardRoomShare: () => import('@/components/molecules/CardRoomShare.vue')
   },
 
   setup(_, { root }) {
     const sheet = ref(false)
+    const dialog = ref(false)
+    const text = ref('')
 
     reference.setRoomId(root.$route.params.id)
 
@@ -134,10 +156,23 @@ export default defineComponent({
       })
     }
 
+    const qrcode = (room: PublicRoom) => {
+      text.value = generateInviteURL(room)
+      dialog.value = true
+    }
+
     const onPostend = async () => {
       await root.$nextTick()
       scrollTo(0, document.body.clientHeight)
     }
+
+    onMounted(() => {
+      root.$nuxt.$on('open:qrcode', qrcode)
+    })
+
+    onUnmounted(() => {
+      root.$nuxt.$off(['open:qrcode'])
+    })
 
     return {
       mdiAlertCircleOutline,
@@ -152,7 +187,9 @@ export default defineComponent({
       mdiMicrophoneSettings,
       onPostend,
       dayjs,
-      isOwn
+      isOwn,
+      dialog,
+      text
     }
   }
 })
