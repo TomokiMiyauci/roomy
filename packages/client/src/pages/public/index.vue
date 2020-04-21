@@ -56,10 +56,8 @@ import {
   ref
 } from '@vue/composition-api'
 
-import { useFirestore } from '@/core/useFirestore'
-import { roomReference } from '@/core/useFirestoreReference'
 import { createPublicRoom } from '@/repositories/room'
-import { user } from '@/store'
+import { privateRoom, user } from '@/store'
 import { generateInviteURL } from '@/utils/firestore'
 import { PublicRoom } from '~types/core'
 export default defineComponent({
@@ -75,13 +73,13 @@ export default defineComponent({
   },
 
   setup(_, { root }) {
+    privateRoom.subscribe()
     const mobile = computed(() => {
       return (
         (root.$vuetify.breakpoint.mdAndDown && !!rooms.value.length) ||
         !notFound
       )
     })
-    const { collectionRef } = roomReference()
 
     const TIMEOUT = 3000
 
@@ -92,11 +90,7 @@ export default defineComponent({
 
     const text = ref('')
 
-    const rooms = useFirestore<PublicRoom>(
-      collectionRef.value
-        .where('isPrivate', '==', false)
-        .orderBy('recent.updatedAt', 'desc')
-    )
+    const rooms = computed(() => privateRoom.rooms)
 
     setTimeout(() => {
       if (!rooms.value.length) {
@@ -124,8 +118,8 @@ export default defineComponent({
     })
 
     return {
-      rooms,
       mdiCommentPlus,
+      rooms,
       dialog,
       open,
       text,

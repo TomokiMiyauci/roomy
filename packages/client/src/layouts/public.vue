@@ -24,12 +24,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api'
+import { computed, defineComponent } from '@vue/composition-api'
 
-import { useFirestore } from '@/core/useFirestore'
-import { roomReference } from '@/core/useFirestoreReference'
-import { user } from '@/store'
-
+import { privateRoom, user } from '@/store'
+import { PrivateRoom } from '~types/core'
 export default defineComponent({
   components: {
     TheAppBar: () => import('@/components/organisms/TheAppBarPublic.vue'),
@@ -42,22 +40,16 @@ export default defineComponent({
   },
 
   setup(_, { root }) {
-    const { collectionRef } = roomReference()
-    const rooms = useFirestore(
-      collectionRef.value
-        .where('isPrivate', '==', false)
-        .orderBy('recent.updatedAt', 'desc')
-    )
-
-    root.$nuxt.$on('aaaa', (a: any) => {
-      console.log(2222, a.value)
-    })
-
-    const onOpenQrcode = (room: any) => {
+    const onOpenQrcode = (room: PrivateRoom) => {
       root.$nuxt.$emit('open:qrcode', room)
     }
 
-    return { photoURL: user.photoURL, login: user.login, rooms, onOpenQrcode }
+    return {
+      photoURL: user.photoURL,
+      login: user.login,
+      rooms: computed(() => privateRoom.rooms),
+      onOpenQrcode
+    }
   }
 })
 </script>
