@@ -69,7 +69,7 @@ const config: Configuration = {
     '@nuxtjs/eslint-module',
     '@nuxtjs/vuetify',
     '@nuxtjs/stylelint-module',
-    ['@nuxtjs/dotenv', { systemvars: true }]
+    ['@nuxtjs/dotenv', { systemvars: false }]
   ],
   /*
    ** Nuxt.js modules
