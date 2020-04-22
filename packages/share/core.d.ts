@@ -89,3 +89,8 @@ export type PrivateRoom = BaseRoom & {
   isPrivate: true
   key: string
 }
+
+export type RoomOptions = {
+  name: string
+  image: Blob | undefined
+}

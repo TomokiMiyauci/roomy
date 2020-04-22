@@ -25,15 +25,20 @@ export const createRoom = () => {
   return collectionRef.value.add(room)
 }
 
-export const createPublicRoom = () => {
+type Options = {
+  name: string
+  photoURL: string
+}
+export const createPublicRoom = (options: Options) => {
+  const { name, photoURL } = options
   const { collectionRef } = roomReference()
 
   const room: PublicRoom = {
     isPrivate: false,
-    name: 'New Room',
+    name,
     members: [],
     messageCount: 0,
-    photoURL: '',
+    photoURL,
     recent: {
       shortMessage: 'No messages',
       kind: 'TEXT',
