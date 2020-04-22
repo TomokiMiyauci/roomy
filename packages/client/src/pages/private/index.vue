@@ -3,7 +3,7 @@
     <client-only>
       <v-tabs-items v-if="$vuetify.breakpoint.mdAndDown" v-model="tabs">
         <v-tab-item>
-          <the-rooms :rooms="rooms" @open:qrcode="o" />
+          <the-rooms :rooms="rooms" @dialog:qrcode="o" />
         </v-tab-item>
         <v-tab-item>
           hello
@@ -28,46 +28,17 @@
     </client-only>
 
     <v-dialog
-      :value="open"
-      :fullscreen="$vuetify.breakpoint.mdAndDown"
-      hide-overlay
-      transition="dialog-bottom-transition"
-    >
-      <v-card>
-        <v-toolbar dark color="primary">
-          <v-btn icon dark @click="open = false">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-          <v-toolbar-title>Settings</v-toolbar-title>
-        </v-toolbar>
-        <v-card-text>
-          <svg-qrcode :text="text" />
-          {{ text }}
-        </v-card-text>
-      </v-card>
-    </v-dialog>
-
-    <v-dialog
       :value="dialog"
-      fullscreen
+      :fullscreen="$vuetify.breakpoint.mdAndDown"
+      max-width="600px"
       hide-overlay
-      transition="dialog-bottom-transition"
+      :transition="
+        $vuetify.breakpoint.mdAndDown
+          ? 'dialog-bottom-transition'
+          : 'fab-transition'
+      "
     >
-      <v-card>
-        <v-toolbar dark color="primary">
-          <v-btn icon dark @click="dialog = false">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-          <v-toolbar-title>Settings</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-toolbar-items>
-            <v-btn dark text @click="create">Save</v-btn>
-          </v-toolbar-items>
-        </v-toolbar>
-        <v-card-text>
-          <svg-qrcode v-if="key" :text="roomURL" />
-        </v-card-text>
-      </v-card>
+      <card-room-share :url="text" @close="dialog = false" />
     </v-dialog>
   </div>
 </template>
@@ -85,26 +56,27 @@ import {
 } from '@vue/composition-api'
 
 import TheRooms from '@/components/organisms/TheRooms.vue'
-import { useFirestore } from '@/core/useFirestore'
-import { roomReference } from '@/core/useFirestoreReference'
+// import { useFirestore } from '@/core/useFirestore'
+// import { roomReference } from '@/core/useFirestoreReference'
 import { createPrivateRoom, getRoomKey } from '@/repositories/room'
-import { user } from '@/store'
+import { privateRoom } from '@/store'
+
 export default defineComponent({
   layout: 'private',
 
   components: {
     TheRooms,
-    SvgQrcode: () => import('@/components/atoms/SvgQrcode.vue')
+    SvgQrcode: () => import('@/components/atoms/SvgQrcode.vue'),
+    CardRoomShare: () => import('@/components/molecules/CardRoomShare.vue')
   },
 
   setup(_, { root }) {
     const dialog = ref(false)
-    const open = ref(false)
     const tabs = ref(0)
 
     const o = (room: any) => {
       text.value = `https://${process.env.AUTH_DOMAIN}/private/invite?roomId=${room.id}&key=${room.key}`
-      open.value = true
+      dialog.value = true
     }
 
     const text = ref('')
@@ -125,8 +97,7 @@ export default defineComponent({
     })
 
     onUnmounted(() => {
-      root.$nuxt.$off('close')
-      root.$nuxt.$off('tab')
+      root.$nuxt.$off(['close', 'tab'])
     })
 
     const roomURL = computed(() => {
@@ -134,16 +105,19 @@ export default defineComponent({
       return url
     })
 
-    const { collectionRef } = roomReference()
-    const rooms = useFirestore(
-      collectionRef.value
-        .where('isPrivate', '==', true)
-        .where('members', 'array-contains', user.id)
-        .orderBy('recent.updatedAt', 'desc'),
-      (err) => {
-        console.log(1111, err)
-      }
-    )
+    // const { collectionRef } = roomReference()
+
+    privateRoom.subscribe()
+    const rooms = computed(() => privateRoom.rooms)
+    // const rooms = useFirestore(
+    //   collectionRef.value
+    //     .where('isPrivate', '==', true)
+    //     .where('members', 'array-contains', user.id)
+    //     .orderBy('recent.updatedAt', 'desc'),
+    //   (err) => {
+    //     console.log(1111, err)
+    //   }
+    // )
 
     const create = async () => {
       const { id } = await createPrivateRoom()
@@ -159,7 +133,6 @@ export default defineComponent({
       dialog,
       create,
       roomURL,
-      open,
       o,
       text,
       tabs
