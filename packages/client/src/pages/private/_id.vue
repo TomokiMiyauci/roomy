@@ -117,7 +117,7 @@ import ThePost from '@/components/organisms/ThePost.vue'
 import { useFirestore } from '@/core/useFirestore'
 import { messageReference } from '@/core/useFirestoreReference'
 import { reference, user } from '@/store'
-import { Message } from '@/types/core'
+import { Message } from '~types/core'
 export default defineComponent({
   layout: 'chat',
 
