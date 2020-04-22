@@ -103,6 +103,20 @@ const config: Configuration = {
    */
   build: {
     extractCSS: true,
+
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          styles: {
+            name: 'styles',
+            test: /\.(css|vue)$/,
+            chunks: 'all',
+            enforce: true
+          }
+        }
+      }
+    },
+
     terser: {
       terserOptions: {
         compress: { drop_console: process.env.NODE_ENV === 'production' }
@@ -123,9 +137,9 @@ const config: Configuration = {
       return Object.assign({}, config, {
         devtool: 'source-map'
       })
-    },
+    }
 
-    publicPath: process.env.AUTH_DOMAIN
+    // publicPath: process.env.AUTH_DOMAIN
   },
 
   typescript: {
