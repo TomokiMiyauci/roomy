@@ -31,7 +31,7 @@
     </transition>
 
     <v-dialog
-      v-model="open"
+      v-model="dialog"
       :fullscreen="$vuetify.breakpoint.mdAndDown"
       max-width="600px"
       hide-overlay
@@ -40,8 +40,14 @@
           ? 'dialog-bottom-transition'
           : 'fab-transition'
       "
+      @click:outside="onClickOutside"
     >
-      <card-room-share :url="text" @close="open = false" />
+      <form-room-share
+        v-if="isOpenQrcode"
+        :url="text"
+        @close="isOpenQrcode = false"
+      />
+      <form-create-room v-if="isOpenRoom" />
     </v-dialog>
   </div>
 </template>
@@ -56,7 +62,6 @@ import {
   ref
 } from '@vue/composition-api'
 
-import { createPublicRoom } from '@/repositories/room'
 import { publicRoom, user } from '@/store'
 import { generateInviteURL } from '@/utils/firestore'
 import { PublicRoom } from '~types/core'
@@ -69,7 +74,8 @@ export default defineComponent({
       import('@/components/molecules/ButtonCreateRoom.vue'),
     CardSigninPrompt: () =>
       import('@/components/molecules/CardSigninPrompt.vue'),
-    CardRoomShare: () => import('@/components/molecules/CardRoomShare.vue')
+    CardRoomShare: () => import('@/components/molecules/CardRoomShare.vue'),
+    FormCreateRoom: () => import('@/components/organisms/FormCreateRoom.vue')
   },
 
   setup(_, { root }) {
@@ -86,7 +92,8 @@ export default defineComponent({
     const notFound = ref(false)
 
     const dialog = ref(false)
-    const open = ref(false)
+    const isOpenQrcode = ref(false)
+    const isOpenRoom = ref(false)
 
     const text = ref('')
 
@@ -100,12 +107,20 @@ export default defineComponent({
 
     const qrcode = (room: PublicRoom) => {
       text.value = generateInviteURL(room)
-      open.value = true
+      isOpenQrcode.value = true
+      dialog.value = true
     }
 
-    const create = async () => {
+    const create = () => {
       dialog.value = true
-      await createPublicRoom()
+      isOpenRoom.value = true
+    }
+
+    const onClickOutside = () => {
+      setTimeout(() => {
+        isOpenQrcode.value = false
+        isOpenRoom.value = false
+      }, 200)
     }
 
     onMounted(() => {
@@ -121,14 +136,16 @@ export default defineComponent({
       mdiCommentPlus,
       rooms,
       dialog,
-      open,
       text,
       create,
       notFound,
       mdiCommentQuestion,
       qrcode,
       login: user.login,
-      mobile
+      mobile,
+      onClickOutside,
+      isOpenQrcode,
+      isOpenRoom
     }
   }
 })
