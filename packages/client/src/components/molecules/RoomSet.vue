@@ -1,7 +1,7 @@
 <template>
   <v-list-item :to="`/${room.isPrivate ? 'private' : 'public'}/${room.id}`">
     <v-list-item-avatar tile>
-      <v-icon v-if="room.photoURL" color="primary">{{ room.photoURL }}</v-icon>
+      <v-img v-if="room.photoURL" :src="room.photoURL" color="primary"></v-img>
       <v-icon v-else color="primary">{{ mdiNewBox }}</v-icon>
     </v-list-item-avatar>
 
