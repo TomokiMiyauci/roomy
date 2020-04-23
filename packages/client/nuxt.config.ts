@@ -77,10 +77,16 @@ const config: Configuration = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/robots'
     // Doc: https://github.com/nuxt-community/dotenv-module
     // ['nuxt-i18n', i18n]
   ],
+
+  robots: {
+    UserAgent: '*',
+    Disallow: '/private'
+  },
   /*
    ** dotenv options
    */
@@ -102,20 +108,20 @@ const config: Configuration = {
    ** Build configuration
    */
   build: {
-    // extractCSS: true,
+    extractCSS: true,
 
-    // optimization: {
-    //   splitChunks: {
-    //     cacheGroups: {
-    //       styles: {
-    //         name: 'styles',
-    //         test: /\.(css|vue)$/,
-    //         chunks: 'all',
-    //         enforce: true
-    //       }
-    //     }
-    //   }
-    // },
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          styles: {
+            name: 'styles',
+            test: /\.(css|vue)$/,
+            chunks: 'all',
+            enforce: true
+          }
+        }
+      }
+    },
 
     terser: {
       terserOptions: {
