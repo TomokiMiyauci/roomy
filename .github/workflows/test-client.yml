@@ -210,8 +210,31 @@ jobs:
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_DEV }}
 
-  notice:
+  lighthouse:
+    runs-on: ubuntu-latest
     needs: deploy
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@master
+
+      - name: Run Lighthouse
+        uses: foo-software/lighthouse-check-action@master
+        with:
+          author: ${{ github.actor }}
+          branch: ${{ github.ref }}
+          outputDirectory: /tmp/artifacts
+          urls: 'https://roomy-devlop.web.app/'
+          sha: ${{ github.sha }}
+          slackWebhookUrl: ${{ secrets.SLACK_WEBHOOK_URL_DEV }}
+      # - name: Upload artifacts
+      #   uses: actions/upload-artifact@master
+      #   with:
+      #     name: Lighthouse reports
+      #     path: /tmp/artifacts
+
+  notice:
+    needs: lighthouse
     runs-on: ${{ matrix.os }}
 
     strategy:
