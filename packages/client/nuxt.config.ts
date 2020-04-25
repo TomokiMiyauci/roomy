@@ -58,7 +58,8 @@ const config: Configuration = {
     '@/plugins/composition-api',
     '@/plugins/firebase',
     '@/plugins/pretty-bytes',
-    '@/plugins/axios'
+    '@/plugins/axios',
+    { src: '@/plugins/axe', ssr: false }
   ],
   /*
    ** Nuxt.js dev-modules
