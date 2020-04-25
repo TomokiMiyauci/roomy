@@ -15,7 +15,7 @@
     <v-col cols="auto" class="heading">Drop files here</v-col>
     <v-col class="grey--text" cols="auto">or</v-col>
     <v-col cols="auto">
-      <v-btn color="success" @click="onClick">text</v-btn>
+      <v-btn color="success" @click="onClick">Click</v-btn>
     </v-col>
   </div>
 </template>
@@ -23,22 +23,18 @@
 <script lang="ts">
 import { mdiPlusThick } from '@mdi/js'
 import { defineComponent, ref } from '@vue/composition-api'
-import Compressor from 'compressorjs'
+
+import { compress, useFileDialog } from '@/core/useFileDialog'
 
 export default defineComponent({
   setup(_, { emit }) {
     const isHover = ref(false)
-    const onDrop = (event: DragEvent) => {
+    const onDrop = async (event: DragEvent) => {
       isHover.value = false
       const file = event.dataTransfer!.files[0]
 
-      // eslint-disable-next-line no-new
-      new Compressor(file, {
-        quality: 0.6,
-        success: (result) => {
-          emit('drop:file', result)
-        }
-      })
+      const compressedFile = await compress(file)
+      emit('drop:file', compressedFile)
     }
 
     const onDragover = () => {
@@ -49,7 +45,13 @@ export default defineComponent({
       isHover.value = false
     }
 
-    const onClick = () => {}
+    const onClick = async () => {
+      const { getFile } = useFileDialog()
+      const file = await getFile('image/*')
+
+      const newFile = await compress(file)
+      emit('input:file', newFile)
+    }
 
     return { onDrop, onDragover, onDragleave, isHover, onClick, mdiPlusThick }
   }
