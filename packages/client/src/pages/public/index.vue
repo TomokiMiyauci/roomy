@@ -34,13 +34,14 @@
       v-model="dialog"
       :fullscreen="$vuetify.breakpoint.mdAndDown"
       max-width="600px"
-      hide-overlay
+      :hide-overlay="isOpenQrcode"
+      :persistent="isOpenRoom"
       :transition="
         $vuetify.breakpoint.mdAndDown
           ? 'dialog-bottom-transition'
           : 'fab-transition'
       "
-      @click:outside="onClickOutside"
+      @click:outside="isOpenQrcode ? onClickOutside() : ''"
     >
       <card-room-share v-if="isOpenQrcode" :url="text" @close="onClose" />
       <form-create-room v-if="isOpenRoom" @close="onClose" />
@@ -123,6 +124,7 @@ export default defineComponent({
       dialog.value = false
       await wait(200)
       isOpenQrcode.value = false
+      isOpenRoom.value = false
     }
 
     onMounted(() => {
