@@ -42,11 +42,7 @@
       "
       @click:outside="onClickOutside"
     >
-      <form-room-share
-        v-if="isOpenQrcode"
-        :url="text"
-        @close="isOpenQrcode = false"
-      />
+      <card-room-share v-if="isOpenQrcode" :url="text" @close="onClose" />
       <form-create-room v-if="isOpenRoom" />
     </v-dialog>
   </div>
@@ -62,6 +58,7 @@ import {
   ref
 } from '@vue/composition-api'
 
+import { wait } from '@/core/useTime'
 import { publicRoom, user } from '@/store'
 import { generateInviteURL } from '@/utils/firestore'
 import { PublicRoom } from '~types/core'
@@ -116,11 +113,16 @@ export default defineComponent({
       isOpenRoom.value = true
     }
 
-    const onClickOutside = () => {
-      setTimeout(() => {
-        isOpenQrcode.value = false
-        isOpenRoom.value = false
-      }, 200)
+    const onClickOutside = async () => {
+      await wait(200)
+      isOpenQrcode.value = false
+      isOpenRoom.value = false
+    }
+
+    const onClose = async () => {
+      dialog.value = false
+      await wait(200)
+      isOpenQrcode.value = false
     }
 
     onMounted(() => {
@@ -145,7 +147,8 @@ export default defineComponent({
       mobile,
       onClickOutside,
       isOpenQrcode,
-      isOpenRoom
+      isOpenRoom,
+      onClose
     }
   }
 })
