@@ -1,6 +1,14 @@
 <template>
   <base-app-bar fixed app>
-    <v-btn fab absolute left bottom color="primary" @click="createRoom">
+    <v-btn
+      fab
+      absolute
+      left
+      bottom
+      color="primary"
+      aria-label="create room"
+      @click="createRoom"
+    >
       <v-icon>{{ mdiCommentPlus }}</v-icon></v-btn
     >
 
@@ -22,7 +30,7 @@
             :elevation="hover ? 12 : 2"
             v-on="click"
           >
-            <img :src="photoURL" />
+            <img alt="avatar" :src="photoURL" />
           </v-avatar>
         </v-hover>
       </template>
@@ -31,7 +39,7 @@
       </v-card>
     </v-menu>
 
-    <base-button v-else icon @click="$router.push('/login')">
+    <base-button v-else aria-label="login" icon @click="$router.push('/login')">
       <base-icon>{{ mdiLogin }}</base-icon>
     </base-button>
   </base-app-bar>
