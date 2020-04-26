@@ -77,15 +77,30 @@
           <v-icon left>{{ mdiFormatListText }}</v-icon>
           Preview
         </v-subheader>
-        <v-list max-width="360px">
+        <v-list :max-width="$vuetify.breakpoint.mdAndDown ? '' : '360px'">
           <v-list-item>
-            <v-list-item-avatar tile>
-              <v-img v-if="image" :src="image"></v-img>
-              <v-icon v-else color="primary">{{ mdiNewBox }}</v-icon>
+            <v-list-item-avatar
+              :style="{
+                border:
+                  step === 2
+                    ? `1px solid ${$vuetify.theme.themes.light.primary}`
+                    : ''
+              }"
+              tile
+            >
+              <v-img v-if="image" :src="image" />
+              <v-icon v-else-if="!image && step === 2" color="primary">{{
+                mdiNewBox
+              }}</v-icon>
+              <v-skeleton-loader v-else tile type="avatar" />
             </v-list-item-avatar>
 
             <v-list-item-content class="pt-1 pb-1">
-              <v-list-item-title :class="{ focus: step === 1 }">
+              <v-list-item-title
+                :style="{
+                  color: step === 1 ? $vuetify.theme.themes.light.primary : ''
+                }"
+              >
                 <span v-show="name">{{ name }}</span>
                 <v-skeleton-loader v-show="!name" type="text" />
               </v-list-item-title>
@@ -94,7 +109,22 @@
                   <v-icon>{{ mdiAccountCircle }}</v-icon>
                 </v-avatar>
               </v-list-item-subtitle>
+
+              <div class="grey--text caption">
+                <v-icon small left>{{ mdiChatProcessing }}</v-icon>
+                0
+              </div>
             </v-list-item-content>
+            <v-list-item-action>
+              <span
+                class="grey--text caption"
+                style="position:absolute;bottom:0;"
+                >Monday</span
+              >
+              <v-btn icon>
+                <v-icon color="grey lighten-1">{{ mdiQrcode }}</v-icon>
+              </v-btn>
+            </v-list-item-action>
           </v-list-item>
         </v-list>
       </v-card-text>
@@ -122,11 +152,13 @@
 <script lang="ts">
 import {
   mdiAccountCircle,
+  mdiChatProcessing,
   mdiClose,
   mdiCloseCircle,
   mdiCogs,
   mdiFormatListText,
   mdiNewBox,
+  mdiQrcode,
   mdiSemanticWeb,
   mdiSquareEditOutline
 } from '@mdi/js'
@@ -217,14 +249,10 @@ export default defineComponent({
       mdiSemanticWeb,
       mdiCloseCircle,
       mdiFormatListText,
-      valid
+      mdiChatProcessing,
+      valid,
+      mdiQrcode
     }
   }
 })
 </script>
-
-<style lang="scss" scoped>
-.focus {
-  color: green;
-}
-</style>
