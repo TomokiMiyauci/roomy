@@ -220,20 +220,21 @@ jobs:
 
       - run: mkdir /tmp/artifacts
 
-      - name: Run Lighthouse
+      - name: run Lighthouse
         uses: foo-software/lighthouse-check-action@master
         with:
           author: ${{ github.actor }}
           branch: ${{ github.ref }}
           outputDirectory: /tmp/artifacts
-          urls: 'https://roomy-devlop.web.app/'
+          urls: 'https://roomy-devlop.web.app/,https://roomy-devlop.web.app/public'
           sha: ${{ github.sha }}
           slackWebhookUrl: ${{ secrets.SLACK_WEBHOOK_URL_DEV }}
-      # - name: Upload artifacts
-      #   uses: actions/upload-artifact@master
-      #   with:
-      #     name: Lighthouse reports
-      #     path: /tmp/artifacts
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@master
+        with:
+          name: Lighthouse reports
+          path: /tmp/artifacts
 
   notice:
     needs: lighthouse
