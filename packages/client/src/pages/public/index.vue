@@ -43,7 +43,7 @@
       @click:outside="onClickOutside"
     >
       <card-room-share v-if="isOpenQrcode" :url="text" @close="onClose" />
-      <form-create-room v-if="isOpenRoom" />
+      <form-create-room v-if="isOpenRoom" @close="onClose" />
     </v-dialog>
   </div>
 </template>
