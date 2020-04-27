@@ -59,6 +59,8 @@ import {
   ref
 } from '@vue/composition-api'
 
+import CardRoomShare from '@/components/molecules/CardRoomShare.vue'
+import FormCreateRoom from '@/components/organisms/FormCreateRoom.vue'
 import { wait } from '@/core/useTime'
 import { publicRoom, user } from '@/store'
 import { generateInviteURL } from '@/utils/firestore'
@@ -78,8 +80,8 @@ export default defineComponent({
       import('@/components/molecules/ButtonCreateRoom.vue'),
     CardSigninPrompt: () =>
       import('@/components/molecules/CardSigninPrompt.vue'),
-    CardRoomShare: () => import('@/components/molecules/CardRoomShare.vue'),
-    FormCreateRoom: () => import('@/components/organisms/FormCreateRoom.vue')
+    CardRoomShare,
+    FormCreateRoom
   },
 
   setup(_, { root }) {
