@@ -24,8 +24,7 @@ const config: Configuration = {
    ** Headers of the page
    */
   head: {
-    titleTemplate: '%s - ' + process.env.npm_package_name,
-    title: process.env.npm_package_name || '',
+    titleTemplate: '%s - Roomy',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -88,6 +87,19 @@ const config: Configuration = {
     UserAgent: '*',
     Disallow: '/private'
   },
+
+  pwa: {
+    manifest: {
+      name: 'Roomy',
+      short_name: 'Roomy',
+      description: 'Open chat platform',
+      start_url: '/public',
+      display: 'standalone',
+      background_color: '#fff',
+      theme_color: '#fff'
+    }
+  },
+
   /*
    ** dotenv options
    */
