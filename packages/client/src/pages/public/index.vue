@@ -64,6 +64,12 @@ import { publicRoom, user } from '@/store'
 import { generateInviteURL } from '@/utils/firestore'
 import { PublicRoom } from '~types/core'
 export default defineComponent({
+  head() {
+    return {
+      title: 'Public'
+    }
+  },
+
   layout: 'public',
 
   components: {

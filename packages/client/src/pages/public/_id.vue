@@ -108,6 +108,12 @@ import { generateInviteURL, isOwn } from '@/utils/firestore'
 import { Message, PublicRoom } from '~types/core'
 
 export default defineComponent({
+  head() {
+    return {
+      title: 'Public'
+    }
+  },
+
   layout: 'public-chat',
 
   components: {
