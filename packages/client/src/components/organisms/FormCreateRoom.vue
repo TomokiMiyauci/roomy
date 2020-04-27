@@ -12,8 +12,8 @@
 
     <v-card class="mx-auto">
       <v-card-title class="title font-weight-regular justify-space-between">
-        <v-icon left>{{ mdiSquareEditOutline }}</v-icon
-        >{{ title }}
+        <v-icon left>{{ stepSet.icon }}</v-icon
+        >{{ stepSet.title }}
 
         <v-spacer></v-spacer>
 
@@ -50,10 +50,6 @@
               />
 
               <file-dropper v-else @input:file="onDrop" @drop:file="onDrop" />
-
-              <span class="caption grey--text text--darken-1">
-                Please enter a password for your account
-              </span>
             </v-card-text>
           </v-window-item>
 
@@ -83,7 +79,7 @@
               :style="{
                 border:
                   step === 2
-                    ? `1px solid ${$vuetify.theme.themes.light.primary}`
+                    ? `2px solid ${$vuetify.theme.themes.light.primary}`
                     : ''
               }"
               tile
@@ -157,6 +153,7 @@ import {
   mdiCloseCircle,
   mdiCogs,
   mdiFormatListText,
+  mdiImageEdit,
   mdiNewBox,
   mdiQrcode,
   mdiSemanticWeb,
@@ -181,7 +178,7 @@ export default defineComponent({
     FileDropper,
     ImageCropper
   },
-  setup() {
+  setup(_, { emit }) {
     const step = ref(0)
     const newRoom = reactive<RoomOptions>({
       name: 'New Room',
@@ -203,21 +200,19 @@ export default defineComponent({
       newRoom.image = dataURL
     }
 
-    const title = computed(() => {
-      let text = ''
-      switch (step.value) {
-        case 1: {
-          text = 'Name'
-          break
-        }
-
-        case 2: {
-          text = 'Room Image'
-          break
-        }
+    const stepper = [
+      {
+        title: 'Name',
+        icon: mdiSquareEditOutline
+      },
+      {
+        title: 'Image',
+        icon: mdiImageEdit
       }
+    ]
 
-      return text
+    const stepSet = computed(() => {
+      return stepper[step.value ? step.value - 1 : 0]
     })
 
     const onNext = async () => {
@@ -229,6 +224,7 @@ export default defineComponent({
         // console.log(photoURL)
 
         await createPublicRoom({ name: newRoom.name, photoURL })
+        emit('close')
       } else {
         step.value++
       }
@@ -243,13 +239,14 @@ export default defineComponent({
       onCrop,
       mdiAccountCircle,
       mdiNewBox,
-      title,
+      stepSet,
       mdiCogs,
       mdiSquareEditOutline,
       mdiSemanticWeb,
       mdiCloseCircle,
       mdiFormatListText,
       mdiChatProcessing,
+      mdiImageEdit,
       valid,
       mdiQrcode
     }
