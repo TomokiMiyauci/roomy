@@ -8,7 +8,8 @@
       "@types/jest",
       "@nuxtjs/vuetify",
       "@types/dom-mediacapture-record",
-      "@types/qrcode"
+      "@types/qrcode",
+      "@nuxtjs/axios"
     ],
     "rootDirs": ["src"],
     "forceConsistentCasingInFileNames": true  /* Disallow inconsistently-cased references to the same file. */,
@@ -23,7 +24,8 @@
       "~types/*": [
         "../share/*"
       ]
-  }},
+    }
+  },
 
   "exclude": [
     "node_modules",
