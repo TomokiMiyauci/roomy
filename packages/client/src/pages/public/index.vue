@@ -130,7 +130,7 @@ export default defineComponent({
 
     const onClose = async () => {
       dialog.value = false
-      await wait(200)
+      await wait(250)
       isOpenQrcode.value = false
       isOpenRoom.value = false
     }
