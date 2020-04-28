@@ -14,18 +14,17 @@
       <v-card-title class="title font-weight-regular justify-space-between">
         <v-icon left>{{ stepSet.icon }}</v-icon
         >{{ stepSet.title }}
-
         <v-spacer></v-spacer>
 
         <v-avatar
           color="primary lighten-2"
           class="subheading white--text"
           size="24"
-          v-text="step"
+          v-text="stepWindow"
         ></v-avatar>
       </v-card-title>
       <v-form v-model="valid">
-        <v-window v-model="step">
+        <v-window v-model="stepWindow">
           <v-window-item :value="1">
             <v-card-text>
               <v-text-field
@@ -55,14 +54,36 @@
 
           <v-window-item :value="3">
             <div class="pa-4 text-center">
+              <v-progress-circular
+                v-if="isEqual(0)"
+                :size="150"
+                :width="9"
+                color="primary"
+                indeterminate
+              ></v-progress-circular>
+
+              <v-icon v-else-if="isEqual(1)" size="150" color="secondary">{{
+                mdiCheckCircle
+              }}</v-icon>
+
               <v-img
+                v-else-if="isEqual(2)"
                 class="mb-4"
                 contain
                 height="128"
                 src="https://cdn.vuetifyjs.com/images/logos/v.svg"
               ></v-img>
-              <h3 class="title font-weight-light mb-2">Welcome to Vuetify</h3>
-              <span class="caption grey--text">Thanks for signing up!</span>
+
+              <svg-qrcode
+                v-else-if="isEqual(3)"
+                style="width:150px;height:150px;margin:0 auto;"
+                text="hello"
+              />
+
+              <h3 class="title font-weight-light mb-2">
+                {{ progressMessage }}
+              </h3>
+              <!-- <span class="caption grey--text">Thanks for signing up!</span> -->
             </div>
           </v-window-item>
         </v-window>
@@ -78,14 +99,14 @@
             <v-list-item-avatar
               :style="{
                 border:
-                  step === 2
+                  stepWindow === 2
                     ? `2px solid ${$vuetify.theme.themes.light.primary}`
                     : ''
               }"
               tile
             >
               <v-img v-if="image" :src="image" />
-              <v-icon v-else-if="!image && step === 2" color="primary">{{
+              <v-icon v-else-if="!image && stepWindow === 2" color="primary">{{
                 mdiNewBox
               }}</v-icon>
               <v-skeleton-loader v-else tile type="avatar" />
@@ -94,7 +115,8 @@
             <v-list-item-content class="pt-1 pb-1">
               <v-list-item-title
                 :style="{
-                  color: step === 1 ? $vuetify.theme.themes.light.primary : ''
+                  color:
+                    stepWindow === 1 ? $vuetify.theme.themes.light.primary : ''
                 }"
               >
                 <span v-show="name">{{ name }}</span>
@@ -128,12 +150,16 @@
       <v-divider></v-divider>
 
       <v-card-actions>
-        <v-btn :disabled="step === 1" text @click="step--">
+        <v-btn
+          :disabled="stepWindow === 1 || stepWindow === 3"
+          text
+          @click="stepWindow--"
+        >
           Back
         </v-btn>
         <v-spacer></v-spacer>
         <v-btn
-          :disabled="step === 3 || !valid"
+          :disabled="stepWindow === 3 || !valid"
           color="primary"
           depressed
           @click="onNext"
@@ -149,6 +175,7 @@
 import {
   mdiAccountCircle,
   mdiChatProcessing,
+  mdiCheckCircle,
   mdiClose,
   mdiCloseCircle,
   mdiCogs,
@@ -167,19 +194,20 @@ import {
   toRefs
 } from '@vue/composition-api'
 
-import FileDropper from '@/components/molecules/FileDropper.vue'
-import ImageCropper from '@/components/molecules/ImageCropper.vue'
 import { blobToDataURL as b } from '@/core/useFileDialog'
+import { useStep } from '@/core/useStep'
+import { wait } from '@/core/useTime'
 import { createPublicRoom } from '@/repositories/room'
 import { RoomOptions } from '~types/core'
 
 export default defineComponent({
   components: {
-    FileDropper,
-    ImageCropper
+    FileDropper: () => import('@/components/molecules/FileDropper.vue'),
+    ImageCropper: () => import('@/components/molecules/ImageCropper.vue'),
+    SvgQrcode: () => import('@/components/atoms/SvgQrcode.vue')
   },
-  setup(_, { emit }) {
-    const step = ref(0)
+  setup() {
+    const stepWindow = ref(0)
     const newRoom = reactive<RoomOptions>({
       name: 'New Room',
       image: ''
@@ -189,12 +217,23 @@ export default defineComponent({
 
     const img = ref('')
 
+    const { next, isEqual } = useStep()
+
     const onDrop = async (file: Blob) => {
       // newRoom.image = file
       console.log(newRoom)
       const aaa = await b(file)
       img.value = aaa
     }
+
+    const progressMessage = computed(() => {
+      if (isEqual(0)) return 'Creating room...'
+      if (isEqual(1)) return 'Create Completed.'
+      if (isEqual(2)) return 'Welcome to Roomy!'
+      if (isEqual(3)) return 'Share room anyone now.'
+
+      return 'Error has occured.'
+    })
 
     const onCrop = (dataURL: string) => {
       newRoom.image = dataURL
@@ -208,15 +247,17 @@ export default defineComponent({
       {
         title: 'Image',
         icon: mdiImageEdit
-      }
+      },
+      { title: 'Result', icon: '' }
     ]
 
     const stepSet = computed(() => {
-      return stepper[step.value ? step.value - 1 : 0]
+      return stepper[stepWindow.value ? stepWindow.value - 1 : 0]
     })
 
     const onNext = async () => {
-      if (step.value === 2) {
+      if (stepWindow.value === 2) {
+        stepWindow.value++
         // const photoURL = await blobToDataURL(newRoom.image!)
         const photoURL = newRoom.image ? newRoom.image : ''
 
@@ -224,16 +265,22 @@ export default defineComponent({
         // console.log(photoURL)
 
         await createPublicRoom({ name: newRoom.name, photoURL })
-        emit('close')
+        await wait(2000)
+        next()
+        await wait(2000)
+        next()
+        await wait(2000)
+        next()
+        // emit('close')
       } else {
-        step.value++
+        stepWindow.value++
       }
     }
     return {
       mdiClose,
       ...toRefs(newRoom),
       onDrop,
-      step,
+      stepWindow,
       onNext,
       img,
       onCrop,
@@ -248,7 +295,10 @@ export default defineComponent({
       mdiChatProcessing,
       mdiImageEdit,
       valid,
-      mdiQrcode
+      mdiQrcode,
+      isEqual,
+      progressMessage,
+      mdiCheckCircle
     }
   }
 })
