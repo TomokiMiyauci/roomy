@@ -60,6 +60,7 @@
     "@nuxt/typescript-build": "^0.5.4",
     "@nuxtjs/eslint-config-typescript": "^1.0.0",
     "@nuxtjs/eslint-module": "^1.0.0",
+    "@nuxtjs/google-analytics": "^2.2.3",
     "@nuxtjs/stylelint-module": "^3.2.1",
     "@nuxtjs/vuetify": "^1.10.3",
     "@storybook/addon-a11y": "^5.3.13",

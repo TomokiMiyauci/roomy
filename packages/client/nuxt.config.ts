@@ -69,7 +69,13 @@ const config: Configuration = {
     '@nuxtjs/eslint-module',
     '@nuxtjs/vuetify',
     '@nuxtjs/stylelint-module',
-    ['@nuxtjs/dotenv', { systemvars: false }]
+    ['@nuxtjs/dotenv', { systemvars: false }],
+    [
+      '@nuxtjs/google-analytics',
+      {
+        id: 'UA-12301-2'
+      }
+    ]
   ],
   /*
    ** Nuxt.js modules
