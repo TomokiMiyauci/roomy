@@ -99,38 +99,38 @@ jobs:
       - name: audit
         run: yarn workspace client run audit
 
-  # test-unit:
-  #   needs: setup
-  #   runs-on: ${{ matrix.os }}
+  test-unit:
+    needs: setup
+    runs-on: ${{ matrix.os }}
 
-  #   strategy:
-  #     matrix:
-  #       os: [ubuntu-latest]
-  #       node: [10, 14]
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [13, 14]
 
-  #   steps:
-  #     - uses: actions/setup-node@v1
-  #       with:
-  #         node-version: ${{ matrix.node }}
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
 
-  #     - name: checkout
-  #       uses: actions/checkout@master
+      - name: checkout
+        uses: actions/checkout@master
 
-  #     - name: restore workspace cache
-  #       uses: actions/cache@v1
-  #       with:
-  #         path: ${{ github.workspace }}
-  #         key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
+      - name: restore workspace cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
 
-  #     - name: test unit
-  #       run: yarn workspace client test:unit --ci
+      - name: test unit
+        run: yarn workspace client test:unit --ci
 
-  #     - name: upload coverage
-  #       if: matrix.node == 14
-  #       uses: codecov/codecov-action@master
-  #       with:
-  #         token: ${{ secrets.CODECOV_TOKEN }}
-  #         file: ./coverage/clover.xml
+      # - name: upload coverage
+      #   if: matrix.node == 14
+      #   uses: codecov/codecov-action@master
+      #   with:
+      #     token: ${{ secrets.CODECOV_TOKEN }}
+      #     file: ./coverage/clover.xml
 
 
   # test-snapshot:
@@ -230,17 +230,17 @@ jobs:
           sha: ${{ github.sha }}
           slackWebhookUrl: ${{ secrets.SLACK_WEBHOOK_URL_DEV }}
 
-      - name: debug
-        run: |
-          ls -a /tmp/artifacts
+      # - name: debug
+      #   run: |
+      #     ls -a /tmp/artifacts
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: /tmp/artifacts
-          keep_files: true
-          publish_branch: develop
+      # - name: Deploy to GitHub Pages
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: /tmp/artifacts
+      #     keep_files: true
+      #     publish_branch: develop
 
       - name: Upload artifacts
         uses: actions/upload-artifact@master
