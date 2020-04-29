@@ -6,7 +6,7 @@
           <v-btn
             v-bind="$attrs"
             fab
-            :color="login ? 'primary' : 'grey'"
+            :color="login ? 'secondary' : 'grey'"
             v-on="menu"
             @click="login ? $emit('click') : ''"
             @mouseenter="on.mouseenter"

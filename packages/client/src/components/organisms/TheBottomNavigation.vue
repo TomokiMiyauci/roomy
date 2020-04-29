@@ -1,5 +1,11 @@
 <template>
-  <v-bottom-navigation app fixed grow color="teal">
+  <v-bottom-navigation
+    color="secondary"
+    app
+    fixed
+    grow
+    background-color="primary"
+  >
     <v-btn to="/public">
       <span>Public</span>
       <v-icon>{{ mdiWeb }}</v-icon>

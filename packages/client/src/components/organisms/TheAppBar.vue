@@ -1,5 +1,5 @@
 <template>
-  <base-app-bar fixed app>
+  <base-app-bar color="primary" fixed app>
     <v-btn
       fab
       absolute

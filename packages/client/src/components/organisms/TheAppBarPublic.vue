@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar fixed app clipped-right clipped-left>
+  <v-app-bar color="primary" fixed app clipped-right clipped-left>
     <template #default>
       <client-only>
         <ButtonCreateRoom

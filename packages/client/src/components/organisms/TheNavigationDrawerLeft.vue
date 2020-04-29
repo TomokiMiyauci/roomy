@@ -1,6 +1,7 @@
 <template>
   <v-navigation-drawer
     ref="navigation"
+    color="rgba(200,200,200)"
     expand-on-hover
     mini-variant
     clipped
