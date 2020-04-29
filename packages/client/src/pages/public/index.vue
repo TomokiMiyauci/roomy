@@ -9,7 +9,11 @@
       class="fill-height flex-column grey--text"
     >
       <v-col cols="auto">
-        <div class="display-1">Select Right</div>
+        <div class="display-1">
+          <client-only>
+            <vue-typer :text="['Welcome to Public Room', 'Select Right']" />
+          </client-only>
+        </div>
       </v-col>
       <v-col class="pa-0" cols="auto">or</v-col>
       <v-col cols="auto">
