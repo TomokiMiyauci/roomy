@@ -6,6 +6,8 @@
       </v-btn>
     </client-only>
 
+    <v-toolbar-title>{{ title }}</v-toolbar-title>
+
     <v-spacer />
 
     <base-button icon @click="$router.push('/host')">
@@ -27,6 +29,13 @@ export default defineComponent({
     BaseAppBar,
     BaseButton,
     BaseIcon
+  },
+
+  props: {
+    title: {
+      type: String,
+      default: ''
+    }
   },
 
   setup() {
