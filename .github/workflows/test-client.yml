@@ -237,6 +237,12 @@ jobs:
           name: Lighthouse reports
           path: /tmp/artifacts
 
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: /tmp/artifacts
+
       - name: debug
         run: |
           ls -a /tmp/artifacts
