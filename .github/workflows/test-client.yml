@@ -171,7 +171,6 @@ jobs:
       MESSAGING_SENDER_ID: ${{ secrets.MESSAGING_SENDER_ID_DEV }}
       APP_ID: ${{ secrets.APP_ID_DEV }}
       MEASUREMENT_ID: ${{ secrets.MEASUREMENT_ID_DEV }}
-      TTTT: ${{ secrets.hello }}
 
     strategy:
       matrix:
@@ -240,6 +239,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: /tmp/artifacts
+          keep_files: true
 
       - name: Upload artifacts
         uses: actions/upload-artifact@master
