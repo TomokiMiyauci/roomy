@@ -30,15 +30,15 @@ export const createMessage = (
     ...getAuthor()
   }
 
+  console.log(data)
+
   return collectionRef.value.add(data).catch((e) => {
     console.log(e)
   })
 }
 
-export const getAuthor = (
-  documentPath?: string
-): { author: Author | Anonymous } => {
-  const author: Author | Anonymous = documentPath
+export const getAuthor = (): { author: Author | Anonymous } => {
+  const author: Author | Anonymous = user.login
     ? {
         ...getUserInfo(),
         isAnonymous: false
