@@ -21,6 +21,7 @@
         <v-skeleton-loader width="80px" type="text" />
       </v-col>
     </v-row>
+    <v-divider v-show="!$vuetify.breakpoint.mdAndDown" />
   </div>
 </template>
 
