@@ -1,16 +1,30 @@
 <template>
-  <div>
+  <div class="fill-height">
     <v-bottom-sheet v-model="sheet">
       <recording-studio @close="onClose" />
     </v-bottom-sheet>
 
-    <v-container v-if="!messages.length" class="pa-10">
+    <v-container v-if="!messages.length" class="fill-height pa-10">
       <v-row class="flex-column">
-        <SkeletonLoaderMessageSet
-          v-for="i in 10"
-          :key="i"
-          class="pb-4"
-        ></SkeletonLoaderMessageSet>
+        <transition-group name="fade">
+          <template v-if="!isEmpty">
+            <SkeletonLoaderMessageSet
+              v-for="i in 10"
+              :key="i"
+              class="pb-4"
+            ></SkeletonLoaderMessageSet>
+          </template>
+
+          <v-row v-else key="suggest" align="center" class="flex-column">
+            <v-col cols="auto">
+              <v-icon size="50">{{ mdiCommentProcessing }}</v-icon>
+            </v-col>
+
+            <v-col cols="auto">
+              <span class="display-1 grey--text">No message </span>
+            </v-col>
+          </v-row>
+        </transition-group>
       </v-row>
     </v-container>
 
@@ -51,6 +65,10 @@
                 :message="message"
                 :is-own="isOwn(message)"
               />
+              <v-divider
+                v-show="!$vuetify.breakpoint.mdAndDown"
+                :key="`${index}divider`"
+              />
             </template>
           </transition-group>
         </v-col>
@@ -71,16 +89,14 @@
       <card-room-share :url="text" @close="dialog = false" />
     </v-dialog>
 
-    <client-only>
-      <div
-        style="position:fixed;bottom:0;"
-        :style="{
-          width: $vuetify.breakpoint.mdAndDown ? '100%' : 'calc(100% - 406px)'
-        }"
-      >
-        <the-post @postend="onPostend" @audio="sheet = true" />
-      </div>
-    </client-only>
+    <div
+      style="position:fixed;bottom:0;background-color:rgb(255,255,255);"
+      :style="{
+        width: $vuetify.breakpoint.mdAndDown ? '100%' : 'calc(100% - 406px)'
+      }"
+    >
+      <the-post @postend="onPostend" @audio="sheet = true" />
+    </div>
   </div>
 </template>
 
@@ -89,6 +105,7 @@ import {
   mdiAlertCircleOutline,
   mdiCheckboxBlank,
   mdiCheckBoxOutline,
+  mdiCommentProcessing,
   mdiMicrophone,
   mdiMicrophoneSettings
 } from '@mdi/js'
@@ -133,6 +150,7 @@ export default defineComponent({
     const sheet = ref(false)
     const dialog = ref(false)
     const text = ref('')
+    const isEmpty = ref(false)
 
     reference.setRoomId(root.$route.params.id)
 
@@ -142,9 +160,13 @@ export default defineComponent({
       collectionRef.value.orderBy('createdAt', 'asc')
     )
 
+    setTimeout(() => {
+      isEmpty.value = true
+    }, 3000)
+
     const beforeEnter = (el: HTMLLIElement) => {
       el.style.opacity = '0'
-      el.style.transform = 'scale(0,1)'
+      el.style.transform = 'translateX(50px)'
     }
 
     const onClose = async () => {
@@ -156,6 +178,7 @@ export default defineComponent({
       gsap.to(el, {
         duration: 1,
         opacity: 1,
+        translateX: 0,
         scale: 1,
         onComplete: done,
         stagger: 0.5
@@ -195,8 +218,20 @@ export default defineComponent({
       dayjs,
       isOwn,
       dialog,
-      text
+      text,
+      mdiCommentProcessing,
+      isEmpty
     }
   }
 })
 </script>
+
+<style lang="scss">
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  transition: opacity 2s;
+}
+</style>
