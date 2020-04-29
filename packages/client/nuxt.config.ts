@@ -117,11 +117,11 @@ const config: Configuration = {
    ** https://github.com/nuxt-community/vuetify-module
    */
   vuetify: {
-    customVariables: ['~/assets/variables.scss'],
+    customVariables: ['@/assets/variables.scss'],
     defaultAssets: {
       icons: false
     },
-    optionsPath: './vuetify.options.ts'
+    optionsPath: path.resolve(__dirname, 'vuetify.options.ts')
   },
   /*
    ** Build configuration
