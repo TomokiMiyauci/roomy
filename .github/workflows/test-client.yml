@@ -236,6 +236,10 @@ jobs:
           name: Lighthouse reports
           path: /tmp/artifacts
 
+      - name: debug
+        run: |
+          ls -a /tmp/artifacts
+
   notice:
     needs: lighthouse
     runs-on: ${{ matrix.os }}
@@ -245,10 +249,6 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
-      - name: debug
-        run: |
-          ls -a /tmp/artifacts
-
       - uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
