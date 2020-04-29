@@ -123,14 +123,14 @@ export default defineComponent({
     }
 
     const onClickOutside = async () => {
-      await wait(200)
+      await wait(300)
       isOpenQrcode.value = false
       isOpenRoom.value = false
     }
 
     const onClose = async () => {
       dialog.value = false
-      await wait(250)
+      await wait(300)
       isOpenQrcode.value = false
       isOpenRoom.value = false
     }
