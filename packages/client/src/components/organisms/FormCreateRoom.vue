@@ -10,7 +10,7 @@
       >
     </v-toolbar>
 
-    <v-card class="mx-auto">
+    <div class="mx-auto">
       <v-card-title class="title font-weight-regular justify-space-between">
         <v-icon left>{{ stepSet.icon }}</v-icon
         >{{ stepSet.title }}
@@ -167,7 +167,7 @@
           Next
         </v-btn>
       </v-card-actions>
-    </v-card>
+    </div>
   </v-card>
 </template>
 
