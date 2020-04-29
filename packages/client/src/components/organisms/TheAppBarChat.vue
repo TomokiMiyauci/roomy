@@ -1,8 +1,11 @@
 <template>
   <base-app-bar fixed app clipped-right clipped-left color="primary">
-    <v-btn v-if="$vuetify.breakpoint.mdAndDown" icon @click="$router.back()">
-      <v-icon>{{ mdiArrowLeft }}</v-icon>
-    </v-btn>
+    <client-only>
+      <v-btn v-if="$vuetify.breakpoint.mdAndDown" icon @click="$router.back()">
+        <v-icon>{{ mdiArrowLeft }}</v-icon>
+      </v-btn>
+    </client-only>
+
     <v-spacer />
 
     <base-button icon @click="$router.push('/host')">
