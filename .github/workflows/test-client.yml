@@ -231,11 +231,9 @@ jobs:
           sha: ${{ github.sha }}
           slackWebhookUrl: ${{ secrets.SLACK_WEBHOOK_URL_DEV }}
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@master
-        with:
-          name: Lighthouse reports
-          path: /tmp/artifacts
+      - name: debug
+        run: |
+          ls -a /tmp/artifacts
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
@@ -243,9 +241,14 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: /tmp/artifacts
 
-      - name: debug
-        run: |
-          ls -a /tmp/artifacts
+      - name: Upload artifacts
+        uses: actions/upload-artifact@master
+        with:
+          name: Lighthouse reports
+          path: /tmp/artifacts
+
+
+
 
   notice:
     needs: lighthouse
