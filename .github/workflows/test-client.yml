@@ -226,7 +226,7 @@ jobs:
           author: ${{ github.actor }}
           branch: ${{ github.ref }}
           outputDirectory: /tmp/artifacts
-          urls: 'https://roomy-devlop.web.app/,https://roomy-devlop.web.app/public'
+          urls: 'https://roomy-devlop.web.app/,https://roomy-devlop.web.app/public,https://roomy-devlop.web.app/login'
           sha: ${{ github.sha }}
           slackWebhookUrl: ${{ secrets.SLACK_WEBHOOK_URL_DEV }}
 
@@ -247,7 +247,7 @@ jobs:
     steps:
       - name: debug
         run: |
-          pwd
+          ls -a /tmp/artifacts
 
       - uses: 8398a7/action-slack@v3
         with:
