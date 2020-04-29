@@ -58,7 +58,8 @@ const config: Configuration = {
     '@/plugins/firebase',
     '@/plugins/pretty-bytes',
     '@/plugins/axios',
-    { src: '@/plugins/axe', ssr: false }
+    { src: '@/plugins/axe', ssr: false },
+    { src: '@/plugins/vue-typer', ssr: false }
   ],
   /*
    ** Nuxt.js dev-modules
