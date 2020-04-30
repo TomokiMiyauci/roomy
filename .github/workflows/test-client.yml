@@ -125,9 +125,6 @@ jobs:
       - name: prepare type
         run: sed -i -e '2s/^/\/\/ /g' packages/client/src/types/vue-shims.d.ts
 
-      - name: debug
-        run: cat packages/client/src/types/vue-shims.d.ts
-
       - name: test unit
         run: yarn workspace client test:unit --ci
 
@@ -194,7 +191,7 @@ jobs:
         run: sed -i -e '2s/^/\/\/ /g' packages/client/src/types/vue-shims.d.ts
 
       - name: deploy storybook
-        run: yarn workspace client deploy-storybook --ci
+        run: yarn workspace client deploy-storybook -- --ci
         env:
           GH_TOKEN: ${ GITHUB_ACTOR }:${{ secrets.GITHUB_TOKEN }}
 
