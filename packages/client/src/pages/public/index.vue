@@ -1,38 +1,42 @@
 <template>
   <div class="fill-height">
-    <the-rooms v-if="mobile" :rooms="rooms" @open:qrcode="qrcode" />
+    <client-only>
+      <template v-if="$vuetify.breakpoint.mdAndDown">
+        <transition v-if="notFound && !rooms.length" name="fade">
+          <v-container v-if="notFound && !rooms.length" class="fill-height">
+            <v-row justify="center" align="center" class="flex-column">
+              <v-col cols="auto">
+                <span class="display-1 grey--text">No Rooms</span>
+              </v-col>
+              <v-col cols="auto">
+                <v-icon large>{{ mdiCommentQuestion }}</v-icon>
+              </v-col>
+            </v-row>
+          </v-container>
+        </transition>
 
-    <v-row
-      v-else
-      justify="center"
-      align="center"
-      class="fill-height flex-column grey--text"
-    >
-      <v-col cols="auto">
-        <div class="display-1">
-          <client-only>
-            <vue-typer :text="['Welcome to Public Room', 'Select Right']" />
-          </client-only>
-        </div>
-      </v-col>
-      <v-col class="pa-0" cols="auto">or</v-col>
-      <v-col cols="auto">
-        <ButtonCreateRoom top offset-x :login="login" @click="create" />
-      </v-col>
-    </v-row>
+        <the-rooms v-else :rooms="rooms" @open:qrcode="qrcode" />
+      </template>
 
-    <transition name="fade">
-      <v-container v-if="!rooms.length && notFound" class="fill-height">
-        <v-row justify="center" align="center" class="flex-column">
-          <v-col cols="auto">
-            <span class="display-1 grey--text">No Rooms</span>
-          </v-col>
-          <v-col cols="auto">
-            <v-icon large>{{ mdiCommentQuestion }}</v-icon>
-          </v-col>
-        </v-row>
-      </v-container>
-    </transition>
+      <v-row
+        v-else
+        justify="center"
+        align="center"
+        class="fill-height flex-column grey--text"
+      >
+        <v-col cols="auto">
+          <div class="display-1">
+            <client-only>
+              <vue-typer :text="['Welcome to Public Room', 'Select Right']" />
+            </client-only>
+          </div>
+        </v-col>
+        <v-col class="pa-0" cols="auto">or</v-col>
+        <v-col cols="auto">
+          <ButtonCreateRoom top offset-x :login="login" @click="create" />
+        </v-col>
+      </v-row>
+    </client-only>
 
     <v-dialog
       v-model="dialog"
@@ -91,10 +95,7 @@ export default defineComponent({
   setup(_, { root }) {
     publicRoom.subscribe()
     const mobile = computed(() => {
-      return (
-        (root.$vuetify.breakpoint.mdAndDown && !!rooms.value.length) ||
-        !notFound
-      )
+      return root.$vuetify.breakpoint.mdAndDown && notFound
     })
 
     const TIMEOUT = 3000
