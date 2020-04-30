@@ -30,6 +30,7 @@
               <v-text-field
                 v-model="name"
                 clearable
+                outlined
                 hint="Ex. Roomy Official"
                 :clear-icon="mdiCloseCircle"
                 :prepend-inner-icon="mdiSemanticWeb"
@@ -53,7 +54,10 @@
           </v-window-item>
 
           <v-window-item :value="3">
-            <div class="pa-4 text-center">
+            <div
+              class="pa-4 text-center"
+              :style="{ height: $vuetify.breakpoint.mdAndDown ? '40vh' : '' }"
+            >
               <v-progress-circular
                 v-if="isEqual(0)"
                 :size="150"
@@ -77,7 +81,7 @@
               <svg-qrcode
                 v-else-if="isEqual(3)"
                 style="width:150px;height:150px;margin:0 auto;"
-                text="hello"
+                :text="url"
               />
 
               <h3 class="title font-weight-light mb-2">
@@ -216,6 +220,7 @@ export default defineComponent({
     const valid = ref(false)
 
     const img = ref('')
+    const url = ref('')
 
     const { next, isEqual } = useStep()
 
@@ -264,7 +269,11 @@ export default defineComponent({
         // const photoURL = newRoom.image ? URL.createObjectURL(newRoom.image) : ''
         // console.log(photoURL)
 
-        await createPublicRoom({ name: newRoom.name, photoURL })
+        const documentData = await createPublicRoom({
+          name: newRoom.name,
+          photoURL
+        })
+        url.value = `${process.env.baseUrl}/public/${documentData.id}`
         await wait(2000)
         next()
         await wait(2000)
@@ -298,7 +307,8 @@ export default defineComponent({
       mdiQrcode,
       isEqual,
       progressMessage,
-      mdiCheckCircle
+      mdiCheckCircle,
+      url
     }
   }
 })
