@@ -122,6 +122,12 @@ jobs:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
 
+      - name: prepare type
+        run: sed -i -e '2s/^/\/\/ /g' packages/client/src/types/vue-shims.d.ts
+
+      - name: debug
+        run: cat packages/client/src/types/vue-shims.d.ts
+
       - name: test unit
         run: yarn workspace client test:unit --ci
 
@@ -193,6 +199,7 @@ jobs:
 
       - name: generate
         run: |
+          cat packages/client/src/types/vue-shims.d.ts
           echo API_KEY=${{ secrets.API_KEY_DEV }} >> packages/client/.env
           echo AUTH_DOMAIN=${{ secrets.AUTH_DOMAIN_DEV }} >> packages/client/.env
           echo DATABASE_URL=${{ secrets.DATABASE_URL_DEV }} >> packages/client/.env
