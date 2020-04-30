@@ -138,35 +138,72 @@ jobs:
       #     token: ${{ secrets.CODECOV_TOKEN }}
       #     file: ./coverage/clover.xml
 
+  test-snapshot:
+    needs: setup
+    runs-on: ${{ matrix.os }}
 
-  # test-snapshot:
-  #   needs: setup
-  #   runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [13, 14]
 
-  #   strategy:
-  #     matrix:
-  #       os: [ubuntu-latest]
-  #       node: [10, 14]
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
 
-  #   steps:
-  #     - uses: actions/setup-node@v1
-  #       with:
-  #         node-version: ${{ matrix.node }}
+      - name: checkout
+        uses: actions/checkout@master
 
-  #     - name: checkout
-  #       uses: actions/checkout@master
+      - name: restore workspace cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
 
-  #     - name: restore workspace cache
-  #       uses: actions/cache@v1
-  #       with:
-  #         path: ${{ github.workspace }}
-  #         key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
+      - name: prepare type
+        run: sed -i -e '2s/^/\/\/ /g' packages/client/src/types/vue-shims.d.ts
 
-  #     - name: test snapshot
-  #       run: yarn test:snapshot --ci
+      - name: debug
+        run: cat packages/client/src/types/vue-shims.d.ts
+
+      - name: test snapshot
+        run: yarn test:snapshot --ci
+
+  deploy-storybook:
+    needs: [lint, audit, test-unit, test-snapshot]
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [14]
+
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: checkout
+        uses: actions/checkout@master
+
+      - name: restore workspace cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
+
+      - name: prepare type
+        run: sed -i -e '2s/^/\/\/ /g' packages/client/src/types/vue-shims.d.ts
+
+      - name: debug
+        run: cat packages/client/src/types/vue-shims.d.ts
+
+      - name: deploy storybook
+        run: yarn workspace client deploy-storybook
 
   deploy:
-    needs: lint
+    needs: [lint, audit, test-unit, test-snapshot]
     runs-on: ${{ matrix.os }}
     env:
       API_KEY: ${{ secrets.API_KEY_DEV }}
@@ -237,10 +274,6 @@ jobs:
           sha: ${{ github.sha }}
           slackWebhookUrl: ${{ secrets.SLACK_WEBHOOK_URL_DEV }}
 
-      # - name: debug
-      #   run: |
-      #     ls -a /tmp/artifacts
-
       # - name: Deploy to GitHub Pages
       #   uses: peaceiris/actions-gh-pages@v3
       #   with:
@@ -254,9 +287,6 @@ jobs:
         with:
           name: Lighthouse reports
           path: /tmp/artifacts
-
-
-
 
   notice:
     needs: lighthouse
