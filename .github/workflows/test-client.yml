@@ -197,7 +197,7 @@ jobs:
         run: cat packages/client/src/types/vue-shims.d.ts
 
       - name: deploy storybook
-        run: yarn workspace client deploy-storybook
+        run: yarn workspace client deploy-storybook --source-branch develop --ci
 
   deploy:
     needs: [lint, audit, test-unit, test-snapshot]
@@ -211,6 +211,7 @@ jobs:
       MESSAGING_SENDER_ID: ${{ secrets.MESSAGING_SENDER_ID_DEV }}
       APP_ID: ${{ secrets.APP_ID_DEV }}
       MEASUREMENT_ID: ${{ secrets.MEASUREMENT_ID_DEV }}
+      DSN_DEV: ${{ secrets.DSN_DEV }}
 
     strategy:
       matrix:
