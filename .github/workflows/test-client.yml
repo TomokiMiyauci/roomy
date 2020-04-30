@@ -164,11 +164,8 @@ jobs:
       - name: prepare type
         run: sed -i -e '2s/^/\/\/ /g' packages/client/src/types/vue-shims.d.ts
 
-      - name: debug
-        run: cat packages/client/src/types/vue-shims.d.ts
-
       - name: test snapshot
-        run: yarn test:snapshot --ci
+        run: yarn workspace client test:snapshot --ci
 
   deploy-storybook:
     needs: [lint, audit, test-unit, test-snapshot]
