@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots organisms|TheAppBar Default 1`] = `
+exports[`Storyshots molecules|ButtonCopy2Clipboard Default 1`] = `
 <div
   class="v-application v-application--is-ltr theme--light"
   data-app="true"
@@ -20,14 +20,13 @@ exports[`Storyshots organisms|TheAppBar Default 1`] = `
         <div
           class="container container--fluid"
         >
-          <base-app-bar
-            app=""
-            color="primary"
-            fixed=""
+          <span
+            class="v-tooltip v-tooltip--top"
+            src="text"
           >
+            <!---->
             <button
-              aria-label="create room"
-              class="v-btn v-btn--absolute v-btn--bottom v-btn--contained v-btn--fab v-btn--left v-btn--round theme--light v-size--default primary"
+              class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default"
               type="button"
             >
               <span
@@ -46,26 +45,13 @@ exports[`Storyshots organisms|TheAppBar Default 1`] = `
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M9,22A1,1 0 0,1 8,21V18H4A2,2 0 0,1 2,16V4C2,2.89 2.9,2 4,2H20A2,2 0 0,1 22,4V16A2,2 0 0,1 20,18H13.9L10.2,21.71C10,21.9 9.75,22 9.5,22H9M11,6V9H8V11H11V14H13V11H16V9H13V6H11Z"
+                      d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"
                     />
                   </svg>
                 </span>
               </span>
             </button>
-             
-            <div
-              class="spacer"
-            />
-             
-            <base-button
-              aria-label="login"
-              icon=""
-            >
-              <base-icon>
-                M10,17V14H3V10H10V7L15,12L10,17M10,2H19A2,2 0 0,1 21,4V20A2,2 0 0,1 19,22H10A2,2 0 0,1 8,20V18H10V20H19V4H10V6H8V4A2,2 0 0,1 10,2Z
-              </base-icon>
-            </base-button>
-          </base-app-bar>
+          </span>
         </div>
       </div>
     </main>

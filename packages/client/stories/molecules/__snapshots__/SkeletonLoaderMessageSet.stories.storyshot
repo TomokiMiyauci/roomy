@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots molecules|SkeletonLoaderMessageSet Default 1`] = `
+<div
+  class="v-application v-application--is-ltr theme--light"
+  data-app="true"
+  id="app"
+  style="background-color: transparent;"
+>
+  <div
+    class="v-application--wrap"
+  >
+    <main
+      class="v-content"
+      style="padding: 0px 0px 0px 0px;"
+    >
+      <div
+        class="v-content__wrap"
+      >
+        <div
+          class="container container--fluid"
+        >
+          <div
+            message="[object Object]"
+          >
+            <div
+              class="row flex-nowrap no-gutters"
+            >
+              <div
+                class="col col-auto align-self-end"
+              >
+                <div
+                  aria-busy="true"
+                  aria-live="polite"
+                  class="v-skeleton-loader v-skeleton-loader--is-loading theme--light"
+                  role="alert"
+                >
+                  <div
+                    class="v-skeleton-loader__avatar v-skeleton-loader__bone"
+                  />
+                </div>
+              </div>
+               
+              <div
+                class="ml-2 col col-auto"
+              >
+                <speech-balloon
+                  left=""
+                  style="background-color: rgba(0, 0, 0, 0.12); cursor: progress;"
+                >
+                  　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+                </speech-balloon>
+              </div>
+               
+              <div
+                class="col col-auto align-self-end"
+              >
+                <div
+                  aria-busy="true"
+                  aria-live="polite"
+                  class="v-skeleton-loader ml-2 v-skeleton-loader--is-loading theme--light"
+                  role="alert"
+                >
+                  <div
+                    class="v-skeleton-loader__chip v-skeleton-loader__bone"
+                  />
+                </div>
+              </div>
+            </div>
+             
+            <div
+              class="row"
+            >
+              <div
+                class="col col-auto"
+              >
+                <div
+                  aria-busy="true"
+                  aria-live="polite"
+                  class="v-skeleton-loader v-skeleton-loader--is-loading theme--light"
+                  role="alert"
+                  style="width: 80px;"
+                >
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                </div>
+              </div>
+            </div>
+             
+            <hr
+              aria-orientation="horizontal"
+              class="v-divider theme--light"
+              role="separator"
+              style="display: none;"
+            />
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+`;

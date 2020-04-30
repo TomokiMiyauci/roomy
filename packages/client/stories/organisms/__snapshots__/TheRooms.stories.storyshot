@@ -32,6 +32,331 @@ exports[`Storyshots organisms|TheRooms Default 1`] = `
             </div>
              
             <span />
+             
+            <div
+              aria-busy="true"
+              aria-live="polite"
+              class="v-skeleton-loader v-skeleton-loader--is-loading v-skeleton-loader--tile theme--light"
+              role="alert"
+            >
+              <div
+                class="v-skeleton-loader__list-item-avatar-three-line v-skeleton-loader__bone"
+              >
+                <div
+                  class="v-skeleton-loader__avatar v-skeleton-loader__bone"
+                />
+                <div
+                  class="v-skeleton-loader__paragraph v-skeleton-loader__bone"
+                >
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              aria-busy="true"
+              aria-live="polite"
+              class="v-skeleton-loader v-skeleton-loader--is-loading v-skeleton-loader--tile theme--light"
+              role="alert"
+            >
+              <div
+                class="v-skeleton-loader__list-item-avatar-three-line v-skeleton-loader__bone"
+              >
+                <div
+                  class="v-skeleton-loader__avatar v-skeleton-loader__bone"
+                />
+                <div
+                  class="v-skeleton-loader__paragraph v-skeleton-loader__bone"
+                >
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              aria-busy="true"
+              aria-live="polite"
+              class="v-skeleton-loader v-skeleton-loader--is-loading v-skeleton-loader--tile theme--light"
+              role="alert"
+            >
+              <div
+                class="v-skeleton-loader__list-item-avatar-three-line v-skeleton-loader__bone"
+              >
+                <div
+                  class="v-skeleton-loader__avatar v-skeleton-loader__bone"
+                />
+                <div
+                  class="v-skeleton-loader__paragraph v-skeleton-loader__bone"
+                >
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              aria-busy="true"
+              aria-live="polite"
+              class="v-skeleton-loader v-skeleton-loader--is-loading v-skeleton-loader--tile theme--light"
+              role="alert"
+            >
+              <div
+                class="v-skeleton-loader__list-item-avatar-three-line v-skeleton-loader__bone"
+              >
+                <div
+                  class="v-skeleton-loader__avatar v-skeleton-loader__bone"
+                />
+                <div
+                  class="v-skeleton-loader__paragraph v-skeleton-loader__bone"
+                >
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              aria-busy="true"
+              aria-live="polite"
+              class="v-skeleton-loader v-skeleton-loader--is-loading v-skeleton-loader--tile theme--light"
+              role="alert"
+            >
+              <div
+                class="v-skeleton-loader__list-item-avatar-three-line v-skeleton-loader__bone"
+              >
+                <div
+                  class="v-skeleton-loader__avatar v-skeleton-loader__bone"
+                />
+                <div
+                  class="v-skeleton-loader__paragraph v-skeleton-loader__bone"
+                >
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              aria-busy="true"
+              aria-live="polite"
+              class="v-skeleton-loader v-skeleton-loader--is-loading v-skeleton-loader--tile theme--light"
+              role="alert"
+            >
+              <div
+                class="v-skeleton-loader__list-item-avatar-three-line v-skeleton-loader__bone"
+              >
+                <div
+                  class="v-skeleton-loader__avatar v-skeleton-loader__bone"
+                />
+                <div
+                  class="v-skeleton-loader__paragraph v-skeleton-loader__bone"
+                >
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              aria-busy="true"
+              aria-live="polite"
+              class="v-skeleton-loader v-skeleton-loader--is-loading v-skeleton-loader--tile theme--light"
+              role="alert"
+            >
+              <div
+                class="v-skeleton-loader__list-item-avatar-three-line v-skeleton-loader__bone"
+              >
+                <div
+                  class="v-skeleton-loader__avatar v-skeleton-loader__bone"
+                />
+                <div
+                  class="v-skeleton-loader__paragraph v-skeleton-loader__bone"
+                >
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              aria-busy="true"
+              aria-live="polite"
+              class="v-skeleton-loader v-skeleton-loader--is-loading v-skeleton-loader--tile theme--light"
+              role="alert"
+            >
+              <div
+                class="v-skeleton-loader__list-item-avatar-three-line v-skeleton-loader__bone"
+              >
+                <div
+                  class="v-skeleton-loader__avatar v-skeleton-loader__bone"
+                />
+                <div
+                  class="v-skeleton-loader__paragraph v-skeleton-loader__bone"
+                >
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              aria-busy="true"
+              aria-live="polite"
+              class="v-skeleton-loader v-skeleton-loader--is-loading v-skeleton-loader--tile theme--light"
+              role="alert"
+            >
+              <div
+                class="v-skeleton-loader__list-item-avatar-three-line v-skeleton-loader__bone"
+              >
+                <div
+                  class="v-skeleton-loader__avatar v-skeleton-loader__bone"
+                />
+                <div
+                  class="v-skeleton-loader__paragraph v-skeleton-loader__bone"
+                >
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              aria-busy="true"
+              aria-live="polite"
+              class="v-skeleton-loader v-skeleton-loader--is-loading v-skeleton-loader--tile theme--light"
+              role="alert"
+            >
+              <div
+                class="v-skeleton-loader__list-item-avatar-three-line v-skeleton-loader__bone"
+              >
+                <div
+                  class="v-skeleton-loader__avatar v-skeleton-loader__bone"
+                />
+                <div
+                  class="v-skeleton-loader__paragraph v-skeleton-loader__bone"
+                >
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              aria-busy="true"
+              aria-live="polite"
+              class="v-skeleton-loader v-skeleton-loader--is-loading v-skeleton-loader--tile theme--light"
+              role="alert"
+            >
+              <div
+                class="v-skeleton-loader__list-item-avatar-three-line v-skeleton-loader__bone"
+              >
+                <div
+                  class="v-skeleton-loader__avatar v-skeleton-loader__bone"
+                />
+                <div
+                  class="v-skeleton-loader__paragraph v-skeleton-loader__bone"
+                >
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              aria-busy="true"
+              aria-live="polite"
+              class="v-skeleton-loader v-skeleton-loader--is-loading v-skeleton-loader--tile theme--light"
+              role="alert"
+            >
+              <div
+                class="v-skeleton-loader__list-item-avatar-three-line v-skeleton-loader__bone"
+              >
+                <div
+                  class="v-skeleton-loader__avatar v-skeleton-loader__bone"
+                />
+                <div
+                  class="v-skeleton-loader__paragraph v-skeleton-loader__bone"
+                >
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                  <div
+                    class="v-skeleton-loader__text v-skeleton-loader__bone"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
