@@ -14,6 +14,9 @@
       </v-btn>
     </client-only>
     <v-row justify="center" align="center">
+      <form-sign />
+    </v-row>
+    <!-- <v-row justify="center" align="center">
       <v-card min-width="320px" max-width="320px">
         <v-card-title class="display-1" style="justify-content:center;">
           Login
@@ -35,7 +38,7 @@
           >
         </v-card-actions>
       </v-card>
-    </v-row>
+    </v-row> -->
   </v-container>
 </template>
 
@@ -47,6 +50,10 @@ import firebase, { auth } from '@/plugins/firebase'
 
 export default defineComponent({
   layout: 'plain',
+
+  components: {
+    FormSign: () => import('@/components/organisms/FormSign.vue')
+  },
 
   setup(_, { root }) {
     const provider = new firebase.auth.GoogleAuthProvider()
