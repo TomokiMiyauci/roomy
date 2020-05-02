@@ -1,12 +1,12 @@
 <template>
   <v-sheet class="text-center" height="200px">
-    <v-btn class="mt-6" color="error" @click="$emit('close')"
+    <v-btn @click="$emit('close')" class="mt-6" color="error"
       ><v-icon left>{{ mdiClose }}</v-icon
       >close</v-btn
     >
     <div>
       <template v-if="!isRecording">
-        <v-btn class="mt-3" fab @click="start">
+        <v-btn @click="start" class="mt-3" fab>
           <template #loader>
             <mdi-microphone-settings />
           </template>
@@ -15,7 +15,7 @@
       </template>
 
       <template v-else>
-        <v-btn class="mt-3" fab @click="stop">
+        <v-btn @click="stop" class="mt-3" fab>
           <template #loader>
             <mdi-microphone-settings />
           </template>
@@ -24,13 +24,13 @@
       </template>
     </div>
     <div v-show="!!blob">
-      <v-btn class="mt-3" icon @click="play">
+      <v-btn @click="play" class="mt-3" icon>
         <template #loader>
           <mdi-microphone-settings />
         </template>
         <mdi-play />
       </v-btn>
-      <v-btn icon absolute right bottom @click="post"
+      <v-btn @click="post" icon absolute right bottom
         ><v-icon>{{ mdiSend }}</v-icon></v-btn
       >
     </div>

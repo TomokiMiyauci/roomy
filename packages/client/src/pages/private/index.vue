@@ -20,7 +20,7 @@
         </v-col>
         <v-col class="pa-0" cols="auto">or</v-col>
         <v-col cols="auto">
-          <v-btn fab color="primary" @click="dialog = true">
+          <v-btn @click="dialog = true" fab color="primary">
             <v-icon>{{ mdiCommentPlus }}</v-icon>
           </v-btn>
         </v-col>
@@ -30,13 +30,13 @@
     <v-dialog
       :value="dialog"
       :fullscreen="$vuetify.breakpoint.mdAndDown"
-      max-width="600px"
-      hide-overlay
       :transition="
         $vuetify.breakpoint.mdAndDown
           ? 'dialog-bottom-transition'
           : 'fab-transition'
       "
+      max-width="600px"
+      hide-overlay
     >
       <card-room-share :url="text" @close="dialog = false" />
     </v-dialog>

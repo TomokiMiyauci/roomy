@@ -1,7 +1,7 @@
 <template>
   <base-app-bar fixed app clipped-right clipped-left color="primary">
     <client-only>
-      <v-btn v-if="$vuetify.breakpoint.mdAndDown" icon @click="$router.back()">
+      <v-btn v-if="$vuetify.breakpoint.mdAndDown" @click="$router.back()" icon>
         <v-icon>{{ mdiArrowLeft }}</v-icon>
       </v-btn>
     </client-only>
@@ -10,7 +10,7 @@
 
     <v-spacer />
 
-    <base-button icon @click="$router.push('/host')">
+    <base-button @click="$router.push('/host')" icon>
       <base-icon>{{ mdiWifi }}</base-icon>
     </base-button>
   </base-app-bar>

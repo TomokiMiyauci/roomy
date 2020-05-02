@@ -1,5 +1,5 @@
 <template>
-  <base-button icon @click="onClick">
+  <base-button @click="onClick" icon>
     <v-icon>{{ mdiImage }}</v-icon>
   </base-button>
 </template>

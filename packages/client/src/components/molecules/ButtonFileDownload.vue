@@ -1,5 +1,5 @@
 <template>
-  <base-button icon @click="onDownload">
+  <base-button @click="onDownload" icon>
     <v-icon>{{ mdiFileDownload }}</v-icon>
   </base-button>
 </template>

@@ -32,7 +32,7 @@
       <span class="grey--text caption" style="position:absolute;bottom:0;">{{
         room.recent.updatedAt | time
       }}</span>
-      <v-btn icon @click.prevent="$emit('click:qrcode')">
+      <v-btn @click.prevent="$emit('click:qrcode')" icon>
         <v-icon color="grey lighten-1">{{ mdiQrcode }}</v-icon>
       </v-btn>
     </v-list-item-action>

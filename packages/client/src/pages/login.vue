@@ -3,12 +3,12 @@
     <client-only>
       <v-btn
         v-if="$vuetify.breakpoint.mdAndDown"
+        @click="onClick"
         top
         style="top:10px;"
         left
         absolute
         fab
-        @click="onClick"
       >
         <v-icon>{{ mdiArrowLeft }}</v-icon>
       </v-btn>
@@ -23,13 +23,13 @@
         </v-card-text>
 
         <v-card-title style="justify-content:center;">
-          <v-icon color="purple" :size="250">{{ mdiWebpack }}</v-icon>
+          <v-icon :size="250" color="purple">{{ mdiWebpack }}</v-icon>
         </v-card-title>
         <v-card-text>
           Signed in with
         </v-card-text>
         <v-card-actions>
-          <v-btn block class="white--text" color="blue" @click="signin">
+          <v-btn @click="signin" block class="white--text" color="blue">
             <v-icon color="red" left>{{ mdiGoogle }}</v-icon
             >oogle</v-btn
           >

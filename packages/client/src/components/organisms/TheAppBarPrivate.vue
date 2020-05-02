@@ -4,13 +4,13 @@
       <client-only>
         <v-btn
           v-if="$vuetify.breakpoint.mdAndDown"
+          v-on="$listeners"
           fab
           absolute
           left
           bottom
           style="z-index:1000;"
           color="primary"
-          v-on="$listeners"
         >
           <v-icon>{{ mdiCommentPlus }}</v-icon></v-btn
         >
@@ -20,10 +20,10 @@
       <v-menu
         v-if="login"
         v-model="showMenu"
+        :nudge-bottom="12"
         transition="slide-x-transition"
         close-on-content-click
         offset-y
-        :nudge-bottom="12"
         style="max-width: 600px"
       >
         <template #activator="{ on: click }">
@@ -34,7 +34,7 @@
               :elevation="hover ? 12 : 2"
               v-on="click"
             >
-              <img :src="photoURL" />
+              <img :src="photoURL" alt="avatar" />
             </v-avatar>
           </v-hover>
         </template>
@@ -43,7 +43,7 @@
         </v-card>
       </v-menu>
 
-      <base-button v-else icon @click="$router.push('/login')">
+      <base-button v-else @click="$router.push('/login')" icon>
         <base-icon>{{ mdiLogin }}</base-icon>
       </base-button>
     </template>
@@ -55,10 +55,10 @@
     >
       <v-tabs
         v-model="tabs"
+        v-on="$listeners"
         style="z-index:-100;"
         grow
         icons-and-text
-        v-on="$listeners"
       >
         <v-tabs-slider></v-tabs-slider>
         <span style="z-index:-100;width:80px;height:1px;"></span>

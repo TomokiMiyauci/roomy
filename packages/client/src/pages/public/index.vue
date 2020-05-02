@@ -33,7 +33,7 @@
         </v-col>
         <v-col class="pa-0" cols="auto">or</v-col>
         <v-col cols="auto">
-          <ButtonCreateRoom top offset-x :login="login" @click="create" />
+          <ButtonCreateRoom :login="login" @click="create" top offset-x />
         </v-col>
       </v-row>
     </client-only>
@@ -41,7 +41,6 @@
     <v-dialog
       v-model="dialog"
       :fullscreen="$vuetify.breakpoint.mdAndDown"
-      max-width="600px"
       :hide-overlay="isOpenQrcode"
       :persistent="isOpenRoom"
       :transition="
@@ -50,6 +49,7 @@
           : 'fab-transition'
       "
       @click:outside="isOpenQrcode ? onClickOutside() : ''"
+      max-width="600px"
     >
       <card-room-share v-if="isOpenQrcode" :url="text" @close="onClose" />
       <form-create-room v-if="isOpenRoom" @close="onClose" />

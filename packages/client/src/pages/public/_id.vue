@@ -15,7 +15,7 @@
             ></SkeletonLoaderMessageSet>
           </template>
 
-          <v-row v-else key="suggest" align="center" class="flex-column">
+          <v-row key="suggest" v-else align="center" class="flex-column">
             <v-col cols="auto">
               <v-icon size="50">{{ mdiCommentProcessing }}</v-icon>
             </v-col>
@@ -32,11 +32,11 @@
       <v-row class="flex-column">
         <v-col>
           <transition-group
-            name="list"
-            appear
             :css="false"
             @before-enter="beforeEnter"
             @enter="enter"
+            name="list"
+            appear
           >
             <template v-for="(message, index) in messages">
               <v-row
@@ -78,22 +78,22 @@
     <v-dialog
       v-model="dialog"
       :fullscreen="$vuetify.breakpoint.mdAndDown"
-      max-width="600px"
-      hide-overlay
       :transition="
         $vuetify.breakpoint.mdAndDown
           ? 'dialog-bottom-transition'
           : 'fab-transition'
       "
+      max-width="600px"
+      hide-overlay
     >
       <card-room-share :url="text" @close="dialog = false" />
     </v-dialog>
 
     <div
-      style="position:fixed;bottom:0;background-color:rgb(255,255,255);"
       :style="{
         width: $vuetify.breakpoint.mdAndDown ? '100%' : 'calc(100% - 406px)'
       }"
+      style="position:fixed;bottom:0;background-color:rgb(255,255,255);"
     >
       <the-post @postend="onPostend" @audio="sheet = true" />
     </div>

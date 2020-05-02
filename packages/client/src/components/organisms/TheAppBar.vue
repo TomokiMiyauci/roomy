@@ -1,13 +1,13 @@
 <template>
   <base-app-bar color="primary" fixed app>
     <v-btn
+      @click="createRoom"
       fab
       absolute
       left
       bottom
       color="primary"
       aria-label="create room"
-      @click="createRoom"
     >
       <v-icon>{{ mdiCommentPlus }}</v-icon></v-btn
     >
@@ -16,10 +16,10 @@
     <v-menu
       v-if="login"
       v-model="showMenu"
+      :nudge-bottom="12"
       transition="slide-x-transition"
       close-on-content-click
       offset-y
-      :nudge-bottom="12"
       style="max-width: 600px"
     >
       <template #activator="{ on: click }">
@@ -30,7 +30,7 @@
             :elevation="hover ? 12 : 2"
             v-on="click"
           >
-            <img alt="avatar" :src="photoURL" />
+            <img :src="photoURL" alt="avatar" />
           </v-avatar>
         </v-hover>
       </template>
@@ -39,7 +39,7 @@
       </v-card>
     </v-menu>
 
-    <base-button v-else aria-label="login" icon @click="$router.push('/login')">
+    <base-button v-else @click="$router.push('/login')" aria-label="login" icon>
       <base-icon>{{ mdiLogin }}</base-icon>
     </base-button>
   </base-app-bar>

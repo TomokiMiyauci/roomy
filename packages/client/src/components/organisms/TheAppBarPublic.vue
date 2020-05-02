@@ -4,11 +4,11 @@
       <client-only>
         <ButtonCreateRoom
           v-if="$vuetify.breakpoint.mdAndDown"
+          :login="login"
+          @click="$nuxt.$emit('close')"
           absolute
           left
           bottom
-          :login="login"
-          @click="$nuxt.$emit('close')"
         ></ButtonCreateRoom>
       </client-only>
 
@@ -16,10 +16,10 @@
       <v-menu
         v-if="login"
         v-model="showMenu"
+        :nudge-bottom="12"
         transition="slide-x-transition"
         close-on-content-click
         offset-y
-        :nudge-bottom="12"
         style="max-width: 600px"
       >
         <template #activator="{ on: click }">
@@ -30,7 +30,7 @@
               :elevation="hover ? 12 : 2"
               v-on="click"
             >
-              <img :src="photoURL" />
+              <img :src="photoURL" alt="avatar" />
             </v-avatar>
           </v-hover>
         </template>
@@ -39,7 +39,7 @@
         </v-card>
       </v-menu>
 
-      <base-button v-else icon @click="$router.push('/login')">
+      <base-button v-else @click="$router.push('/login')" icon>
         <base-icon>{{ mdiLogin }}</base-icon>
       </base-button>
     </template>

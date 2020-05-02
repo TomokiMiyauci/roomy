@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-toolbar dense flat>
-      <v-btn icon @click="$emit('close')">
+      <v-btn @click="$emit('close')" icon>
         <v-icon>{{ mdiClose }}</v-icon></v-btn
       >
     </v-toolbar>

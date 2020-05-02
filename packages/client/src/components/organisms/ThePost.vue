@@ -24,21 +24,21 @@
 
         <v-col cols="auto">
           <v-btn
-            v-if="text"
             id="xx"
             ref="btn"
+            v-if="text"
+            @click="postText"
             icon
             color="success"
-            @click="postText"
             ><v-icon class="demo_svg">{{ mdiSend }}</v-icon></v-btn
           >
           <v-btn
-            v-else
             id="xx"
             ref="btn"
+            v-else
+            @click="$emit('audio')"
             icon
             color="success"
-            @click="$emit('audio')"
             ><v-icon class="demo_svg">{{ mdiMicrophone }}</v-icon></v-btn
           >
         </v-col>

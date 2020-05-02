@@ -1,5 +1,5 @@
 <template>
-  <v-btn icon x-large outlined @click="onPlay">
+  <v-btn @click="onPlay" icon x-large outlined>
     <transition name="fade">
       <v-icon v-if="pause">{{ mdiPlayPause }}</v-icon>
       <v-icon v-else-if="playing">{{ mdiPause }}</v-icon>

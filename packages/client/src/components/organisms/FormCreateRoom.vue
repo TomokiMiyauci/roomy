@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-toolbar dark color="primary">
-      <v-btn icon dark @click="$emit('close')">
+      <v-btn @click="$emit('close')" icon dark>
         <v-icon>{{ mdiClose }}</v-icon>
       </v-btn>
       <v-toolbar-title>
@@ -17,10 +17,10 @@
         <v-spacer></v-spacer>
 
         <v-avatar
+          v-text="stepWindow"
           color="primary lighten-2"
           class="subheading white--text"
           size="24"
-          v-text="stepWindow"
         ></v-avatar>
       </v-card-title>
       <v-form v-model="valid">
@@ -29,13 +29,13 @@
             <v-card-text>
               <v-text-field
                 v-model="name"
+                :clear-icon="mdiCloseCircle"
+                :prepend-inner-icon="mdiSemanticWeb"
+                :rules="[(v) => !!v || 'This field is required']"
                 clearable
                 outlined
                 hint="Ex. Roomy Official"
-                :clear-icon="mdiCloseCircle"
-                :prepend-inner-icon="mdiSemanticWeb"
                 label="Room Name"
-                :rules="[(v) => !!v || 'This field is required']"
               ></v-text-field>
             </v-card-text>
           </v-window-item>
@@ -55,8 +55,8 @@
 
           <v-window-item :value="3">
             <div
-              class="pa-4 text-center"
               :style="{ height: $vuetify.breakpoint.mdAndDown ? '40vh' : '' }"
+              class="pa-4 text-center"
             >
               <v-progress-circular
                 v-if="isEqual(0)"
@@ -80,8 +80,8 @@
 
               <svg-qrcode
                 v-else-if="isEqual(3)"
-                style="width:150px;height:150px;margin:0 auto;"
                 :text="url"
+                style="width:150px;height:150px;margin:0 auto;"
               />
 
               <h3 class="title font-weight-light mb-2">
@@ -156,17 +156,17 @@
       <v-card-actions>
         <v-btn
           :disabled="stepWindow === 1 || stepWindow === 3"
-          text
           @click="stepWindow--"
+          text
         >
           Back
         </v-btn>
         <v-spacer></v-spacer>
         <v-btn
           :disabled="stepWindow === 3 || !valid"
+          @click="onNext"
           color="primary"
           depressed
-          @click="onNext"
         >
           Next
         </v-btn>

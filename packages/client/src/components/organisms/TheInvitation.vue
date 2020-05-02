@@ -28,7 +28,7 @@
             Invite from hello
           </v-card-title>
           <v-card-actions>
-            <v-btn block @click="join">
+            <v-btn @click="join" block>
               join
             </v-btn>
           </v-card-actions>
@@ -37,7 +37,7 @@
               You can login
             </v-card-text>
             <v-card-actions>
-              <v-btn block @click="login">login</v-btn>
+              <v-btn @click="login" block>login</v-btn>
             </v-card-actions>
           </div>
         </v-card>

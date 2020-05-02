@@ -19,11 +19,11 @@
         </v-col> -->
         <v-col>
           <transition-group
-            name="list"
-            appear
             :css="false"
             @before-enter="beforeEnter"
             @enter="enter"
+            name="list"
+            appear
           >
             <template v-for="(i, index) in a">
               <v-row
@@ -51,9 +51,9 @@
               <message-set
                 :id="index"
                 :key="i.id"
-                class="i"
                 :message="i"
                 :is-own="isOwn(i)"
+                class="i"
               />
             </template>
           </transition-group>
@@ -75,15 +75,15 @@
       />
     </v-footer> -->
     <div
-      style="position:fixed;bottom:0;"
       :style="{
         width: $vuetify.breakpoint.mdAndDown ? '100%' : 'calc(100% - 406px)'
       }"
+      style="position:fixed;bottom:0;"
     >
       <the-post
-        style="padding:8px;"
         @postend="onPostend"
         @audio="sheet = true"
+        style="padding:8px;"
       />
     </div>
   </div>

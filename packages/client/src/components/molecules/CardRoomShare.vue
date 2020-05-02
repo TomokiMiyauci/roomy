@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-toolbar dark color="primary">
-      <v-btn icon dark @click="$emit('close')">
+      <v-btn @click="$emit('close')" icon dark>
         <v-icon>{{ mdiClose }}</v-icon>
       </v-btn>
       <v-toolbar-title
@@ -34,9 +34,9 @@
           <v-col>
             <v-text-field
               :prepend-inner-icon="mdiLinkVariant"
+              :value="url"
               disabled
               dense
-              :value="url"
             />
           </v-col>
           <v-col cols="auto">

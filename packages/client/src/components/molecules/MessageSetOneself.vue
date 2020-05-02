@@ -1,7 +1,7 @@
 <template>
   <v-row justify="end" no-gutters style="padding:12px;">
     <v-col cols="auto" align-self="end">
-      <message-timestamp class="mr-2" :timestamp="message.createdAt" />
+      <message-timestamp :timestamp="message.createdAt" class="mr-2" />
     </v-col>
 
     <v-col cols="auto" align-self="end">

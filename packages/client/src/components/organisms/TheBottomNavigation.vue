@@ -20,7 +20,7 @@
       offset-y
     >
       <template v-slot:activator="{ on }">
-        <v-btn nuxt :to="login ? '/private' : ''" v-on="on">
+        <v-btn :to="login ? '/private' : ''" v-on="on" nuxt>
           <span>Private</span>
           <v-icon>{{ mdiHomeLock }}</v-icon>
         </v-btn>

@@ -6,18 +6,18 @@
     ></div>
     <Cropper
       ref="cropper"
-      classname="cropper"
       :stencil-props="{
         aspectRatio: 1 / 1
       }"
       :src="img"
       @change="onChange"
+      classname="cropper"
     />
 
     <div class="aaa">
       <v-row class="flex-column">
         <v-col>
-          <v-btn role="crop" icon color="primary" @click="onCrop">
+          <v-btn @click="onCrop" role="crop" icon color="primary">
             <v-icon>{{ mdiCropFree }}</v-icon>
           </v-btn>
         </v-col>
