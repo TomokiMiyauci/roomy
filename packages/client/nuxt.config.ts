@@ -24,7 +24,7 @@ const config: Configuration = {
     MESSAGING_SENDER_ID: process.env.MESSAGING_SENDER_ID!,
     APP_ID: process.env.APP_ID!,
     MEASUREMENT_ID: process.env.MEASUREMENT_ID!,
-    DNS: process.env.DNS!
+    DSN: process.env.DSN!
   },
 
   router: {
@@ -103,7 +103,7 @@ const config: Configuration = {
   ],
 
   sentry: {
-    dsn: process.env.DNS! // Enter your project's DSN here
+    dsn: process.env.DSN! // Enter your project's DSN here
   },
 
   robots: {
