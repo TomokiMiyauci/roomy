@@ -55,7 +55,8 @@
     "vue-advanced-cropper": "^0.16.1",
     "vue-filter-pretty-bytes": "^0.1.4",
     "vue-typer": "^1.2.0",
-    "vuex-module-decorators": "^0.16.1"
+    "vuex-module-decorators": "^0.16.1",
+    "vuex-persistedstate": "^3.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.7.2",
