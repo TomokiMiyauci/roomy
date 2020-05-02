@@ -69,7 +69,8 @@ const config: Configuration = {
     '@/plugins/pretty-bytes',
     '@/plugins/axios',
     { src: '@/plugins/axe', ssr: false },
-    { src: '@/plugins/vue-typer', ssr: false }
+    { src: '@/plugins/vue-typer', ssr: false },
+    { src: '@/plugins/localStorage', ssr: false }
   ],
   /*
    ** Nuxt.js dev-modules
