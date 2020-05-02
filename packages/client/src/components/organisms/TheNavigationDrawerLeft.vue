@@ -34,9 +34,11 @@
 
         <template v-else>
           <v-list-item-avatar>
-            <img v-if="login" :src="lo" alt="avatar" />
+            <client-only>
+              <img v-if="login" :src="lo" alt="avatar" />
 
-            <v-icon v-else>{{ mdiAccountCircle }}</v-icon>
+              <v-icon v-else>{{ mdiAccountCircle }}</v-icon>
+            </client-only>
           </v-list-item-avatar>
         </template>
       </v-list-item>
@@ -56,7 +58,7 @@
             <v-list-item
               v-for="item in items"
               :key="item.title"
-              :to="login ? item.to : ''"
+              :to="login ? item.to : 'undefined'"
               v-on="!login && item.auth ? on : ''"
               link
               nuxt

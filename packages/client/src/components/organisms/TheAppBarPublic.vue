@@ -10,38 +10,38 @@
           left
           bottom
         ></ButtonCreateRoom>
+
+        <v-spacer />
+        <v-menu
+          v-if="login"
+          v-model="showMenu"
+          :nudge-bottom="12"
+          transition="slide-x-transition"
+          close-on-content-click
+          offset-y
+          style="max-width: 600px"
+        >
+          <template #activator="{ on: click }">
+            <v-hover #default="{ hover }">
+              <v-avatar
+                :class="{ 'elevation-5': hover }"
+                :style="{ cursor: hover ? 'pointer' : 'default' }"
+                :elevation="hover ? 12 : 2"
+                v-on="click"
+              >
+                <img :src="photoURL" alt="avatar" />
+              </v-avatar>
+            </v-hover>
+          </template>
+          <v-card>
+            <v-btn @click="logout">Logout</v-btn>
+          </v-card>
+        </v-menu>
+
+        <base-button v-else @click="$router.push('/login')" icon>
+          <base-icon>{{ mdiLogin }}</base-icon>
+        </base-button>
       </client-only>
-
-      <v-spacer />
-      <v-menu
-        v-if="login"
-        v-model="showMenu"
-        :nudge-bottom="12"
-        transition="slide-x-transition"
-        close-on-content-click
-        offset-y
-        style="max-width: 600px"
-      >
-        <template #activator="{ on: click }">
-          <v-hover #default="{ hover }">
-            <v-avatar
-              :class="{ 'elevation-5': hover }"
-              :style="{ cursor: hover ? 'pointer' : 'default' }"
-              :elevation="hover ? 12 : 2"
-              v-on="click"
-            >
-              <img :src="photoURL" alt="avatar" />
-            </v-avatar>
-          </v-hover>
-        </template>
-        <v-card>
-          <v-btn @click="logout">Logout</v-btn>
-        </v-card>
-      </v-menu>
-
-      <base-button v-else @click="$router.push('/login')" icon>
-        <base-icon>{{ mdiLogin }}</base-icon>
-      </base-button>
     </template>
   </v-app-bar>
 </template>
