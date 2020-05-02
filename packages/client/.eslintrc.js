@@ -11,7 +11,7 @@ module.exports = {
     '@nuxtjs/eslint-config-typescript',
     'prettier',
     'prettier/vue',
-    "plugin:vue-a11y/base",
+    "plugin:vue-a11y/recommended",
     'plugin:prettier/recommended',
     'plugin:nuxt/recommended',
 
