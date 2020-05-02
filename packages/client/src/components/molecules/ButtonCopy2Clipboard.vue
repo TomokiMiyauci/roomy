@@ -2,10 +2,12 @@
   <v-tooltip v-model="show" top>
     <template v-slot:activator="{ on }">
       <v-btn
-        icon
         @mouseenter="onMouseleave(on.mouseenter)"
         @mouseleave="on.mouseleave"
+        @focus="onMouseleave(on.mouseenter)"
+        @blur="on.mouseleave"
         @click="onClick"
+        icon
       >
         <v-icon>{{ mdiContentCopy }}</v-icon>
       </v-btn>

@@ -5,12 +5,14 @@
         <template #activator="{ on }">
           <v-btn
             v-bind="$attrs"
-            fab
             :color="login ? 'secondary' : 'grey'"
             v-on="menu"
             @click="login ? $emit('click') : ''"
             @mouseenter="on.mouseenter"
+            @focus="on.mouseenter"
             @mouseleave="on.mouseleave"
+            @blur="on.mouseleave"
+            fab
           >
             <v-icon>{{ mdiCommentPlus }}</v-icon></v-btn
           >

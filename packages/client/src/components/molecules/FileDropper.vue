@@ -1,11 +1,11 @@
 <template>
   <div
-    class="headline"
     :class="[$style.base, { [$style.hover]: isHover }]"
     @dragenter.prevent.stop.self="onDragover"
     @dragover.prevent
     @dragleave.prevent.self="onDragleave"
     @drop.prevent.stop="onDrop"
+    class="headline"
   >
     <v-icon style="position:absolute;z-index:0;" size="250">{{
       mdiPlusThick
@@ -16,7 +16,7 @@
     >
     <v-col class="grey--text" cols="auto">or</v-col>
     <v-col cols="auto">
-      <v-btn color="primary" @click="onClick"
+      <v-btn @click="onClick" color="primary"
         ><v-icon left>{{ mdiImageSearch }}</v-icon
         >Choose</v-btn
       >
