@@ -2,21 +2,21 @@
   <v-container class="fill-height">
     <v-row class="fill-height">
       <v-col>
-        <video
+        <!-- <video
           id="local_video"
           autoplay
           style="width:100%;height:100%;border: 1px solid black;"
-        ></video>
+        ></video> -->
       </v-col>
       <v-col>
-        <video
+        <!-- <video
           id="global_video"
           autoplay
           style="width:100%;height:100%;border:1px solid black;"
-        ></video>
+        ></video> -->
       </v-col>
     </v-row>
-    <v-btn color="success" @click="init">INIT</v-btn>
+    <v-btn @click="init" color="success">INIT</v-btn>
   </v-container>
 </template>
 

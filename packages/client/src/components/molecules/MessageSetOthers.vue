@@ -7,7 +7,7 @@
         </v-avatar>
 
         <v-avatar v-else color="indigo" right size="36">
-          <img :src="message.author.photoURL" />
+          <img :src="message.author.photoURL" alt="avatar" />
         </v-avatar>
       </v-col>
 
@@ -53,7 +53,7 @@
         </template>
       </v-col>
       <v-col cols="auto" align-self="end">
-        <message-timestamp class="ml-2" :timestamp="message.createdAt" />
+        <message-timestamp :timestamp="message.createdAt" class="ml-2" />
       </v-col>
     </v-row>
     <v-row no-gutters>

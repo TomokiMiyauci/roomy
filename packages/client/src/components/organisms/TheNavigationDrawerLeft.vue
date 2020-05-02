@@ -10,15 +10,15 @@
   >
     <v-list dense nav class="py-0">
       <v-list-item
+        :style="{ margin: isMouseover ? '0 0 0 0' : '0 0 176px 0' }"
         two-line
         class="px-0"
-        :style="{ margin: isMouseover ? '0 0 0 0' : '0 0 176px 0' }"
       >
         <v-container v-if="isMouseover">
           <v-row align="center" justify="center" class="flex-column">
             <v-col cols="auto">
               <v-avatar :size="100">
-                <img v-if="login" :src="lo" />
+                <img v-if="login" :src="lo" alt="avatar" />
                 <v-icon v-else>{{ mdiAccountCircle }}</v-icon>
               </v-avatar>
             </v-col>
@@ -27,14 +27,14 @@
             </v-col>
           </v-row>
           <v-row class="pt-5">
-            <v-btn v-if="login" block @click="signout">logout</v-btn>
-            <v-btn v-else block @click="$router.push('/login')">login</v-btn>
+            <v-btn v-if="login" @click="signout" block>logout</v-btn>
+            <v-btn v-else @click="$router.push('/login')" block>login</v-btn>
           </v-row>
         </v-container>
 
         <template v-else>
           <v-list-item-avatar>
-            <img v-if="login" :src="lo" />
+            <img v-if="login" :src="lo" alt="avatar" />
 
             <v-icon v-else>{{ mdiAccountCircle }}</v-icon>
           </v-list-item-avatar>
@@ -56,10 +56,10 @@
             <v-list-item
               v-for="item in items"
               :key="item.title"
-              link
-              nuxt
               :to="login ? item.to : ''"
               v-on="!login && item.auth ? on : ''"
+              link
+              nuxt
             >
               <v-list-item-icon>
                 <v-icon>{{ item.icon }}</v-icon>

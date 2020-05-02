@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <video
+    <!-- <video
       id="local_video"
       autoplay
       style="width:400px;border:1px solid black"
@@ -9,7 +9,7 @@
       id="global_video"
       autoplay
       style="width:500px;border:1px solid black"
-    />
+    /> -->
   </v-container>
 </template>
 
