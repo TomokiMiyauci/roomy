@@ -1,0 +1,411 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots organisms|FormSign Default 1`] = `
+<div
+  class="v-application v-application--is-ltr theme--light"
+  data-app="true"
+  id="app"
+  style="background-color: transparent;"
+>
+  <div
+    class="v-application--wrap"
+  >
+    <main
+      class="v-content"
+      style="padding: 0px 0px 0px 0px;"
+    >
+      <div
+        class="v-content__wrap"
+      >
+        <div
+          class="container container--fluid"
+        >
+          <div
+            class="v-card v-sheet theme--light"
+            style="width: 350px;"
+          >
+            <div
+              class="v-card__title flex-column"
+              color="primary"
+              style="background-color: rgb(8, 59, 102);"
+            >
+              <img
+                alt="logo"
+                height="80px"
+                src="@/assets/logo.png"
+              />
+               
+              <h1
+                class="white--text headline"
+              >
+                Sign Up
+              </h1>
+            </div>
+             
+            <div
+              class="v-tabs v-tabs--fixed-tabs theme--light"
+            >
+              <div
+                class="v-item-group theme--light v-slide-group v-tabs-bar v-tabs-bar--is-mobile primary--text"
+                role="tablist"
+              >
+                <div
+                  class="v-slide-group__prev v-slide-group__prev--disabled"
+                >
+                  <!---->
+                </div>
+                <div
+                  class="v-slide-group__wrapper"
+                >
+                  <div
+                    class="v-slide-group__content v-tabs-bar__content"
+                  >
+                    <div
+                      class="v-tabs-slider-wrapper"
+                      style="transition: none;"
+                    >
+                      <div
+                        class="v-tabs-slider"
+                      />
+                    </div>
+                    <div
+                      aria-selected="true"
+                      class="v-tab v-tab--active"
+                      role="tab"
+                      tabindex="0"
+                    >
+                      <span
+                        aria-hidden="true"
+                        class="v-icon notranslate v-icon--left v-icon--svg theme--light"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          height="24"
+                          role="img"
+                          viewBox="0 0 24 24"
+                          width="24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M7,14A2,2 0 0,1 5,12A2,2 0 0,1 7,10A2,2 0 0,1 9,12A2,2 0 0,1 7,14M12.65,10C11.83,7.67 9.61,6 7,6A6,6 0 0,0 1,12A6,6 0 0,0 7,18C9.61,18 11.83,16.33 12.65,14H17V18H21V14H23V10H12.65Z"
+                          />
+                        </svg>
+                      </span>
+                      
+      Sign In
+    
+                    </div>
+                     
+                    <div
+                      aria-selected="false"
+                      class="v-tab"
+                      role="tab"
+                      tabindex="0"
+                    >
+                      <span
+                        aria-hidden="true"
+                        class="v-icon notranslate v-icon--left v-icon--svg theme--light"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          height="24"
+                          role="img"
+                          viewBox="0 0 24 24"
+                          width="24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M22,4H14V7H10V4H2A2,2 0 0,0 0,6V20A2,2 0 0,0 2,22H22A2,2 0 0,0 24,20V6A2,2 0 0,0 22,4M8,9A2,2 0 0,1 10,11A2,2 0 0,1 8,13A2,2 0 0,1 6,11A2,2 0 0,1 8,9M12,17H4V16C4,14.67 6.67,14 8,14C9.33,14 12,14.67 12,16V17M20,18H14V16H20V18M20,14H14V12H20V14M20,10H14V8H20V10M13,6H11V2H13V6Z"
+                          />
+                        </svg>
+                      </span>
+                      
+      Sign Up
+    
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="v-slide-group__next v-slide-group__next--disabled"
+                >
+                  <!---->
+                </div>
+              </div>
+            </div>
+             
+            <hr
+              aria-orientation="horizontal"
+              class="v-divider theme--light"
+              role="separator"
+            />
+             
+            <div
+              align="center"
+              class="v-card__text flex-column"
+            >
+              <div
+                class="v-window v-item-group theme--light v-tabs-items"
+              >
+                <div
+                  class="v-window__container"
+                >
+                  <div
+                    class="v-window-item v-window-item--active"
+                  >
+                    <button
+                      class="v-btn v-btn--block v-btn--contained theme--light v-size--default"
+                      type="button"
+                    >
+                      <span
+                        class="v-btn__content"
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="v-icon notranslate v-icon--left v-icon--svg theme--light blue--text"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            height="24"
+                            role="img"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M21.35,11.1H12.18V13.83H18.69C18.36,17.64 15.19,19.27 12.19,19.27C8.36,19.27 5,16.25 5,12C5,7.9 8.2,4.73 12.2,4.73C15.29,4.73 17.1,6.7 17.1,6.7L19,4.72C19,4.72 16.56,2 12.1,2C6.42,2 2.03,6.8 2.03,12C2.03,17.05 6.16,22 12.25,22C17.6,22 21.5,18.33 21.5,12.91C21.5,11.76 21.35,11.1 21.35,11.1V11.1Z"
+                            />
+                          </svg>
+                        </span>
+                        sign in with google
+                      </span>
+                    </button>
+                     
+                    <div
+                      class="pa-5"
+                    >
+                      or
+                    </div>
+                     
+                    <form
+                      class="v-form"
+                      novalidate="novalidate"
+                    >
+                      <div
+                        class="v-input v-input--dense theme--light v-text-field v-text-field--enclosed v-text-field--outlined"
+                      >
+                        <div
+                          class="v-input__control"
+                        >
+                          <div
+                            class="v-input__slot"
+                          >
+                            <div
+                              class="v-input__prepend-inner"
+                            >
+                              <div
+                                class="v-input__icon v-input__icon--prepend-inner"
+                              >
+                                <span
+                                  aria-hidden="true"
+                                  class="v-icon notranslate v-icon--svg theme--light"
+                                >
+                                  <svg
+                                    aria-hidden="true"
+                                    height="24"
+                                    role="img"
+                                    viewBox="0 0 24 24"
+                                    width="24"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"
+                                    />
+                                  </svg>
+                                </span>
+                              </div>
+                            </div>
+                            <fieldset
+                              aria-hidden="true"
+                            >
+                              <legend
+                                style="width: 0px;"
+                              >
+                                <span>
+                                  ​
+                                </span>
+                              </legend>
+                            </fieldset>
+                            <div
+                              class="v-text-field__slot"
+                            >
+                              <label
+                                class="v-label theme--light"
+                                for="input-204"
+                                style="left: 0px; position: absolute;"
+                              >
+                                Email
+                              </label>
+                              <input
+                                id="input-204"
+                                type="text"
+                              />
+                            </div>
+                          </div>
+                          <div
+                            class="v-text-field__details"
+                          >
+                            <div
+                              class="v-messages theme--light"
+                            >
+                              <div
+                                class="v-messages__wrapper"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                       
+                      <div
+                        class="v-input v-input--dense theme--light v-text-field v-text-field--enclosed v-text-field--outlined"
+                      >
+                        <div
+                          class="v-input__control"
+                        >
+                          <div
+                            class="v-input__slot"
+                          >
+                            <div
+                              class="v-input__prepend-inner"
+                            >
+                              <div
+                                class="v-input__icon v-input__icon--prepend-inner"
+                              >
+                                <span
+                                  aria-hidden="true"
+                                  class="v-icon notranslate v-icon--svg theme--light"
+                                >
+                                  <svg
+                                    aria-hidden="true"
+                                    height="24"
+                                    role="img"
+                                    viewBox="0 0 24 24"
+                                    width="24"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M12,8A1,1 0 0,1 13,9A1,1 0 0,1 12,10A1,1 0 0,1 11,9A1,1 0 0,1 12,8M21,11C21,16.55 17.16,21.74 12,23C6.84,21.74 3,16.55 3,11V5L12,1L21,5V11M12,6A3,3 0 0,0 9,9C9,10.31 9.83,11.42 11,11.83V18H13V16H15V14H13V11.83C14.17,11.42 15,10.31 15,9A3,3 0 0,0 12,6Z"
+                                    />
+                                  </svg>
+                                </span>
+                              </div>
+                            </div>
+                            <fieldset
+                              aria-hidden="true"
+                            >
+                              <legend
+                                style="width: 0px;"
+                              >
+                                <span>
+                                  ​
+                                </span>
+                              </legend>
+                            </fieldset>
+                            <div
+                              class="v-text-field__slot"
+                            >
+                              <label
+                                class="v-label theme--light"
+                                for="input-208"
+                                style="left: 0px; position: absolute;"
+                              >
+                                Password
+                              </label>
+                              <input
+                                id="input-208"
+                                type="password"
+                              />
+                            </div>
+                            <div
+                              class="v-input__append-inner"
+                            >
+                              <div
+                                class="v-input__icon v-input__icon--append"
+                              >
+                                <button
+                                  aria-label="append icon"
+                                  class="v-icon notranslate v-icon--link v-icon--svg theme--light"
+                                  type="button"
+                                >
+                                  <svg
+                                    aria-hidden="true"
+                                    height="24"
+                                    role="img"
+                                    viewBox="0 0 24 24"
+                                    width="24"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M11.83,9L15,12.16C15,12.11 15,12.05 15,12A3,3 0 0,0 12,9C11.94,9 11.89,9 11.83,9M7.53,9.8L9.08,11.35C9.03,11.56 9,11.77 9,12A3,3 0 0,0 12,15C12.22,15 12.44,14.97 12.65,14.92L14.2,16.47C13.53,16.8 12.79,17 12,17A5,5 0 0,1 7,12C7,11.21 7.2,10.47 7.53,9.8M2,4.27L4.28,6.55L4.73,7C3.08,8.3 1.78,10 1,12C2.73,16.39 7,19.5 12,19.5C13.55,19.5 15.03,19.2 16.38,18.66L16.81,19.08L19.73,22L21,20.73L3.27,3M12,7A5,5 0 0,1 17,12C17,12.64 16.87,13.26 16.64,13.82L19.57,16.75C21.07,15.5 22.27,13.86 23,12C21.27,7.61 17,4.5 12,4.5C10.6,4.5 9.26,4.75 8,5.2L10.17,7.35C10.74,7.13 11.35,7 12,7Z"
+                                    />
+                                  </svg>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="v-text-field__details"
+                          >
+                            <div
+                              class="v-messages theme--light"
+                            >
+                              <div
+                                class="v-messages__wrapper"
+                              />
+                            </div>
+                            <div
+                              class="v-counter theme--light"
+                            >
+                              0
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                   
+                  <!---->
+                </div>
+              </div>
+            </div>
+             
+            <div
+              class="v-card__text"
+              style="background-color: rgba(128, 128, 128, 0.3);"
+            >
+              
+    By signing up, you agree to our terms of service and privacy policy.
+  
+            </div>
+             
+            <div
+              class="v-card__actions flex-column"
+              style="justify-content: center; height: 70px; background-color: rgb(8, 59, 102);"
+            >
+              <button
+                class="v-btn v-btn--flat v-btn--text theme--dark v-size--default"
+                type="button"
+              >
+                <span
+                  class="v-btn__content"
+                >
+                  Sign up
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+`;
