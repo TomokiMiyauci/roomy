@@ -1,7 +1,6 @@
 import firebase from '@/plugins/firebase'
 import { user } from '@/store'
-import { PrivateRoom, PublicRoom } from '@/types/core'
-import { Message } from '~types/core'
+import { Message, PrivateRoom, PublicRoom } from '~types/core'
 
 type Sometime = 'createdAt' | 'updatedAt'
 
