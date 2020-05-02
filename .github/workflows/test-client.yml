@@ -122,7 +122,7 @@ jobs:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
 
-      - name: prepare type
+      - name: pre-setup
         run: sed -i -e '2s/^/\/\/ /g' packages/client/src/types/vue-shims.d.ts
 
       - name: test unit
@@ -158,7 +158,7 @@ jobs:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
 
-      - name: prepare type
+      - name: pre-setup
         run: sed -i -e '2s/^/\/\/ /g' packages/client/src/types/vue-shims.d.ts
 
       - name: test snapshot
@@ -187,27 +187,17 @@ jobs:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
 
-      - name: prepare type
+      - name: pre-setup
         run: sed -i -e '2s/^/\/\/ /g' packages/client/src/types/vue-shims.d.ts
 
-      - name: deploy storybook
-        run: yarn workspace client deploy-storybook -- --ci
-        env:
-          GH_TOKEN: ${ GITHUB_ACTOR }:${{ secrets.GITHUB_TOKEN }}
+      # - name: deploy storybook
+      #   run: yarn workspace client deploy-storybook -- --ci
+      #   env:
+      #     GH_TOKEN: ${ GITHUB_ACTOR }:${{ secrets.GITHUB_TOKEN }}
 
   deploy:
     needs: [lint, audit, test-unit, test-snapshot]
     runs-on: ${{ matrix.os }}
-    env:
-      API_KEY: ${{ secrets.API_KEY_DEV }}
-      AUTH_DOMAIN: ${{ secrets.AUTH_DOMAIN_DEV }}
-      DATABASE_URL: ${{ secrets.DATABASE_URL_DEV }}
-      PROJECT_ID: ${{ secrets.PROJECT_ID_DEV }}
-      STORAGE_BUCKET: ${{ secrets.STORAGE_BUCKET_DEV }}
-      MESSAGING_SENDER_ID: ${{ secrets.MESSAGING_SENDER_ID_DEV }}
-      APP_ID: ${{ secrets.APP_ID_DEV }}
-      MEASUREMENT_ID: ${{ secrets.MEASUREMENT_ID_DEV }}
-      DSN_DEV: ${{ secrets.DSN_DEV }}
 
     strategy:
       matrix:
@@ -229,6 +219,17 @@ jobs:
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
 
       - name: generate
+        env:
+          API_KEY: ${{ secrets.API_KEY_DEV }}
+          AUTH_DOMAIN: ${{ secrets.AUTH_DOMAIN_DEV }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL_DEV }}
+          PROJECT_ID: ${{ secrets.PROJECT_ID_DEV }}
+          STORAGE_BUCKET: ${{ secrets.STORAGE_BUCKET_DEV }}
+          MESSAGING_SENDER_ID: ${{ secrets.MESSAGING_SENDER_ID_DEV }}
+          APP_ID: ${{ secrets.APP_ID_DEV }}
+          MEASUREMENT_ID: ${{ secrets.MEASUREMENT_ID_DEV }}
+          DSN_DEV: ${{ secrets.DSN_DEV }}
+
         run: yarn workspace client generate --fail-on-page-error
 
       - name: deploy to Firebase
