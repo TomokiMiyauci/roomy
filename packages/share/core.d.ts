@@ -1,9 +1,24 @@
 import firebase from 'firebase'
 
 type MessageKinds =
-  | { kind: 'TEXT'; text: string }
-  | { kind: 'IMAGE'; imageURL: string; size: number }
-  | { kind: 'AUDIO'; audioURL: string; size: number }
+  MessageText | MessageImage | MessageAudio
+
+type MessageText = {
+  kind: 'TEXT',
+  text: string
+}
+
+type MessageImage = {
+  kind: 'IMAGE',
+  imageURL: string,
+  size: number
+}
+
+type MessageAudio = {
+  kind: 'AUDIO',
+  audioURL: string,
+  size: number
+}
 
 export type MessageSet = MessageKinds
 
@@ -65,7 +80,7 @@ export type Room = {
   photoURL: string
 } & FirestoreFieldValue
 
-export type ShortMessage = 'Image posted' | 'Audio posted' | 'No messages'
+export type ShortMessage = 'Image posted' | 'Audio posted' | 'No messages' | string
 
 type BaseRoom = {
   members: string[]
