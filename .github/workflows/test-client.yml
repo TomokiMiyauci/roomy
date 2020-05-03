@@ -190,8 +190,8 @@ jobs:
       - name: Percy Test
         uses: percy/storybook-action@v0.1.3
         with:
+          custom-command: 'yarn workspace client snapshot'
           working-directory: packages/client
-          verbose: true
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
