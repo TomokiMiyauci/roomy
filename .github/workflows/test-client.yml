@@ -191,6 +191,7 @@ jobs:
         uses: percy/storybook-action@v0.1.3
         with:
           working-directory: packages/client
+          verbose: true
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
