@@ -46,11 +46,9 @@
               :type="show ? 'text' : 'password'"
               :prepend-inner-icon="mdiShieldKey"
               @click:append="show = !show"
-              :rules="[(v) => !!v || 'This filed is required']"
+              :rules="[required]"
               outlined
               dense
-              counter
-              hint="At least 8 characters"
               label="Password"
             />
           </v-form>
@@ -60,24 +58,37 @@
             <v-text-field
               v-model="email"
               :prepend-inner-icon="mdiEmail"
-              :rules="[(v) => !!v || 'This filed is required']"
+              :rules="[required, isEmail]"
               outlined
               dense
               label="Email"
-            />
+            >
+            </v-text-field>
             <v-text-field
               v-model="password"
               :append-icon="show ? mdiEye : mdiEyeOff"
               :type="show ? 'text' : 'password'"
               :prepend-inner-icon="mdiShieldKey"
               @click:append="show = !show"
-              :rules="[(v) => !!v || 'This filed is required']"
+              :rules="[
+                required,
+                (v) => v.length >= 8 || 'At least 8 characters'
+              ]"
               outlined
               dense
               counter
               hint="At least 8 characters"
               label="Password"
-            />
+              loading
+            >
+              <template v-slot:progress>
+                <v-progress-linear
+                  :value="progress"
+                  :color="color"
+                  absolute
+                  height="7"
+                ></v-progress-linear> </template
+            ></v-text-field>
           </v-form>
         </v-tab-item>
       </v-tabs-items>
@@ -86,22 +97,40 @@
       By signing up, you agree to our terms of service and privacy policy.
     </v-card-text>
 
+    <v-overlay :value="loading" absolute>
+      <div v-if="fail">
+        <v-icon color="warning" size="70">{{ mdiAlert }}</v-icon>
+        <div>Fail sign in</div>
+      </div>
+
+      <div v-else-if="success">
+        <v-icon color="green" size="70">{{ mdiCheckCircle }}</v-icon>
+        <div>Success</div>
+      </div>
+
+      <div v-else>
+        <v-progress-circular indeterminate size="64"></v-progress-circular>
+        <div>Signing in...</div>
+      </div>
+    </v-overlay>
+
     <v-card-actions
-      style="justify-content:center;height:70px;background-color:#083b66;"
+      :style="{ backgroundColor: valid ? '#083b66' : 'grey' }"
+      style="justify-content:center;height:70px;"
       class="flex-column"
     >
-      <v-btn @click="onClick" text dark>{{ anchor }}</v-btn>
+      <v-btn @click="onClick" :disabled="!valid" block text dark>{{
+        anchor
+      }}</v-btn>
     </v-card-actions>
-
-    <v-overlay :value="loading" absolute>
-      <v-progress-circular indeterminate size="64"></v-progress-circular>
-    </v-overlay>
   </v-card>
 </template>
 
 <script lang="ts">
 import {
   mdiAccountBadgeHorizontal,
+  mdiAlert,
+  mdiCheckCircle,
   mdiEmail,
   mdiEye,
   mdiEyeOff,
@@ -114,12 +143,13 @@ import {
   defineComponent,
   reactive,
   ref,
-  toRefs
+  toRefs,
+  watch
 } from '@vue/composition-api'
 import { ValidationProvider } from 'vee-validate'
 
+import { wait } from '@/core/useTime'
 import firebase, { auth } from '@/plugins/firebase'
-
 type Tab = 'signin' | 'signup'
 export default defineComponent({
   components: {
@@ -136,7 +166,13 @@ export default defineComponent({
     })
 
     const show = ref(false)
-    const loading = ref(false)
+
+    const overlay = reactive({
+      loading: false,
+      fail: false,
+      success: false
+    })
+
     const credential = reactive({
       email: '',
       password: '',
@@ -147,14 +183,37 @@ export default defineComponent({
 
     provider.addScope('https://www.googleapis.com/auth/contacts.readonly')
 
+    watch(
+      () => overlay.fail,
+      async (now) => {
+        if (now) {
+          await wait(800)
+          overlay.loading = false
+          overlay.fail = false
+        }
+      }
+    )
+
+    watch(
+      () => overlay.success,
+      async (now) => {
+        if (now) {
+          await wait(800)
+          overlay.loading = false
+          overlay.success = false
+          emit('signin')
+        }
+      }
+    )
+
     const signin = async () => {
-      loading.value = true
+      overlay.loading = true
       const result = await auth.signInWithPopup(provider).catch((e) => {
-        loading.value = false
+        overlay.loading = false
         console.error(e)
         throw new Error('Error')
       })
-      loading.value = false
+      overlay.loading = false
 
       console.log(result)
       emit('signin')
@@ -163,16 +222,35 @@ export default defineComponent({
 
     const onClick = () => {
       tab.name === 'signin'
-        ? signinWithEmail()
+        ? signInWithEmailAndPassword()
         : createUserWithEmailAndPassword()
     }
 
-    const createUserWithEmailAndPassword = async () => {
-      loading.value = true
+    const signInWithEmailAndPassword = async () => {
+      overlay.loading = true
       const { email, password, valid } = credential
 
       if (!email || !password || !valid) {
-        loading.value = false
+        overlay.loading = false
+        throw new Error('Fetal Error')
+      }
+      const result = await auth
+        .signInWithEmailAndPassword(email, password)
+        .catch((e) => {
+          overlay.fail = true
+
+          console.error(e)
+        })
+
+      if (!result) throw new Error('Fatal Error')
+      overlay.success = true
+    }
+    const createUserWithEmailAndPassword = async () => {
+      overlay.loading = true
+      const { email, password, valid } = credential
+
+      if (!email || !password || !valid) {
+        overlay.loading = false
         throw new Error('Fetal Error')
       }
 
@@ -180,7 +258,7 @@ export default defineComponent({
         .createUserWithEmailAndPassword(email, password)
         .catch((e) => {
           console.error(e)
-          loading.value = false
+          overlay.loading = false
           throw new Error('heool')
         })
 
@@ -190,25 +268,9 @@ export default defineComponent({
         displayName: firstLetter
       })
 
-      loading.value = false
+      overlay.loading = false
       console.log(11, result)
       emit('signup')
-    }
-
-    const signinWithEmail = async () => {
-      loading.value = true
-      const { email, password, valid } = credential
-
-      if (!email || !password || !valid) {
-        loading.value = false
-        throw new Error('Fetal Error')
-      }
-
-      const result = await auth.createUserWithEmailAndPassword(email, password)
-      loading.value = false
-
-      console.log(11, result)
-      emit('signin')
     }
 
     const required = (text: string | number) => {
@@ -222,6 +284,14 @@ export default defineComponent({
         ) || 'Invalid Email format'
       )
     }
+
+    const progress = computed(() => {
+      return Math.min(100, credential.password.length * 10)
+    })
+
+    const color = computed(() => {
+      return ['error', 'warning', 'success'][Math.floor(progress.value / 40)]
+    })
 
     // const onClick = () => {
     //   root.$router.back()
@@ -238,14 +308,18 @@ export default defineComponent({
       mdiGoogle,
       mdiAccountBadgeHorizontal,
       createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
       mdiKey,
       signin,
       onClick,
-      loading,
-      signinWithEmail,
       ...toRefs(credential),
       required,
-      isEmail
+      isEmail,
+      progress,
+      color,
+      mdiAlert,
+      mdiCheckCircle,
+      ...toRefs(overlay)
     }
   }
 })

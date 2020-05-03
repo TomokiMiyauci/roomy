@@ -195,82 +195,80 @@ exports[`Storyshots organisms|FormSign Default 1`] = `
                       class="v-form"
                       novalidate="novalidate"
                     >
-                      <span>
+                      <div
+                        class="v-input v-input--dense theme--light v-text-field v-text-field--enclosed v-text-field--outlined"
+                      >
                         <div
-                          class="v-input v-input--dense theme--light v-text-field v-text-field--enclosed v-text-field--outlined"
+                          class="v-input__control"
                         >
                           <div
-                            class="v-input__control"
+                            class="v-input__slot"
                           >
                             <div
-                              class="v-input__slot"
+                              class="v-input__prepend-inner"
                             >
                               <div
-                                class="v-input__prepend-inner"
+                                class="v-input__icon v-input__icon--prepend-inner"
                               >
-                                <div
-                                  class="v-input__icon v-input__icon--prepend-inner"
+                                <span
+                                  aria-hidden="true"
+                                  class="v-icon notranslate v-icon--svg theme--light"
                                 >
-                                  <span
+                                  <svg
                                     aria-hidden="true"
-                                    class="v-icon notranslate v-icon--svg theme--light"
+                                    height="24"
+                                    role="img"
+                                    viewBox="0 0 24 24"
+                                    width="24"
+                                    xmlns="http://www.w3.org/2000/svg"
                                   >
-                                    <svg
-                                      aria-hidden="true"
-                                      height="24"
-                                      role="img"
-                                      viewBox="0 0 24 24"
-                                      width="24"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"
-                                      />
-                                    </svg>
-                                  </span>
-                                </div>
-                              </div>
-                              <fieldset
-                                aria-hidden="true"
-                              >
-                                <legend
-                                  style="width: 0px;"
-                                >
-                                  <span>
-                                    ​
-                                  </span>
-                                </legend>
-                              </fieldset>
-                              <div
-                                class="v-text-field__slot"
-                              >
-                                <label
-                                  class="v-label theme--light"
-                                  for="input-207"
-                                  style="left: 0px; position: absolute;"
-                                >
-                                  Email
-                                </label>
-                                <input
-                                  id="input-207"
-                                  type="email"
-                                />
+                                    <path
+                                      d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"
+                                    />
+                                  </svg>
+                                </span>
                               </div>
                             </div>
+                            <fieldset
+                              aria-hidden="true"
+                            >
+                              <legend
+                                style="width: 0px;"
+                              >
+                                <span>
+                                  ​
+                                </span>
+                              </legend>
+                            </fieldset>
                             <div
-                              class="v-text-field__details"
+                              class="v-text-field__slot"
+                            >
+                              <label
+                                class="v-label theme--light"
+                                for="input-208"
+                                style="left: 0px; position: absolute;"
+                              >
+                                Email
+                              </label>
+                              <input
+                                id="input-208"
+                                type="email"
+                              />
+                            </div>
+                          </div>
+                          <div
+                            class="v-text-field__details"
+                          >
+                            <div
+                              class="v-messages theme--light"
                             >
                               <div
-                                class="v-messages theme--light"
-                              >
-                                <div
-                                  class="v-messages__wrapper"
-                                />
-                              </div>
+                                class="v-messages__wrapper"
+                              />
                             </div>
                           </div>
                         </div>
-                      </span>
+                      </div>
                        
                       <div
                         class="v-input v-input--dense theme--light v-text-field v-text-field--enclosed v-text-field--outlined"
@@ -322,13 +320,13 @@ exports[`Storyshots organisms|FormSign Default 1`] = `
                             >
                               <label
                                 class="v-label theme--light"
-                                for="input-211"
+                                for="input-212"
                                 style="left: 0px; position: absolute;"
                               >
                                 Password
                               </label>
                               <input
-                                id="input-211"
+                                id="input-212"
                                 type="password"
                               />
                             </div>
@@ -369,11 +367,6 @@ exports[`Storyshots organisms|FormSign Default 1`] = `
                                 class="v-messages__wrapper"
                               />
                             </div>
-                            <div
-                              class="v-counter theme--light"
-                            >
-                              0
-                            </div>
                           </div>
                         </div>
                       </div>
@@ -395,11 +388,22 @@ exports[`Storyshots organisms|FormSign Default 1`] = `
             </div>
              
             <div
+              class="v-overlay v-overlay--absolute theme--dark"
+              style="z-index: 5;"
+            >
+              <div
+                class="v-overlay__scrim"
+                style="opacity: 0; background-color: rgb(33, 33, 33); border-color: #212121;"
+              />
+            </div>
+             
+            <div
               class="v-card__actions flex-column"
-              style="justify-content: center; height: 70px; background-color: rgb(8, 59, 102);"
+              style="justify-content: center; height: 70px; background-color: grey;"
             >
               <button
-                class="v-btn v-btn--flat v-btn--text theme--dark v-size--default"
+                class="v-btn v-btn--block v-btn--disabled v-btn--flat v-btn--text theme--dark v-size--default"
+                disabled="disabled"
                 type="button"
               >
                 <span
@@ -408,16 +412,6 @@ exports[`Storyshots organisms|FormSign Default 1`] = `
                   Sign In
                 </span>
               </button>
-            </div>
-             
-            <div
-              class="v-overlay v-overlay--absolute theme--dark"
-              style="z-index: 5;"
-            >
-              <div
-                class="v-overlay__scrim"
-                style="opacity: 0; background-color: rgb(33, 33, 33); border-color: #212121;"
-              />
             </div>
           </div>
         </div>
