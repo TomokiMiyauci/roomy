@@ -1,5 +1,19 @@
 <template>
   <div class="fill-height">
+    <v-snackbar
+      @input="reset"
+      v-model="snackbar"
+      color="secondary"
+      absolute
+      top
+    >
+      <v-icon color="green">{{ mdiCheckCircle }}</v-icon
+      >Success!Signed In
+      <v-btn @click="snackbar = false" text>
+        Close
+      </v-btn>
+    </v-snackbar>
+
     <client-only>
       <template v-if="$vuetify.breakpoint.mdAndDown">
         <transition v-if="notFound && !rooms.length" name="fade">
@@ -58,13 +72,14 @@
 </template>
 
 <script lang="ts">
-import { mdiCommentPlus, mdiCommentQuestion } from '@mdi/js'
+import { mdiCheckCircle, mdiCommentPlus, mdiCommentQuestion } from '@mdi/js'
 import {
   computed,
   defineComponent,
   onMounted,
   onUnmounted,
-  ref
+  ref,
+  watch
 } from '@vue/composition-api'
 
 import CardRoomShare from '@/components/molecules/CardRoomShare.vue'
@@ -105,6 +120,18 @@ export default defineComponent({
     const dialog = ref(false)
     const isOpenQrcode = ref(false)
     const isOpenRoom = ref(false)
+
+    const snackbar = ref(false)
+
+    watch(
+      () => user.successfulSignIn,
+      (now) => {
+        if (now) {
+          console.log(now)
+          snackbar.value = true
+        }
+      }
+    )
 
     const text = ref('')
 
@@ -163,7 +190,10 @@ export default defineComponent({
       onClickOutside,
       isOpenQrcode,
       isOpenRoom,
-      onClose
+      onClose,
+      snackbar,
+      reset: user.resetSuccessfulSignIn,
+      mdiCheckCircle
     }
   }
 })
