@@ -14,7 +14,7 @@
       </v-btn>
     </client-only>
     <v-row justify="center" align="center">
-      <form-sign />
+      <form-sign @signin="onCreate" @signup="onCreate" />
     </v-row>
     <!-- <v-row justify="center" align="center">
       <v-card min-width="320px" max-width="320px">
@@ -46,8 +46,6 @@
 import { mdiArrowLeft, mdiGoogle, mdiWebpack } from '@mdi/js'
 import { defineComponent } from '@vue/composition-api'
 
-import firebase, { auth } from '@/plugins/firebase'
-
 export default defineComponent({
   layout: 'plain',
 
@@ -56,31 +54,14 @@ export default defineComponent({
   },
 
   setup(_, { root }) {
-    const provider = new firebase.auth.GoogleAuthProvider()
-    provider.addScope('https://www.googleapis.com/auth/contacts.readonly')
-
-    const signin = async () => {
-      const result = await auth.signInWithPopup(provider).catch((e) => {
-        const errorCode = e.code
-        console.log(errorCode)
-      })
-
-      console.log(result)
-      root.$router.push('/public')
-    }
-
-    const check = () => {
-      auth.onAuthStateChanged((user) => {
-        if (user) {
-          console.log(user)
-        }
-      })
-    }
-
     const onClick = () => {
       root.$router.back()
     }
-    return { signin, check, mdiGoogle, mdiWebpack, mdiArrowLeft, onClick }
+
+    const onCreate = () => {
+      root.$router.push('/public')
+    }
+    return { mdiGoogle, mdiWebpack, mdiArrowLeft, onClick, onCreate }
   }
 })
 </script>
