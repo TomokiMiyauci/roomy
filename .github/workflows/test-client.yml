@@ -187,15 +187,23 @@ jobs:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
 
-      - name: Percy Test
-        uses: percy/storybook-action@master
-        with:
-          working-directory: packages/client
+      - name: build
+        run: yarn workspace client build-storybook
+
+      - name: deploy
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+        run: yarn workspace client percy-storybook
 
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v2
+      # - name: Percy Test
+      #   uses: percy/storybook-action@master
+      #   with:
+      #     working-directory: packages/client
+      #   env:
+      #     PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v2
 
       - name: debug
         run: |
