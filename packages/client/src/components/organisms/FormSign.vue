@@ -31,21 +31,15 @@
           >
           <div class="pa-5">or</div>
           <v-form v-model="valid">
-            <ValidationProvider
-              v-slot="{ errors }"
-              name="email"
-              rules="required|email"
-            >
-              <v-text-field
-                v-model="email"
-                :prepend-inner-icon="mdiEmail"
-                :error-messages="errors"
-                type="email"
-                outlined
-                dense
-                label="Email"
-              />
-            </ValidationProvider>
+            <v-text-field
+              v-model="email"
+              :prepend-inner-icon="mdiEmail"
+              :rules="[required, isEmail]"
+              type="email"
+              outlined
+              dense
+              label="Email"
+            />
             <v-text-field
               v-model="password"
               :append-icon="show ? mdiEye : mdiEyeOff"
@@ -189,6 +183,13 @@ export default defineComponent({
           loading.value = false
           throw new Error('heool')
         })
+
+      const firstLetter = result.user!.email!.charAt(0).toUpperCase()
+
+      await result.user!.updateProfile({
+        displayName: firstLetter
+      })
+
       loading.value = false
       console.log(11, result)
       emit('signup')
@@ -208,6 +209,18 @@ export default defineComponent({
 
       console.log(11, result)
       emit('signin')
+    }
+
+    const required = (text: string | number) => {
+      return !!text || 'This filed is required'
+    }
+
+    const isEmail = (text: string | number) => {
+      return (
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+          text.toString()
+        ) || 'Invalid Email format'
+      )
     }
 
     // const onClick = () => {
@@ -230,7 +243,9 @@ export default defineComponent({
       onClick,
       loading,
       signinWithEmail,
-      ...toRefs(credential)
+      ...toRefs(credential),
+      required,
+      isEmail
     }
   }
 })
