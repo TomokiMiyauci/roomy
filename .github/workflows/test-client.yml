@@ -187,8 +187,11 @@ jobs:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
 
-      # - name: build
-      #   run: yarn workspace client build-storybook
+      - name: pre-setup
+        run: sed -i -e '2s/^/\/\/ /g' packages/client/src/types/vue-shims.d.ts
+
+      - name: build
+        run: yarn workspace client build-storybook
 
       - name: deploy
         env:
