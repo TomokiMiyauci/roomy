@@ -31,6 +31,7 @@
           <v-form>
             <v-text-field
               :prepend-inner-icon="mdiEmail"
+              :rules="[(v) => !!v || 'This filed is required']"
               outlined
               dense
               label="Email"
@@ -40,6 +41,7 @@
               :type="show ? 'text' : 'password'"
               :prepend-inner-icon="mdiShieldKey"
               @click:append="show = !show"
+              :rules="[(v) => !!v || 'This filed is required']"
               outlined
               dense
               counter
