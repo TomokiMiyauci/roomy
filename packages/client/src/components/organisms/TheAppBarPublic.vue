@@ -28,8 +28,12 @@
                 :style="{ cursor: hover ? 'pointer' : 'default' }"
                 :elevation="hover ? 12 : 2"
                 v-on="click"
+                color="secondary"
               >
-                <img :src="photoURL" alt="avatar" />
+                <img v-if="photoURL" :src="photoURL" alt="avatar" />
+                <span v-else class="white--text headline">{{
+                  displayName
+                }}</span>
               </v-avatar>
             </v-hover>
           </template>
@@ -67,6 +71,11 @@ export default defineComponent({
     login: {
       type: Boolean,
       default: false
+    },
+
+    displayName: {
+      type: String,
+      default: ''
     }
   },
 

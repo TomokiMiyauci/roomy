@@ -17,8 +17,13 @@
         <v-container v-if="isMouseover">
           <v-row align="center" justify="center" class="flex-column">
             <v-col cols="auto">
-              <v-avatar :size="100">
-                <img v-if="login" :src="lo" alt="avatar" />
+              <v-avatar :color="username ? 'secondary' : ''" :size="100">
+                <img v-if="login && lo" :src="lo" alt="avatar" />
+                <span
+                  v-else-if="login && username"
+                  class="white--text display-3"
+                  >{{ username }}</span
+                >
                 <v-icon v-else>{{ mdiAccountCircle }}</v-icon>
               </v-avatar>
             </v-col>
@@ -33,9 +38,15 @@
         </v-container>
 
         <template v-else>
-          <v-list-item-avatar>
+          <v-list-item-avatar :color="username ? 'secondary' : ''">
             <client-only>
-              <img v-if="login" :src="lo" alt="avatar" />
+              <img v-if="login && lo" :src="lo" alt="avatar" />
+
+              <span
+                v-else-if="login && username"
+                class="white--text headline"
+                >{{ username }}</span
+              >
 
               <v-icon v-else>{{ mdiAccountCircle }}</v-icon>
             </client-only>

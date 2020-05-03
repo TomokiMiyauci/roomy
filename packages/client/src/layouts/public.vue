@@ -5,6 +5,7 @@
     <the-app-bar
       :login="login"
       :photo-u-r-l="photoURL"
+      :display-name="displayName"
       @click="$nuxt.$emit('close')"
     />
 
@@ -46,6 +47,7 @@ export default defineComponent({
 
     return {
       photoURL: user.photoURL,
+      displayName: user.displayName,
       login: user.login,
       rooms: computed(() => publicRoom.rooms),
       onOpenQrcode
