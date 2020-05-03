@@ -68,6 +68,7 @@ const config: Configuration = {
     '@/plugins/firebase',
     '@/plugins/pretty-bytes',
     '@/plugins/axios',
+    { src: '@/plugins/vee-validate', ssr: false },
     { src: '@/plugins/axe', ssr: false },
     { src: '@/plugins/vue-typer', ssr: false },
     { src: '@/plugins/localStorage', ssr: false }
@@ -144,6 +145,7 @@ const config: Configuration = {
    ** Build configuration
    */
   build: {
+    // transpile: ['vee-validate/dist/rules'],
     extractCSS: true,
 
     optimization: {
