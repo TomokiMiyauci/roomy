@@ -188,7 +188,7 @@ jobs:
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
 
       - name: Percy Test
-        uses: percy/storybook-action@master
+        uses: percy/storybook-action@v0.1.3
         with:
           working-directory: packages/client
         env:
