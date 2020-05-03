@@ -46,8 +46,9 @@
 import { mdiArrowLeft, mdiGoogle, mdiWebpack } from '@mdi/js'
 import { defineComponent } from '@vue/composition-api'
 
+import { user } from '@/store'
 export default defineComponent({
-  layout: 'plain',
+  layout: 'sign',
 
   components: {
     FormSign: () => import('@/components/organisms/FormSign.vue')
@@ -60,6 +61,7 @@ export default defineComponent({
 
     const onCreate = () => {
       root.$router.push('/public')
+      user.succeedSignIn()
     }
     return { mdiGoogle, mdiWebpack, mdiArrowLeft, onClick, onCreate }
   }
