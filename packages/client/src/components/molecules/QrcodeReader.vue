@@ -29,7 +29,7 @@ export default defineComponent({
     QrcodeStream
   },
 
-  setup() {
+  setup(_, { emit }) {
     const state = reactive({
       result: '',
       error: ''
@@ -43,6 +43,7 @@ export default defineComponent({
 
     const onDecode = (result: string) => {
       state.result = result
+      emit('decode', result)
     }
 
     const onInit = async (promise: any) => {

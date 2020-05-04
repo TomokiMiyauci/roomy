@@ -69,7 +69,8 @@
       max-width="600px"
     >
       <card-room-share v-if="isOpenQrcode" :url="text" @close="onClose" />
-      <form-create-room v-if="isOpenRoom" @close="onClose" />
+      <form-create-room v-else-if="isOpenRoom" @close="onClose" />
+      <qrcode-reader @decode="onDecode" v-else-if="isOpenScan" />
     </v-dialog>
   </div>
 </template>
@@ -87,6 +88,7 @@ import {
 
 import CardRoomShare from '@/components/molecules/CardRoomShare.vue'
 import FormCreateRoom from '@/components/organisms/FormCreateRoom.vue'
+import TheInvitation from '@/components/organisms/TheInvitation.vue'
 import { wait } from '@/core/useTime'
 import { publicRoom, user } from '@/store'
 import { generateInviteURL } from '@/utils/firestore'
@@ -107,7 +109,9 @@ export default defineComponent({
     CardSigninPrompt: () =>
       import('@/components/molecules/CardSigninPrompt.vue'),
     CardRoomShare,
-    FormCreateRoom
+    FormCreateRoom,
+    QrcodeReader: () => import('@/components/molecules/QrcodeReader.vue'),
+    TheInvitation
   },
 
   setup(_, { root }) {
@@ -123,6 +127,7 @@ export default defineComponent({
     const dialog = ref(false)
     const isOpenQrcode = ref(false)
     const isOpenRoom = ref(false)
+    const isOpenScan = ref(false)
 
     const snackbar = ref(false)
 
@@ -153,14 +158,20 @@ export default defineComponent({
     }
 
     const create = () => {
-      dialog.value = true
       isOpenRoom.value = true
+      dialog.value = true
+    }
+
+    const scan = () => {
+      isOpenScan.value = true
+      dialog.value = true
     }
 
     const onClickOutside = async () => {
       await wait(300)
       isOpenQrcode.value = false
       isOpenRoom.value = false
+      isOpenScan.value = false
     }
 
     const onClose = async () => {
@@ -168,15 +179,27 @@ export default defineComponent({
       await wait(300)
       isOpenQrcode.value = false
       isOpenRoom.value = false
+      isOpenScan.value = false
+    }
+
+    const onDecode = async (url: string): Promise<void> => {
+      console.log(url)
+
+      dialog.value = false
+      await wait(300)
+      isOpenScan.value = false
+
+      root.$router.push(`public/${url.split('/').slice(-1)[0]}`)
     }
 
     onMounted(() => {
       root.$nuxt.$on('close', create)
       root.$nuxt.$on('open:qrcode', qrcode)
+      root.$nuxt.$on('scan', scan)
     })
 
     onUnmounted(() => {
-      root.$nuxt.$off(['close', 'open:qrcode'])
+      root.$nuxt.$off(['close', 'open:qrcode', 'scan'])
     })
 
     return {
@@ -193,10 +216,12 @@ export default defineComponent({
       onClickOutside,
       isOpenQrcode,
       isOpenRoom,
+      isOpenScan,
       onClose,
       snackbar,
       reset: user.resetSuccessfulSignIn,
-      mdiCheckCircle
+      mdiCheckCircle,
+      onDecode
     }
   }
 })

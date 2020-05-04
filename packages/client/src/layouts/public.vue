@@ -7,6 +7,7 @@
       :photo-u-r-l="photoURL"
       :display-name="displayName"
       @click="$nuxt.$emit('close')"
+      @scan="$nuxt.$emit('scan')"
     />
 
     <v-content>

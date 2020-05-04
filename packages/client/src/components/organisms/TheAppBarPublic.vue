@@ -12,6 +12,9 @@
         ></ButtonCreateRoom>
 
         <v-spacer />
+
+        <ButtonQrcodeReader @click="$emit('scan')" />
+
         <v-menu
           v-if="login"
           v-model="showMenu"
@@ -57,6 +60,7 @@ import { computed, defineComponent, ref } from '@vue/composition-api'
 import BaseButton from '@/components/atoms/BaseButton.vue'
 import BaseIcon from '@/components/atoms/BaseIcon.vue'
 import ButtonCreateRoom from '@/components/molecules/ButtonCreateRoom.vue'
+import ButtonQrcodeReader from '@/components/molecules/ButtonQrcodeReader.vue'
 import BaseAppBar from '@/components/organisms/BaseAppBar.vue'
 import { auth } from '@/plugins/firebase'
 import { createRoom } from '@/repositories/room'
@@ -83,7 +87,8 @@ export default defineComponent({
     BaseAppBar,
     BaseButton,
     BaseIcon,
-    ButtonCreateRoom
+    ButtonCreateRoom,
+    ButtonQrcodeReader
   },
 
   setup(_, { root }) {
