@@ -1,5 +1,5 @@
 import { roomReference } from '@/core/useFirestoreReference'
-import firebase from '@/plugins/firebase'
+import { firestore } from '@/plugins/firebase'
 import { getUser } from '@/repositories/public'
 import { user } from '@/store'
 import { PrivateRoom, PublicRoom, Room } from '@/types/core'
@@ -77,6 +77,28 @@ export const createPrivateRoom = () => {
   return collectionRef.value.add(room)
 }
 
+export const existsDoc = async (documentPath: string): Promise<boolean> => {
+  const { exists } = await firestore.doc(documentPath).get()
+
+  return exists
+}
+
+export const joinRoom = (doc: string, isHost: boolean = false) => {
+  const { displayName, photoURL, id } = user
+
+  firestore
+    .collection('rooms')
+    .doc(doc)
+    .collection('members')
+    .doc(id)
+    .set({
+      id,
+      displayName,
+      photoURL,
+      isHost
+    })
+}
+
 export const updateRoom = () => {
   const u = getUser(user.id)
   const { documentRef } = roomReference()
@@ -104,13 +126,5 @@ export const updateRecent = (message: string) => {
       ...getUser(user.id),
       ...getTimestamp('updatedAt')
     }
-  })
-}
-
-export const joinRoom = (id: string, userId: string) => {
-  const { collectionRef } = roomReference()
-
-  return collectionRef.value.doc(id).update({
-    members: firebase.firestore.FieldValue.arrayUnion(userId)
   })
 }
