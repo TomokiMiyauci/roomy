@@ -69,7 +69,7 @@
             <v-list-item
               v-for="item in items"
               :key="item.title"
-              :to="login ? item.to : 'undefined'"
+              :to="item.to"
               v-on="!login && item.auth ? on : ''"
               link
               nuxt
