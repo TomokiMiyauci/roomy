@@ -12,15 +12,15 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     // "typeRoots": ["./node_modules/@types/"],
-    "baseUrl": "./",                       /* Base directory to resolve non-absolute module names. */
-    "paths": {
-      "~/*": [
-        "../../types/core"
-      ],
-      "@/*": [
-        "../src/*"
-      ]
-    }
+    // "baseUrl": "./",                       /* Base directory to resolve non-absolute module names. */
+    // "paths": {
+    //   "~types/*": [
+    //     "../share/*"
+    //   ],
+    //   "@/*": [
+    //     "../src/*"
+    //   ]
+    // }
   },
   "compileOnSave": true,
   "include": [
