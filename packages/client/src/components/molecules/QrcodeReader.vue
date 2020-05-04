@@ -4,35 +4,49 @@
     :class="{ fullscreen: fullscreen }"
     @fullscreenchange="onFullscreenChange"
   >
-    <p class="error">{{ error }}</p>
-    <qrcode-stream @decode="onDecode" @init="onInit">
-      <div style="position:absolute;right:10px;bottom:10px">
-        <v-btn @click="requestFullscreen" icon
-          ><v-icon>{{ mdiCameraRetake }}</v-icon></v-btn
-        >
+    <qrcode-stream @decode="onDecode" @init="onInit" v-if="!destroyed">
+      <div
+        v-if="!loading && !error"
+        style="position:absolute;right:10px;bottom:10px"
+      >
         <v-btn @click="requestFullscreen" icon
           ><v-icon>{{
             fullscreen ? mdiFullscreenExit : mdiFullscreen
           }}</v-icon></v-btn
         >
       </div>
+
+      <v-row v-else class="fill-height" align="center" justify="center">
+        <v-col cols="auto">
+          <v-progress-circular
+            :size="80"
+            v-if="loading"
+            color="primary"
+            indeterminate
+          ></v-progress-circular>
+          <v-icon v-else size="80" color="warning">{{ mdiAlert }}</v-icon>
+        </v-col>
+      </v-row>
     </qrcode-stream>
   </div>
 </template>
 
 <script lang="ts">
-import { mdiCameraRetake, mdiFullscreen, mdiFullscreenExit } from '@mdi/js'
+import { mdiAlert, mdiFullscreen, mdiFullscreenExit } from '@mdi/js'
 import { defineComponent, reactive, ref, toRefs } from '@vue/composition-api'
 import { QrcodeStream } from 'vue-qrcode-reader'
+
 export default defineComponent({
   components: {
     QrcodeStream
   },
 
-  setup(_, { emit }) {
+  setup(_, { emit, root }) {
     const state = reactive({
       result: '',
-      error: ''
+      error: '',
+      loading: false,
+      destroyed: false
     })
 
     const onFullscreenChange = () => {
@@ -48,6 +62,7 @@ export default defineComponent({
 
     const onInit = async (promise: any) => {
       try {
+        state.loading = true
         await promise
       } catch (error) {
         if (error.name === 'NotAllowedError') {
@@ -63,6 +78,9 @@ export default defineComponent({
         } else if (error.name === 'StreamApiNotSupportedError') {
           state.error = 'ERROR: Stream API is not supported in this browser'
         }
+      } finally {
+        emit('error', state.error)
+        state.loading = false
       }
     }
 
@@ -76,16 +94,14 @@ export default defineComponent({
       } else {
         elem.requestFullscreen()
       }
+    }
 
-      // if (elem.requestFullscreen) {
-      //   elem.requestFullscreen();
-      // } else if (elem.mozRequestFullScreen) { /* Firefox */
-      //   elem.mozRequestFullScreen();
-      // } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-      //   elem.webkitRequestFullscreen();
-      // } else if (elem.msRequestFullscreen) { /* IE/Edge */
-      //   elem.msRequestFullscreen();
-      // }
+    const reload = async () => {
+      state.destroyed = true
+      state.error = ''
+      state.loading = false
+      await root.$nextTick()
+      state.destroyed = false
     }
 
     return {
@@ -98,7 +114,8 @@ export default defineComponent({
       requestFullscreen,
       mdiFullscreen,
       mdiFullscreenExit,
-      mdiCameraRetake
+      mdiAlert,
+      reload
     }
   }
 })
