@@ -65,12 +65,16 @@
           ? 'dialog-bottom-transition'
           : 'fab-transition'
       "
-      @click:outside="isOpenQrcode ? onClickOutside() : ''"
+      @click:outside="isOpenQrcode || isOpenScan ? onClickOutside() : ''"
       max-width="600px"
     >
       <card-room-share v-if="isOpenQrcode" :url="text" @close="onClose" />
       <form-create-room v-else-if="isOpenRoom" @close="onClose" />
-      <qrcode-reader @decode="onDecode" v-else-if="isOpenScan" />
+      <CardQrcodeScanner
+        @close="onClose"
+        @decode="onDecode"
+        v-else-if="isOpenScan"
+      />
     </v-dialog>
   </div>
 </template>
@@ -88,7 +92,6 @@ import {
 
 import CardRoomShare from '@/components/molecules/CardRoomShare.vue'
 import FormCreateRoom from '@/components/organisms/FormCreateRoom.vue'
-import TheInvitation from '@/components/organisms/TheInvitation.vue'
 import { wait } from '@/core/useTime'
 import { publicRoom, user } from '@/store'
 import { generateInviteURL } from '@/utils/firestore'
@@ -110,8 +113,8 @@ export default defineComponent({
       import('@/components/molecules/CardSigninPrompt.vue'),
     CardRoomShare,
     FormCreateRoom,
-    QrcodeReader: () => import('@/components/molecules/QrcodeReader.vue'),
-    TheInvitation
+    CardQrcodeScanner: () =>
+      import('@/components/organisms/CardQrcodeScanner.vue')
   },
 
   setup(_, { root }) {
