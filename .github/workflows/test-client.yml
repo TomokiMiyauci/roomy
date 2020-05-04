@@ -164,39 +164,39 @@ jobs:
       - name: test snapshot
         run: yarn workspace client test:snapshot --ci
 
-  test-visual:
-    needs: setup
-    runs-on: ${{ matrix.os }}
+  # test-visual:
+  #   needs: setup
+  #   runs-on: ${{ matrix.os }}
 
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node: [13]
+  #   strategy:
+  #     matrix:
+  #       os: [ubuntu-latest]
+  #       node: [13]
 
-    steps:
-      - uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
+  #   steps:
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: ${{ matrix.node }}
 
-      - name: checkout
-        uses: actions/checkout@master
+  #     - name: checkout
+  #       uses: actions/checkout@master
 
-      - name: restore workspace cache
-        uses: actions/cache@v1
-        with:
-          path: ${{ github.workspace }}
-          key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
+  #     - name: restore workspace cache
+  #       uses: actions/cache@v1
+  #       with:
+  #         path: ${{ github.workspace }}
+  #         key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
 
-      - name: pre-setup
-        run: sed -i -e '2s/^/\/\/ /g' packages/client/src/types/vue-shims.d.ts
+  #     - name: pre-setup
+  #       run: sed -i -e '2s/^/\/\/ /g' packages/client/src/types/vue-shims.d.ts
 
-      - name: build
-        run: yarn workspace client build-storybook
+  #     - name: build
+  #       run: yarn workspace client build-storybook
 
-      - name: deploy
-        env:
-          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-        run: yarn workspace client percy-storybook --debug
+  #     - name: deploy
+  #       env:
+  #         PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+  #       run: yarn workspace client percy-storybook --debug
 
       # - name: Percy Test
       #   uses: percy/storybook-action@master
