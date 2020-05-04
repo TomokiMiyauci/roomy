@@ -41,7 +41,10 @@
         <v-col cols="auto">
           <div class="display-1">
             <client-only>
-              <vue-typer :text="['Welcome to Public Room', 'Select Right']" />
+              <vue-typer
+                :text="['Welcome to Public Room', 'Select Right']"
+                erase-style="backspace"
+              />
             </client-only>
           </div>
         </v-col>
@@ -206,5 +209,38 @@ export default defineComponent({
 
 .fade-enter-active {
   transition: opacity 2s;
+}
+</style>
+
+<style>
+@keyframes rocking {
+  0%,
+  100% {
+    transform: rotateZ(-10deg);
+  }
+  50% {
+    transform: rotateZ(10deg);
+  }
+}
+
+.vue-typer {
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+}
+.vue-typer .custom.char.typed {
+  color: #009688;
+}
+.vue-typer .custom.char.selected {
+  color: #e91e63;
+}
+
+.vue-typer .custom.caret {
+  animation: rocking 1s ease-in-out 0s infinite;
+}
+.vue-typer .custom.caret.typing {
+  background-color: #009688;
+}
+.vue-typer .custom.caret.selecting {
+  display: inline-block;
+  background-color: #e91e63;
 }
 </style>
