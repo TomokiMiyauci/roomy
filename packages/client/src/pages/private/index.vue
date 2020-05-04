@@ -20,9 +20,10 @@
         </v-col>
         <v-col class="pa-0" cols="auto">or</v-col>
         <v-col cols="auto">
-          <v-btn @click="dialog = true" fab color="primary">
+          <button-create-room @click="onCreate" :login="true" />
+          <!-- <v-btn @click="dialog = true" fab color="primary">
             <v-icon>{{ mdiCommentPlus }}</v-icon>
-          </v-btn>
+          </v-btn> -->
         </v-col>
       </v-row>
     </client-only>
@@ -38,7 +39,9 @@
       max-width="600px"
       hide-overlay
     >
-      <card-room-share :url="text" @close="dialog = false" />
+      <svg-qrcode v-if="url" :text="url" />
+
+      <!-- <card-room-share :url="text" @close="dialog = false" /> -->
     </v-dialog>
   </div>
 </template>
@@ -55,10 +58,11 @@ import {
   toRefs
 } from '@vue/composition-api'
 
+import ButtonCreateRoom from '@/components/molecules/ButtonCreateRoom.vue'
 import TheRooms from '@/components/organisms/TheRooms.vue'
 // import { useFirestore } from '@/core/useFirestore'
 // import { roomReference } from '@/core/useFirestoreReference'
-import { createPrivateRoom, getRoomKey } from '@/repositories/room'
+import { createPrivateRoom, getRoomKey, joinRoom } from '@/repositories/room'
 import { privateRoom } from '@/store'
 
 export default defineComponent({
@@ -66,6 +70,7 @@ export default defineComponent({
 
   components: {
     TheRooms,
+    ButtonCreateRoom,
     SvgQrcode: () => import('@/components/atoms/SvgQrcode.vue'),
     CardRoomShare: () => import('@/components/molecules/CardRoomShare.vue')
   },
@@ -83,7 +88,8 @@ export default defineComponent({
 
     const newRoom = reactive({
       id: '',
-      key: ''
+      key: '',
+      url: ''
     })
 
     onMounted(() => {
@@ -105,25 +111,24 @@ export default defineComponent({
       return url
     })
 
-    // const { collectionRef } = roomReference()
-
     privateRoom.subscribe()
     const rooms = computed(() => privateRoom.rooms)
-    // const rooms = useFirestore(
-    //   collectionRef.value
-    //     .where('isPrivate', '==', true)
-    //     .where('members', 'array-contains', user.id)
-    //     .orderBy('recent.updatedAt', 'desc'),
-    //   (err) => {
-    //     console.log(1111, err)
-    //   }
-    // )
 
     const create = async () => {
       const { id } = await createPrivateRoom()
       const key = await getRoomKey(id)
       newRoom.key = key
       newRoom.id = id
+    }
+
+    const onCreate = async () => {
+      dialog.value = true
+      const { id } = await createPrivateRoom()
+      await joinRoom(id, true)
+      const key = await getRoomKey(id)
+      const inviteURL = `https://${process.env.AUTH_DOMAIN}/private/invite?roomId=${id}&key=${key}`
+
+      newRoom.url = inviteURL
     }
 
     return {
@@ -135,7 +140,9 @@ export default defineComponent({
       roomURL,
       o,
       text,
-      tabs
+      tabs,
+      createPrivateRoom,
+      onCreate
     }
   }
 })

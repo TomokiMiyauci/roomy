@@ -12,21 +12,18 @@
             <v-row class="flex-column" align="center" justify="center">
               <v-col cols="auto">
                 <v-avatar size="80px">
-                  <img
-                    src="https://cdn.vuetifyjs.com/images/john.jpg"
-                    alt="John"
-                  />
+                  <img :src="photoURL" alt="avatar" />
                 </v-avatar>
               </v-col>
               <v-col class="pa-0" cols="auto">
-                <span class="display-1">hello</span>
+                <span class="display-1">{{ displayName }}</span>
               </v-col>
             </v-row>
           </v-card-text>
           <v-divider />
-          <v-card-title>
+          <!-- <v-card-title>
             Invite from hello
-          </v-card-title>
+          </v-card-title> -->
           <v-card-actions>
             <v-btn @click="join" block>
               join
@@ -50,16 +47,31 @@
 import { computed, defineComponent } from '@vue/composition-api'
 
 import firebase, { auth } from '@/plugins/firebase'
-import { joinRoom } from '@/repositories/room'
+import { existsDoc, joinRoom } from '@/repositories/room'
 import { user } from '@/store'
 export default defineComponent({
-  layout: 'plain',
+  props: {
+    displayName: {
+      type: String,
+      default: ''
+    },
+
+    photoURL: {
+      type: String,
+      default: ''
+    }
+  },
 
   setup(_, { root }) {
     const join = async () => {
       console.log(root.$route.query)
 
-      await joinRoom(root.$route.query.roomId as string, 'hello')
+      const roomId = root.$route.query.roomId as string
+
+      if (!(await existsDoc(`rooms/${roomId}/members/${user.id}`))) {
+        await joinRoom(roomId, false)
+      }
+
       root.$router.push(`/private/${root.$route.query.roomId}`)
     }
 
