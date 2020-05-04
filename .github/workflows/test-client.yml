@@ -208,12 +208,6 @@ jobs:
       # - name: Setup tmate session
       #   uses: mxschmitt/action-tmate@v2
 
-      - name: debug
-        run: |
-          cd packages/client
-          ls
-          cd storybook-static
-          ls
 
   deploy-storybook:
     needs: [lint, audit, test-unit, test-snapshot]
