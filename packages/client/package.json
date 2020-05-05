@@ -5,7 +5,7 @@
   "author": "TomokiMiyauci",
   "private": true,
   "engines": {
-    "node": "10.x || 13.x || 14.x"
+    "node": "10"
   },
   "scripts": {
     "dev": "nuxt-ts -o",
@@ -24,8 +24,11 @@
     "snapshot": "build-storybook && percy-storybook --widths=320,1280",
     "hygen": "hygen components new",
     "hygen:vuex": "hygen vuex new",
-    "audit": "improved-yarn-audit --retry-on-network-failure --min-severity moderate -e 1488"
+    "audit": "improved-yarn-audit --retry-on-network-failure --min-severity moderate -e 1488",
+    "build:copy": "rm -rf public && cp -R src/static public && cp -R .nuxt/dist/client public/_nuxt && mkdir -p tmp/dist && cp -R .nuxt/dist/server tmp/dist && rm -rf .nuxt/ && mv tmp/ .nuxt/",
+    "deploy:ssr": "firebase deploy --only functions:ssr,hosting"
   },
+  "main": "functions/index.js",
   "lint-staged": {
     "*": [
       "git secrets --scan"
@@ -49,6 +52,8 @@
     "compressorjs": "^1.0.6",
     "dayjs": "^1.8.22",
     "firebase": "^7.10.0",
+    "firebase-admin": "^8.11.0",
+    "firebase-functions": "^3.6.1",
     "gsap": "^3.2.4",
     "nuxt": "^2.12.0",
     "nuxt-i18n": "^6.5.0",
