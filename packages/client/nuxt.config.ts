@@ -145,7 +145,6 @@ const config: Configuration = {
    ** Build configuration
    */
   build: {
-    // transpile: ['vee-validate/dist/rules'],
     extractCSS: true,
 
     optimization: {
@@ -167,9 +166,9 @@ const config: Configuration = {
       }
     },
 
-    splitChunks: {
-      layouts: true
-    },
+    // splitChunks: {
+    //   layouts: true
+    // },
 
     postcss: {
       plugins: [autoprefixer({ grid: 'autoplace' })]
