@@ -285,6 +285,7 @@ jobs:
           args: deploy --only functions:ssr,hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_DEV }}
+          PROJECT_PATH: ./packages/client
 
   lighthouse:
     runs-on: ubuntu-latest
