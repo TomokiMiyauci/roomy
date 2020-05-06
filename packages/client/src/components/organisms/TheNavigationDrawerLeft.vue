@@ -17,15 +17,25 @@
         <v-container v-if="isMouseover">
           <v-row align="center" justify="center" class="flex-column">
             <v-col cols="auto">
-              <v-avatar :color="username ? 'secondary' : ''" :size="100">
-                <img v-if="login && lo" :src="lo" alt="avatar" />
-                <span
-                  v-else-if="login && username"
-                  class="white--text display-3"
-                  >{{ username }}</span
+              <span style="position:relative;">
+                <v-avatar :color="username ? 'secondary' : ''" :size="100">
+                  <img v-if="login && lo" :src="lo" alt="avatar" />
+                  <span
+                    v-else-if="login && username"
+                    class="white--text display-3"
+                    >{{ username }}</span
+                  >
+                  <v-icon v-else>{{ mdiAccountCircle }}</v-icon>
+                </v-avatar>
+                <v-btn
+                  @click="$emit('edit')"
+                  style="position:absolute;top:-50px;right:-20px"
+                  fab
+                  small
+                  color="primary"
+                  ><v-icon>{{ mdiPencil }}</v-icon></v-btn
                 >
-                <v-icon v-else>{{ mdiAccountCircle }}</v-icon>
-              </v-avatar>
+              </span>
             </v-col>
             <v-col class="pa-0 pb-5" cols="auto">
               {{ login ? username : 'Anonymous' }}
@@ -92,7 +102,7 @@
 </template>
 
 <script lang="ts">
-import { mdiAccountCircle, mdiHomeLock, mdiWeb } from '@mdi/js'
+import { mdiAccountCircle, mdiHomeLock, mdiPencil, mdiWeb } from '@mdi/js'
 import { computed, defineComponent, ref } from '@vue/composition-api'
 
 import { signOut } from '@/repositories/auth'
@@ -120,6 +130,7 @@ export default defineComponent({
     }
 
     return {
+      mdiPencil,
       items,
       mdiAccountCircle,
       lo: user.photoURL,
