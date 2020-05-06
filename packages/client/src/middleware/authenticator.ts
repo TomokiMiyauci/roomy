@@ -9,7 +9,6 @@ const authenticator: Middleware = () => {
       console.log(user)
 
       userStore.setUser(user)
-      userStore.setId(user.uid)
     } else {
       userStore.removeUser()
     }
