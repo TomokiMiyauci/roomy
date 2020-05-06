@@ -216,6 +216,43 @@ exports[`Storyshots molecules|ImageCropper Default 1`] = `
             </div>
              
             <div
+              class="row"
+              style="position: absolute;"
+            >
+              <div
+                class="col"
+              >
+                <div
+                  aria-valuemax="100"
+                  aria-valuemin="0"
+                  class="v-progress-circular v-progress-circular--indeterminate primary--text"
+                  role="progressbar"
+                  style="height: 50px; width: 50px;"
+                >
+                  <svg
+                    style="transform: rotate(0deg);"
+                    viewBox="21.73913043478261 21.73913043478261 43.47826086956522 43.47826086956522"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      class="v-progress-circular__overlay"
+                      cx="43.47826086956522"
+                      cy="43.47826086956522"
+                      fill="transparent"
+                      r="20"
+                      stroke-dasharray="125.664"
+                      stroke-dashoffset="125.66370614359172px"
+                      stroke-width="3.4782608695652177"
+                    />
+                  </svg>
+                  <div
+                    class="v-progress-circular__info"
+                  />
+                </div>
+              </div>
+            </div>
+             
+            <div
               class="aaa"
             >
               <div
@@ -225,8 +262,7 @@ exports[`Storyshots molecules|ImageCropper Default 1`] = `
                   class="col"
                 >
                   <button
-                    class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default primary--text"
-                    role="crop"
+                    class="v-btn v-btn--flat v-btn--icon v-btn--round v-btn--tile theme--light v-size--default primary--text"
                     type="button"
                   >
                     <span
@@ -245,39 +281,7 @@ exports[`Storyshots molecules|ImageCropper Default 1`] = `
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M19,3H15V5H19V9H21V5C21,3.89 20.1,3 19,3M19,19H15V21H19A2,2 0 0,0 21,19V15H19M5,15H3V19A2,2 0 0,0 5,21H9V19H5M3,5V9H5V5H9V3H5A2,2 0 0,0 3,5Z"
-                          />
-                        </svg>
-                      </span>
-                    </span>
-                  </button>
-                </div>
-                 
-                <div
-                  class="col"
-                >
-                  <button
-                    class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default primary--text"
-                    role="rotate"
-                    type="button"
-                  >
-                    <span
-                      class="v-btn__content"
-                    >
-                      <span
-                        aria-hidden="true"
-                        class="v-icon notranslate v-icon--svg theme--light"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          height="24"
-                          role="img"
-                          viewBox="0 0 24 24"
-                          width="24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M7.47,21.5C4.2,19.93 1.86,16.76 1.5,13H0C0.5,19.16 5.66,24 11.95,24C12.18,24 12.39,24 12.61,23.97L8.8,20.15L7.47,21.5M12.05,0C11.82,0 11.61,0 11.39,0.04L15.2,3.85L16.53,2.5C19.8,4.07 22.14,7.24 22.5,11H24C23.5,4.84 18.34,0 12.05,0M16,14H18V8C18,6.89 17.1,6 16,6H10V8H16V14M8,16V4H6V6H4V8H6V16A2,2 0 0,0 8,18H16V20H18V18H20V16H8Z"
+                            d="M5,5H10V7H7V10H5V5M14,5H19V10H17V7H14V5M17,14H19V19H14V17H17V14M10,17V19H5V14H7V17H10Z"
                           />
                         </svg>
                       </span>
