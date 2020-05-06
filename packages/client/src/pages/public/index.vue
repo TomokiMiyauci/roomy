@@ -75,6 +75,7 @@
         @decode="onDecode"
         v-else-if="isOpenScan"
       />
+      <form-user-profile :displayName="displayName" v-else-if="isOpenEdit" />
     </v-dialog>
   </div>
 </template>
@@ -114,7 +115,8 @@ export default defineComponent({
     CardRoomShare,
     FormCreateRoom,
     CardQrcodeScanner: () =>
-      import('@/components/organisms/CardQrcodeScanner.vue')
+      import('@/components/organisms/CardQrcodeScanner.vue'),
+    FormUserProfile: () => import('@/components/organisms/FormUserProfile.vue')
   },
 
   setup(_, { root }) {
@@ -131,6 +133,7 @@ export default defineComponent({
     const isOpenQrcode = ref(false)
     const isOpenRoom = ref(false)
     const isOpenScan = ref(false)
+    const isOpenEdit = ref(false)
 
     const snackbar = ref(false)
 
@@ -170,11 +173,17 @@ export default defineComponent({
       dialog.value = true
     }
 
+    const edit = () => {
+      isOpenEdit.value = true
+      dialog.value = true
+    }
+
     const onClickOutside = async () => {
       await wait(300)
       isOpenQrcode.value = false
       isOpenRoom.value = false
       isOpenScan.value = false
+      isOpenEdit.value = false
     }
 
     const onClose = async () => {
@@ -183,6 +192,7 @@ export default defineComponent({
       isOpenQrcode.value = false
       isOpenRoom.value = false
       isOpenScan.value = false
+      isOpenEdit.value = false
     }
 
     const onDecode = async (url: string): Promise<void> => {
@@ -199,10 +209,11 @@ export default defineComponent({
       root.$nuxt.$on('close', create)
       root.$nuxt.$on('open:qrcode', qrcode)
       root.$nuxt.$on('scan', scan)
+      root.$nuxt.$on('edit', edit)
     })
 
     onUnmounted(() => {
-      root.$nuxt.$off(['close', 'open:qrcode', 'scan'])
+      root.$nuxt.$off(['close', 'open:qrcode', 'scan', 'edit'])
     })
 
     return {
@@ -215,11 +226,13 @@ export default defineComponent({
       mdiCommentQuestion,
       qrcode,
       login: user.login,
+      displayName: user.displayName,
       mobile,
       onClickOutside,
       isOpenQrcode,
       isOpenRoom,
       isOpenScan,
+      isOpenEdit,
       onClose,
       snackbar,
       reset: user.resetSuccessfulSignIn,

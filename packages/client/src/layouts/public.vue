@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <the-navigation-drawer-left />
+    <the-navigation-drawer-left @edit="$nuxt.$emit('edit')" />
     <the-navigation-drawer-right :rooms="rooms" @open:qrcode="onOpenQrcode" />
     <the-app-bar
       :login="login"
