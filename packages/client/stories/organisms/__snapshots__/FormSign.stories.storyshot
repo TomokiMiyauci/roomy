@@ -245,13 +245,13 @@ exports[`Storyshots organisms|FormSign Default 1`] = `
                             >
                               <label
                                 class="v-label theme--light"
-                                for="input-254"
+                                for="input-253"
                                 style="left: 0px; position: absolute;"
                               >
                                 Email
                               </label>
                               <input
-                                id="input-254"
+                                id="input-253"
                                 type="email"
                               />
                             </div>
@@ -320,13 +320,13 @@ exports[`Storyshots organisms|FormSign Default 1`] = `
                             >
                               <label
                                 class="v-label theme--light"
-                                for="input-258"
+                                for="input-257"
                                 style="left: 0px; position: absolute;"
                               >
                                 Password
                               </label>
                               <input
-                                id="input-258"
+                                id="input-257"
                                 type="password"
                               />
                             </div>
