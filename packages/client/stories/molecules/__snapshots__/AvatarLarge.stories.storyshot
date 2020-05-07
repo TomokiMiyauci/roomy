@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots molecules|AvatarLarge Default 1`] = `
+<div
+  class="v-application v-application--is-ltr theme--light"
+  data-app="true"
+  id="app"
+  style="background-color: transparent;"
+>
+  <div
+    class="v-application--wrap"
+  >
+    <main
+      class="v-content"
+      style="padding: 0px 0px 0px 0px;"
+    >
+      <div
+        class="v-content__wrap"
+      >
+        <div
+          class="container container--fluid"
+        >
+          <div
+            class="v-avatar secondary"
+            style="height: 100px; min-width: 100px; width: 100px;"
+          >
+            <img
+              alt="avatar"
+              src="https://cdn.vuetifyjs.com/images/john.jpg"
+            />
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+`;
