@@ -23,6 +23,9 @@
       ],
       "~types/*": [
         "../share/*"
+      ],
+      "@mock/*": [
+        "__mock__/index"
       ]
     }
   },
@@ -33,6 +36,7 @@
     "dist"
   ],
   "include": [
-    "./src/**/*"
+    "./src/**/*",
+    "./stories/**/*"
   ]
 }
