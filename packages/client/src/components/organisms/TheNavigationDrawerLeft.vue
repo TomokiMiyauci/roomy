@@ -14,54 +14,37 @@
         two-line
         class="px-0"
       >
-        <v-container v-if="isMouseover">
-          <v-row align="center" justify="center" class="flex-column">
-            <v-col cols="auto">
-              <span style="position:relative;">
-                <v-avatar :color="username ? 'secondary' : ''" :size="100">
-                  <img v-if="login && lo" :src="lo" alt="avatar" />
-                  <span
-                    v-else-if="login && username"
-                    class="white--text display-3"
-                    >{{ username }}</span
-                  >
-                  <v-icon v-else>{{ mdiAccountCircle }}</v-icon>
-                </v-avatar>
-                <v-btn
-                  @click="$emit('edit')"
-                  style="position:absolute;top:-50px;right:-20px"
-                  fab
-                  small
-                  color="primary"
-                  ><v-icon>{{ mdiPencil }}</v-icon></v-btn
+        <transition name="fade-quick">
+          <v-container v-if="isMouseover">
+            <avatar-name-large
+              :login="login"
+              :displayName="username"
+              :photoURL="lo"
+              @edit="$emit('edit')"
+            />
+
+            <v-row class="pt-5">
+              <v-btn v-if="login" @click="signout" block>logout</v-btn>
+              <v-btn v-else @click="$router.push('/login')" block>login</v-btn>
+            </v-row>
+          </v-container>
+
+          <template v-else>
+            <v-list-item-avatar :color="username ? 'secondary' : ''">
+              <client-only>
+                <img v-if="login && lo" :src="lo" alt="avatar" />
+
+                <span
+                  v-else-if="login && username"
+                  class="white--text headline"
+                  >{{ username }}</span
                 >
-              </span>
-            </v-col>
-            <v-col class="pa-0 pb-5" cols="auto">
-              {{ login ? username : 'Anonymous' }}
-            </v-col>
-          </v-row>
-          <v-row class="pt-5">
-            <v-btn v-if="login" @click="signout" block>logout</v-btn>
-            <v-btn v-else @click="$router.push('/login')" block>login</v-btn>
-          </v-row>
-        </v-container>
 
-        <template v-else>
-          <v-list-item-avatar :color="username ? 'secondary' : ''">
-            <client-only>
-              <img v-if="login && lo" :src="lo" alt="avatar" />
-
-              <span
-                v-else-if="login && username"
-                class="white--text headline"
-                >{{ username }}</span
-              >
-
-              <v-icon v-else>{{ mdiAccountCircle }}</v-icon>
-            </client-only>
-          </v-list-item-avatar>
-        </template>
+                <v-icon v-else>{{ mdiAccountCircle }}</v-icon>
+              </client-only>
+            </v-list-item-avatar>
+          </template>
+        </transition>
       </v-list-item>
 
       <v-divider class="pb-1"></v-divider>
@@ -102,15 +85,19 @@
 </template>
 
 <script lang="ts">
+import '@/assets/variables.scss'
+
 import { mdiAccountCircle, mdiHomeLock, mdiPencil, mdiWeb } from '@mdi/js'
 import { computed, defineComponent, ref } from '@vue/composition-api'
 
+import AvatarNameLarge from '@/components/molecules/AvatarNameLarge.vue'
 import { signOut } from '@/repositories/auth'
 import { user } from '@/store'
 export default defineComponent({
   components: {
     CardSigninPrompt: () =>
-      import('@/components/molecules/CardSigninPrompt.vue')
+      import('@/components/molecules/CardSigninPrompt.vue'),
+    AvatarNameLarge
   },
   setup(_, { root }) {
     const navigation = ref<any>()
