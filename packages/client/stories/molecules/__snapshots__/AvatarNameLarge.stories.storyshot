@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots molecules|AvatarNameLarge Default 1`] = `
+<div
+  class="v-application v-application--is-ltr theme--light"
+  data-app="true"
+  id="app"
+  style="background-color: transparent;"
+>
+  <div
+    class="v-application--wrap"
+  >
+    <main
+      class="v-content"
+      style="padding: 0px 0px 0px 0px;"
+    >
+      <div
+        class="v-content__wrap"
+      >
+        <div
+          class="container container--fluid"
+        >
+          <div
+            class="row flex-column no-gutters align-center"
+          >
+            <div
+              class="col col-auto"
+              style="position: relative;"
+            >
+              <avatarlarge
+                displayname="roomy"
+                login="true"
+                photourl="https://cdn.vuetifyjs.com/images/john.jpg"
+              />
+               
+              <button
+                class="v-btn v-btn--contained v-btn--fab v-btn--round theme--light v-size--small primary"
+                style="position: absolute; top: -10px; right: -20px;"
+                type="button"
+              >
+                <span
+                  class="v-btn__content"
+                >
+                  <span
+                    aria-hidden="true"
+                    class="v-icon notranslate v-icon--svg theme--light"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      height="24"
+                      role="img"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </button>
+            </div>
+             
+            <div
+              class="pt-2 title col col-auto"
+            >
+              <span>
+                roomy
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+`;
