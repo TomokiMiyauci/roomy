@@ -2,3 +2,10 @@
 //
 // The variables you want to modify
 // $font-size-root: 20px;
+.fade-quick-enter {
+  opacity: 0;
+}
+
+.fade-quick-enter-active {
+  transition: opacity 0.5s;
+}
