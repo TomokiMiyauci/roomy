@@ -45,6 +45,63 @@ exports[`Storyshots organisms|FormUserProfile Default 1`] = `
               class="v-card__text"
             >
               <div
+                class="row"
+              >
+                <div
+                  class="col col-9"
+                >
+                  <div
+                    class="pa-2 v-card v-card--outlined v-sheet v-sheet--tile theme--light"
+                  >
+                    
+          Level 1: .col-sm-9
+        
+                  </div>
+                   
+                  <div
+                    class="row no-gutters"
+                  >
+                    <div
+                      class="col-sm-6 col-8"
+                    >
+                      <div
+                        class="pa-2 v-card v-card--outlined v-sheet v-sheet--tile theme--light"
+                        style="background-color: lightgrey;"
+                      >
+                        
+              Level 2: .col-8 .col-sm-6
+            
+                      </div>
+                    </div>
+                     
+                    <div
+                      class="col-sm-6 col-4"
+                    >
+                      <div
+                        class="pa-2 v-card v-card--outlined v-sheet v-sheet--tile theme--light"
+                        style="background-color: lightgrey;"
+                      >
+                        
+              Level 3: .col-4 .col-sm-6
+            
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                 
+                <div
+                  class="col col-3"
+                >
+                  <span />
+                   
+                  <avatar-large
+                    displayname="roomy"
+                    photourl="https://cdn.vuetifyjs.com/images/john.jpg"
+                  />
+                </div>
+              </div>
+               
+              <div
                 class="v-avatar red"
                 style="min-width: avatarSize;"
               >
@@ -55,7 +112,7 @@ exports[`Storyshots organisms|FormUserProfile Default 1`] = `
               </div>
                
               <div
-                class="v-input theme--light v-text-field"
+                class="v-input v-input--is-label-active v-input--is-dirty theme--light v-text-field"
               >
                 <div
                   class="v-input__control"
@@ -67,14 +124,14 @@ exports[`Storyshots organisms|FormUserProfile Default 1`] = `
                       class="v-text-field__slot"
                     >
                       <label
-                        class="v-label theme--light"
-                        for="input-277"
+                        class="v-label v-label--active theme--light"
+                        for="input-298"
                         style="left: 0px; position: absolute;"
                       >
                         Name
                       </label>
                       <input
-                        id="input-277"
+                        id="input-298"
                         name="name"
                         type="text"
                       />
