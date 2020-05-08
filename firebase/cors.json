@@ -1,0 +1,9 @@
+[
+  {
+    "origin": ["*"],
+    "method": ["GET"],
+    "maxAgeSeconds": 3600
+  }
+]
+gsutil cors set firebase/cors.json gs://roomy-devlop.appspot.com
+
