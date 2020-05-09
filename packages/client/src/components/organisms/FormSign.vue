@@ -149,8 +149,27 @@ import {
 import { ValidationProvider } from 'vee-validate'
 
 import { wait } from '@/core/useTime'
-import firebase, { auth } from '@/plugins/firebase'
+import firebase, { auth, firestore } from '@/plugins/firebase'
+
+const sub = (): Promise<void> => {
+  return new Promise((resolve) => {
+    const uid = auth.currentUser!.uid
+    console.log(uid)
+
+    const unsubscribe = firestore
+      .collection('profile')
+      .doc(uid)
+      .onSnapshot(async (snapshot) => {
+        if (!snapshot.exists) return
+
+        await auth.currentUser!.reload()
+        unsubscribe()
+        resolve()
+      })
+  })
+}
 type Tab = 'signin' | 'signup'
+
 export default defineComponent({
   components: {
     ValidationProvider
@@ -254,22 +273,22 @@ export default defineComponent({
         throw new Error('Fetal Error')
       }
 
-      const result = await auth
-        .createUserWithEmailAndPassword(email, password)
-        .catch((e) => {
-          console.error(e)
-          overlay.loading = false
-          throw new Error('heool')
-        })
-
-      const firstLetter = result.user!.email!.charAt(0).toUpperCase()
-
-      await result.user!.updateProfile({
-        displayName: firstLetter
+      await auth.createUserWithEmailAndPassword(email, password).catch((e) => {
+        console.error(e)
+        overlay.loading = false
+        throw new Error('heool')
       })
 
+      await sub()
+
+      // const firstLetter = result.user!.email!.charAt(0).toUpperCase()
+
+      // await result.user!.updateProfile({
+      //   displayName: firstLetter
+      // })
+
       overlay.loading = false
-      console.log(11, result)
+      // console.log(11, result)
       emit('signup')
     }
 
