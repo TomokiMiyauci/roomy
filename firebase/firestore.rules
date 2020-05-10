@@ -1,7 +1,108 @@
+rules_version = '2'
+
 service cloud.firestore {
+  function isValidProfiles(profile) {
+    return profile.size() == 2 &&
+    'displayName' in profile &&
+    profile.displayName is string &&
+    'photoURL' in profile &&
+    profile.photoURL is string
+  }
+
+  function isValidPublicRooms(publicRoom) {
+    return publicRoom.size() == 6 &&
+    'name' in publicRoom &&
+    publicRoom.name is string &&
+    'photoURL' in publicRoom &&
+    publicRoom.photoURL is string &&
+    'messageCount' in publicRoom &&
+    publicRoom.messageCount is number &&
+    'recent' in publicRoom &&
+    publicRoom.recent is map &&
+    'createdAt' in publicRoom &&
+    publicRoom.createdAt is timestamp &&
+    'updatedAt' in publicRoom &&
+    publicRoom.updatedAt is timestamp &&
+    isValidRecent(publicRoom.recent)
+  }
+
+  function isValidRecent(recent) {
+    return recent.size() == 4 &&
+    'kind' in recent &&
+    recent.kind.matches('TEXT|IMAGE|AUDIO') &&
+    'shortMessage' in recent &&
+    recent.shortMessage is string &&
+    'author' in recent &&
+    recent.author is map &&
+    'updatedAt' in recent &&
+    recent.updatedAt is timestamp &&
+    isValidAnonymous(recent.author) || isValidAuthor(recent.author)
+  }
+
+  function isValidAnonymous(anonymous) {
+    return anonymous.size() == 1 &&
+    'isAnonymous' in anonymous &&
+    anonymous.isAnonymous == true
+  }
+
+  function isValidAuthor(author) {
+    return author.size() == 3 &&
+    'isAnonymous' in author &&
+    author.isAnonymous == false &&
+    'displayName' in author &&
+    author.displayName is string &&
+    'photoURL' in author &&
+    author.photoURL is string
+  }
+
   match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write;
+    function profile(uid) {
+      return /databases/$(database)/documents/profile/$(uid)
+    }
+
+    function publicRoom(uid) {
+      return /databases/$(database)/documents/public-rooms/$(uid)
+    }
+
+    match /public-rooms/{uid} {
+      allow read: if isValidPublicRooms(request.resource.data)
+
+      allow create: if request.auth != null &&
+      isValidPublicRooms(request.resource.data) &&
+      request.resource.data.messageCount == 0 &&
+      request.resource.data.recent.kind == 'TEXT' &&
+      request.resource.data.recent.shortMessage == 'No message' &&
+      request.resource.data.recent.author.isAnonymous == false &&
+      request.auth.token.name == request.resource.data.recent.author.displayName &&
+      request.resource.data.createdAt == request.time &&
+      request.resource.data.updatedAt == request.time &&
+      request.resource.data.recent.updatedAt == request.time
+    }
+
+    match /rooms/{uid} {
+      allow read, create;
+    }
+
+    match /rooms/{uid}/messages/{id} {
+      allow read, create;
     }
   }
+
+    // match /profile/{uid} {
+    //   allow read;
+
+    //   allow create: if request.auth != null &&
+    //   request.auth.uid == uid &&
+    //   isValidProfiles(request.resource.data) &&
+    //   request.resource.data.displayName == request.auth.token.name &&
+    //   request.resource.data.photoURL == request.auth.token.picture
+    // }
+
 }
+// service cloud.firestore {
+//   match /databases/{database}/documents {
+//     match /{document=**} {
+//       allow read, write;
+//     }
+//   }
+// }
