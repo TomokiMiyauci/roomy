@@ -55,17 +55,62 @@ service cloud.firestore {
     author.photoURL is string
   }
 
-  match /databases/{database}/documents {
-    function profile(uid) {
-      return /databases/$(database)/documents/profile/$(uid)
-    }
+  function isValidMessages(message) {
+    return (message.size() == 5 || message.size() == 6) &&
+    isValidMessageText(message) ||
+    isValidMessageImage(message) ||
+    isValidMessageAudio(message) &&
+    'createdAt' in message &&
+    'updatedAt' in message &&
+    'author' in message &&
+    message.createdAt is timestamp &&
+    message.updatedAt is timestamp &&
+    isValidAnonymous(message.author) || isValidAuthor(message.author)
+  }
 
-    function publicRoom(uid) {
-      return /databases/$(database)/documents/public-rooms/$(uid)
-    }
+  function isAuthorized() {
+    return request.auth != null
+  }
+
+  function isValidMessageText(message) {
+    return
+    'kind' in message &&
+    'text' in message &&
+    message.kind == 'TEXT' &&
+    message.text is string
+  }
+
+  function isValidMessageImage(message) {
+    return isAuthorized() &&
+    'kind' in message &&
+    'imageURL' in message &&
+    'size' in message &&
+    message.kind == 'IMAGE' &&
+    message.imageURL is string &&
+    message.size is number
+  }
+
+  function isValidMessageAudio(message) {
+    return
+    'kind' in message &&
+    'audioURL' in message &&
+    'size' in message &&
+    message.kind == 'AUDIO' &&
+    message.audioURL is string &&
+    message.size is number
+  }
+
+  match /databases/{database}/documents {
+    // function profile(uid) {
+    //   return /databases/$(database)/documents/profile/$(uid)
+    // }
+
+    // function publicRoom(uid) {
+    //   return /databases/$(database)/documents/public-rooms/$(uid)
+    // }
 
     match /public-rooms/{uid} {
-      allow read: if isValidPublicRooms(request.resource.data)
+      allow list;
 
       allow create: if request.auth != null &&
       isValidPublicRooms(request.resource.data) &&
@@ -77,6 +122,21 @@ service cloud.firestore {
       request.resource.data.createdAt == request.time &&
       request.resource.data.updatedAt == request.time &&
       request.resource.data.recent.updatedAt == request.time
+
+      match /messages/{message} {
+        allow read;
+
+        allow create: if isValidMessages(request.resource.data)
+      }
+    }
+
+    match /profiles/{uid} {
+      allow read;
+
+      allow create: if isAuthorized() &&
+      isValidProfiles(request.resource.data) &&
+      request.auth.token.name == request.resource.data.displayName &&
+      request.auth.uid == uid;
     }
 
     match /rooms/{uid} {
@@ -87,17 +147,6 @@ service cloud.firestore {
       allow read, create;
     }
   }
-
-    // match /profile/{uid} {
-    //   allow read;
-
-    //   allow create: if request.auth != null &&
-    //   request.auth.uid == uid &&
-    //   isValidProfiles(request.resource.data) &&
-    //   request.resource.data.displayName == request.auth.token.name &&
-    //   request.resource.data.photoURL == request.auth.token.picture
-    // }
-
 }
 // service cloud.firestore {
 //   match /databases/{database}/documents {
