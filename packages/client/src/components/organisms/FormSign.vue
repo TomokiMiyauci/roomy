@@ -157,7 +157,7 @@ const sub = (): Promise<void> => {
     console.log(uid)
 
     const unsubscribe = firestore
-      .collection('profile')
+      .collection('profiles')
       .doc(uid)
       .onSnapshot(async (snapshot) => {
         if (!snapshot.exists) return
