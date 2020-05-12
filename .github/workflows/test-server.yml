@@ -6,6 +6,7 @@ on:
         - develop
       paths:
         - 'packages/server/**'
+        - '.github/workflows/test-server.yml'
 
 jobs:
   setup:
@@ -14,7 +15,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: [10.19.0]
+        node: [10]
 
     steps:
       - uses: actions/setup-node@v1
@@ -32,128 +33,58 @@ jobs:
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
 
       - name: install
-        run: yarn --check-files --frozen-lockfile --non-interactive
+        run: yarn --check-files --frozen-lockfile
 
       - name: cache workspace
         uses: actions/cache@v1
         with:
           path: ${{ github.workspace }}
-          key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-server-${{ github.sha }}
 
-  # lint:
-  #   needs: setup
-  #   runs-on: ${{ matrix.os }}
+  deploy:
+    needs: [setup]
+    runs-on: ${{ matrix.os }}
 
-  #   strategy:
-  #     matrix:
-  #       os: [ubuntu-latest]
-  #       node: [10.19.0, 12]
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [10]
 
-  #   steps:
-  #     - uses: actions/setup-node@v1
-  #       with:
-  #         node-version: ${{ matrix.node }}
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
 
-  #     - name: checkout
-  #       uses: actions/checkout@master
+      - name: checkout
+        uses: actions/checkout@master
 
-  #     - name: restore workspace cache
-  #       uses: actions/cache@v1
-  #       with:
-  #         path: ${{ github.workspace }}
-  #         key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
+      - name: restore workspace cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-server-${{ github.sha }}
 
-  #     - name: lint by ESlint
-  #       run: yarn workspace client lint
+      - name: deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: --non-interactive deploy --only functions
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_DEV }}
 
-  #     - name: lint by VTC
-  #       run: yarn workspace client lint:template
+  notice:
+    needs: deploy
+    runs-on: ${{ matrix.os }}
 
-  #     - name: lint by Stylelint
-  #       run: yarn workspace client lint:css
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
 
-  # audit:
-  #   needs: setup
-  #   runs-on: ${{ matrix.os }}
-
-  #   strategy:
-  #     matrix:
-  #       os: [ubuntu-latest]
-  #       node: [10.19.0, 12]
-
-  #   steps:
-  #     - uses: actions/setup-node@v1
-  #       with:
-  #         node-version: ${{ matrix.node }}
-
-  #     - name: checkout
-  #       uses: actions/checkout@master
-
-  #     - name: restore workspace cache
-  #       uses: actions/cache@v1
-  #       with:
-  #         path: ${{ github.workspace }}
-  #         key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
-
-  #     - name: audit
-  #       run: yarn workspace client run audit
-
-  # test-unit:
-  #   needs: setup
-  #   runs-on: ${{ matrix.os }}
-
-  #   strategy:
-  #     matrix:
-  #       os: [ubuntu-latest]
-  #       node: [10, 12]
-
-  #   steps:
-  #     - uses: actions/setup-node@v1
-  #       with:
-  #         node-version: ${{ matrix.node }}
-
-  #     - name: checkout
-  #       uses: actions/checkout@master
-
-  #     - name: restore workspace cache
-  #       uses: actions/cache@v1
-  #       with:
-  #         path: ${{ github.workspace }}
-  #         key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
-
-  #     - name: test unit
-  #       run: yarn workspace client test:unit --ci
-
-  #     - name: upload coverage
-  #       if: matrix.node == 12
-  #       uses: codecov/codecov-action@master
-  #       with:
-  #         token: ${{ secrets.CODECOV_TOKEN }}
-  #         file: ./coverage/clover.xml
-
-
-  # test-snapshot:
-  #   needs: setup
-  #   runs-on: ${{ matrix.os }}
-
-  #   strategy:
-  #     matrix:
-  #       os: [ubuntu-latest]
-  #       node: [10, 12]
-
-  #   steps:
-  #     - uses: actions/setup-node@v1
-  #       with:
-  #         node-version: ${{ matrix.node }}
-
-  #     - name: checkout
-  #       uses: actions/checkout@master
-
-  #     - name: restore workspace cache
-  #       uses: actions/cache@v1
-  #       with:
-  #         path: ${{ github.workspace }}
-  #         key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
-
-  #     - name: test snapshot
-  #       run: yarn test:snapshot --ci
+    steps:
+      - uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow # selectable (default: repo,message)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # optional
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL_DEV }} # required
+        if: always() # Pick up events even if the job fails or is canceled.
