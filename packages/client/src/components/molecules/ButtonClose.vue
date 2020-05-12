@@ -1,5 +1,5 @@
 <template>
-  <v-btn v-bind="$attrs" @click="$emit('click')" icon>
+  <v-btn v-bind="$attrs" v-on="$listeners" @click="$emit('click')" icon>
     <v-icon>{{ mdiClose }}</v-icon>
   </v-btn>
 </template>
