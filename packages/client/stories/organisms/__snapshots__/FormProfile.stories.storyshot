@@ -1,0 +1,159 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots organisms|FormProfile Default 1`] = `
+<div
+  class="v-application v-application--is-ltr theme--light"
+  data-app="true"
+  id="app"
+  style="background-color: transparent;"
+>
+  <div
+    class="v-application--wrap"
+  >
+    <main
+      class="v-content"
+      style="padding: 0px 0px 0px 0px;"
+    >
+      <div
+        class="v-content__wrap"
+      >
+        <div
+          class="container container--fluid"
+        >
+          <div
+            class="v-card v-sheet theme--light"
+          >
+            <div
+              class="v-card__title"
+            >
+              <span
+                class="headline"
+              >
+                User Profile
+              </span>
+            </div>
+             
+            <div
+              class="v-card__text"
+            >
+              <div
+                class="container"
+              >
+                <div
+                  class="row"
+                >
+                  <div
+                    class="col col-7"
+                  >
+                    <div
+                      class="row"
+                    >
+                      <div
+                        class="col col-12"
+                      >
+                        
+              Name Image
+
+              
+                        <div
+                          class="v-input theme--light v-text-field v-text-field--enclosed v-text-field--outlined"
+                        >
+                          <div
+                            class="v-input__control"
+                          >
+                            <div
+                              class="v-input__slot"
+                            >
+                              <fieldset
+                                aria-hidden="true"
+                              >
+                                <legend
+                                  style="width: 0px;"
+                                >
+                                  <span>
+                                    ​
+                                  </span>
+                                </legend>
+                              </fieldset>
+                              <div
+                                class="v-text-field__slot"
+                              >
+                                <label
+                                  class="v-label theme--light"
+                                  for="input-251"
+                                  style="left: 0px; position: absolute;"
+                                >
+                                  Name
+                                </label>
+                                <input
+                                  id="input-251"
+                                  required="required"
+                                  type="text"
+                                />
+                              </div>
+                            </div>
+                            <div
+                              class="v-text-field__details"
+                            >
+                              <div
+                                class="v-messages theme--light"
+                              >
+                                <div
+                                  class="v-messages__wrapper"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                       
+                      <div
+                        class="col"
+                      >
+                        
+              Preview
+
+              
+                        <file-dropper />
+                      </div>
+                    </div>
+                  </div>
+                   
+                  <div
+                    class="col col-5"
+                  >
+                    <avatar-name-large
+                      disableedit="true"
+                      displayname=""
+                      login="true"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+             
+            <div
+              class="v-card__actions"
+            >
+              <div
+                class="spacer"
+              />
+               
+              <button
+                class="v-btn v-btn--flat v-btn--text theme--light v-size--default blue--text text--darken-1"
+                type="button"
+              >
+                <span
+                  class="v-btn__content"
+                >
+                  Save
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+`;
