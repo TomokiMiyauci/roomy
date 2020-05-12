@@ -21,7 +21,6 @@ export default class Public extends VuexModule {
     if (this._rooms.length) return
     const { collectionRef } = roomReference()
     collectionRef.value
-      .where('isPrivate', '==', false)
       .orderBy('recent.updatedAt', 'desc')
       .onSnapshot((snapshot) => {
         this.setRoom(snapshot.docs.map(getData).filter(isDef) as PublicRoom[])
