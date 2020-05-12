@@ -35,13 +35,13 @@ export type Contributor = {
 }
 
 export type Author = {
-  name: string
+  displayName: string
   photoURL: string
   isAnonymous: false
 }
 
 export type UserInfo = {
-  name: string
+  displayName: string
   photoURL: string
 }
 
