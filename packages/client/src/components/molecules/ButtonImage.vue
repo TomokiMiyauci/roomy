@@ -1,17 +1,40 @@
 <template>
-  <base-button @click="onClick" icon>
-    <v-icon>{{ mdiImage }}</v-icon>
-  </base-button>
+  <v-tooltip :color="login ? 'secondary' : undefined" top>
+    <template v-slot:activator="{ on }">
+      <base-button
+        v-on="on"
+        @click="login ? onClick() : undefined"
+        :color="login ? 'primary' : 'grey'"
+        tile
+        icon
+      >
+        <v-icon>{{ mdiImage }}</v-icon>
+      </base-button>
+    </template>
+    <span v-if="login">Image </span>
+    <span v-else
+      ><v-icon left color="green">{{ mdiInformation }}</v-icon> Require
+      Signin</span
+    >
+  </v-tooltip>
 </template>
 
 <script lang="ts">
-import { mdiImage } from '@mdi/js'
+import { mdiImage, mdiInformation } from '@mdi/js'
 import { defineComponent, onBeforeMount, ref } from '@vue/composition-api'
 import Compressor from 'compressorjs'
 
+import BaseButton from '@/components/atoms/BaseButton.vue'
 export default defineComponent({
   components: {
-    BaseButton: () => import('@/components/atoms/BaseButton.vue')
+    BaseButton
+  },
+
+  props: {
+    login: {
+      type: Boolean,
+      default: false
+    }
   },
 
   setup(_, { emit }) {
@@ -41,7 +64,7 @@ export default defineComponent({
         }
       }
     }
-    return { onClick, mdiImage }
+    return { onClick, mdiImage, mdiInformation }
   }
 })
 </script>
