@@ -146,7 +146,7 @@ const config: Configuration = {
    ** Build configuration
    */
   build: {
-    // extractCSS: true,
+    extractCSS: true,
 
     // optimization: {
     //   splitChunks: {
