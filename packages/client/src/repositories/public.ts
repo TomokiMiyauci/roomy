@@ -46,7 +46,7 @@ export const getContributor = (): Contributor => {
 
 export const getUserInfo = (): UserInfo => {
   return {
-    name: user.displayName,
+    displayName: user.displayName,
     photoURL: user.photoURL
   }
 }

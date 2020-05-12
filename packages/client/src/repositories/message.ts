@@ -32,9 +32,7 @@ export const createMessage = (
 
   console.log(data)
 
-  return collectionRef.value.add(data).catch((e) => {
-    console.log(e)
-  })
+  return collectionRef.value.add(data)
 }
 
 export const getAuthor = (): { author: Author | Anonymous } => {
@@ -60,7 +58,7 @@ export const getContributor = (): Contributor => {
 
 export const getUserInfo = (): UserInfo => {
   return {
-    name: user.displayName,
+    displayName: user.displayName,
     photoURL: user.photoURL
   }
 }
