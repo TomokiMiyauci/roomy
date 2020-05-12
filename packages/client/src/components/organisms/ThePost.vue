@@ -1,46 +1,33 @@
 <template>
-  <v-container>
+  <v-container style="background-color: grey;">
     <v-form v-model="isValid">
-      <v-row no-gutters dense md xl lg>
-        <v-col cols="auto">
-          <button-image @post:image="postImage" />
+      <v-row no-gutters dense>
+        <v-col class="pr-2" cols="auto">
+          <button-image :login="login" @post:image="postImage" />
         </v-col>
 
         <v-col>
           <v-textarea
             v-model="text"
             :rules="[(v) => !!v || 'required']"
+            :prepend-inner-icon="mdiChatProcessing"
+            :clear-icon="mdiCloseCircle"
+            clearable
             auto-grow
             solo
             dense
             rows="1"
             hide-details
             label="Enter message"
-            solo-inverted
+            rounded
             light
             auto-focus
           ></v-textarea>
         </v-col>
 
-        <v-col cols="auto">
-          <v-btn
-            id="xx"
-            ref="btn"
-            v-if="text"
-            @click="postText"
-            icon
-            color="success"
-            ><v-icon class="demo_svg">{{ mdiSend }}</v-icon></v-btn
-          >
-          <v-btn
-            id="xx"
-            ref="btn"
-            v-else
-            @click="$emit('audio')"
-            icon
-            color="success"
-            ><v-icon class="demo_svg">{{ mdiMicrophone }}</v-icon></v-btn
-          >
+        <v-col class="pl-2" cols="auto">
+          <button-send ref="buttonSend" v-if="text" @send="postText" />
+          <button-mic :login="login" v-else @audio="$emit('audio')" />
         </v-col>
       </v-row>
     </v-form>
@@ -48,17 +35,26 @@
 </template>
 
 <script lang="ts">
-import { mdiMicrophone, mdiSend } from '@mdi/js'
-import { defineComponent, reactive, toRefs } from '@vue/composition-api'
+import {
+  mdiChatProcessing,
+  mdiCloseCircle,
+  mdiMicrophone,
+  mdiSend
+} from '@mdi/js'
+import { defineComponent, reactive, ref, toRefs } from '@vue/composition-api'
 
 import ButtonImage from '@/components/molecules/ButtonImage.vue'
+import ButtonMic from '@/components/molecules/ButtonMic.vue'
+import ButtonSend from '@/components/molecules/ButtonSend.vue'
 import { storage } from '@/plugins/firebase'
 import { createMessage } from '@/repositories/message'
-// import { updateRecent } from '@/repositories/room'
+import { user } from '@/store'
 
 export default defineComponent({
   components: {
-    ButtonImage
+    ButtonImage,
+    ButtonMic,
+    ButtonSend
   },
 
   setup(_, context) {
@@ -73,38 +69,32 @@ export default defineComponent({
       const filePath = firstPath + '/' + e.size
       const storageRef = storage.ref('test')
       const fileSnapshot = await storageRef.child(filePath).put(e)
-
       const imageURL = await fileSnapshot.ref.getDownloadURL()
-      console.log(imageURL)
 
       await createMessage({
         kind: 'IMAGE',
         imageURL,
         size: fileSnapshot.totalBytes
       })
-      // updateRecent('post image')
 
       context.emit('postend')
     }
 
-    const onAudio = () => {}
+    const buttonSend = ref<InstanceType<typeof ButtonSend>>()
 
     const postText = async () => {
-      const wrapper = document.getElementById('xx')
-      wrapper!.animate(
+      buttonSend.value!.$children[0].$children[0].$el.animate(
         { transform: ['translateX(0px)', 'translateX(140px)'] },
         1000
       )
+
       setTimeout(() => {
         state.text = ''
       }, 1000)
 
       await createMessage({ kind: 'TEXT', text: state.text })
-      // updateRecent(state.text)
 
       context.emit('postend')
-
-      // btn.value!.animate({ backgroundColor: ['red', 'blue'] }, 3000)
     }
 
     return {
@@ -113,7 +103,10 @@ export default defineComponent({
       postText,
       mdiSend,
       mdiMicrophone,
-      onAudio
+      login: user.login,
+      mdiChatProcessing,
+      mdiCloseCircle,
+      buttonSend
     }
   }
 })
