@@ -68,6 +68,7 @@ const config: Configuration = {
     '@/plugins/firebase',
     '@/plugins/pretty-bytes',
     '@/plugins/axios',
+    '@/plugins/errorHandler',
     // { src: '@/plugins/vee-validate', ssr: false },
     { src: '@/plugins/axe', ssr: false },
     { src: '@/plugins/vue-typer', ssr: false },
