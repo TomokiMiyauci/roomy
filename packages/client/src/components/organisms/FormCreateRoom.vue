@@ -201,7 +201,8 @@ import {
 import { blobToDataURL as b } from '@/core/useFileDialog'
 import { useStep } from '@/core/useStep'
 import { wait } from '@/core/useTime'
-import { createPublicRoom } from '@/repositories/room'
+import { createRoom } from '@/repositories/publicRoom'
+// import { createPublicRoom } from '@/repositories/room'
 import { RoomOptions } from '~types/core'
 
 export default defineComponent({
@@ -269,7 +270,7 @@ export default defineComponent({
         // const photoURL = newRoom.image ? URL.createObjectURL(newRoom.image) : ''
         // console.log(photoURL)
 
-        const documentData = await createPublicRoom({
+        const documentData = await createRoom({
           name: newRoom.name,
           photoURL
         })
