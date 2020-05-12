@@ -90,7 +90,7 @@ export default class User extends VuexModule {
   }
 
   get login(): boolean {
-    return !!this._providerData
+    return !!this._id
   }
 
   get id(): firebase.User['uid'] {
