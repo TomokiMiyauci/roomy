@@ -14,56 +14,57 @@
       </v-btn>
     </client-only>
     <v-row justify="center" align="center">
-      <form-sign @signin="onCreate" @signup="onCreate" />
+      <form-sign @signin="onCreate" @signup="onSignUp" />
     </v-row>
-    <!-- <v-row justify="center" align="center">
-      <v-card min-width="320px" max-width="320px">
-        <v-card-title class="display-1" style="justify-content:center;">
-          Login
-        </v-card-title>
-        <v-card-text>
-          Welcome to roomy
-        </v-card-text>
 
-        <v-card-title style="justify-content:center;">
-          <v-icon :size="250" color="purple">{{ mdiWebpack }}</v-icon>
-        </v-card-title>
-        <v-card-text>
-          Signed in with
-        </v-card-text>
-        <v-card-actions>
-          <v-btn @click="signin" block class="white--text" color="blue">
-            <v-icon color="red" left>{{ mdiGoogle }}</v-icon
-            >oogle</v-btn
-          >
-        </v-card-actions>
-      </v-card>
-    </v-row> -->
+    <v-dialog
+      v-model="dialog"
+      overlay-opacity="0.9"
+      persistent
+      max-width="600px"
+    >
+      <form-profile @close="onCreate" />
+    </v-dialog>
   </v-container>
 </template>
 
 <script lang="ts">
 import { mdiArrowLeft, mdiGoogle, mdiWebpack } from '@mdi/js'
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent, ref } from '@vue/composition-api'
 
+import FormProfile from '@/components/organisms/FormProfile.vue'
 import { user } from '@/store'
 export default defineComponent({
   layout: 'sign',
 
   components: {
-    FormSign: () => import('@/components/organisms/FormSign.vue')
+    FormSign: () => import('@/components/organisms/FormSign.vue'),
+    FormProfile
   },
 
   setup(_, { root }) {
+    const dialog = ref(false)
     const onClick = () => {
       root.$router.back()
+    }
+
+    const onSignUp = () => {
+      dialog.value = true
     }
 
     const onCreate = () => {
       root.$router.push('/public')
       user.succeedSignIn()
     }
-    return { mdiGoogle, mdiWebpack, mdiArrowLeft, onClick, onCreate }
+    return {
+      mdiGoogle,
+      mdiWebpack,
+      mdiArrowLeft,
+      onClick,
+      onCreate,
+      onSignUp,
+      dialog
+    }
   }
 })
 </script>
