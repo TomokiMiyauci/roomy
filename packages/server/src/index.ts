@@ -32,14 +32,10 @@ export const onCreateUser = functions
       .set(profile)
   })
 
-exports.hello = functions
-  .runWith({ memory: '2GB' })
+exports.onCreatePublicRoomMessage = functions
   .region('asia-northeast1')
-  .firestore.document('rooms/{roomId}/messages/{messageId}')
+  .firestore.document('public-rooms/{roomId}/messages/{messageId}')
   .onCreate(async (snapshot) => {
-    // console.log(snapshot, context);
-
-    const { size } = await snapshot.ref.parent.get()
     const data = snapshot.data() as Message | undefined
 
     if (!data || !snapshot.ref.parent.parent) return
@@ -74,7 +70,7 @@ exports.hello = functions
     }
 
     return snapshot.ref.parent.parent.update({
-      messageCount: size,
+      messageCount: admin.firestore.FieldValue.increment(1),
       recent: recentMessage
     })
   })
