@@ -28,7 +28,7 @@
       </v-row>
     </v-container>
 
-    <v-container v-else>
+    <v-container v-else style="padding-bottom:62px;">
       <v-row class="flex-column">
         <v-col>
           <transition-group
