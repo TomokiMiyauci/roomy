@@ -91,7 +91,7 @@ service cloud.firestore {
   }
 
   function isValidMessageAudio(message) {
-    return
+    return isAuthorized() &&
     'kind' in message &&
     'audioURL' in message &&
     'size' in message &&
@@ -131,7 +131,7 @@ service cloud.firestore {
     }
 
     match /profiles/{uid} {
-      allow read;
+      allow read, update;
 
       allow create: if isAuthorized() &&
       isValidProfiles(request.resource.data) &&
