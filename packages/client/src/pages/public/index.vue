@@ -20,7 +20,7 @@
           <v-container v-if="notFound && !rooms.length" class="fill-height">
             <v-row justify="center" align="center" class="flex-column">
               <v-col cols="auto">
-                <span class="display-1 grey--text">No Rooms</span>
+                <span class="display-1 grey-darken-1--text">No Rooms</span>
               </v-col>
               <v-col cols="auto">
                 <v-icon large>{{ mdiCommentQuestion }}</v-icon>
@@ -36,7 +36,7 @@
         v-else
         justify="center"
         align="center"
-        class="fill-height flex-column grey--text"
+        class="fill-height flex-column grey-darken-1--text"
       >
         <v-col cols="auto">
           <div class="display-1">

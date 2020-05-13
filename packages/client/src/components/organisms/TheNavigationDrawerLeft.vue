@@ -1,6 +1,7 @@
 <template>
   <v-navigation-drawer
     ref="navigation"
+    aria-label="nav-left"
     color="rgba(200,200,200)"
     expand-on-hover
     mini-variant
@@ -58,7 +59,7 @@
         close-delay="200"
       >
         <template #activator="{on}">
-          <v-list-item-group v-model="item" color="teal">
+          <v-list-item-group v-model="item" color="teal" aria-label="nav">
             <v-list-item
               v-for="item in items"
               :key="item.title"

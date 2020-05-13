@@ -87,7 +87,7 @@
               <h3 class="title font-weight-light mb-2">
                 {{ progressMessage }}
               </h3>
-              <!-- <span class="caption grey--text">Thanks for signing up!</span> -->
+              <!-- <span class="caption grey-darken-1--text">Thanks for signing up!</span> -->
             </div>
           </v-window-item>
         </v-window>
@@ -132,14 +132,14 @@
                 </v-avatar>
               </v-list-item-subtitle>
 
-              <div class="grey--text caption">
+              <div class="grey-darken-1--text caption">
                 <v-icon small left>{{ mdiChatProcessing }}</v-icon>
                 0
               </div>
             </v-list-item-content>
             <v-list-item-action>
               <span
-                class="grey--text caption"
+                class="grey-darken-1--text caption"
                 style="position:absolute;bottom:0;"
                 >Monday</span
               >

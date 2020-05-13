@@ -6,7 +6,7 @@
     </v-list-item-avatar>
 
     <v-list-item-content class="pt-1 pb-1">
-      <!-- <span class="grey--text caption" style="position:absolute;bottom:-5px;">{{
+      <!-- <span class="grey-darken-1--text caption" style="position:absolute;bottom:-5px;">{{
         room.recent.updatedAt | time
       }}</span> -->
       <v-list-item-title>
@@ -22,17 +22,19 @@
         {{ room.recent.shortMessage }}
       </v-list-item-subtitle>
 
-      <div class="grey--text caption">
+      <div class="grey-darken-1--text caption">
         <v-icon small left>{{ mdiChatProcessing }}</v-icon
         >{{ room.messageCount }}
       </div>
     </v-list-item-content>
 
     <v-list-item-action>
-      <span class="grey--text caption" style="position:absolute;bottom:0;">{{
-        room.recent.updatedAt | time
-      }}</span>
-      <v-btn @click.prevent="$emit('click:qrcode')" icon>
+      <span
+        class="grey-darken-1--text caption"
+        style="position:absolute;bottom:0;"
+        >{{ room.recent.updatedAt | time }}</span
+      >
+      <v-btn @click.prevent="$emit('click:qrcode')" aria-label="qrcode" icon>
         <v-icon color="grey lighten-1">{{ mdiQrcode }}</v-icon>
       </v-btn>
     </v-list-item-action>

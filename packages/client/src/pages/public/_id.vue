@@ -21,7 +21,7 @@
             </v-col>
 
             <v-col cols="auto">
-              <span class="display-1 grey--text">No message </span>
+              <span class="display-1 grey-darken-1--text">No message </span>
             </v-col>
           </v-row>
         </transition-group>
@@ -120,7 +120,7 @@ import { gsap } from 'gsap'
 
 import { useFirestore } from '@/core/useFirestore'
 import { messageReference } from '@/core/useFirestoreReference'
-import { reference } from '@/store'
+import { publicRoom, reference } from '@/store'
 import { generateInviteURL, isOwn } from '@/utils/firestore'
 import { Message, PublicRoom } from '~types/core'
 
@@ -147,6 +147,7 @@ export default defineComponent({
   },
 
   setup(_, { root }) {
+    publicRoom.subscribe()
     const sheet = ref(false)
     const dialog = ref(false)
     const text = ref('')

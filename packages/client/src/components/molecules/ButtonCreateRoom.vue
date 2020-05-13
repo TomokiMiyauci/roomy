@@ -12,6 +12,7 @@
             @focus="on.mouseenter"
             @mouseleave="on.mouseleave"
             @blur="on.mouseleave"
+            aria-label="create-room"
             fab
           >
             <v-icon>{{ mdiCommentPlus }}</v-icon></v-btn

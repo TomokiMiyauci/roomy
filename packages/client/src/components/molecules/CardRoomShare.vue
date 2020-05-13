@@ -24,7 +24,7 @@
             <svg-qrcode :text="url" />
           </v-col>
 
-          <v-col cols="auto" class="pb-10 grey--text display-1">
+          <v-col cols="auto" class="pb-10 grey-darken-1--text display-1">
             or
           </v-col>
         </v-row>

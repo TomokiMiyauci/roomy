@@ -1,5 +1,5 @@
 <template>
-  <v-btn v-on="$listeners" icon color="secondary">
+  <v-btn v-on="$listeners" aria-label="qrcode-scan" icon color="secondary">
     <v-icon>{{ mdiQrcodeScan }}</v-icon>
   </v-btn>
 </template>

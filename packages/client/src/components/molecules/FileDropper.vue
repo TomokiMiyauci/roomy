@@ -14,7 +14,7 @@
       <v-icon left>{{ mdiArrowCollapseDown }}</v-icon
       >Drop Image</v-col
     >
-    <v-col class="grey--text" cols="auto">or</v-col>
+    <v-col class="grey-darken-1--text" cols="auto">or</v-col>
     <v-col cols="auto">
       <v-btn @click="onClick" color="primary"
         ><v-icon left>{{ mdiImageSearch }}</v-icon
