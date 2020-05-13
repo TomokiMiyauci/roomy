@@ -59,7 +59,7 @@
     <v-row no-gutters>
       <v-col cols="auto">
         <user-name-anonymous v-if="message.author.isAnonymous" />
-        <base-user-name v-else>{{ message.author.name }}</base-user-name>
+        <base-user-name v-else>{{ message.author.displayName }}</base-user-name>
       </v-col>
     </v-row>
   </div>
