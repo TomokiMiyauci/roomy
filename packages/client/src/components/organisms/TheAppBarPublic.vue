@@ -2,6 +2,15 @@
   <v-app-bar color="primary" fixed app clipped-right clipped-left>
     <template #default>
       <client-only>
+        <h1
+          v-if="!$vuetify.breakpoint.mdAndDown"
+          style="color:#212121;text-shadow:1px 1px 3px #FBC02D;"
+        >
+          Roo<span
+            style=" margin-left:4px;padding:0 5px;color:white;text-shadow:1px 1px 0 #000;background-color:#FFAB00;border-radius:5px;box-shadow:1px 1px 3px #000;"
+            >my</span
+          >
+        </h1>
         <ButtonCreateRoom
           v-if="$vuetify.breakpoint.mdAndDown"
           :login="login"
