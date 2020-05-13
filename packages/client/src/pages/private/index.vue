@@ -13,7 +13,7 @@
         v-else
         justify="center"
         align="center"
-        class="fill-height flex-column grey--text"
+        class="fill-height flex-column grey-darken-1--text"
       >
         <v-col cols="auto">
           <div class="display-1">Select Right</div>
