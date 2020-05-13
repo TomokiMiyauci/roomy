@@ -10,15 +10,22 @@ import { PublicRoom } from '@/types/core'
 })
 export default class Public extends VuexModule {
   private _rooms: PublicRoom[] = []
+  private _unsubscribe: Function | undefined = undefined
 
   @Mutation
   setRoom(rooms: PublicRoom[]) {
     this._rooms = rooms
   }
 
+  @Mutation
+  setUnsubscribe(unsubscribe: Function) {
+    this._unsubscribe = unsubscribe
+  }
+
   @Action
-  subscribe() {
-    if (this._rooms.length) return
+  subscribe(force: boolean = false) {
+    if (!force && this.loaded) return
+
     const { collectionRef } = roomReference()
     collectionRef.value
       .orderBy('recent.updatedAt', 'desc')
@@ -29,5 +36,9 @@ export default class Public extends VuexModule {
 
   get rooms() {
     return this._rooms
+  }
+
+  get loaded(): boolean {
+    return !!this._unsubscribe
   }
 }

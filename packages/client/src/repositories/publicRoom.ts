@@ -1,11 +1,14 @@
+import {
+  profileRef,
+  publicRoomMessageRef,
+  publicRoomRef
+} from '@/core/useFirestoreReference'
 import firebase, { firestore } from '@/plugins/firebase'
 import { user } from '@/store'
 import {
   Anonymous,
-  Contributor,
   FirestoreFieldValue,
   MessageSet,
-  Public,
   UserInfo,
   UserReference
 } from '@/types/core'
@@ -21,19 +24,18 @@ export const createMessage = (
   firebase.firestore.DocumentData
 >> => {
   console.log(user, user.photoURL)
+  const { collectionRef } = publicRoomMessageRef()
 
-  const data: Public = {
+  const data = {
+    author: getUser(user.id),
+
     ...getTimestamps(),
-    ...messageSet,
-    ...getUser(user.id)
+    ...messageSet
   }
 
-  return firestore
-    .collection('public-rooms')
-    .add(data)
-    .catch((e) => {
-      console.log(e)
-    })
+  console.log(data)
+
+  return collectionRef.value.add(data)
 }
 
 type MessageKind = 'TEXT'
@@ -61,6 +63,7 @@ type BaseRoom = {
 type PublicRoom = BaseRoom
 
 export const createRoom = (option: { name: string; photoURL: string }) => {
+  const { collectionRef } = publicRoomRef()
   const timestamp: firebase.firestore.Timestamp = firebase.firestore.FieldValue.serverTimestamp() as firebase.firestore.Timestamp
   const publicRoom: PublicRoom = {
     ...option,
@@ -79,15 +82,30 @@ export const createRoom = (option: { name: string; photoURL: string }) => {
     updatedAt: timestamp
   }
 
-  return firestore.collection('public-rooms').add(publicRoom)
+  return collectionRef.value.add(publicRoom)
+}
+
+export const getAuthor = (): { author: Author | Anonymous } => {
+  const author: Author | Anonymous = user.login
+    ? {
+        ...getUserInfo(),
+        isAnonymous: false
+      }
+    : getAnonymous()
+
+  return {
+    author
+  }
 }
 
 export const getUser = (documentPath?: string) => {
   return documentPath ? getContributor() : getAnonymous()
 }
 
-export const getContributor = (): Contributor => {
-  return { contributor: getUserInfo(), isAnonymous: false }
+export const getContributor = () => {
+  const { documentRef } = profileRef()
+
+  return { ...getUserInfo(), isAnonymous: false, ref: documentRef.value }
 }
 
 export const getUserInfo = (): UserInfo => {
