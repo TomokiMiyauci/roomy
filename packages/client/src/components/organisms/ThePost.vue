@@ -47,7 +47,7 @@ import ButtonImage from '@/components/molecules/ButtonImage.vue'
 import ButtonMic from '@/components/molecules/ButtonMic.vue'
 import ButtonSend from '@/components/molecules/ButtonSend.vue'
 import { storage } from '@/plugins/firebase'
-import { createMessage } from '@/repositories/message'
+import { createMessage } from '@/repositories/publicRoom'
 import { user } from '@/store'
 
 export default defineComponent({
