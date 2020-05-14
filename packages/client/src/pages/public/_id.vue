@@ -186,8 +186,8 @@ export default defineComponent({
       })
     }
 
-    const qrcode = (room: PublicRoom) => {
-      text.value = generateInviteURL(room)
+    const qrcode = (room: PublicRoom & { id: string }) => {
+      text.value = generateInviteURL(room.id)
       dialog.value = true
     }
 

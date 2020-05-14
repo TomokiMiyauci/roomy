@@ -157,8 +157,8 @@ export default defineComponent({
       }
     }, TIMEOUT)
 
-    const qrcode = (room: PublicRoom) => {
-      text.value = generateInviteURL(room)
+    const qrcode = (room: PublicRoom & { id: string }) => {
+      text.value = generateInviteURL(room.id)
       isOpenQrcode.value = true
       dialog.value = true
     }
