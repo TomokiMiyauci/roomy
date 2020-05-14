@@ -105,8 +105,7 @@ const config: Configuration = {
   ],
 
   sentry: {
-    dsn:
-      'https://d8b37721b6fe4ce4beb0aacb9c1584ff@o385894.ingest.sentry.io/5219329'
+    dsn: process.env.DSN!
   },
   robots: {
     UserAgent: '*',
@@ -214,20 +213,19 @@ const config: Configuration = {
               }
       }
     },
-    // extractCSS: true,
 
-    // optimization: {
-    //   splitChunks: {
-    //     cacheGroups: {
-    //       styles: {
-    //         name: 'styles',
-    //         test: /\.(css|vue)$/,
-    //         chunks: 'all',
-    //         enforce: true
-    //       }
-    //     }
-    //   }
-    // },
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          styles: {
+            name: 'styles',
+            test: /\.(css|vue)$/,
+            chunks: 'all',
+            enforce: true
+          }
+        }
+      }
+    },
 
     terser: {
       terserOptions: {
