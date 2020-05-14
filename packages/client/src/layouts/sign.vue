@@ -4,7 +4,7 @@
       <v-navigation-drawer
         v-if="!$vuetify.breakpoint.mdAndDown"
         app
-        color="secondary"
+        color="primary"
         width="600px"
       >
       </v-navigation-drawer>
