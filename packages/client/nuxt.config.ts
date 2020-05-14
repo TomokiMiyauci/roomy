@@ -180,7 +180,13 @@ const config: Configuration = {
                   'button',
                   'input',
                   'select',
-                  'textarea'
+                  'textarea',
+                  'container',
+                  'row',
+                  'no-gutters',
+                  'col',
+                  'col-auto',
+                  'theme'
                 ],
                 whitelistPatterns: [
                   /^v-/,
@@ -193,7 +199,8 @@ const config: Configuration = {
                   /.*-transition/,
                   /^_/,
                   /^v-((?!application).)*$/,
-                  /^theme--*/
+                  /^theme--*/,
+                  /^container/
                 ],
                 whitelistPatternsChildren: [
                   /^v-/,
