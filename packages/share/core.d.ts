@@ -82,13 +82,13 @@ export type Room = {
 
 export type ShortMessage = 'Image posted' | 'Audio posted' | 'No messages' | string
 
-type BaseRoom = {
-  members: string[]
-  name: string
-  photoURL: string
-  recent: RecentMessage
-  messageCount: number
-} & BaseField
+// type BaseRoom = {
+//   members: string[]
+//   name: string
+//   photoURL: string
+//   recent: RecentMessage
+//   messageCount: number
+// } & BaseField
 
 export type RecentMessage = {
   shortMessage: ShortMessage
@@ -96,9 +96,9 @@ export type RecentMessage = {
   author: Author | Anonymous
 } & BaseField
 
-export type PublicRoom = BaseRoom & {
-  isPrivate: false
-}
+// export type PublicRoom = BaseRoom & {
+//   isPrivate: false
+// }
 
 export type PrivateRoom = BaseRoom & {
   isPrivate: true
@@ -109,3 +109,47 @@ export type RoomOptions = {
   name: string
   image: string
 }
+
+
+export type Profile = {
+  displayName: NonNullable<firebase.User['displayName']>,
+  photoURL: NonNullable<firebase.User['photoURL']>
+}
+
+type BaseRoom = {
+  name: string
+  photoURL: string
+  messageCount: number
+  recent: {
+    author: A | Anonymous
+    shortMessage: string
+    kind: MessageKind
+    updatedAt: firebase.firestore.Timestamp
+  }
+  createdAt: firebase.firestore.Timestamp
+  updatedAt: firebase.firestore.Timestamp
+}
+
+export type PublicRoom = BaseRoom
+
+type A = {
+  isAnonymous: false,
+  ref: firebase.firestore.DocumentReference<Profile>
+} & Profile
+
+export type PublicRoomOmitRef = {
+  name: string
+  photoURL: string
+  messageCount: number
+  recent: {
+    author: AOmitRef | Anonymous
+    shortMessage: string
+    kind: MessageKind
+    updatedAt: firebase.firestore.Timestamp
+  }
+  createdAt: firebase.firestore.Timestamp
+  updatedAt: firebase.firestore.Timestamp
+}
+
+type AOmitRef = Omit<A, 'ref'>
+type MessageKind = 'TEXT'
