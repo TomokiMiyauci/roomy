@@ -2,14 +2,17 @@
   <v-app-bar color="primary" fixed app clipped-right clipped-left>
     <template #default>
       <client-only>
+        <img
+          v-if="!$vuetify.breakpoint.mdAndDown"
+          src="@/assets/logo.png"
+          width="50px"
+          alt="logo"
+        />
         <h1
           v-if="!$vuetify.breakpoint.mdAndDown"
-          style="color:#212121;text-shadow:1px 1px 3px #FBC02D;"
+          style="padding:8px;color:#fff;text-shadow:3px 3px 3px #000;"
         >
-          Roo<span
-            style=" margin-left:4px;padding:0 5px;color:white;text-shadow:1px 1px 0 #000;background-color:#FFAB00;border-radius:5px;box-shadow:1px 1px 3px #000;"
-            >my</span
-          >
+          Roo<span :class="$style.logo">my</span>
         </h1>
         <ButtonCreateRoom
           v-if="$vuetify.breakpoint.mdAndDown"
@@ -73,7 +76,6 @@ import ButtonQrcodeReader from '@/components/molecules/ButtonQrcodeReader.vue'
 import BaseAppBar from '@/components/organisms/BaseAppBar.vue'
 import { auth } from '@/plugins/firebase'
 import { createRoom } from '@/repositories/room'
-
 export default defineComponent({
   props: {
     photoURL: {
@@ -124,3 +126,20 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss" module>
+.logo {
+  margin-left: 4px;
+  padding: 0 5px;
+  color: white;
+  text-shadow: 2px 2px 3px #000;
+  background-color: #ffab00;
+  border-radius: 5px;
+  box-shadow: 2px 2px 3px #000;
+  transition: all 0.8s;
+}
+
+.logo:hover {
+  background-color: #3bd1b3;
+}
+</style>
