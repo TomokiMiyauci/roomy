@@ -3,7 +3,7 @@ import path from 'path'
 
 // import i18n from './nuxt-i18n.config'
 
-const autoprefixer = require('autoprefixer')
+// const autoprefixer = require('autoprefixer')
 
 const config: Configuration = {
   mode: 'universal',
@@ -105,9 +105,9 @@ const config: Configuration = {
   ],
 
   sentry: {
-    dsn: process.env.DSN! // Enter your project's DSN here
+    dsn:
+      'https://d8b37721b6fe4ce4beb0aacb9c1584ff@o385894.ingest.sentry.io/5219329'
   },
-
   robots: {
     UserAgent: '*',
     Disallow: '/private'
@@ -146,6 +146,67 @@ const config: Configuration = {
    ** Build configuration
    */
   build: {
+    extractCSS: true,
+    postcss: {
+      plugins: {
+        '@fullhuman/postcss-purgecss':
+          process.env.NODE_ENV !== 'production'
+            ? false
+            : {
+                content: [
+                  path.join(__dirname, './src/**/*.ts'),
+                  path.join(__dirname, './src/**/*.vue'),
+                  path.join(__dirname, './src/**/*.js'),
+                  path.join(__dirname, './node_modules/vuetify/src/**/*.ts'),
+                  './node_modules/vuetify/dist/vuetify.js'
+                ],
+                whitelist: [
+                  'html',
+                  'body',
+                  'nuxt-progress',
+                  'spacer',
+                  'primary',
+                  'secondary',
+                  'accent',
+                  'error',
+                  'warning',
+                  'info',
+                  'success',
+                  'icon',
+                  'fab',
+                  'skeleton',
+                  'v-application',
+                  'v-application--wrap',
+                  'button',
+                  'input',
+                  'select',
+                  'textarea'
+                ],
+                whitelistPatterns: [
+                  /^v-/,
+                  /^theme-/,
+                  /^application--/,
+                  /(col|row|fill-height)/,
+                  /^icon/,
+                  /^(d-)/,
+                  /^(text)/,
+                  /.*-transition/,
+                  /^_/,
+                  /^v-((?!application).)*$/,
+                  /^theme--*/
+                ],
+                whitelistPatternsChildren: [
+                  /^v-/,
+                  /^theme-/,
+                  /^application--/,
+                  /(col|row|fill-height)/,
+                  /^icon/,
+                  /^v-((?!application).)*$/,
+                  /^theme--*/
+                ]
+              }
+      }
+    },
     // extractCSS: true,
 
     // optimization: {
@@ -171,9 +232,9 @@ const config: Configuration = {
     //   layouts: true
     // },
 
-    postcss: {
-      plugins: [autoprefixer({ grid: 'autoplace' })]
-    },
+    // postcss: {
+    //   plugins: [autoprefixer({ grid: 'autoplace' })]
+    // },
 
     // hardSource: process.env.NODE_ENV === 'development',
 
