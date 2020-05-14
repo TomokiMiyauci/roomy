@@ -2,6 +2,7 @@ import { computed } from '@vue/composition-api'
 
 import { firestore } from '@/plugins/firebase'
 import { reference, user } from '@/store'
+import { Profile } from '~types/core'
 
 export const messageReference = () => {
   const collectionRef = computed(() =>
@@ -41,7 +42,12 @@ export const publicRoomMessageRef = () => {
 export const profileRef = () => {
   const collectionRef = computed(() => firestore.collection('profiles'))
 
-  const documentRef = computed(() => collectionRef.value.doc(user.id))
+  const documentRef = computed(
+    () =>
+      collectionRef.value.doc(user.id) as firebase.firestore.DocumentReference<
+        Profile
+      >
+  )
 
   return { collectionRef, documentRef }
 }
