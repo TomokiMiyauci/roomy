@@ -12,6 +12,7 @@ import {
   UserInfo,
   UserReference
 } from '@/types/core'
+import { Profile } from '~types/core'
 
 const getTimestamps = (): FirestoreFieldValue => {
   const timestamp = firebase.firestore.FieldValue.serverTimestamp() as firebase.firestore.Timestamp
@@ -44,6 +45,7 @@ type Author = {
   isAnonymous: boolean
   displayName: string
   photoURL: string
+  ref: firebase.firestore.DocumentReference<Profile>
 }
 
 type BaseRoom = {
@@ -60,10 +62,11 @@ type BaseRoom = {
   updatedAt: firebase.firestore.Timestamp
 }
 
-type PublicRoom = BaseRoom
+export type PublicRoom = BaseRoom
 
 export const createRoom = (option: { name: string; photoURL: string }) => {
   const { collectionRef } = publicRoomRef()
+  const { documentRef } = profileRef()
   const timestamp: firebase.firestore.Timestamp = firebase.firestore.FieldValue.serverTimestamp() as firebase.firestore.Timestamp
   const publicRoom: PublicRoom = {
     ...option,
@@ -72,7 +75,8 @@ export const createRoom = (option: { name: string; photoURL: string }) => {
       author: {
         isAnonymous: false,
         displayName: user.displayName,
-        photoURL: user.photoURL
+        photoURL: user.photoURL,
+        ref: documentRef.value
       },
       shortMessage: 'No message',
       kind: 'TEXT',
@@ -86,9 +90,11 @@ export const createRoom = (option: { name: string; photoURL: string }) => {
 }
 
 export const getAuthor = (): { author: Author | Anonymous } => {
+  const { documentRef } = profileRef()
   const author: Author | Anonymous = user.login
     ? {
         ...getUserInfo(),
+        ref: documentRef.value,
         isAnonymous: false
       }
     : getAnonymous()
