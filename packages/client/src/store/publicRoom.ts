@@ -1,19 +1,20 @@
 import { Action, Module, Mutation, VuexModule } from 'vuex-module-decorators'
 
-import { getData, isDef } from '@/core/useFirestore'
+import { isDef } from '@/core/useFirestore'
 import { roomReference } from '@/core/useFirestoreReference'
-import { PublicRoom } from '@/types/core'
+import { PublicRoom, PublicRoomOmitRef } from '~types/core'
+
 @Module({
   name: 'publicRoom',
   stateFactory: true,
   namespaced: true
 })
 export default class Public extends VuexModule {
-  private _rooms: PublicRoom[] = []
+  private _rooms: PublicRoomOmitRef[] = []
   private _unsubscribe: Function | undefined = undefined
 
   @Mutation
-  setRoom(rooms: PublicRoom[]) {
+  setRooms(rooms: PublicRoomOmitRef[]) {
     this._rooms = rooms
   }
 
@@ -27,10 +28,51 @@ export default class Public extends VuexModule {
     if (!force && this.loaded) return
 
     const { collectionRef } = roomReference()
-    collectionRef.value
+    const unsubscribe = collectionRef.value
       .orderBy('recent.updatedAt', 'desc')
-      .onSnapshot((snapshot) => {
-        this.setRoom(snapshot.docs.map(getData).filter(isDef) as PublicRoom[])
+      .onSnapshot(async (snapshot) => {
+        const publicRooms = await Promise.all(
+          snapshot.docs
+            .map(async (value) => {
+              const data = value.data() as PublicRoom
+              if (!data) return data
+              if (data.recent.author.isAnonymous) {
+                Object.defineProperty(data, 'id', {
+                  value: value.id.toString(),
+                  writable: false
+                })
+                return data
+              }
+              const doc = await data.recent.author.ref.get()
+              const { displayName, photoURL } = doc.data()!
+              const { recent, ...restRoom } = data
+              const { author, ...restRecent } = recent
+
+              const publicRoom: PublicRoomOmitRef = {
+                ...restRoom,
+                recent: {
+                  ...restRecent,
+                  ...recent,
+                  author: {
+                    isAnonymous: author.isAnonymous,
+                    displayName,
+                    photoURL
+                  }
+                }
+              }
+
+              Object.defineProperty(publicRoom, 'id', {
+                value: value.id.toString(),
+                writable: false
+              })
+
+              return publicRoom
+            })
+            .filter(isDef)
+        )
+
+        this.setRooms(publicRooms)
+        this.setUnsubscribe(unsubscribe)
       })
   }
 
