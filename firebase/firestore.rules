@@ -39,6 +39,12 @@ service cloud.firestore {
     isValidAnonymous(recent.author) || isValidAuthor(recent.author)
   }
 
+  function isValidUsers(user) {
+    return user.size () == 2 &&
+    'createdAt' in user && user.createdAt is timestamp &&
+    'updatedAt' in user && user.updatedAt is timestamp
+  }
+
   function isValidAnonymous(anonymous) {
     return anonymous.size() == 1 &&
     'isAnonymous' in anonymous &&
@@ -102,6 +108,10 @@ service cloud.firestore {
     message.size is number
   }
 
+  function isOwner(auth, uid) {
+    return auth != null && auth.uid == uid
+  }
+
   match /databases/{database}/documents {
     function profile(uid) {
       return /databases/$(database)/documents/profiles/$(uid)
@@ -110,6 +120,12 @@ service cloud.firestore {
     // function publicRoom(uid) {
     //   return /databases/$(database)/documents/public-rooms/$(uid)
     // }
+
+    match /users/{uid} {
+      allow get: if isOwner(request.auth, uid)
+
+      allow create: if isValidUsers(request.resource.data)
+    }
 
     match /public-rooms/{uid} {
       allow list;
