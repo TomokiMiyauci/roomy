@@ -4,6 +4,7 @@ import path from 'path'
 // import i18n from './nuxt-i18n.config'
 
 const autoprefixer = require('autoprefixer')
+const purgecss = require('@fullhuman/postcss-purgecss')
 
 const config: Configuration = {
   mode: 'universal',
@@ -99,7 +100,8 @@ const config: Configuration = {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/robots',
-    '@nuxtjs/sentry'
+    '@nuxtjs/sentry',
+    'nuxt-purgecss'
     // Doc: https://github.com/nuxt-community/dotenv-module
     // ['nuxt-i18n', i18n]
   ],
@@ -145,87 +147,85 @@ const config: Configuration = {
    ** Build configuration
    */
   build: {
-    extractCSS: true,
-    // postcss: {
-    //   plugins: {
-    //     '@fullhuman/postcss-purgecss':
-    //       process.env.NODE_ENV !== 'production'
-    //         ? false
-    //         : {
-    //             content: [
-    //               path.join(__dirname, './src/**/*.ts'),
-    //               path.join(__dirname, './src/**/*.vue'),
-    //               path.join(__dirname, './src/**/*.js'),
-    //               path.join(__dirname, './node_modules/vuetify/src/**/*.ts'),
-    //               './node_modules/vuetify/dist/vuetify.js'
-    //             ],
-    //             whitelist: [
-    //               'html',
-    //               'body',
-    //               'nuxt-progress',
-    //               'spacer',
-    //               'primary',
-    //               'secondary',
-    //               'accent',
-    //               'error',
-    //               'warning',
-    //               'info',
-    //               'success',
-    //               'icon',
-    //               'fab',
-    //               'skeleton',
-    //               'v-application',
-    //               'v-application--wrap',
-    //               'button',
-    //               'input',
-    //               'select',
-    //               'textarea',
-    //               'container',
-    //               'row',
-    //               'no-gutters',
-    //               'col',
-    //               'col-auto',
-    //               'theme'
-    //             ],
-    //             whitelistPatterns: [
-    //               /^v-/,
-    //               /^theme-/,
-    //               /^application--/,
-    //               /(col|row|fill-height)/,
-    //               /^icon/,
-    //               /^(d-)/,
-    //               /^(text)/,
-    //               /.*-transition/,
-    //               /^_/,
-    //               /^v-((?!application).)*$/,
-    //               /^theme--*/,
-    //               /^container/
-    //             ],
-    //             whitelistPatternsChildren: [
-    //               /^v-/,
-    //               /^theme-/,
-    //               /^application--/,
-    //               /(col|row|fill-height)/,
-    //               /^icon/,
-    //               /^v-((?!application).)*$/,
-    //               /^theme--*/
-    //             ]
-    //           }
+    // extractCSS: true,
+    postcss: {
+      plugins: [
+        autoprefixer({ grid: 'autoplace' }),
+        purgecss({
+          content: [
+            path.join(__dirname, './src/**/*.ts'),
+            path.join(__dirname, './src/**/*.vue'),
+            path.join(__dirname, './src/**/*.js'),
+            path.join(__dirname, './node_modules/vuetify/src/**/*.ts'),
+            './node_modules/vuetify/dist/vuetify.js'
+          ],
+          whitelist: [
+            'html',
+            'body',
+            'nuxt-progress',
+            'spacer',
+            'primary',
+            'secondary',
+            'accent',
+            'error',
+            'warning',
+            'info',
+            'success',
+            'icon',
+            'fab',
+            'skeleton',
+            'v-application',
+            'v-application--wrap',
+            'button',
+            'input',
+            'select',
+            'textarea',
+            'container',
+            'row',
+            'no-gutters',
+            'col',
+            'col-auto',
+            'theme'
+          ],
+          whitelistPatterns: [
+            /^v-/,
+            /^theme-/,
+            /^application--/,
+            /(col|row|fill-height)/,
+            /^icon/,
+            /^(d-)/,
+            /^(text)/,
+            /.*-transition/,
+            /^_/,
+            /^v-((?!application).)*$/,
+            /^theme--*/,
+            /^container/
+          ],
+          whitelistPatternsChildren: [
+            /^v-/,
+            /^theme-/,
+            /^application--/,
+            /(col|row|fill-height)/,
+            /^icon/,
+            /^v-((?!application).)*$/,
+            /^theme--*/
+          ]
+        })
+      ]
+    },
+
+    // optimization: {
+    //   splitChunks: {
+    //     cacheGroups: {
+    //       styles: {
+    //         name: 'styles',
+    //         test: /\.(css|vue)$/,
+    //         chunks: 'all',
+    //         enforce: true
+    //       }
+    //     }
     //   }
     // },
-
-    optimization: {
-      splitChunks: {
-        cacheGroups: {
-          styles: {
-            name: 'styles',
-            test: /\.(css|vue)$/,
-            chunks: 'all',
-            enforce: true
-          }
-        }
-      }
-    },
 
     terser: {
       terserOptions: {
@@ -237,9 +237,9 @@ const config: Configuration = {
     //   layouts: true
     // },
 
-    postcss: {
-      plugins: [autoprefixer({ grid: 'autoplace' })]
-    },
+    // postcss: {
+    //   plugins: [autoprefixer({ grid: 'autoplace' })]
+    // },
 
     // hardSource: process.env.NODE_ENV === 'development',
 
