@@ -233,9 +233,9 @@ const config: Configuration = {
       }
     },
 
-    // splitChunks: {
-    //   layouts: true
-    // },
+    splitChunks: {
+      layouts: true
+    },
 
     // postcss: {
     //   plugins: [autoprefixer({ grid: 'autoplace' })]
