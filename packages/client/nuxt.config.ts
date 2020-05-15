@@ -145,7 +145,7 @@ const config: Configuration = {
    ** Build configuration
    */
   build: {
-    // extractCSS: true,
+    extractCSS: true,
     // postcss: {
     //   plugins: {
     //     '@fullhuman/postcss-purgecss':
