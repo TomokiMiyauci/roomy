@@ -147,7 +147,7 @@ const config: Configuration = {
    ** Build configuration
    */
   build: {
-    // extractCSS: true,
+    extractCSS: true,
     postcss: {
       plugins: [
         autoprefixer({ grid: 'autoplace' }),
