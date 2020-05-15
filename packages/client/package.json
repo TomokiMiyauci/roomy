@@ -24,7 +24,7 @@
     "snapshot": "build-storybook && percy-storybook --widths=320,1280",
     "hygen": "hygen components new",
     "hygen:vuex": "hygen vuex new",
-    "audit": "improved-yarn-audit --retry-on-network-failure --min-severity moderate -e 1488",
+    "audit": "improved-yarn-audit --retry-on-network-failure --min-severity moderate -e 1488,1486",
     "build:copy": "rm -rf public && cp -R src/static public && cp -R .nuxt/dist/client public/_nuxt && mkdir -p tmp/dist && cp -R .nuxt/dist/server tmp/dist && rm -rf .nuxt/ && mv tmp/ .nuxt/",
     "deploy:ssr": "firebase deploy --only functions:ssr,hosting"
   },
