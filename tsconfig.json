@@ -20,6 +20,10 @@
       ],
       "~types/*": [
         "packages/share/*"
+      ],
+
+      "~mock/*": [
+        "packages/share/__mock__/*"
       ]
     },
     "typeRoots": ["packages/share", "node_modules/@types"]
