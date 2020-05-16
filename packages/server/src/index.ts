@@ -29,9 +29,7 @@ export const onCreateUser = functions
     const batch = firestore.batch()
     const timestamp = admin.firestore.FieldValue.serverTimestamp()
 
-    batch.set(firestore.collection('profiles').doc(user.uid), {
-      profile
-    })
+    batch.set(firestore.collection('profiles').doc(user.uid), profile)
 
     batch.set(firestore.collection('users').doc(user.uid), {
       createdAt: timestamp,
