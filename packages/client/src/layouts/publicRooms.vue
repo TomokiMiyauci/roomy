@@ -1,8 +1,12 @@
 <template>
   <v-app>
     <the-navigation-drawer-left @edit="$nuxt.$emit('edit')" />
-    <the-navigation-drawer-right :rooms="rooms" @open:qrcode="onOpenQrcode" />
-    <the-app-bar
+    <the-navigation-drawer-right
+      :rooms="rooms"
+      :view-histories="viewHistories"
+      @open:qrcode="onOpenQrcode"
+    />
+    <the-app-bar-public
       :login="login"
       :photo-u-r-l="photoURL"
       :display-name="displayName"
@@ -32,7 +36,7 @@ import { publicRoom, user } from '@/store'
 import { PublicRoom } from '~types/core'
 export default defineComponent({
   components: {
-    TheAppBar: () => import('@/components/organisms/TheAppBarPublic.vue'),
+    TheAppBarPublic: () => import('@/components/organisms/TheAppBarPublic.vue'),
     TheNavigationDrawerLeft: () =>
       import('@/components/organisms/TheNavigationDrawerLeft.vue'),
     TheNavigationDrawerRight: () =>
@@ -51,6 +55,7 @@ export default defineComponent({
       displayName: user.displayName,
       login: user.login,
       rooms: computed(() => publicRoom.rooms),
+      viewHistories: computed(() => user.test),
       onOpenQrcode
     }
   }

@@ -120,7 +120,8 @@ import { gsap } from 'gsap'
 
 import { useFirestore } from '@/core/useFirestore'
 import { messageReference } from '@/core/useFirestoreReference'
-import { publicRoom, reference } from '@/store'
+import { enterRoom } from '@/repositories/users'
+import { publicRoom, reference, user } from '@/store'
 import { generateInviteURL, isOwn } from '@/utils/firestore'
 import { Message, PublicRoom } from '~types/core'
 
@@ -147,13 +148,14 @@ export default defineComponent({
   },
 
   setup(_, { root }) {
+    reference.setRoomId(root.$route.params.id)
     publicRoom.subscribe()
+    if (user.login) enterRoom(root.$route.params.id)
+
     const sheet = ref(false)
     const dialog = ref(false)
     const text = ref('')
     const isEmpty = ref(false)
-
-    reference.setRoomId(root.$route.params.id)
 
     const { collectionRef } = messageReference()
 
