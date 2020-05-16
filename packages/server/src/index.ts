@@ -85,6 +85,7 @@ exports.onCreatePublicRoomMessage = functions
     })
 
     const ref = await firestore.collectionGroup('view-histories').get()
+    console.log(ref)
 
     ref.forEach((doc) => {
       batch.update(doc.ref, {
