@@ -84,7 +84,7 @@ import BaseButton from '@/components/atoms/BaseButton.vue'
 import BaseIcon from '@/components/atoms/BaseIcon.vue'
 import BaseAppBar from '@/components/organisms/BaseAppBar.vue'
 import { auth } from '@/plugins/firebase'
-import { createRoom } from '@/repositories/room'
+import { createRoom } from '@/repositories/privateRoom'
 export default defineComponent({
   props: {
     photoURL: {

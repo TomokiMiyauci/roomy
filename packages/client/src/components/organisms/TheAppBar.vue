@@ -53,7 +53,7 @@ import BaseButton from '@/components/atoms/BaseButton.vue'
 import BaseIcon from '@/components/atoms/BaseIcon.vue'
 import BaseAppBar from '@/components/organisms/BaseAppBar.vue'
 import { signOut } from '@/repositories/auth'
-import { createRoom } from '@/repositories/room'
+import { createRoom } from '@/repositories/publicRoom'
 export default defineComponent({
   props: {
     photoURL: {

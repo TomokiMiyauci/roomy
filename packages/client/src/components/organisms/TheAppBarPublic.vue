@@ -75,7 +75,7 @@ import ButtonCreateRoom from '@/components/molecules/ButtonCreateRoom.vue'
 import ButtonQrcodeReader from '@/components/molecules/ButtonQrcodeReader.vue'
 import BaseAppBar from '@/components/organisms/BaseAppBar.vue'
 import { auth } from '@/plugins/firebase'
-import { createRoom } from '@/repositories/room'
+
 export default defineComponent({
   props: {
     photoURL: {
@@ -118,7 +118,6 @@ export default defineComponent({
       logout,
       mdiCommentPlus,
       hide,
-      createRoom,
       tabs,
       mdiTagHeart,
       mdiFire

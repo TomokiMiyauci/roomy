@@ -141,7 +141,7 @@ export default defineComponent({
       return (
         !!user.id &&
         !message.author.isAnonymous &&
-        message.author.name === user.displayName
+        message.author.displayName === user.displayName
       )
     }
 

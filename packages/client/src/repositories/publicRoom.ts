@@ -3,16 +3,16 @@ import {
   publicRoomMessageRef,
   publicRoomRef
 } from '@/core/useFirestoreReference'
-import firebase, { firestore } from '@/plugins/firebase'
+import firebase from '@/plugins/firebase'
 import { user } from '@/store'
 import {
   Anonymous,
+  Author,
   FirestoreFieldValue,
   MessageSet,
-  UserInfo,
-  UserReference
-} from '@/types/core'
-import { Profile } from '~types/core'
+  Profile,
+  PublicRoom
+} from '~types/core'
 
 const getTimestamps = (): FirestoreFieldValue => {
   const timestamp = firebase.firestore.FieldValue.serverTimestamp() as firebase.firestore.Timestamp
@@ -38,31 +38,6 @@ export const createMessage = (
 
   return collectionRef.value.add(data)
 }
-
-type MessageKind = 'TEXT'
-
-type Author = {
-  isAnonymous: boolean
-  displayName: string
-  photoURL: string
-  ref: firebase.firestore.DocumentReference<Profile>
-}
-
-type BaseRoom = {
-  name: string
-  photoURL: string
-  messageCount: number
-  recent: {
-    author: Author | Anonymous
-    shortMessage: string
-    kind: MessageKind
-    updatedAt: firebase.firestore.Timestamp
-  }
-  createdAt: firebase.firestore.Timestamp
-  updatedAt: firebase.firestore.Timestamp
-}
-
-export type PublicRoom = BaseRoom
 
 export const createRoom = (option: { name: string; photoURL: string }) => {
   const { collectionRef } = publicRoomRef()
@@ -114,19 +89,13 @@ export const getContributor = () => {
   return { ...getUserInfo(), isAnonymous: false, ref: documentRef.value }
 }
 
-export const getUserInfo = (): UserInfo => {
+export const getUserInfo = (): Profile => {
   return {
     displayName: user.displayName,
     photoURL: user.photoURL
   }
 }
 
-export const getUserReference = (documentPath: string): UserReference => {
-  return {
-    userRef: firestore.collection('users').doc(documentPath),
-    isAnonymous: false
-  }
-}
 export const getAnonymous = (): Anonymous => {
   return {
     isAnonymous: true

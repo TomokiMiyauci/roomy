@@ -47,7 +47,7 @@
 import { computed, defineComponent } from '@vue/composition-api'
 
 import firebase, { auth } from '@/plugins/firebase'
-import { existsDoc, joinRoom } from '@/repositories/room'
+import { existsDoc, joinRoom } from '@/repositories/privateRoom'
 import { user } from '@/store'
 export default defineComponent({
   props: {

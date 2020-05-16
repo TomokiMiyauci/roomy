@@ -62,7 +62,7 @@ import ButtonCreateRoom from '@/components/molecules/ButtonCreateRoom.vue'
 import TheRooms from '@/components/organisms/TheRooms.vue'
 // import { useFirestore } from '@/core/useFirestore'
 // import { roomReference } from '@/core/useFirestoreReference'
-import { createPrivateRoom, getRoomKey, joinRoom } from '@/repositories/room'
+import { createRoom, getRoomKey, joinRoom } from '@/repositories/privateRoom'
 import { privateRoom } from '@/store'
 
 export default defineComponent({
@@ -115,7 +115,7 @@ export default defineComponent({
     const rooms = computed(() => privateRoom.rooms)
 
     const create = async () => {
-      const { id } = await createPrivateRoom()
+      const { id } = await createRoom()
       const key = await getRoomKey(id)
       newRoom.key = key
       newRoom.id = id
@@ -123,7 +123,7 @@ export default defineComponent({
 
     const onCreate = async () => {
       dialog.value = true
-      const { id } = await createPrivateRoom()
+      const { id } = await createRoom()
       await joinRoom(id, true)
       const key = await getRoomKey(id)
       const inviteURL = `https://${process.env.AUTH_DOMAIN}/private/invite?roomId=${id}&key=${key}`
@@ -141,7 +141,7 @@ export default defineComponent({
       o,
       text,
       tabs,
-      createPrivateRoom,
+      createRoom,
       onCreate
     }
   }

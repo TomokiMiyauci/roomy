@@ -45,8 +45,7 @@ import MdiMicrophoneSettings from '@/components/atoms/MdiMicrophoneSettings.vue'
 import MdiPlay from '@/components/atoms/MdiPlay.vue'
 import useMediaRecorder from '@/core/useMediaRecorder'
 import { storage } from '@/plugins/firebase'
-import { createMessage } from '@/repositories/message'
-import { updateRecent } from '@/repositories/room'
+import { createMessage } from '@/repositories/publicRoom'
 
 export default defineComponent({
   components: {
@@ -88,7 +87,7 @@ export default defineComponent({
         audioURL,
         size: fileSnapshot.totalBytes
       })
-      updateRecent('post audio')
+
       emit('close')
 
       console.log(fileSnapshot)
