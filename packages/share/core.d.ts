@@ -118,7 +118,7 @@ type BaseRoom = {
   updatedAt: firebase.firestore.Timestamp
 }
 
-export type PublicRoom = BaseRoom
+export type PublicRoom = BaseRoom & { messageDiff? : number}
 
 export type PublicRoomOmitRef = {
   name: string
