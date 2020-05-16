@@ -1,5 +1,5 @@
 <template>
-  <v-list-item :to="`/${room.isPrivate ? 'private' : 'public'}/${room.id}`">
+  <v-list-item :to="`/public/${room.id}`">
     <v-list-item-avatar tile>
       <v-img v-if="room.photoURL" :src="room.photoURL" color="primary"></v-img>
       <v-icon v-else color="primary">{{ mdiNewBox }}</v-icon>
@@ -27,6 +27,11 @@
         >{{ room.messageCount }}
       </div>
     </v-list-item-content>
+    <v-list-item-action v-if="'messageDiff' in room && room.messageDiff">
+      <v-avatar color="primary" size="26">
+        <span class="white--text">{{ room.messageDiff }}</span>
+      </v-avatar>
+    </v-list-item-action>
 
     <v-list-item-action>
       <span
@@ -51,7 +56,7 @@ import {
 import { defineComponent } from '@vue/composition-api'
 import dayjs from 'dayjs'
 
-import { PrivateRoom, PublicRoom } from '@/types/core'
+import { PublicRoom } from '~types/core'
 export default defineComponent({
   filters: {
     time(timestamp: { seconds: number }) {
@@ -67,7 +72,7 @@ export default defineComponent({
 
   props: {
     room: {
-      type: Object as () => PrivateRoom | PublicRoom,
+      type: Object as () => PublicRoom & { id: string },
       required: true
     }
   },
