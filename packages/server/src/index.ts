@@ -93,5 +93,5 @@ exports.onCreatePublicRoomMessage = functions
       })
     })
 
-    return batch.commit()
+    return await batch.commit()
   })
