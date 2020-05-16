@@ -24,6 +24,9 @@
       "~types/*": [
         "../share/*"
       ],
+      "~mock/*": [
+        "../share/__mock__/index"
+      ],
       "@mock/*": [
         "__mock__/index"
       ]

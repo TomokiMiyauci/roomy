@@ -1,6 +1,6 @@
 import * as firebase from '@firebase/testing'
 import fs from 'fs'
-import { publicRoom } from '../../share/__mock__/'
+import { publicRoom } from '~mock/'
 
 const PROJECT_ID = 'test'
 

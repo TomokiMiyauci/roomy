@@ -13,7 +13,7 @@
     "strict": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
-    "baseUrl": "./",                       /* Base directory to resolve non-absolute module names. */
+    "baseUrl": ".",                       /* Base directory to resolve non-absolute module names. */
     "paths": {
       "@/*": [
         "packages/client/src/*"
@@ -23,8 +23,9 @@
       ],
 
       "~mock/*": [
-        "packages/share/__mock__/*"
+        "packages/share/__mock__/index"
       ]
+
     },
     "typeRoots": ["packages/share", "node_modules/@types"]
   },
