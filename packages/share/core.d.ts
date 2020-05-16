@@ -50,10 +50,9 @@ export type Contributor = {
 }
 
 export type Author = {
-  name: string
-  photoURL: string
   isAnonymous: false
-}
+  ref: firebase.firestore.DocumentReference<Profile>
+} & Profile
 
 export type UserInfo = {
   name: string
@@ -82,23 +81,12 @@ export type Room = {
 
 export type ShortMessage = 'Image posted' | 'Audio posted' | 'No messages' | string
 
-// type BaseRoom = {
-//   members: string[]
-//   name: string
-//   photoURL: string
-//   recent: RecentMessage
-//   messageCount: number
-// } & BaseField
-
 export type RecentMessage = {
   shortMessage: ShortMessage
   kind: 'TEXT' | 'IMAGE' | 'AUDIO'
   author: Author | Anonymous
 } & BaseField
 
-// export type PublicRoom = BaseRoom & {
-//   isPrivate: false
-// }
 
 export type PrivateRoom = BaseRoom & {
   isPrivate: true
@@ -121,7 +109,7 @@ type BaseRoom = {
   photoURL: string
   messageCount: number
   recent: {
-    author: A | Anonymous
+    author: Author | Anonymous
     shortMessage: string
     kind: MessageKind
     updatedAt: firebase.firestore.Timestamp
@@ -132,17 +120,12 @@ type BaseRoom = {
 
 export type PublicRoom = BaseRoom
 
-type A = {
-  isAnonymous: false,
-  ref: firebase.firestore.DocumentReference<Profile>
-} & Profile
-
 export type PublicRoomOmitRef = {
   name: string
   photoURL: string
   messageCount: number
   recent: {
-    author: AOmitRef | Anonymous
+    author: Omit<Author, 'ref'> | Anonymous
     shortMessage: string
     kind: MessageKind
     updatedAt: firebase.firestore.Timestamp
@@ -151,5 +134,4 @@ export type PublicRoomOmitRef = {
   updatedAt: firebase.firestore.Timestamp
 }
 
-type AOmitRef = Omit<A, 'ref'>
 type MessageKind = 'TEXT'
