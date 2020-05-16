@@ -84,14 +84,22 @@ exports.onCreatePublicRoomMessage = functions
       recent: recentMessage
     })
 
-    const ref = await firestore.collectionGroup('view-histories').get()
-    console.log(ref)
+    const ref = await firestore
+      .collectionGroup('view-histories')
+      .where('ref', '==', snapshot.ref.parent.parent)
+      .get()
 
     ref.forEach((doc) => {
-      batch.update(doc.ref, {
-        messageDiff: increment
-      })
+      if (
+        data.author.isAnonymous ||
+        !doc.ref.parent.parent ||
+        data.author.ref.id !== doc.ref.parent.parent.id
+      ) {
+        batch.update(doc.ref, {
+          messageDiff: increment
+        })
+      }
     })
 
-    return await batch.commit()
+    return batch.commit()
   })
