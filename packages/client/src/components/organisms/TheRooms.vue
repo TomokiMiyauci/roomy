@@ -1,6 +1,11 @@
 <template>
   <v-list two-two>
-    <v-subheader inset>Recent</v-subheader>
+    <client-only>
+      <v-subheader v-if="$vuetify.breakpoint.mdAndDown" inset
+        >Recent</v-subheader
+      >
+    </client-only>
+
     <transition-group name="vue-anime-list">
       <template v-for="(room, index) in rooms">
         <room-set
