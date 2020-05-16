@@ -26,10 +26,19 @@ export const onCreateUser = functions
       photoURL
     }
 
-    await firestore
-      .collection('profiles')
-      .doc(user.uid)
-      .set(profile)
+    const batch = firestore.batch()
+    const timestamp = admin.firestore.FieldValue.serverTimestamp()
+
+    batch.set(firestore.collection('profiles').doc(user.uid), {
+      profile
+    })
+
+    batch.set(firestore.collection('users').doc(user.uid), {
+      createdAt: timestamp,
+      updatedAt: timestamp
+    })
+
+    return batch.commit()
   })
 
 exports.onCreatePublicRoomMessage = functions
