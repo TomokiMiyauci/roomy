@@ -76,8 +76,21 @@ exports.onCreatePublicRoomMessage = functions
       author
     }
 
-    return snapshot.ref.parent.parent.update({
-      messageCount: admin.firestore.FieldValue.increment(1),
+    const batch = firestore.batch()
+    const increment = admin.firestore.FieldValue.increment(1)
+
+    batch.update(snapshot.ref.parent.parent, {
+      messageCount: increment,
       recent: recentMessage
     })
+
+    const ref = await firestore.collectionGroup('view-histories').get()
+
+    ref.forEach((doc) => {
+      batch.update(doc.ref, {
+        messageDiff: increment
+      })
+    })
+
+    return batch.commit()
   })
