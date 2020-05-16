@@ -55,7 +55,7 @@ export default defineComponent({
       displayName: user.displayName,
       login: user.login,
       rooms: computed(() => publicRoom.rooms),
-      viewHistories: computed(() => user.test),
+      viewHistories: computed(() => user.viewHistories),
       onOpenQrcode
     }
   }

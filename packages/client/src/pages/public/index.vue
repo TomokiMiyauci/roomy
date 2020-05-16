@@ -104,7 +104,7 @@ export default defineComponent({
     }
   },
 
-  layout: 'public',
+  layout: 'publicRooms',
 
   components: {
     TheRooms: () => import('@/components/organisms/TheRooms.vue'),
@@ -121,6 +121,7 @@ export default defineComponent({
 
   setup(_, { root }) {
     publicRoom.subscribe()
+    if (user.login) user.subscribe()
     const mobile = computed(() => {
       return root.$vuetify.breakpoint.mdAndDown && notFound
     })
