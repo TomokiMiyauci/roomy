@@ -146,7 +146,7 @@ const config: Configuration = {
    ** Build configuration
    */
   build: {
-    extractCSS: true,
+    extractCSS: process.env.NODE_ENV === 'production',
     postcss: {
       plugins: [
         autoprefixer({ grid: 'autoplace' })
@@ -232,9 +232,12 @@ const config: Configuration = {
       }
     },
 
-    splitChunks: {
-      layouts: true
-    },
+    splitChunks:
+      process.env.NODE_ENV === 'production'
+        ? {
+            layouts: true
+          }
+        : undefined,
 
     // postcss: {
     //   plugins: [autoprefixer({ grid: 'autoplace' })]
