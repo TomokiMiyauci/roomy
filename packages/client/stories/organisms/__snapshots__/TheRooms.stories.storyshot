@@ -25,11 +25,13 @@ exports[`Storyshots organisms|TheRooms Default 1`] = `
             role="list"
             two-two=""
           >
-            <div
-              class="v-subheader v-subheader--inset theme--light"
-            >
-              Recent
-            </div>
+            <client-only>
+              <div
+                class="v-subheader v-subheader--inset theme--light"
+              >
+                Recent
+              </div>
+            </client-only>
              
             <span />
              
