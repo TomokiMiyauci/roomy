@@ -1,7 +1,11 @@
 <template>
   <v-app>
     <the-navigation-drawer-left />
-    <the-navigation-drawer-right :rooms="rooms" @open:qrcode="onOpenQrcode" />
+    <the-navigation-drawer-right
+      :view-histories="viewHistories"
+      :rooms="rooms"
+      @open:qrcode="onOpenQrcode"
+    />
     <the-app-bar-chat :title="room ? room.name : ''" />
 
     <v-content>
@@ -20,7 +24,7 @@ import TheNavigationDrawerLeft from '@/components/organisms/TheNavigationDrawerL
 import TheNavigationDrawerRight from '@/components/organisms/TheNavigationDrawerRight.vue'
 import { useFirestore } from '@/core/useFirestore'
 import { firestore } from '@/plugins/firebase'
-import { publicRoom } from '@/store'
+import { publicRoom, user } from '@/store'
 import { PublicRoom } from '~types/core'
 
 export default defineComponent({
@@ -39,7 +43,12 @@ export default defineComponent({
       firestore.collection('rooms').doc(root.$route.params.id)
     )
 
-    return { rooms: computed(() => publicRoom.rooms), onOpenQrcode, room }
+    return {
+      rooms: computed(() => publicRoom.rooms),
+      viewHistories: computed(() => user.viewHistories),
+      onOpenQrcode,
+      room
+    }
   }
 })
 </script>

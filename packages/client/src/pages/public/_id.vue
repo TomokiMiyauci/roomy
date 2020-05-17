@@ -150,7 +150,10 @@ export default defineComponent({
   setup(_, { root }) {
     reference.setRoomId(root.$route.params.id)
     publicRoom.subscribe()
-    if (user.login) enterRoom(root.$route.params.id)
+    if (user.login) {
+      user.subscribe()
+      enterRoom(root.$route.params.id)
+    }
 
     const sheet = ref(false)
     const dialog = ref(false)
