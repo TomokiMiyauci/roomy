@@ -146,7 +146,6 @@ import {
   toRefs,
   watch
 } from '@vue/composition-api'
-import { ValidationProvider } from 'vee-validate'
 
 import { wait } from '@/core/useTime'
 import firebase, { auth, firestore } from '@/plugins/firebase'
@@ -171,10 +170,6 @@ const sub = (): Promise<void> => {
 type Tab = 'signin' | 'signup'
 
 export default defineComponent({
-  components: {
-    ValidationProvider
-  },
-
   setup(_, { emit }) {
     const tab = reactive<{ name: Tab }>({
       name: 'signin'
