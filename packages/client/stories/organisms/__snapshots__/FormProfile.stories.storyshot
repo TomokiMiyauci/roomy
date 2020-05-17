@@ -80,13 +80,13 @@ exports[`Storyshots organisms|FormProfile Default 1`] = `
                               >
                                 <label
                                   class="v-label theme--light"
-                                  for="input-251"
+                                  for="input-250"
                                   style="left: 0px; position: absolute;"
                                 >
                                   Name
                                 </label>
                                 <input
-                                  id="input-251"
+                                  id="input-250"
                                   required="required"
                                   type="text"
                                 />

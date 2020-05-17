@@ -55,14 +55,14 @@ exports[`Storyshots organisms|ThePost Default 1`] = `
                         >
                           <label
                             class="v-label theme--light"
-                            for="input-332"
+                            for="input-331"
                             style="left: 0px; position: absolute;"
                           >
                             Enter message
                           </label>
                           <textarea
                             auto-focus=""
-                            id="input-332"
+                            id="input-331"
                             rows="1"
                           />
                         </div>
