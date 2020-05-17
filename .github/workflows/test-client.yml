@@ -263,6 +263,21 @@ jobs:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
 
+      - name: create secret json
+        uses: schdck/create-env-json@master
+        with:
+          file-name: 'package/client/secret.json'
+          type: 'service_account'
+          project_id: ${{ secrets.PROJECT_ID_DEV }}
+          private_key_id: ${{ secrets.PRIVATE_KEY_ID_DEV }}
+          private_key: ${{ secrets.PRIVATE_KEY_DEV }}
+          client_email: ${{ secrets.CLIENT_EMAIL_DEV }}
+          client_id: ${{ secrets.CLIENT_ID_DEV }}
+          auth_uri: https://accounts.google.com/o/oauth2/auth
+          token_uri: https://oauth2.googleapis.com/token
+          auth_provider_x509_cert_url: https://www.googleapis.com/oauth2/v1/certs
+          client_x509_cert_url: ${{ secrets.CLIENT_X509_CERT_URL_DEV }}
+
       - name: build
         env:
           API_KEY: ${{ secrets.API_KEY_DEV }}
