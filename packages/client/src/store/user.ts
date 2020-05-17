@@ -5,6 +5,12 @@ import { userRef } from '@/core/useFirestoreReference'
 import firebase from '@/plugins/firebase'
 import { PublicRoom } from '~types/core'
 
+type CustomUser = {
+  uid: string
+  photoURL: firebase.User['photoURL']
+  displayName: firebase.User['displayName']
+}
+
 @Module({
   name: 'user',
   stateFactory: true,
@@ -15,8 +21,8 @@ export default class User extends VuexModule {
   private _displayName: firebase.User['displayName'] = null
   private _photoURL: firebase.User['photoURL'] = null
   private _successfulSignIn: boolean = false
-  private _providerData: firebase.UserInfo | null = null
   private _viewHistories: any = []
+  private _unsubscribe: Function | undefined = undefined
 
   @Mutation
   setViewHistories(viewHistories: any) {
@@ -24,7 +30,8 @@ export default class User extends VuexModule {
   }
 
   @Action
-  subscribe() {
+  subscribe(force: boolean = false) {
+    if (!force && this.loaded) return
     const { documentRef } = userRef()
 
     documentRef.value
@@ -77,10 +84,9 @@ export default class User extends VuexModule {
   }
 
   @Action
-  setUser(user: firebase.User): void {
+  setUser(user: CustomUser): void {
     this.setDisplayName(user.displayName)
     this.setPhotoURL(user.photoURL)
-    this.setProviderData(user)
     this.setId(user.uid)
   }
 
@@ -89,18 +95,6 @@ export default class User extends VuexModule {
     this.removeId()
     this.removeDisplayName()
     this.removePhotoURL()
-    this.removeProviderData()
-  }
-
-  @Mutation
-  setProviderData(user: firebase.User): void {
-    if (!user.providerData.length) return
-    this._providerData = user.providerData[0]
-  }
-
-  @Mutation
-  removeProviderData(): void {
-    this._providerData = null
   }
 
   @Mutation
@@ -160,18 +154,18 @@ export default class User extends VuexModule {
   }
 
   get displayName(): string {
-    if (!this._providerData || !this._providerData.displayName) return ''
-    return this._displayName
-      ? this._displayName
-      : this._providerData.displayName
+    return this._displayName ? this._displayName : ''
   }
 
   get photoURL(): string {
-    if (!this._providerData || !this._providerData.photoURL) return ''
-    return this._photoURL ? this._photoURL : this._providerData.photoURL
+    return this._photoURL ? this._photoURL : ''
   }
 
   get successfulSignIn(): boolean {
     return this._successfulSignIn
+  }
+
+  get loaded(): boolean {
+    return !!this._unsubscribe
   }
 }
