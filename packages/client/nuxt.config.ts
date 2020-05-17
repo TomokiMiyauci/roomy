@@ -67,13 +67,13 @@ const config: Configuration = {
   plugins: [
     '@/plugins/composition-api',
     '@/plugins/firebase',
+    '@/plugins/firebase-admin',
     '@/plugins/pretty-bytes',
     '@/plugins/axios',
     '@/plugins/errorHandler',
     // { src: '@/plugins/vee-validate', ssr: false },
     { src: '@/plugins/axe', ssr: false },
-    { src: '@/plugins/vue-typer', ssr: false },
-    { src: '@/plugins/localStorage', ssr: false }
+    { src: '@/plugins/vue-typer', ssr: false }
   ],
   /*
    ** Nuxt.js dev-modules
