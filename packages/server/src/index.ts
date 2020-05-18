@@ -42,7 +42,7 @@ export const onCreateUser = functions
 exports.onCreatePublicRoomMessage = functions
   .region('asia-northeast1')
   .firestore.document('public-rooms/{roomId}/messages/{messageId}')
-  .onCreate(async (snapshot) => {
+  .onCreate(async (snapshot, { params }) => {
     const data = snapshot.data() as Message | undefined
 
     if (!data || !snapshot.ref.parent.parent) return
@@ -78,11 +78,24 @@ exports.onCreatePublicRoomMessage = functions
 
     const batch = firestore.batch()
     const increment = admin.firestore.FieldValue.increment(1)
+    const uid = !data.author.isAnonymous ? data.author.ref.id : ''
 
     batch.update(snapshot.ref.parent.parent, {
       messageCount: increment,
       recent: recentMessage
     })
+
+    if (uid) {
+      batch.set(
+        firestore
+          .collection('users')
+          .doc(uid)
+          .collection('interested-rooms')
+          .doc(params.roomId),
+        { updatedAt: admin.firestore.FieldValue.serverTimestamp() },
+        { merge: true }
+      )
+    }
 
     const ref = await firestore
       .collectionGroup('view-histories')
