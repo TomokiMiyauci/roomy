@@ -264,7 +264,7 @@ jobs:
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
 
       - name: create secret json
-        uses: schdck/create-env-json@master
+        uses: schdck/create-env-json@v2
         with:
           file-name: 'packages/client/secret.json'
           type: service_account
