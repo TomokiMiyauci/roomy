@@ -267,6 +267,7 @@ jobs:
         uses: schdck/create-env-json@v2
         with:
           file-name: 'packages/client/secret.json'
+        env:
           type: service_account
           project_id: ${{ secrets.PROJECT_ID_DEV }}
           private_key_id: ${{ secrets.PRIVATE_KEY_ID_DEV }}
