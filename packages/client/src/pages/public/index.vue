@@ -94,7 +94,7 @@ import {
 import CardRoomShare from '@/components/molecules/CardRoomShare.vue'
 import FormCreateRoom from '@/components/organisms/FormCreateRoom.vue'
 import { wait } from '@/core/useTime'
-import { publicRoom, user } from '@/store'
+import { favoriteRoom, publicRoom, user, viewHistory } from '@/store'
 import { generateInviteURL } from '@/utils/firestore'
 import { PublicRoom } from '~types/core'
 export default defineComponent({
@@ -121,7 +121,12 @@ export default defineComponent({
 
   setup(_, { root }) {
     publicRoom.subscribe()
-    if (user.login) user.subscribe()
+    console.log(user.login)
+
+    if (user.login) {
+      viewHistory.subscribe()
+      favoriteRoom.subscribe()
+    }
     const mobile = computed(() => {
       return root.$vuetify.breakpoint.mdAndDown && notFound
     })

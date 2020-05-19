@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer :width="350" right clipped app>
+  <v-navigation-drawer width="25%" right clipped app>
     <!-- <TheRooms :rooms="rooms" v-on="$listeners" /> -->
     <v-tabs v-model="tab">
       <v-tab>
@@ -17,6 +17,16 @@
           offset-y="-3"
         />
       </v-tab>
+
+      <v-tab>
+        <v-icon left>{{ mdiHeartFlash }}</v-icon>
+        favorite
+      </v-tab>
+
+      <v-tab>
+        <v-icon left>{{ mdiFlashRedEye }}</v-icon>
+        Interested
+      </v-tab>
     </v-tabs>
     <v-divider />
     <v-tabs-items v-model="tab">
@@ -27,12 +37,15 @@
       <v-tab-item>
         <TheRooms :rooms="viewHistories" v-on="$listeners" />
       </v-tab-item>
+      <v-tab-item>
+        <TheRooms :rooms="favoriteRooms" v-on="$listeners" />
+      </v-tab-item>
     </v-tabs-items>
   </v-navigation-drawer>
 </template>
 
 <script lang="ts">
-import { mdiFire, mdiHistory } from '@mdi/js'
+import { mdiFire, mdiFlashRedEye, mdiHeartFlash, mdiHistory } from '@mdi/js'
 import { computed, defineComponent, ref } from '@vue/composition-api'
 
 import TheRooms from '@/components/organisms/TheRooms.vue'
@@ -52,6 +65,16 @@ export default defineComponent({
     viewHistories: {
       type: Array,
       default: () => []
+    },
+
+    interestedRooms: {
+      type: Array,
+      default: () => []
+    },
+
+    favoriteRooms: {
+      type: Array,
+      default: () => []
     }
   },
 
@@ -67,7 +90,14 @@ export default defineComponent({
       }, 0)
     })
 
-    return { mdiHistory, mdiFire, sumUnread, tab }
+    return {
+      mdiHistory,
+      mdiFire,
+      mdiFlashRedEye,
+      mdiHeartFlash,
+      sumUnread,
+      tab
+    }
   }
 })
 </script>

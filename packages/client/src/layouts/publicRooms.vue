@@ -4,6 +4,7 @@
     <the-navigation-drawer-right
       :rooms="rooms"
       :view-histories="viewHistories"
+      :favorite-rooms="favoriteRooms"
       @open:qrcode="onOpenQrcode"
     />
     <the-app-bar-public
@@ -32,7 +33,7 @@
 <script lang="ts">
 import { computed, defineComponent } from '@vue/composition-api'
 
-import { publicRoom, user } from '@/store'
+import { favoriteRoom, publicRoom, user, viewHistory } from '@/store'
 import { PublicRoom } from '~types/core'
 export default defineComponent({
   components: {
@@ -55,7 +56,8 @@ export default defineComponent({
       displayName: user.displayName,
       login: user.login,
       rooms: computed(() => publicRoom.rooms),
-      viewHistories: computed(() => user.viewHistories),
+      viewHistories: computed(() => viewHistory.viewHistories),
+      favoriteRooms: computed(() => favoriteRoom.favoriteRooms),
       onOpenQrcode
     }
   }

@@ -121,7 +121,7 @@ import { gsap } from 'gsap'
 import { useFirestore } from '@/core/useFirestore'
 import { messageReference } from '@/core/useFirestoreReference'
 import { enterRoom } from '@/repositories/users'
-import { publicRoom, reference, user } from '@/store'
+import { publicRoom, reference, user, viewHistory } from '@/store'
 import { generateInviteURL, isOwn } from '@/utils/firestore'
 import { Message, PublicRoom } from '~types/core'
 
@@ -151,7 +151,7 @@ export default defineComponent({
     reference.setRoomId(root.$route.params.id)
     publicRoom.subscribe()
     if (user.login) {
-      user.subscribe()
+      viewHistory.subscribe()
       enterRoom(root.$route.params.id)
     }
 

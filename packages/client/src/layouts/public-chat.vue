@@ -3,6 +3,7 @@
     <the-navigation-drawer-left />
     <the-navigation-drawer-right
       :view-histories="viewHistories"
+      :favorite-rooms="favoriteRooms"
       :rooms="rooms"
       @open:qrcode="onOpenQrcode"
     />
@@ -24,7 +25,7 @@ import TheNavigationDrawerLeft from '@/components/organisms/TheNavigationDrawerL
 import TheNavigationDrawerRight from '@/components/organisms/TheNavigationDrawerRight.vue'
 import { useFirestore } from '@/core/useFirestore'
 import { firestore } from '@/plugins/firebase'
-import { publicRoom, user } from '@/store'
+import { favoriteRoom, publicRoom, viewHistory } from '@/store'
 import { PublicRoom } from '~types/core'
 
 export default defineComponent({
@@ -45,7 +46,8 @@ export default defineComponent({
 
     return {
       rooms: computed(() => publicRoom.rooms),
-      viewHistories: computed(() => user.viewHistories),
+      viewHistories: computed(() => viewHistory.viewHistories),
+      favoriteRooms: computed(() => favoriteRoom.favoriteRooms),
       onOpenQrcode,
       room
     }
