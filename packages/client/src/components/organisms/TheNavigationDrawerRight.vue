@@ -1,15 +1,13 @@
 <template>
   <v-navigation-drawer width="25%" right clipped app>
     <!-- <TheRooms :rooms="rooms" v-on="$listeners" /> -->
-    <v-tabs v-model="tab">
+    <v-tabs v-model="tab" centered>
       <v-tab>
         <v-icon left>{{ mdiFire }}</v-icon>
-        Hot
       </v-tab>
       <v-tab>
         <v-icon left>{{ mdiHistory }}</v-icon>
 
-        History
         <v-badge
           :value="sumUnread"
           :content="sumUnread"
@@ -20,27 +18,26 @@
 
       <v-tab>
         <v-icon left>{{ mdiHeartFlash }}</v-icon>
-        favorite
       </v-tab>
 
       <v-tab>
         <v-icon left>{{ mdiFlashRedEye }}</v-icon>
-        Interested
       </v-tab>
-    </v-tabs>
-    <v-divider />
-    <v-tabs-items v-model="tab">
-      <v-tab-item>
-        <TheRooms :rooms="rooms" v-on="$listeners" />
-      </v-tab-item>
 
-      <v-tab-item>
-        <TheRooms :rooms="viewHistories" v-on="$listeners" />
-      </v-tab-item>
-      <v-tab-item>
-        <TheRooms :rooms="favoriteRooms" v-on="$listeners" />
-      </v-tab-item>
-    </v-tabs-items>
+      <v-tabs-items v-model="tab">
+        <v-divider />
+        <v-tab-item>
+          <TheRooms :rooms="rooms" v-on="$listeners" />
+        </v-tab-item>
+
+        <v-tab-item>
+          <TheRooms :rooms="viewHistories" v-on="$listeners" />
+        </v-tab-item>
+        <v-tab-item>
+          <TheRooms :rooms="favoriteRooms" v-on="$listeners" />
+        </v-tab-item>
+      </v-tabs-items>
+    </v-tabs>
   </v-navigation-drawer>
 </template>
 
