@@ -11,7 +11,6 @@ const authenticator: Middleware = async (ctx) => {
       .verifyIdToken(ctx.req.headers.cookie)
       .catch((e: any) => {
         console.log(e)
-        document.cookie = ''
       })
     if (!result) return
     const { name: displayName, picture: photoURL, user_id: uid } = result
