@@ -91,11 +91,23 @@
 
     <div
       :style="{
-        width: $vuetify.breakpoint.mdAndDown ? '100%' : 'calc(100% - 406px)'
+        width: $vuetify.breakpoint.mdAndDown ? '100%' : 'calc(75% - 56px)'
       }"
       style="position:fixed;bottom:0;background-color:rgb(255,255,255);"
     >
       <the-post @postend="onPostend" @audio="sheet = true" />
+      <v-btn
+        @click="onFavor"
+        v-if="login"
+        color="pink"
+        dark
+        absolute
+        fab
+        small
+        style="bottom:95px"
+        right
+        ><v-icon>{{ mdiHeart }}</v-icon></v-btn
+      >
     </div>
   </div>
 </template>
@@ -106,6 +118,7 @@ import {
   mdiCheckboxBlank,
   mdiCheckBoxOutline,
   mdiCommentProcessing,
+  mdiHeart,
   mdiMicrophone,
   mdiMicrophoneSettings
 } from '@mdi/js'
@@ -120,11 +133,10 @@ import { gsap } from 'gsap'
 
 import { useFirestore } from '@/core/useFirestore'
 import { messageReference } from '@/core/useFirestoreReference'
-import { enterRoom } from '@/repositories/users'
+import { enterRoom, favor } from '@/repositories/users'
 import { publicRoom, reference, user, viewHistory } from '@/store'
 import { generateInviteURL, isOwn } from '@/utils/firestore'
 import { Message, PublicRoom } from '~types/core'
-
 export default defineComponent({
   head() {
     return {
@@ -196,6 +208,10 @@ export default defineComponent({
       dialog.value = true
     }
 
+    const onFavor = async () => {
+      await favor()
+    }
+
     const onPostend = async () => {
       await root.$nextTick()
       scrollTo(0, document.body.clientHeight)
@@ -226,7 +242,10 @@ export default defineComponent({
       dialog,
       text,
       mdiCommentProcessing,
-      isEmpty
+      isEmpty,
+      mdiHeart,
+      login: user.login,
+      onFavor
     }
   }
 })
