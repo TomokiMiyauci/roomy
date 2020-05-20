@@ -9,7 +9,7 @@
     v-on="$listeners"
     outlined
     dense
-    placeholder="Enter Password"
+    placeholder="Enter password"
     label="Password"
   />
 </template>

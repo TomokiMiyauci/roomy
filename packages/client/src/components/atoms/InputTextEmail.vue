@@ -6,7 +6,7 @@
     :value="value"
     v-on="$listeners"
     type="email"
-    placeholder="Enter Email Address"
+    placeholder="Enter email address"
     outlined
     clearable
     dense

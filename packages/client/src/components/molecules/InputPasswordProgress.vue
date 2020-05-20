@@ -10,7 +10,7 @@
     outlined
     dense
     counter
-    placeholder="Enter Password"
+    placeholder="Enter password"
     hint="At least 8 characters"
     label="Password"
     loading
