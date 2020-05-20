@@ -5,7 +5,7 @@ import admin from '@/plugins/firebase-admin'
 import { user as userStore } from '@/store'
 
 const authenticator: Middleware = async (ctx) => {
-  if (process.server && ctx.req.headers.cookie) {
+  if (process.server && 'cookie' in ctx.req.headers) {
     const result = await admin
       .auth()
       .verifyIdToken(ctx.req.headers.cookie)
@@ -22,6 +22,8 @@ const authenticator: Middleware = async (ctx) => {
         document.cookie = await user.getIdToken()
 
         userStore.setUser(user)
+      } else {
+        document.cookie = ''
       }
     })
   }
