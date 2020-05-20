@@ -1,5 +1,5 @@
 <template>
-  <div class="fill-height">
+  <v-container class="fill-height">
     <v-snackbar
       @input="reset"
       v-model="snackbar"
@@ -77,7 +77,7 @@
       />
       <form-user-profile :displayName="displayName" v-else-if="isOpenEdit" />
     </v-dialog>
-  </div>
+  </v-container>
 </template>
 
 <script lang="ts">
