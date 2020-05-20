@@ -31,70 +31,21 @@
           >
           <div class="pa-5">or</div>
           <v-form v-model="valid">
-            <v-text-field
-              v-model="email"
-              :prepend-inner-icon="mdiEmail"
-              :rules="[required, isEmail]"
-              type="email"
-              outlined
-              dense
-              label="Email"
-            />
-            <v-text-field
-              v-model="password"
-              :append-icon="show ? mdiEye : mdiEyeOff"
-              :type="show ? 'text' : 'password'"
-              :prepend-inner-icon="mdiShieldKey"
-              @click:append="show = !show"
-              :rules="[required]"
-              outlined
-              dense
-              label="Password"
-            />
+            <input-text-email v-model.trim="email" />
+            <input-password v-model="password" />
           </v-form>
         </v-tab-item>
         <v-tab-item value="signup">
           <v-form v-model="valid">
-            <v-text-field
-              v-model="email"
-              :prepend-inner-icon="mdiEmail"
-              :rules="[required, isEmail]"
-              outlined
-              dense
-              label="Email"
-            >
-            </v-text-field>
-            <v-text-field
-              v-model="password"
-              :append-icon="show ? mdiEye : mdiEyeOff"
-              :type="show ? 'text' : 'password'"
-              :prepend-inner-icon="mdiShieldKey"
-              @click:append="show = !show"
-              :rules="[
-                required,
-                (v) => v.length >= 8 || 'At least 8 characters'
-              ]"
-              outlined
-              dense
-              counter
-              hint="At least 8 characters"
-              label="Password"
-              loading
-            >
-              <template v-slot:progress>
-                <v-progress-linear
-                  :value="progress"
-                  :color="color"
-                  absolute
-                  height="7"
-                ></v-progress-linear> </template
-            ></v-text-field>
+            <input-text-email v-model.trim="email" />
+            <input-password-progress v-model="password" />
           </v-form>
         </v-tab-item>
       </v-tabs-items>
     </v-card-text>
     <v-card-text style="background-color:rgba(128,128,128,0.3)">
-      By signing up, you agree to our terms of service and privacy policy.
+      By signing up, you agree to our terms of service and
+      <nuxt-link target="_blank" to="/privacy">privacy policy.</nuxt-link>
     </v-card-text>
 
     <v-overlay :value="loading" absolute>
@@ -131,12 +82,8 @@ import {
   mdiAccountBadgeHorizontal,
   mdiAlert,
   mdiCheckCircle,
-  mdiEmail,
-  mdiEye,
-  mdiEyeOff,
   mdiGoogle,
-  mdiKey,
-  mdiShieldKey
+  mdiKey
 } from '@mdi/js'
 import {
   computed,
@@ -147,9 +94,11 @@ import {
   watch
 } from '@vue/composition-api'
 
+import InputTextEmail from '@/components/atoms/InputTextEmail.vue'
+import InputPassword from '@/components/molecules/InputPassword.vue'
+import InputPasswordProgress from '@/components/molecules/InputPasswordProgress.vue'
 import { wait } from '@/core/useTime'
 import firebase, { auth, firestore } from '@/plugins/firebase'
-
 const sub = (): Promise<void> => {
   return new Promise((resolve) => {
     const uid = auth.currentUser!.uid
@@ -170,6 +119,12 @@ const sub = (): Promise<void> => {
 type Tab = 'signin' | 'signup'
 
 export default defineComponent({
+  components: {
+    InputTextEmail,
+    InputPassword,
+    InputPasswordProgress
+  },
+
   setup(_, { emit }) {
     const tab = reactive<{ name: Tab }>({
       name: 'signin'
@@ -287,38 +242,10 @@ export default defineComponent({
       emit('signup')
     }
 
-    const required = (text: string | number) => {
-      return !!text || 'This filed is required'
-    }
-
-    const isEmail = (text: string | number) => {
-      return (
-        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
-          text.toString()
-        ) || 'Invalid Email format'
-      )
-    }
-
-    const progress = computed(() => {
-      return Math.min(100, credential.password.length * 10)
-    })
-
-    const color = computed(() => {
-      return ['error', 'warning', 'success'][Math.floor(progress.value / 40)]
-    })
-
-    // const onClick = () => {
-    //   root.$router.back()
-    // }
-
     return {
       ...toRefs(tab),
       anchor,
       show,
-      mdiEye,
-      mdiEyeOff,
-      mdiShieldKey,
-      mdiEmail,
       mdiGoogle,
       mdiAccountBadgeHorizontal,
       createUserWithEmailAndPassword,
@@ -327,10 +254,7 @@ export default defineComponent({
       signin,
       onClick,
       ...toRefs(credential),
-      required,
-      isEmail,
-      progress,
-      color,
+      credential,
       mdiAlert,
       mdiCheckCircle,
       ...toRefs(overlay)
