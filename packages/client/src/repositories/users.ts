@@ -20,6 +20,21 @@ export const enterRoom = (uid: string) => {
     )
 }
 
+export const favor = (): Promise<void> => {
+  const { documentRef } = userRef()
+  const { documentRef: prRef } = publicRoomRef()
+  return documentRef.value
+    .collection('favorite-rooms')
+    .doc(prRef.value.id)
+    .set(
+      {
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+        ref: prRef.value
+      },
+      { merge: true }
+    )
+}
+
 // export const get = async () => {
 //   const ref = await firestore
 //     .collectionGroup('view-histories')
