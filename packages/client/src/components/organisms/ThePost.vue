@@ -7,22 +7,7 @@
         </v-col>
 
         <v-col>
-          <v-textarea
-            v-model="text"
-            :rules="[(v) => !!v || 'required']"
-            :prepend-inner-icon="mdiChatProcessing"
-            :clear-icon="mdiCloseCircle"
-            clearable
-            auto-grow
-            solo
-            dense
-            rows="1"
-            hide-details
-            label="Enter message"
-            rounded
-            light
-            auto-focus
-          ></v-textarea>
+          <input-textarea-message v-model.trim="text" />
         </v-col>
 
         <v-col class="pl-2" cols="auto">
@@ -43,6 +28,7 @@ import {
 } from '@mdi/js'
 import { defineComponent, reactive, ref, toRefs } from '@vue/composition-api'
 
+import InputTextareaMessage from '@/components/atoms/InputTextareaMessage.vue'
 import ButtonImage from '@/components/molecules/ButtonImage.vue'
 import ButtonMic from '@/components/molecules/ButtonMic.vue'
 import ButtonSend from '@/components/molecules/ButtonSend.vue'
@@ -54,7 +40,8 @@ export default defineComponent({
   components: {
     ButtonImage,
     ButtonMic,
-    ButtonSend
+    ButtonSend,
+    InputTextareaMessage
   },
 
   setup(_, context) {
@@ -99,6 +86,7 @@ export default defineComponent({
 
     return {
       ...toRefs(state),
+      state,
       postImage,
       postText,
       mdiSend,

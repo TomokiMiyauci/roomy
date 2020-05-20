@@ -41,61 +41,7 @@ exports[`Storyshots organisms|ThePost Default 1`] = `
                 <div
                   class="col"
                 >
-                  <div
-                    class="v-input v-textarea v-textarea--auto-grow v-textarea--no-resize v-input--hide-details v-input--dense theme--light v-text-field v-text-field--single-line v-text-field--solo v-text-field--enclosed v-text-field--rounded"
-                  >
-                    <div
-                      class="v-input__control"
-                    >
-                      <div
-                        class="v-input__slot"
-                      >
-                        <div
-                          class="v-text-field__slot"
-                        >
-                          <label
-                            class="v-label theme--light"
-                            for="input-331"
-                            style="left: 0px; position: absolute;"
-                          >
-                            Enter message
-                          </label>
-                          <textarea
-                            auto-focus=""
-                            id="input-331"
-                            rows="1"
-                          />
-                        </div>
-                        <div
-                          class="v-input__append-inner"
-                        >
-                          <div
-                            class="v-input__icon v-input__icon--clear"
-                          >
-                            <button
-                              aria-label="clear icon"
-                              class="v-icon notranslate v-icon--disabled v-icon--link v-icon--svg theme--light"
-                              disabled="disabled"
-                              type="button"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                height="24"
-                                role="img"
-                                viewBox="0 0 24 24"
-                                width="24"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
-                                />
-                              </svg>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <input-textarea-message />
                 </div>
                  
                 <div
