@@ -1,14 +1,18 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { RecentMessage, Message, ShortMessage } from '~types/core'
-
 admin.initializeApp()
+
+import { createPublicRoom } from './publicRoom/'
+
 const firestore = admin.firestore()
 
 type Profile = {
   displayName: firebase.User['displayName']
   photoURL: firebase.User['photoURL']
 }
+
+export const onCreatePublicRoom = createPublicRoom
 
 export const onCreateUser = functions
   .region('asia-northeast1')
