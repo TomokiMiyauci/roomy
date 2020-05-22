@@ -11,13 +11,35 @@ export const createPublicRoom = functions
 
     if (!data || data.recent.author.isAnonymous) return
 
-    return firestore
-      .collection('users')
-      .doc(data.recent.author.ref.id)
-      .collection('favorite-rooms')
-      .doc(snapshot.id)
-      .set({
-        updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+    const batch = firestore.batch()
+    const timestamp = admin.firestore.FieldValue.serverTimestamp()
+
+    batch.set(
+      firestore
+        .collection('users')
+        .doc(data.recent.author.ref.id)
+        .collection('favorite-rooms')
+        .doc(snapshot.id),
+      {
+        updatedAt: timestamp,
         ref: snapshot.ref
-      })
+      },
+      { merge: true }
+    )
+
+    const { tags } = data
+
+    tags.forEach((tag) => {
+      batch.set(
+        firestore.collection('tags').doc(tag),
+        {
+          value: tag,
+          tagCount: admin.firestore.FieldValue.increment(1),
+          updatedAt: timestamp
+        },
+        { merge: true }
+      )
+    })
+
+    return batch.commit()
   })
