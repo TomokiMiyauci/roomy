@@ -11,7 +11,8 @@ import {
   FirestoreFieldValue,
   MessageSet,
   Profile,
-  PublicRoom
+  PublicRoom,
+  RoomOptions
 } from '~types/core'
 
 const getTimestamps = (): FirestoreFieldValue => {
@@ -39,7 +40,7 @@ export const createMessage = (
   return collectionRef.value.add(data)
 }
 
-export const createRoom = (option: { name: string; photoURL: string }) => {
+export const createRoom = (option: RoomOptions) => {
   const { collectionRef } = publicRoomRef()
   const { documentRef } = profileRef()
   const timestamp: firebase.firestore.Timestamp = firebase.firestore.FieldValue.serverTimestamp() as firebase.firestore.Timestamp
