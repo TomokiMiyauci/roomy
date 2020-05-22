@@ -41,14 +41,14 @@
         <v-col cols="auto">
           <div class="display-1">
             <client-only>
-              <vue-typer
+              <!-- <vue-typer
                 :text="['Welcome to Public Room', 'Select Right']"
                 erase-style="backspace"
-              />
+              /> -->
             </client-only>
           </div>
         </v-col>
-        <v-col class="pa-0" cols="auto">or</v-col>
+        <!-- <v-col class="pa-0" cols="auto">or</v-col> -->
         <v-col cols="auto">
           <ButtonCreateRoom :login="login" @click="create" top offset-x />
         </v-col>
