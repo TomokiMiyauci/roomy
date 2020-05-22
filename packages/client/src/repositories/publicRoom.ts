@@ -12,6 +12,7 @@ import {
   MessageSet,
   Profile,
   PublicRoom,
+  PublicRoomMerged,
   RoomOptions
 } from '~types/core'
 
@@ -29,7 +30,7 @@ export const createMessage = (
   const { collectionRef } = publicRoomMessageRef()
 
   const data = {
-    author: getUser(user.id),
+    author: getSender(user.id),
 
     ...getTimestamps(),
     ...messageSet
@@ -65,39 +66,82 @@ export const createRoom = (option: RoomOptions) => {
   return collectionRef.value.add(publicRoom)
 }
 
-export const getAuthor = (): { author: Author | Anonymous } => {
-  const { documentRef } = profileRef()
-  const author: Author | Anonymous = user.login
-    ? {
-        ...getUserInfo(),
-        ref: documentRef.value,
-        isAnonymous: false
-      }
-    : getAnonymous()
+export const getPublicRooms = (keyword: string) => {
+  const { collectionRef } = publicRoomRef()
 
-  return {
-    author
+  return collectionRef.value
+    .orderBy('name')
+    .startAt(keyword)
+    .endAt(`${keyword}\uF8FF`)
+    .withConverter(publicRoomConverter)
+    .limit(3)
+    .get()
+}
+
+const publicRoomConverter = {
+  toFirestore(
+    publicRoom: Promise<PublicRoomMerged>
+  ): Promise<PublicRoomMerged> {
+    console.log(222222222222, publicRoom)
+
+    return publicRoom
+  },
+
+  async fromFirestore(
+    snapshot: firebase.firestore.QueryDocumentSnapshot<PublicRoom>,
+    options: firebase.firestore.SnapshotOptions
+  ): Promise<PublicRoomMerged> {
+    const publicRoom = snapshot.data(options)
+
+    Object.defineProperty(publicRoom, 'id', {
+      value: publicRoom.id?.toString(),
+      writable: false
+    })
+
+    if (publicRoom.recent.author.isAnonymous) return publicRoom
+
+    const result = await publicRoom.recent.author.ref.get()
+    const { displayName, photoURL } = result.data()!
+    const { recent, ...restRoom } = publicRoom
+    const { author, ...restRecent } = recent
+
+    const publicRoomMerged: PublicRoomMerged = {
+      ...restRoom,
+      recent: {
+        ...restRecent,
+        ...recent,
+        author: {
+          isAnonymous: author.isAnonymous,
+          displayName,
+          photoURL
+        }
+      }
+    }
+
+    console.log('to', publicRoomMerged)
+
+    return publicRoomMerged
   }
 }
 
-export const getUser = (documentPath?: string) => {
-  return documentPath ? getContributor() : getAnonymous()
+export const getSender = (documentPath?: string) => {
+  return documentPath ? getAuthor() : getAnonymous()
 }
 
-export const getContributor = () => {
+const getAuthor = (): Author => {
   const { documentRef } = profileRef()
 
-  return { ...getUserInfo(), isAnonymous: false, ref: documentRef.value }
+  return { ...getProfile(), isAnonymous: false, ref: documentRef.value }
 }
 
-export const getUserInfo = (): Profile => {
+const getProfile = (): Profile => {
   return {
     displayName: user.displayName,
     photoURL: user.photoURL
   }
 }
 
-export const getAnonymous = (): Anonymous => {
+const getAnonymous = (): Anonymous => {
   return {
     isAnonymous: true
   }
