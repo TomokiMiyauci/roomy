@@ -66,26 +66,3 @@ export type Room = {
 } & FirestoreFieldValue
 
 export type ShortMessage = 'Image posted' | 'Audio posted' | 'No messages'
-
-type BaseRoom = {
-  members: string[]
-  name: string
-  photoURL: string
-  recent: RecentMessage
-  messageCount: number
-} & BaseField
-
-export type RecentMessage = {
-  shortMessage: ShortMessage
-  kind: 'TEXT' | 'IMAGE' | 'AUDIO'
-  author: Author | Anonymous
-} & BaseField
-
-export type PublicRoom = BaseRoom & {
-  isPrivate: false
-}
-
-export type PrivateRoom = BaseRoom & {
-  isPrivate: true
-  key: string
-}

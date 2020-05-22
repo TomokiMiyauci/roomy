@@ -26,10 +26,6 @@ export type Public = FirestoreFieldValue & MessageSet & User
 
 export type Message = MessageSet & { author: Author | Anonymous } & BaseField
 
-export type Id = {
-  id: string
-}
-
 export type BaseField = {
   id?: string
   createdAt: firebase.firestore.Timestamp
@@ -99,40 +95,36 @@ export type RoomOptions = {
   tags: string[]
 }
 
+type Id = { id? : string}
 
 export type Profile = {
   displayName: NonNullable<firebase.User['displayName']>,
   photoURL: NonNullable<firebase.User['photoURL']>
-}
+} & Id
 
 type BaseRoom = {
   name: string
   photoURL: string
   messageCount: number
-  recent: {
-    author: Author | Anonymous
-    shortMessage: string
-    kind: MessageKind
-    updatedAt: firebase.firestore.Timestamp
-  }
   createdAt: firebase.firestore.Timestamp
+  updatedAt: firebase.firestore.Timestamp
+} & Id
+
+type PublicRoomRecent = {
+  author: Author | Anonymous
+  shortMessage: string
+  kind: MessageKind
   updatedAt: firebase.firestore.Timestamp
 }
 
-export type PublicRoom = BaseRoom & { messageDiff? : number, tags: string[]}
-
-export type PublicRoomOmitRef = {
-  name: string
-  photoURL: string
-  messageCount: number
-  recent: {
-    author: Omit<Author, 'ref'> | Anonymous
-    shortMessage: string
-    kind: MessageKind
-    updatedAt: firebase.firestore.Timestamp
-  }
-  createdAt: firebase.firestore.Timestamp
+type PublicRoomRecentMerged = {
+  author: Omit<Author, 'ref'> | Anonymous
+  shortMessage: string
+  kind: MessageKind
   updatedAt: firebase.firestore.Timestamp
 }
+
+export type PublicRoom = BaseRoom & { messageDiff? : number, tags: string[]} & { recent: PublicRoomRecent }
+export type PublicRoomMerged = BaseRoom & { messageDiff? : number, tags: string[]} & { recent: PublicRoomRecentMerged }
 
 type MessageKind = 'TEXT'
