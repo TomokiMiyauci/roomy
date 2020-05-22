@@ -1,8 +1,8 @@
 import { computed } from '@vue/composition-api'
 
-import { firestore } from '@/plugins/firebase'
+import firebase, { firestore } from '@/plugins/firebase'
 import { reference, user } from '@/store'
-import { Profile, User } from '~types/core'
+import { Profile, PublicRoom, User } from '~types/core'
 
 export const messageReference = () => {
   const collectionRef = computed(() =>
@@ -23,7 +23,13 @@ export const roomReference = () => {
 }
 
 export const publicRoomRef = () => {
-  const collectionRef = computed(() => firestore.collection('public-rooms'))
+  const collectionRef = computed(
+    () =>
+      firestore.collection(
+        'public-rooms'
+      ) as firebase.firestore.CollectionReference<PublicRoom>
+  )
+
   const documentRef = computed(() => collectionRef.value.doc(reference.roomId))
 
   return { collectionRef, documentRef }
@@ -40,27 +46,27 @@ export const publicRoomMessageRef = () => {
 }
 
 export const profileRef = () => {
-  const collectionRef = computed(() => firestore.collection('profiles'))
-
-  const documentRef = computed(
+  const collectionRef = computed(
     () =>
-      collectionRef.value.doc(user.id) as firebase.firestore.DocumentReference<
-        Profile
-      >
+      firestore.collection(
+        'profiles'
+      ) as firebase.firestore.CollectionReference<Profile>
   )
+
+  const documentRef = computed(() => collectionRef.value.doc(user.id))
 
   return { collectionRef, documentRef }
 }
 
 export const userRef = () => {
-  const collectionRef = computed(() => firestore.collection('users'))
-
-  const documentRef = computed(
+  const collectionRef = computed(
     () =>
-      collectionRef.value.doc(user.id) as firebase.firestore.DocumentReference<
+      firestore.collection('users') as firebase.firestore.CollectionReference<
         User
       >
   )
+
+  const documentRef = computed(() => collectionRef.value.doc(user.id))
 
   return { collectionRef, documentRef }
 }
