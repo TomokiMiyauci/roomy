@@ -33,7 +33,7 @@ import { defineComponent } from '@vue/composition-api'
 
 import RoomSet from '@/components/molecules/RoomSet.vue'
 import { createRoom } from '@/repositories/privateRoom'
-import { PrivateRoom, PublicRoom } from '@/types/core'
+import { PrivateRoom, PublicRoom } from '~types/core'
 export default defineComponent({
   layout: 'app',
 
