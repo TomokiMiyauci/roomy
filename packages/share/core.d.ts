@@ -95,7 +95,8 @@ export type PrivateRoom = BaseRoom & {
 
 export type RoomOptions = {
   name: string
-  image: string
+  photoURL: string
+  tags: string[]
 }
 
 
@@ -118,7 +119,7 @@ type BaseRoom = {
   updatedAt: firebase.firestore.Timestamp
 }
 
-export type PublicRoom = BaseRoom & { messageDiff? : number}
+export type PublicRoom = BaseRoom & { messageDiff? : number, tags: string[]}
 
 export type PublicRoomOmitRef = {
   name: string
