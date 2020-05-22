@@ -2,7 +2,7 @@ import { Action, Module, Mutation, VuexModule } from 'vuex-module-decorators'
 
 import { isDef } from '@/core/useFirestore'
 import { roomReference } from '@/core/useFirestoreReference'
-import { PublicRoom, PublicRoomOmitRef } from '~types/core'
+import { PublicRoom, PublicRoomMerged } from '~types/core'
 
 @Module({
   name: 'publicRoom',
@@ -10,11 +10,11 @@ import { PublicRoom, PublicRoomOmitRef } from '~types/core'
   namespaced: true
 })
 export default class Public extends VuexModule {
-  private _rooms: PublicRoomOmitRef[] = []
+  private _rooms: PublicRoomMerged[] = []
   private _unsubscribe: Function | undefined = undefined
 
   @Mutation
-  setRooms(rooms: PublicRoomOmitRef[]) {
+  setRooms(rooms: PublicRoomMerged[]) {
     this._rooms = rooms
   }
 
@@ -48,7 +48,7 @@ export default class Public extends VuexModule {
               const { recent, ...restRoom } = data
               const { author, ...restRecent } = recent
 
-              const publicRoom: PublicRoomOmitRef = {
+              const publicRoom: PublicRoomMerged = {
                 ...restRoom,
                 recent: {
                   ...restRecent,
