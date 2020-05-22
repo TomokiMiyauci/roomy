@@ -23,6 +23,13 @@
           bottom
         ></ButtonCreateRoom>
 
+        <input-text-search
+          @keydown.enter="onSearch"
+          @click:prepend-inner="onSearch"
+          v-model="search"
+          class="pl-12"
+        />
+
         <v-spacer />
 
         <ButtonQrcodeReader @click="$emit('scan')" />
@@ -99,17 +106,26 @@ export default defineComponent({
     BaseButton,
     BaseIcon,
     ButtonCreateRoom,
-    ButtonQrcodeReader
+    ButtonQrcodeReader,
+    InputTextSearch: () => import('@/components/atoms/InputTextSearch.vue')
   },
 
   setup(_, { root }) {
     const hide = computed(() => root.$vuetify.breakpoint.mdAndDown)
     const showMenu = ref(false)
     const tabs = ref(null)
+    const search = ref<string | null | undefined>('')
 
     const logout = async () => {
       await auth.signOut()
       root.$router.push('/login')
+    }
+
+    const onSearch = () => {
+      if (!search.value) return
+      // alert(search.value)
+      root.$router.push(`/public/search?q=${search.value}`)
+      search.value = ''
     }
 
     return {
@@ -120,7 +136,9 @@ export default defineComponent({
       hide,
       tabs,
       mdiTagHeart,
-      mdiFire
+      mdiFire,
+      onSearch,
+      search
     }
   }
 })
