@@ -64,3 +64,9 @@ export const userRef = () => {
 
   return { collectionRef, documentRef }
 }
+
+export const tagRef = () => {
+  const collectionRef = computed(() => firestore.collection('tags'))
+
+  return { collectionRef }
+}
