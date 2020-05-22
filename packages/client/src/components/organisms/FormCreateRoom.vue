@@ -194,8 +194,6 @@ import {
   toRefs
 } from '@vue/composition-api'
 
-import InputTextRoomName from '@/components/atoms/InputTextRoomName.vue'
-import ComboboxTabs from '@/components/molecules/ComboboxTabs.vue'
 import { blobToDataURL as b } from '@/core/useFileDialog'
 import { useStep } from '@/core/useStep'
 import { wait } from '@/core/useTime'
@@ -207,8 +205,8 @@ export default defineComponent({
     FileDropper: () => import('@/components/molecules/FileDropper.vue'),
     ImageCropper: () => import('@/components/molecules/ImageCropper.vue'),
     SvgQrcode: () => import('@/components/atoms/SvgQrcode.vue'),
-    InputTextRoomName,
-    ComboboxTabs
+    InputTextRoomName: () => import('@/components/atoms/InputTextRoomName.vue'),
+    ComboboxTabs: () => import('@/components/molecules/ComboboxTabs.vue')
   },
   setup() {
     const stepWindow = ref(0)
