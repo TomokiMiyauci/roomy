@@ -1,9 +1,9 @@
 import { roomReference } from '@/core/useFirestoreReference'
 import { firestore } from '@/plugins/firebase'
 import { user } from '@/store'
-import { PrivateRoom } from '@/types/core'
 import { getTimestamps } from '@/utils/firestore'
 import { generateRandomB64 } from '@/utils/secret'
+import { PrivateRoom } from '~types/core'
 
 export const createRoom = () => {
   const { collectionRef } = roomReference()
@@ -12,15 +12,7 @@ export const createRoom = () => {
   const room: PrivateRoom = {
     isPrivate: true,
     key,
-    members: [user.id],
-    recent: {
-      shortMessage: 'No messages',
-      kind: 'TEXT',
-      author: {
-        isAnonymous: true
-      },
-      ...getTimestamps()
-    },
+
     messageCount: 0,
     name: 'New Room',
     photoURL: '',

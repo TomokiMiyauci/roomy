@@ -3,7 +3,7 @@ import { Action, Module, Mutation, VuexModule } from 'vuex-module-decorators'
 import { getData, isDef } from '@/core/useFirestore'
 import { roomReference } from '@/core/useFirestoreReference'
 import { user } from '@/store'
-import { PrivateRoom } from '@/types/core'
+import { PrivateRoom } from '~types/core'
 
 @Module({
   name: 'privateRoom',
