@@ -17,7 +17,7 @@
 
     <v-content>
       <transition name="fade">
-        <nuxt />
+        <nuxt :nuxt-child-key="$route.fullPath" />
       </transition>
     </v-content>
 
