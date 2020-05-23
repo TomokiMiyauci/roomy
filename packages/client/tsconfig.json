@@ -16,7 +16,7 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "sourceMap": true,
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
       "@/*": [
         "src/*"
@@ -39,7 +39,6 @@
     "dist"
   ],
   "include": [
-    "./src/**/*",
-    "./stories/**/*"
+    "./src/**/*"
   ]
 }
