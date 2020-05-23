@@ -1,20 +1,13 @@
 import { object } from '@storybook/addon-knobs'
 
 import RoomSet from '@/components/molecules/RoomSet.vue'
+import { publicRoom } from '~mock/'
 export default {
   title: `molecules|RoomSet`,
   parameters: {
     info: {
       summary: `molecules of RoomSet is great component.`
     }
-  }
-}
-
-const roomSet = {
-  name: 'Brunch this weekend?',
-  recent: {
-    message:
-      "Ali Connors I'll be in your neighborhood doing errands this weekend. Do you want to hang out?"
   }
 }
 
@@ -25,7 +18,7 @@ export const Default = () => ({
   template,
   props: {
     roomSet: {
-      default: object('roomSet', roomSet)
+      default: object('roomSet', publicRoom)
     }
   }
 })

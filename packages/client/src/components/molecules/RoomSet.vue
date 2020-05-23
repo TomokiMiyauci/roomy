@@ -1,16 +1,14 @@
 <template>
-  <v-list-item :to="`/public/${room.id}`">
+  <v-list-item :to="`/public/${room.id}`" color="primary">
     <v-list-item-avatar tile>
       <v-img v-if="room.photoURL" :src="room.photoURL" color="primary"></v-img>
       <v-icon v-else color="primary">{{ mdiNewBox }}</v-icon>
     </v-list-item-avatar>
 
     <v-list-item-content class="pt-1 pb-1">
-      <!-- <span class="grey-darken-1--text caption" style="position:absolute;bottom:-5px;">{{
-        room.recent.updatedAt | time
-      }}</span> -->
       <v-list-item-title>
-        {{ room.name }}
+        {{ room.name }} · <v-icon small left>{{ mdiChatProcessing }}</v-icon
+        >{{ room.messageCount }}
       </v-list-item-title>
       <v-list-item-subtitle>
         <v-avatar color="grey" size="24">
@@ -21,11 +19,6 @@
         </v-avatar>
         {{ room.recent.shortMessage }}
       </v-list-item-subtitle>
-
-      <div class="grey-darken-1--text caption">
-        <v-icon small left>{{ mdiChatProcessing }}</v-icon
-        >{{ room.messageCount }}
-      </div>
     </v-list-item-content>
     <v-list-item-action v-if="'messageDiff' in room && room.messageDiff">
       <v-avatar color="primary" size="26">
@@ -33,13 +26,21 @@
       </v-avatar>
     </v-list-item-action>
 
+    <v-list-item-action> </v-list-item-action>
+
     <v-list-item-action>
       <span
         class="grey-darken-1--text caption"
         style="position:absolute;bottom:0;"
         >{{ room.recent.updatedAt | time }}</span
       >
-      <v-btn @click.prevent="$emit('click:qrcode')" aria-label="qrcode" icon>
+      <v-btn
+        @click.prevent="$emit('click:qrcode')"
+        absolute
+        style="top:3px;"
+        aria-label="qrcode"
+        icon
+      >
         <v-icon color="grey lighten-1">{{ mdiQrcode }}</v-icon>
       </v-btn>
     </v-list-item-action>
@@ -78,10 +79,12 @@ export default defineComponent({
   },
 
   setup() {
-    const click = () => {
-      alert()
+    return {
+      mdiNewBox,
+      mdiAccountCircle,
+      mdiQrcode,
+      mdiChatProcessing
     }
-    return { mdiNewBox, mdiAccountCircle, mdiQrcode, click, mdiChatProcessing }
   }
 })
 </script>
