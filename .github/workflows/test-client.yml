@@ -376,6 +376,7 @@ jobs:
   notice:
     needs: [lighthouse-mobile, lighthouse-desktop]
     runs-on: ${{ matrix.os }}
+    if: always()
 
     strategy:
       matrix:
@@ -389,4 +390,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # optional
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL_DEV }} # required
-        if: always() # Pick up events even if the job fails or is canceled.
