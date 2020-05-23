@@ -312,7 +312,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@master
 
-      - run: mkdir /tmp/artifacts/mobile
+      - run: mkdir -p /tmp/artifacts/mobile
 
       - name: run Lighthouse
         uses: foo-software/lighthouse-check-action@master
@@ -346,7 +346,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@master
 
-      - run: mkdir /tmp/artifacts/desktop
+      - run: mkdir -p /tmp/artifacts/desktop
 
       - name: run Lighthouse
         uses: foo-software/lighthouse-check-action@master
