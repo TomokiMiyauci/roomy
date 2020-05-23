@@ -1,5 +1,9 @@
 <template>
-  <v-container class="fill-height">
+  <v-container>
+    <v-subheader inset>
+      <v-icon left>{{ mdiChatAlert }}</v-icon
+      >Recent</v-subheader
+    >
     <v-snackbar
       @input="reset"
       v-model="snackbar"
@@ -13,6 +17,20 @@
         Close
       </v-btn>
     </v-snackbar>
+
+    <v-row justify="space-between" align="start" align-items="start">
+      <v-col
+        v-for="room in rooms"
+        :key="room.id"
+        xs="12"
+        cols="12"
+        sm="6"
+        md="6"
+        lg="4"
+      >
+        <CardPublicRoom :room="room" max-width="500px" />
+      </v-col>
+    </v-row>
 
     <client-only>
       <template v-if="$vuetify.breakpoint.mdAndDown">
@@ -31,8 +49,9 @@
 
         <the-rooms v-else :rooms="rooms" @open:qrcode="qrcode" />
       </template>
+    </client-only>
 
-      <v-row
+    <!-- <v-row
         v-else
         justify="center"
         align="center"
@@ -40,19 +59,29 @@
       >
         <v-col cols="auto">
           <div class="display-1">
-            <client-only>
-              <!-- <vue-typer
+            <client-only> -->
+    <!-- <vue-typer
                 :text="['Welcome to Public Room', 'Select Right']"
                 erase-style="backspace"
               /> -->
-            </client-only>
+    <!-- </client-only>
           </div>
-        </v-col>
-        <!-- <v-col class="pa-0" cols="auto">or</v-col> -->
-        <v-col cols="auto">
+        </v-col> -->
+    <!-- <v-col class="pa-0" cols="auto">or</v-col> -->
+    <!-- <v-col cols="auto">
           <ButtonCreateRoom :login="login" @click="create" top offset-x />
         </v-col>
       </v-row>
+    </client-only> -->
+    <client-only>
+      <ButtonCreateRoom
+        v-if="!mobile"
+        :login="login"
+        @click="create"
+        fixed
+        bottom
+        right
+      />
     </client-only>
 
     <v-dialog
@@ -81,7 +110,12 @@
 </template>
 
 <script lang="ts">
-import { mdiCheckCircle, mdiCommentPlus, mdiCommentQuestion } from '@mdi/js'
+import {
+  mdiChatAlert,
+  mdiCheckCircle,
+  mdiCommentPlus,
+  mdiCommentQuestion
+} from '@mdi/js'
 import {
   computed,
   defineComponent,
@@ -92,11 +126,13 @@ import {
 } from '@vue/composition-api'
 
 import CardRoomShare from '@/components/molecules/CardRoomShare.vue'
+import CardPublicRoom from '@/components/organisms/CardPublicRoom.vue'
 import FormCreateRoom from '@/components/organisms/FormCreateRoom.vue'
 import { wait } from '@/core/useTime'
-import { favoriteRoom, publicRoom, user, viewHistory } from '@/store'
+import { getPublicRoomsLatest } from '@/repositories/publicRoom'
+import { favoriteRoom, user, viewHistory } from '@/store'
 import { generateInviteURL } from '@/utils/firestore'
-import { PublicRoom } from '~types/core'
+import { PublicRoomMerged } from '~types/core'
 export default defineComponent({
   head() {
     return {
@@ -116,11 +152,22 @@ export default defineComponent({
     FormCreateRoom,
     CardQrcodeScanner: () =>
       import('@/components/organisms/CardQrcodeScanner.vue'),
-    FormUserProfile: () => import('@/components/organisms/FormUserProfile.vue')
+    FormUserProfile: () => import('@/components/organisms/FormUserProfile.vue'),
+    CardPublicRoom
   },
 
   setup(_, { root }) {
-    publicRoom.subscribe()
+    // publicRoom.subscribe()
+    const rooms = ref<PublicRoomMerged[]>([])
+
+    getPublicRoomsLatest().then((publicRoom) => {
+      console.log(publicRoom)
+
+      publicRoom.docs.forEach(async (doc) => {
+        rooms.value.push(await doc.data())
+        console.log(rooms.value)
+      })
+    })
     console.log(user.login)
 
     if (user.login) {
@@ -155,7 +202,7 @@ export default defineComponent({
 
     const text = ref('')
 
-    const rooms = computed(() => publicRoom.rooms)
+    // const rooms = computed(() => publicRoom.rooms)
 
     setTimeout(() => {
       if (!rooms.value.length) {
@@ -163,8 +210,8 @@ export default defineComponent({
       }
     }, TIMEOUT)
 
-    const qrcode = (room: PublicRoom & { id: string }) => {
-      text.value = generateInviteURL(room.id)
+    const qrcode = (room: PublicRoomMerged) => {
+      text.value = generateInviteURL(room.id!)
       isOpenQrcode.value = true
       dialog.value = true
     }
@@ -243,7 +290,8 @@ export default defineComponent({
       snackbar,
       reset: user.resetSuccessfulSignIn,
       mdiCheckCircle,
-      onDecode
+      onDecode,
+      mdiChatAlert
     }
   }
 })
