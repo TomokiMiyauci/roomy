@@ -21,9 +21,8 @@ exports[`Storyshots organisms|TheRooms Default 1`] = `
           class="container container--fluid"
         >
           <div
-            class="v-list v-sheet v-sheet--tile theme--light"
+            class="v-list v-sheet v-sheet--tile theme--light v-list--shaped v-list--two-line"
             role="list"
-            two-two=""
           >
             <client-only>
               <div

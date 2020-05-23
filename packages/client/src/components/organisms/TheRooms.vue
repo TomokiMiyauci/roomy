@@ -1,5 +1,5 @@
 <template>
-  <v-list two-two>
+  <v-list two-line shaped>
     <client-only>
       <v-subheader v-if="$vuetify.breakpoint.mdAndDown" inset
         >Recent</v-subheader
