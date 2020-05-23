@@ -18,7 +18,8 @@ module.exports = {
     '^~/(.*)$': '<rootDir>/src/$1',
     '^vue$': 'vue/dist/vue.common.js',
     '^.+\\.(css|less)$': 'jest-transform-stub',
-    '^@mock/(.*)$': '<rootDir>/__mock__/'
+    '^@mock/(.*)$': '<rootDir>/__mock__/',
+    '^~mock/(.*)$': '<rootDir>/../share/__mock__/'
   },
   modulePathIgnorePatterns: ['<rootDir>/.firebase'],
   moduleFileExtensions: ['js', 'vue', 'ts', 'json'],

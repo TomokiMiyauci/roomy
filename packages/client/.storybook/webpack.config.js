@@ -6,6 +6,7 @@ module.exports = ({ config }) => {
   config.resolve.alias['@'] = rootPath
   config.resolve.alias['~'] = rootPath
   config.resolve.alias['@mock'] = path.resolve(__dirname, '../__mock__/')
+  config.resolve.alias['~mock'] = path.resolve(__dirname, '../../share/__mock__/')
   config.resolve.extensions.push('.ts')
 
   config.module.rules.push({
