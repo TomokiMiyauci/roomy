@@ -1,5 +1,13 @@
 <template>
-  <v-card :to="room.id" shaped raised nuxt color="primary" dark>
+  <v-card
+    v-bind="$attrs"
+    :to="`/public/${room.id}`"
+    shaped
+    raised
+    nuxt
+    color="primary"
+    dark
+  >
     <v-overlay :value="overlay" absolute>
       <SvgQrcode :text="room.name" />
       <button-close @click="overlay = false" />
