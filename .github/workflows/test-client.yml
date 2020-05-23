@@ -383,9 +383,10 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
+      - uses: technote-space/workflow-conclusion-action@v1
       - uses: 8398a7/action-slack@v3
         with:
-          status: ${{ job.status }}
+          status: ${{ env.WORKFLOW_CONCLUSION }}
           fields: repo,message,commit,author,action,eventName,ref,workflow # selectable (default: repo,message)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # optional
