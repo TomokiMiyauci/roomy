@@ -78,6 +78,16 @@ export const getPublicRooms = (keyword: string) => {
     .get()
 }
 
+export const getPublicRoomsLatest = () => {
+  const { collectionRef } = publicRoomRef()
+
+  return collectionRef.value
+    .orderBy('recent.updatedAt', 'desc')
+    .withConverter(publicRoomConverter)
+    .limit(3)
+    .get()
+}
+
 const publicRoomConverter = {
   toFirestore(
     publicRoom: Promise<PublicRoomMerged>
