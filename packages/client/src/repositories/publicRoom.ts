@@ -94,7 +94,7 @@ const publicRoomConverter = {
     const publicRoom = snapshot.data(options)
 
     Object.defineProperty(publicRoom, 'id', {
-      value: publicRoom.id?.toString(),
+      value: snapshot.id.toString(),
       writable: false
     })
 
@@ -103,9 +103,11 @@ const publicRoomConverter = {
     const result = await publicRoom.recent.author.ref.get()
     const { displayName, photoURL } = result.data()!
     const { recent, ...restRoom } = publicRoom
+
     const { author, ...restRecent } = recent
 
     const publicRoomMerged: PublicRoomMerged = {
+      id: snapshot.id,
       ...restRoom,
       recent: {
         ...restRecent,
@@ -117,8 +119,6 @@ const publicRoomConverter = {
         }
       }
     }
-
-    console.log('to', publicRoomMerged)
 
     return publicRoomMerged
   }
