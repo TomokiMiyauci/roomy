@@ -17,12 +17,25 @@
         {{ room.name }}
       </v-list-item-title>
       <v-list-item-subtitle>
-        <v-avatar color="grey" size="24">
+        <avatar-wrapper
+          :size="26"
+          :displayName="
+            !room.recent.author.isAnonymous
+              ? room.recent.author.displayName
+              : ''
+          "
+          :photoURL="
+            !room.recent.author.isAnonymous ? room.recent.author.photoURL : ''
+          "
+          login
+        />
+
+        <!-- <v-avatar color="grey" size="24">
           <v-icon v-if="room.recent.author.isAnonymous">{{
             mdiAccountCircle
           }}</v-icon>
           <img v-else :src="room.recent.author.photoURL" alt="user image" />
-        </v-avatar>
+        </v-avatar> -->
         {{ room.recent.shortMessage }}
       </v-list-item-subtitle>
       <transition name="slide-x-transition">
@@ -63,8 +76,13 @@ import {
 import { defineComponent, ref } from '@vue/composition-api'
 import dayjs from 'dayjs'
 
+import AvatarWrapper from '@/components/molecules/AvatarWrapper.vue'
 import { PublicRoom } from '~types/core'
 export default defineComponent({
+  components: {
+    AvatarWrapper
+  },
+
   filters: {
     time(timestamp: { seconds: number }) {
       if (!timestamp) {
