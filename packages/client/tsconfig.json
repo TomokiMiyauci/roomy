@@ -9,7 +9,9 @@
       "@nuxtjs/vuetify",
       "@types/dom-mediacapture-record",
       "@types/qrcode",
-      "@nuxtjs/axios"
+      "@nuxtjs/axios",
+      "@types/js-cookie",
+      "@types/cookie"
     ],
     "rootDirs": ["src"],
     "forceConsistentCasingInFileNames": true  /* Disallow inconsistently-cased references to the same file. */,
