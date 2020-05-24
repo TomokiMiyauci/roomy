@@ -1,9 +1,12 @@
-import { Profile  } from "../core";
+import { Profile } from "../core";
 // import { firestore } from "firebase";
 
 // // firebase.initializeApp({projectId: 'test'})
 
 const userName = 'authenticated'
+export const displayName = 'Roomy'
+export const photoURL = 'https://cdn.vuetifyjs.com/images/john.jpg'
+export const roomName = 'Roomy Official'
 // const timestamp = firestore.FieldValue.serverTimestamp() as firestore.Timestamp
 export const profile:Profile = {
   displayName: userName,
@@ -18,7 +21,7 @@ export const author = {
 }
 
 export const publicRoom = {
-  name: 'Roomy',
+  name: roomName,
   photoURL: '',
   messageCount: 0,
   recent: {
