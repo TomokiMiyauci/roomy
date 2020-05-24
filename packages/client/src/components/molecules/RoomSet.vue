@@ -27,7 +27,7 @@
           :photoURL="
             !room.recent.author.isAnonymous ? room.recent.author.photoURL : ''
           "
-          login
+          :login="!room.recent.author.isAnonymous"
         />
 
         <!-- <v-avatar color="grey" size="24">
