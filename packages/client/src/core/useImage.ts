@@ -8,14 +8,13 @@ export const resize = (
   img.src = dataURL
 
   return new Promise((resolve, reject) => {
-    img.onerror = () => reject(Error('hello'))
+    img.onerror = () => reject(Error('Error'))
     img.onload = () => {
       const { width, height } = size
       canvas.width = width
       canvas.height = height
       canvas.getContext('2d')!.drawImage(img, 0, 0, width, height)
-      const aa = canvas.toDataURL('image/jpeg')
-      resolve(aa)
+      resolve(canvas.toDataURL('image/jpeg'))
     }
   })
 }
