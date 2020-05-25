@@ -25,7 +25,10 @@
     </v-card-subtitle>
 
     <v-card-text>
-      <div>This is description</div>
+      <div v-if="room.description">
+        <v-icon left>{{ mdiBookInformationVariant }}</v-icon
+        >{{ room.description }}
+      </div>
       <v-subheader>
         <v-icon left>{{ mdiTagMultiple }}</v-icon
         >Tags</v-subheader
@@ -43,32 +46,52 @@
       <v-list two-line class="v-card--shaped">
         <v-list-item :key="room.recent.shortMessage">
           <v-list-item-avatar>
-            <v-icon>{{ mdiAccountCircle }}</v-icon>
+            <AvatarWrapper
+              :displayName="
+                room.recent.author.isAnonymous
+                  ? ''
+                  : room.recent.author.displayName
+              "
+              :photoURL="
+                room.recent.author.isAnonymous
+                  ? ''
+                  : room.recent.author.photoURL
+              "
+              :login="!room.recent.author.isAnonymous"
+            />
             <!-- <v-im/g v-else :src="room.recent.author.photoURL" /> -->
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title>sfaff</v-list-item-title>
+            <v-list-item-title>{{
+              room.recent.author.isAnonymous
+                ? ''
+                : room.recent.author.displayName
+            }}</v-list-item-title>
             <v-list-item-subtitle
               v-text="room.recent.shortMessage"
             ></v-list-item-subtitle>
           </v-list-item-content>
+
+          <chip-date :unixtime="room.recent.updatedAt.seconds" format="dddd" />
         </v-list-item>
       </v-list>
     </v-card-text>
   </v-card>
 </template>
-
 <script lang="ts">
 import {
   mdiAccountCircle,
+  mdiBookInformationVariant,
   mdiChatProcessing,
   mdiNewBox,
   mdiTagMultiple
 } from '@mdi/js'
 import { defineComponent, ref } from '@vue/composition-api'
 
+import ChipDate from '@/components/atoms/ChipDate.vue'
 import SvgQrcode from '@/components/atoms/SvgQrcode.vue'
+import AvatarWrapper from '@/components/molecules/AvatarWrapper.vue'
 import ButtonClose from '@/components/molecules/ButtonClose.vue'
 import ButtonQrcode from '@/components/molecules/ButtonQrcode.vue'
 import ChipTag from '@/components/molecules/ChipTag.vue'
@@ -85,7 +108,9 @@ export default defineComponent({
     ChipTag,
     ButtonQrcode,
     ButtonClose,
-    SvgQrcode
+    SvgQrcode,
+    AvatarWrapper,
+    ChipDate
   },
 
   setup() {
@@ -96,7 +121,8 @@ export default defineComponent({
       mdiNewBox,
       mdiChatProcessing,
       mdiTagMultiple,
-      mdiAccountCircle
+      mdiAccountCircle,
+      mdiBookInformationVariant
     }
   }
 })
