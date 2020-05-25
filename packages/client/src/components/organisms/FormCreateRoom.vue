@@ -46,6 +46,8 @@
 
           <v-window-item :value="3">
             <v-card-text>
+              <input-textarea-description v-model="description" />
+
               <combobox-tabs v-model="tags" />
             </v-card-text>
           </v-window-item>
@@ -206,13 +208,16 @@ export default defineComponent({
     ImageCropper: () => import('@/components/molecules/ImageCropper.vue'),
     SvgQrcode: () => import('@/components/atoms/SvgQrcode.vue'),
     InputTextRoomName: () => import('@/components/atoms/InputTextRoomName.vue'),
-    ComboboxTabs: () => import('@/components/molecules/ComboboxTabs.vue')
+    ComboboxTabs: () => import('@/components/molecules/ComboboxTabs.vue'),
+    InputTextareaDescription: () =>
+      import('@/components/atoms/InputTextareaDescription.vue')
   },
   setup() {
     const stepWindow = ref(0)
     const newRoom = reactive<RoomOptions>({
       name: 'New Room',
       photoURL: '',
+      description: '',
       tags: []
     })
 
@@ -275,6 +280,7 @@ export default defineComponent({
         const documentData = await createRoom({
           name: newRoom.name,
           photoURL,
+          description: newRoom.description,
           tags: newRoom.tags
         })
         url.value = `${process.env.baseUrl}/public/${documentData.id}`
