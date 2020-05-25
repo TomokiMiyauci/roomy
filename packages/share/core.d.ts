@@ -92,6 +92,7 @@ export type PrivateRoom = BaseRoom & {
 export type RoomOptions = {
   name: string
   photoURL: string
+  description: string
   tags: string[]
 }
 
@@ -124,7 +125,7 @@ type PublicRoomRecentMerged = {
   updatedAt: firebase.firestore.Timestamp
 }
 
-export type PublicRoom = BaseRoom & { messageDiff? : number, tags: string[]} & { recent: PublicRoomRecent }
-export type PublicRoomMerged = BaseRoom & { messageDiff? : number, tags: string[]} & { recent: PublicRoomRecentMerged }
+export type PublicRoom = BaseRoom & { messageDiff? : number, tags: string[], description: string } & { recent: PublicRoomRecent }
+export type PublicRoomMerged = BaseRoom & { messageDiff? : number, tags: string[], description: string } & { recent: PublicRoomRecentMerged }
 
 type MessageKind = 'TEXT'
