@@ -84,7 +84,7 @@ export const getPublicRoomsLatest = () => {
   return collectionRef.value
     .orderBy('recent.updatedAt', 'desc')
     .withConverter(publicRoomConverter)
-    .limit(3)
+    .limit(5)
     .get()
 }
 
