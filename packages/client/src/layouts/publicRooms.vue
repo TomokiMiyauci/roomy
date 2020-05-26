@@ -3,6 +3,7 @@
     <the-navigation-drawer-left @edit="$nuxt.$emit('edit')" />
     <the-navigation-drawer-right
       :rooms="rooms"
+      :login="login"
       :view-histories="viewHistories"
       :favorite-rooms="favoriteRooms"
       @open:qrcode="onOpenQrcode"
