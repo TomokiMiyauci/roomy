@@ -8,12 +8,22 @@
     color="primary"
     dark
   >
+    <v-img
+      v-if="room.photoURL"
+      :src="room.photoURL"
+      style="max-width:500px;max-height:200px"
+      gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
+      aspect-ratio="1"
+      max-width="500px"
+      max-height="200px"
+      alt="room"
+    />
+    <v-icon v-else class="d-flex mx-auto" size="200px">{{ mdiNewBox }}</v-icon>
+    <v-divider />
     <v-overlay :value="overlay" absolute>
       <SvgQrcode :text="room.name" />
       <button-close @click="overlay = false" />
     </v-overlay>
-    <v-icon class="d-flex mx-auto" size="200px">{{ mdiNewBox }}</v-icon>
-    <v-divider />
     <v-card-title>
       {{ room.name }}
       <v-spacer />
