@@ -135,3 +135,8 @@ export type ViewHistory = {
   messageDiff: number
   updatedAt: firebase.firestore.Timestamp
 }
+
+export type FavoriteRoom = {
+  ref: firebase.firestore.DocumentReference<PublicRoom>,
+  updatedAt: firebase.firestore.Timestamp
+}
