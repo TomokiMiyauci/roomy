@@ -1,8 +1,7 @@
 import { Action, Module, Mutation, VuexModule } from 'vuex-module-decorators'
 
 import { isDef } from '@/core/useFirestore'
-import { userRef } from '@/core/useFirestoreReference'
-import { PublicRoom } from '~types/core'
+import { viewHistoryRef } from '@/core/useFirestoreReference'
 
 @Module({
   name: 'user/view-history',
@@ -21,28 +20,29 @@ export default class ViewHistory extends VuexModule {
   @Action
   subscribe(force: boolean = false) {
     if (!force && this.loaded) return
-    const { documentRef } = userRef()
+    const { collectionRef } = viewHistoryRef()
 
-    documentRef.value
-      .collection('view-histories')
+    collectionRef.value
       .orderBy('updatedAt', 'desc')
       .onSnapshot(async (snapshot) => {
         const viewHistories = await Promise.all(
           snapshot.docs
             .map(async (value) => {
               const data = value.data()
+
               if (!data) return data
 
               const { ref, messageDiff } = data
 
               const doc = await ref.get()
+
               const {
                 name,
                 photoURL,
                 createdAt,
                 messageCount,
                 recent
-              } = doc.data()! as PublicRoom
+              } = doc.data()!
               if (!recent.author.isAnonymous) delete recent.author.ref
               const publicRoom = {
                 name,
