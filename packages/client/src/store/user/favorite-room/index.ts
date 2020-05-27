@@ -1,11 +1,10 @@
 import { Action, Module, Mutation, VuexModule } from 'vuex-module-decorators'
 
 import { isDef } from '@/core/useFirestore'
-import { userRef } from '@/core/useFirestoreReference'
-import { PublicRoom } from '~types/core'
+import { favoriteRoom } from '@/core/useFirestoreReference'
 
 @Module({
-  name: 'user/favorite-rooms',
+  name: 'user/favorite-room',
   stateFactory: true,
   namespaced: true
 })
@@ -21,10 +20,9 @@ export default class FavoriteRooms extends VuexModule {
   @Action
   subscribe(force: boolean = false) {
     if (!force && this.loaded) return
-    const { documentRef } = userRef()
+    const { collectionRef } = favoriteRoom()
 
-    documentRef.value
-      .collection('favorite-rooms')
+    collectionRef.value
       .orderBy('updatedAt', 'desc')
       .onSnapshot(async (snapshot) => {
         const favoriteRooms = await Promise.all(
@@ -33,7 +31,7 @@ export default class FavoriteRooms extends VuexModule {
               const data = value.data()
               if (!data) return data
 
-              const { ref, messageDiff } = data
+              const { ref } = data
 
               const doc = await ref.get()
               const {
@@ -42,7 +40,7 @@ export default class FavoriteRooms extends VuexModule {
                 createdAt,
                 messageCount,
                 recent
-              } = doc.data()! as PublicRoom
+              } = doc.data()!
               if (!recent.author.isAnonymous) delete recent.author.ref
               const publicRoom = {
                 name,
@@ -50,7 +48,6 @@ export default class FavoriteRooms extends VuexModule {
                 createdAt,
                 recent,
                 messageCount,
-                messageDiff,
                 updatedAt: data.updatedAt
               }
 
