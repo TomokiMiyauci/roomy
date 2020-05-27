@@ -2,7 +2,7 @@ import { computed } from '@vue/composition-api'
 
 import firebase, { firestore } from '@/plugins/firebase'
 import { reference, user } from '@/store'
-import { Profile, PublicRoom, User } from '~types/core'
+import { Profile, PublicRoom, User, ViewHistory } from '~types/core'
 
 export const messageReference = () => {
   const collectionRef = computed(() =>
@@ -69,6 +69,19 @@ export const userRef = () => {
   const documentRef = computed(() => collectionRef.value.doc(user.id))
 
   return { collectionRef, documentRef }
+}
+
+export const viewHistoryRef = () => {
+  const { documentRef } = userRef()
+
+  const collectionRef = computed(
+    () =>
+      documentRef.value.collection(
+        'view-histories'
+      ) as firebase.firestore.CollectionReference<ViewHistory>
+  )
+
+  return { collectionRef }
 }
 
 export const tagRef = () => {
