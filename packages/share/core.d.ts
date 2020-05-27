@@ -129,3 +129,9 @@ export type PublicRoom = BaseRoom & { messageDiff? : number, tags: string[], des
 export type PublicRoomMerged = BaseRoom & { messageDiff? : number, tags: string[], description: string } & { recent: PublicRoomRecentMerged }
 
 type MessageKind = 'TEXT'
+
+export type ViewHistory = {
+  ref: firebase.firestore.DocumentReference<PublicRoom>,
+  messageDiff: number
+  updatedAt: firebase.firestore.Timestamp
+}
