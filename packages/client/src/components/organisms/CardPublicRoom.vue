@@ -11,7 +11,6 @@
     <v-img
       v-if="room.photoURL"
       :src="room.photoURL"
-      style="max-width:500px;max-height:200px"
       gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
       aspect-ratio="1"
       max-width="500px"
