@@ -18,9 +18,9 @@
       </v-btn>
     </v-snackbar>
 
-    <transition name="fade-transition" tag="v-container">
+    <transition name="fade-transition">
       <v-row v-if="isLoad" justify="space-between" align="start">
-        <transition-group name="fab-transition" tag="v-row" class="pa-3">
+        <transition-group name="fab-transition" tag="div" class="pa-3 row">
           <v-col
             v-for="room in rooms"
             :key="room.id"
@@ -149,7 +149,6 @@ export default defineComponent({
   },
 
   setup(_, { root }) {
-    // publicRoom.subscribe()
     const rooms = ref<PublicRoomMerged[]>([])
     const isLoad = ref(false)
 
