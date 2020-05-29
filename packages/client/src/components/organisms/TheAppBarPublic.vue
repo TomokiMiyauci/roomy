@@ -2,18 +2,7 @@
   <v-app-bar color="primary" fixed app clipped-right clipped-left>
     <template #default>
       <client-only>
-        <img
-          v-if="!$vuetify.breakpoint.mdAndDown"
-          src="@/assets/logo.png"
-          width="50px"
-          alt="logo"
-        />
-        <h1
-          v-if="!$vuetify.breakpoint.mdAndDown"
-          style="padding:8px;color:#fff;text-shadow:3px 3px 3px #000;"
-        >
-          Roo<span :class="$style.logo">my</span>
-        </h1>
+        <LogoFullset v-if="!$vuetify.breakpoint.mdAndDown" />
         <ButtonCreateRoom
           v-if="$vuetify.breakpoint.mdAndDown"
           :login="login"
@@ -107,6 +96,7 @@ export default defineComponent({
     BaseIcon,
     ButtonCreateRoom,
     ButtonQrcodeReader,
+    LogoFullset: () => import('@/components/molecules/LogoFullset.vue'),
     InputTextSearch: () => import('@/components/atoms/InputTextSearch.vue')
   },
 
