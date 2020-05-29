@@ -27,7 +27,7 @@ jobs:
 
       - name: cache node_modules
         id: node_modules_cache_id
-        uses: actions/cache@v2
+        uses: actions/cache@v1
         with:
           path: node_modules
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
@@ -36,7 +36,7 @@ jobs:
         run: yarn --check-files --frozen-lockfile --non-interactive --ignore-engines
 
       - name: cache workspace
-        uses: actions/cache@v2
+        uses: actions/cache@v1
         with:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
@@ -59,7 +59,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: restore workspace cache
-        uses: actions/cache@v2
+        uses: actions/cache@v1
         with:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
@@ -91,7 +91,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: restore workspace cache
-        uses: actions/cache@v2
+        uses: actions/cache@v1
         with:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
@@ -117,7 +117,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: restore workspace cache
-        uses: actions/cache@v2
+        uses: actions/cache@v1
         with:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
@@ -153,7 +153,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: restore workspace cache
-        uses: actions/cache@v2
+        uses: actions/cache@v1
         with:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
@@ -182,7 +182,7 @@ jobs:
   #       uses: actions/checkout@master
 
   #     - name: restore workspace cache
-  #       uses: actions/cache@v2
+  #       uses: actions/cache@v1
   #       with:
   #         path: ${{ github.workspace }}
   #         key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
@@ -226,7 +226,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: restore workspace cache
-        uses: actions/cache@v2
+        uses: actions/cache@v1
         with:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
@@ -262,7 +262,7 @@ jobs:
         run: yarn workspace client build
 
       - name: cache build deliverable
-        uses: actions/cache@v2
+        uses: actions/cache@v1
         with:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-build-${{ github.sha }}
@@ -285,7 +285,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: restore workspace cache
-        uses: actions/cache@v2
+        uses: actions/cache@v1
         with:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
@@ -316,7 +316,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: restore build deliverable cache
-        uses: actions/cache@v2
+        uses: actions/cache@v1
         with:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-build-${{ github.sha }}
