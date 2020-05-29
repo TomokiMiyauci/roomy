@@ -18,7 +18,7 @@ jobs:
         node: [10]
 
     steps:
-      - uses: actions/setup-node@v2-beta
+      - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
 
@@ -51,7 +51,7 @@ jobs:
         node: [10]
 
     steps:
-      - uses: actions/setup-node@v2-beta
+      - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
 
@@ -83,7 +83,7 @@ jobs:
         node: [10]
 
     steps:
-      - uses: actions/setup-node@v2-beta
+      - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
 
@@ -109,7 +109,7 @@ jobs:
         node: [10]
 
     steps:
-      - uses: actions/setup-node@v2-beta
+      - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
 
@@ -145,7 +145,7 @@ jobs:
         node: [10]
 
     steps:
-      - uses: actions/setup-node@v2-beta
+      - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
 
@@ -174,7 +174,7 @@ jobs:
   #       node: [13]
 
   #   steps:
-  #     - uses: actions/setup-node@v2-beta
+  #     - uses: actions/setup-node@v1
   #       with:
   #         node-version: ${{ matrix.node }}
 
@@ -218,7 +218,7 @@ jobs:
         node: [10]
 
     steps:
-      - uses: actions/setup-node@v2-beta
+      - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
 
@@ -277,7 +277,7 @@ jobs:
         node: [10]
 
     steps:
-      - uses: actions/setup-node@v2-beta
+      - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
 
@@ -308,7 +308,7 @@ jobs:
         node: [10]
 
     steps:
-      - uses: actions/setup-node@v2-beta
+      - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
 
