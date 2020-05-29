@@ -43,6 +43,11 @@ const config: Configuration = {
         hid: 'description',
         name: 'description',
         content: process.env.npm_package_description || ''
+      },
+      { name: 'apple-mobile-web-app-capable', content: 'yes' },
+      {
+        name: 'apple-mobile-web-app-status-bar-style',
+        content: 'black-translucent'
       }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
@@ -121,7 +126,18 @@ const config: Configuration = {
       start_url: '/public',
       display: 'standalone',
       background_color: '#fff',
-      theme_color: '#fff'
+      theme_color: '#fff',
+      orientation: 'portrait',
+      gcm_sender_id: '103953800507'
+    },
+
+    workbox: {
+      runtimeCaching: [
+        {
+          urlPattern: '^https://fonts.(?:googleapis|gstatic).com/(.*)',
+          handler: 'cacheFirst'
+        }
+      ]
     }
   },
 
@@ -243,7 +259,7 @@ const config: Configuration = {
     //   plugins: [autoprefixer({ grid: 'autoplace' })]
     // },
 
-    // hardSource: process.env.NODE_ENV === 'development',
+    hardSource: true,
 
     extend(config) {
       return Object.assign({}, config, {
@@ -264,8 +280,7 @@ const config: Configuration = {
 
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'),
-      '~': path.resolve(__dirname, 'src')
+      '@': path.resolve(__dirname, 'src')
     }
   }
 }
