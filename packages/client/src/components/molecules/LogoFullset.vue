@@ -1,7 +1,7 @@
 <template>
   <div>
-    <imgLogo align="top" />
-    <textLogo />
+    <logo-img align="top" />
+    <logo-text />
   </div>
 </template>
 
@@ -10,8 +10,8 @@ import { defineComponent } from '@vue/composition-api'
 
 export default defineComponent({
   components: {
-    imgLogo: () => import('@/components/atoms/imgLogo.vue'),
-    textLogo: () => import('@/components/atoms/textLogo.vue')
+    LogoImg: () => import('@/components/atoms/LogoImg.vue'),
+    LogoText: () => import('@/components/atoms/LogoText.vue')
   }
 })
 </script>
