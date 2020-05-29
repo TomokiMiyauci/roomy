@@ -18,7 +18,7 @@ jobs:
         node: [10]
 
     steps:
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
 
@@ -27,7 +27,7 @@ jobs:
 
       - name: cache node_modules
         id: node_modules_cache_id
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: node_modules
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
@@ -36,7 +36,7 @@ jobs:
         run: yarn --check-files --frozen-lockfile --non-interactive --ignore-engines
 
       - name: cache workspace
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
@@ -51,7 +51,7 @@ jobs:
         node: [10]
 
     steps:
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
 
@@ -59,7 +59,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: restore workspace cache
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
@@ -83,7 +83,7 @@ jobs:
         node: [10]
 
     steps:
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
 
@@ -91,7 +91,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: restore workspace cache
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
@@ -109,7 +109,7 @@ jobs:
         node: [10]
 
     steps:
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
 
@@ -117,7 +117,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: restore workspace cache
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
@@ -145,7 +145,7 @@ jobs:
         node: [10]
 
     steps:
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
 
@@ -153,7 +153,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: restore workspace cache
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
@@ -174,7 +174,7 @@ jobs:
   #       node: [13]
 
   #   steps:
-  #     - uses: actions/setup-node@v1
+  #     - uses: actions/setup-node@v2
   #       with:
   #         node-version: ${{ matrix.node }}
 
@@ -182,7 +182,7 @@ jobs:
   #       uses: actions/checkout@master
 
   #     - name: restore workspace cache
-  #       uses: actions/cache@v1
+  #       uses: actions/cache@v2
   #       with:
   #         path: ${{ github.workspace }}
   #         key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
@@ -208,9 +208,8 @@ jobs:
       # - name: Setup tmate session
       #   uses: mxschmitt/action-tmate@v2
 
-
-  deploy-storybook:
-    needs: [lint, audit, test-unit, test-snapshot]
+  build:
+    needs: setup
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -219,7 +218,7 @@ jobs:
         node: [10]
 
     steps:
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
 
@@ -227,38 +226,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: restore workspace cache
-        uses: actions/cache@v1
-        with:
-          path: ${{ github.workspace }}
-          key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
-
-      - name: pre-setup
-        run: sed -i -e '2s/^/\/\/ /g' packages/client/src/types/vue-shims.d.ts
-
-      # - name: deploy storybook
-      #   run: yarn workspace client deploy-storybook -- --ci
-      #   env:
-      #     GH_TOKEN: ${ GITHUB_ACTOR }:${{ secrets.GITHUB_TOKEN }}
-
-  deploy:
-    needs: [lint, audit, test-unit, test-snapshot]
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node: [10]
-
-    steps:
-      - uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
-
-      - name: checkout
-        uses: actions/checkout@master
-
-      - name: restore workspace cache
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
@@ -292,6 +260,66 @@ jobs:
           MEASUREMENT_ID: ${{ secrets.MEASUREMENT_ID_DEV }}
           DSN_DEV: ${{ secrets.DSN_DEV }}
         run: yarn workspace client build
+
+      - name: cache build deliverable
+        uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-build-${{ github.sha }}
+
+  deploy-storybook:
+    needs: [lint, audit, test-unit, test-snapshot]
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [10]
+
+    steps:
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: checkout
+        uses: actions/checkout@master
+
+      - name: restore workspace cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
+
+      - name: pre-setup
+        run: sed -i -e '2s/^/\/\/ /g' packages/client/src/types/vue-shims.d.ts
+
+      # - name: deploy storybook
+      #   run: yarn workspace client deploy-storybook -- --ci
+      #   env:
+      #     GH_TOKEN: ${ GITHUB_ACTOR }:${{ secrets.GITHUB_TOKEN }}
+
+  deploy:
+    needs: [lint, audit, test-unit, test-snapshot, build]
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [10]
+
+    steps:
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: checkout
+        uses: actions/checkout@master
+
+      - name: restore build deliverable cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-build-${{ github.sha }}
 
       - name: prepare-deploy
         run: yarn workspace client build:copy
