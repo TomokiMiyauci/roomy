@@ -1,9 +1,7 @@
 <template>
   <v-app>
     <v-app-bar tile raised elevate-on-scroll app>
-      <v-toolbar-title>
-        Roomy
-      </v-toolbar-title>
+      <logo-fullset />
       <v-spacer />
       <v-toolbar-items>
         <v-btn text>home</v-btn>
@@ -20,5 +18,9 @@
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
 
-export default defineComponent({})
+export default defineComponent({
+  components: {
+    LogoFullset: () => import('@/components/molecules/LogoFullset.vue')
+  }
+})
 </script>
