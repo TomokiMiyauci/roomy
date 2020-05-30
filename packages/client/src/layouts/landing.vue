@@ -3,7 +3,7 @@
     <v-app-bar tile raised elevate-on-scroll app>
       <logo-fullset />
       <v-spacer />
-      <v-toolbar-items>
+      <v-toolbar-items class="d-none d-sm-flex">
         <v-btn text>home</v-btn>
         <v-btn text>services</v-btn>
         <v-btn text>contact</v-btn>
@@ -12,6 +12,11 @@
     <v-content>
       <nuxt />
     </v-content>
+    <v-footer color="grey">
+      <v-card-text class="text-center">
+        TomokiMiyauci &copy; {{ new Date().getFullYear() }}
+      </v-card-text>
+    </v-footer>
   </v-app>
 </template>
 
