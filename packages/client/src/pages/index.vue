@@ -7,14 +7,17 @@
       src="https://zero-theme-pro.johnleider.com/img/home-hero.e450f150.jpg"
     >
       <v-row class="fill-height flex-column" align="center" justify="center">
-        <vue-typer
-          :text="[
-            'Welcome to Roomy',
-            'Open Comunication Platform',
-            'Roomy is in progress',
-            'Let\'s try it !!'
-          ]"
-        ></vue-typer>
+        <client-only>
+          <vue-typer
+            :text="[
+              'Welcome to Roomy',
+              'Open Comunication Platform',
+              'Roomy is in progress',
+              'Let\'s try it !!'
+            ]"
+          ></vue-typer>
+        </client-only>
+
         <v-btn to="/public" class="ma-10" tile x-large color="secondary"
           >getting start</v-btn
         >
@@ -38,43 +41,23 @@
       nobis aperiam labore ipsam harum. Delectus optio est provident libero!
     </div>
 
-    <div style="height:500px;background-color:rgb(6,11,30);">
+    <div style="min-height:500px;background-color:rgb(6,11,30);">
       <!-- <h1>isfofjo</h1> -->
 
-      <v-container fill-height>
+      <v-container class="fill-height" style="min-height: 500px;" fill-height>
         <v-row justify="center" align="center">
-          <v-col cols="auto">
-            <v-card max-width="360px">
-              <v-card-title>
-                Title
+          <v-col v-for="i in 3" :key="i" cols="auto">
+            <v-card class="white--text" color="transparent" max-width="360px">
+              <v-card-title class="flex-column">
+                <v-icon color="secondary" size="60">{{
+                  mdiChatProcessing
+                }}</v-icon>
+                <div class="mt-5">
+                  Test
+                  <hr style="border:1px solid #3bd1b3" />
+                </div>
               </v-card-title>
-              <v-card-text>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Distinctio vero dolor quae voluptatibus voluptas nam aperiam,
-                ipsa magnam deleniti laboriosam voluptates, doloremque iure?
-                Laboriosam amet soluta maxime delectus. Rerum, facilis?
-              </v-card-text>
-            </v-card>
-          </v-col>
-          <v-col cols="auto">
-            <v-card max-width="360px">
-              <v-card-title>
-                Title
-              </v-card-title>
-              <v-card-text>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Distinctio vero dolor quae voluptatibus voluptas nam aperiam,
-                ipsa magnam deleniti laboriosam voluptates, doloremque iure?
-                Laboriosam amet soluta maxime delectus. Rerum, facilis?
-              </v-card-text>
-            </v-card>
-          </v-col>
-          <v-col cols="auto">
-            <v-card max-width="360px">
-              <v-card-title>
-                Title
-              </v-card-title>
-              <v-card-text>
+              <v-card-text class="grey--text">
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit.
                 Distinctio vero dolor quae voluptatibus voluptas nam aperiam,
                 ipsa magnam deleniti laboriosam voluptates, doloremque iure?
@@ -85,22 +68,48 @@
         </v-row>
       </v-container>
     </div>
-    <div style="height:700px">
+    <div>
       <v-row class="flex-column mt-12" align="center" justify="center">
         <v-col cols="auto">
-          <v-avatar color="primary">
-            <v-icon>{{ mdiChatProcessing }}</v-icon>
+          <v-avatar>
+            <v-icon color="primary"> {{ mdiChatProcessing }}</v-icon>
           </v-avatar>
         </v-col>
         <v-col cols="auto">
-          <h3 class="display-1">Recent Message</h3>
+          <h3 style="border-bottom:5px solid #083b66;" class="display-1">
+            RECENT MESSAGE
+          </h3>
         </v-col>
       </v-row>
       <v-carousel v-model="model">
-        <v-carousel-item v-for="(color, i) in colors" :key="color">
+        <v-carousel-item v-for="color in colors" :key="color">
           <v-sheet color="transparent" height="100%" tile>
-            <v-row class="fill-height" align="center" justify="center">
-              <div class="display-3">Slide {{ i + 1 }}</div>
+            <v-row
+              class="fill-height flex-column"
+              align="center"
+              justify="center"
+            >
+              <div class="text--center mx-auto">
+                <v-avatar size="100">
+                  <v-img
+                    src="https://zero-theme-pro.johnleider.com/img/home-hero.e450f150.jpg"
+                  />
+                </v-avatar>
+              </div>
+
+              <div class="ma-5 black--text display-1">Test</div>
+              <div class="grey--text" style="position:relative;">
+                <v-icon
+                  style="position:absolute;top:-10px;left: -30px;"
+                  color="grey"
+                  >{{ mdiFormatQuoteOpen }}</v-icon
+                >Message will update soon.
+                <v-icon
+                  color="grey"
+                  style="position:absolute;right: -30px;bottom:-10px;"
+                  >{{ mdiFormatQuoteClose }}</v-icon
+                >
+              </div>
             </v-row>
           </v-sheet>
         </v-carousel-item>
@@ -110,7 +119,12 @@
 </template>
 
 <script lang="ts">
-import { mdiChatProcessing, mdiChevronDown } from '@mdi/js'
+import {
+  mdiChatProcessing,
+  mdiChevronDown,
+  mdiFormatQuoteClose,
+  mdiFormatQuoteOpen
+} from '@mdi/js'
 import { defineComponent, ref } from '@vue/composition-api'
 
 export default defineComponent({
@@ -119,7 +133,14 @@ export default defineComponent({
   setup() {
     const model = ref(0)
     const colors = ['primary', 'secondary', 'yellow darken-2', 'red', 'orange']
-    return { mdiChatProcessing, colors, model, mdiChevronDown }
+    return {
+      mdiChatProcessing,
+      colors,
+      model,
+      mdiChevronDown,
+      mdiFormatQuoteOpen,
+      mdiFormatQuoteClose
+    }
   }
 })
 </script>
