@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-img
-      height="calc(100vh - 64px )"
+      :height="`calc(100vh - ${$vuetify.application.top}px )`"
       gradient="to right, rgba(5, 11, 31, 0.8), rgba(5, 11, 31, 0.8)"
       style="background-position: center center"
       src="https://zero-theme-pro.johnleider.com/img/home-hero.e450f150.jpg"
@@ -24,6 +24,7 @@
 
         <v-btn
           @click="$vuetify.goTo('#target')"
+          aria-label="scroll"
           class="float"
           absolute
           style="bottom:60px;"
@@ -133,6 +134,7 @@ export default defineComponent({
   setup() {
     const model = ref(0)
     const colors = ['primary', 'secondary', 'yellow darken-2', 'red', 'orange']
+
     return {
       mdiChatProcessing,
       colors,
@@ -167,9 +169,24 @@ export default defineComponent({
   }
 }
 
-.vue-typer {
-  font-size: 3.5rem;
+@media screen and (min-width: 0) {
+  .vue-typer {
+    font-size: 1.5rem;
+  }
 }
+
+@media screen and (min-width: 480px) {
+  .vue-typer {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .vue-typer {
+    font-size: 3.5rem;
+  }
+}
+
 .vue-typer .custom.char.typed {
   color: white;
 }
