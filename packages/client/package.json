@@ -61,6 +61,7 @@
     "nuxt": "^2.12.0",
     "nuxt-i18n": "^6.5.0",
     "qrcode": "^1.4.4",
+    "skyway-js": "^3.0.0",
     "vue-advanced-cropper": "^0.16.1",
     "vue-filter-pretty-bytes": "^0.1.4",
     "vue-qrcode-reader": "^2.2.0",
