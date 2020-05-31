@@ -3,7 +3,6 @@ import { parse } from 'cookie'
 import { ActionTree, Store } from 'vuex'
 import { ActionContext } from 'vuex/types'
 
-import admin from '@/plugins/firebase-admin'
 import { user as userStore } from '@/store'
 import { initializeStores } from '@/utils/store-accessor'
 
@@ -22,6 +21,19 @@ export const actions: ActionTree<any, any> = {
     if (!req.headers.cookie) return
     const token = parse(req.headers.cookie).access_token
     if (!token) return
+
+    let admin: any
+
+    if (process.server) {
+      admin = require('firebase-admin')
+      if (!admin.apps.length) {
+        const serviceAccount = require('../../secret.json')
+        admin.initializeApp({
+          credential: admin.credential.cert(serviceAccount),
+          databaseURL: process.env.DATABASE_URL
+        })
+      }
+    }
 
     const result = await admin
       .auth()
