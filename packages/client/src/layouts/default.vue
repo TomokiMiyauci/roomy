@@ -42,4 +42,21 @@ export default defineComponent({
 .fade-enter-active {
   transition: opacity 2s;
 }
+
+.layout {
+  &-leave-active {
+    transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+  }
+  &-leave-to {
+    transform: translateX(-10px);
+    opacity: 0;
+  }
+  &-enter {
+    transform: translateX(10px);
+    opacity: 0;
+  }
+  &-enter-active {
+    transition: all 0.3s ease;
+  }
+}
 </style>
