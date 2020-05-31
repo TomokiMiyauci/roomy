@@ -72,7 +72,6 @@ const config: Configuration = {
   plugins: [
     '@/plugins/composition-api',
     '@/plugins/firebase',
-    '@/plugins/firebase-admin',
     '@/plugins/pretty-bytes',
     '@/plugins/axios',
     '@/plugins/errorHandler',
@@ -89,7 +88,7 @@ const config: Configuration = {
     '@nuxtjs/eslint-module',
     '@nuxtjs/vuetify',
     '@nuxtjs/stylelint-module',
-    ['@nuxtjs/dotenv', { systemvars: false }]
+    '@nuxtjs/dotenv'
     // [
     //   '@nuxtjs/google-analytics',
     //   {
@@ -136,6 +135,11 @@ const config: Configuration = {
         {
           urlPattern: '^https://fonts.(?:googleapis|gstatic).com/(.*)',
           handler: 'cacheFirst'
+        },
+
+        {
+          urlPattern: '^https://polyfill.io/v3/polyfill.min.js',
+          handler: 'cacheFirst'
         }
       ]
     }
@@ -162,6 +166,9 @@ const config: Configuration = {
    ** Build configuration
    */
   build: {
+    parallel: true,
+    cache: true,
+    hardSource: true,
     extractCSS: process.env.NODE_ENV === 'production',
     postcss: {
       plugins: [
@@ -258,8 +265,6 @@ const config: Configuration = {
     // postcss: {
     //   plugins: [autoprefixer({ grid: 'autoplace' })]
     // },
-
-    hardSource: true,
 
     extend(config) {
       return Object.assign({}, config, {
