@@ -259,6 +259,7 @@ jobs:
           APP_ID: ${{ secrets.APP_ID_DEV }}
           MEASUREMENT_ID: ${{ secrets.MEASUREMENT_ID_DEV }}
           DSN_DEV: ${{ secrets.DSN_DEV }}
+          SKYWAY_KEY: ${{ secrets.SKYWAY_KEY_DEV }}
         run: yarn workspace client build
 
       - name: cache build deliverable
