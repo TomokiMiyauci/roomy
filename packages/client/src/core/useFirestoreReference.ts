@@ -51,6 +51,14 @@ export const publicRoomMessageRef = () => {
   return { collectionRef, documentRef }
 }
 
+export const publicRoomStreamRef = () => {
+  const collectionRef = computed(() =>
+    publicRoomRef().documentRef.value.collection('streams')
+  )
+
+  return { collectionRef }
+}
+
 export const profileRef = () => {
   const collectionRef = computed(
     () =>
