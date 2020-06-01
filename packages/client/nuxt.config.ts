@@ -65,7 +65,17 @@ const config: Configuration = {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['~/assets/css/transition.scss'],
+
+  transition: {
+    name: 'fade',
+    mode: 'out-in'
+  },
+
+  layoutTransition: {
+    name: 'fade-right',
+    mode: 'out-in'
+  },
   /*
    ** Plugins to load before mounting the App
    */
@@ -261,10 +271,6 @@ const config: Configuration = {
             layouts: true
           }
         : undefined,
-
-    // postcss: {
-    //   plugins: [autoprefixer({ grid: 'autoplace' })]
-    // },
 
     extend(config) {
       return Object.assign({}, config, {
