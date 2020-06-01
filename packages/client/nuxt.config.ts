@@ -25,7 +25,8 @@ const config: Configuration = {
     MESSAGING_SENDER_ID: process.env.MESSAGING_SENDER_ID!,
     APP_ID: process.env.APP_ID!,
     MEASUREMENT_ID: process.env.MEASUREMENT_ID!,
-    DSN: process.env.DSN!
+    DSN: process.env.DSN!,
+    SKYWAY_KEY: process.env.SKYWAY_KEY!
   },
 
   router: {
@@ -67,7 +68,7 @@ const config: Configuration = {
    */
   css: ['~/assets/css/transition.scss'],
 
-  transition: {
+  pageTransition: {
     name: 'fade',
     mode: 'out-in'
   },
