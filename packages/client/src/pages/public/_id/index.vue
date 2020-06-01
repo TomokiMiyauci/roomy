@@ -86,7 +86,15 @@
       max-width="600px"
       hide-overlay
     >
-      <card-room-share :url="text" @close="dialog = false" />
+      <card-create-stream
+        v-if="dialogState === 'video'"
+        @close="onCloseDialog"
+      />
+      <card-room-share
+        v-else-if="dialogState === 'create'"
+        :url="text"
+        @close="dialog = false"
+      />
     </v-dialog>
 
     <div
@@ -96,6 +104,18 @@
       style="position:fixed;bottom:0;background-color:rgb(255,255,255);"
     >
       <the-post @postend="onPostend" @audio="sheet = true" />
+      <v-btn
+        @click="onCreateVideo"
+        v-if="login"
+        color="primary"
+        dark
+        absolute
+        fab
+        small
+        style="bottom:160px"
+        right
+        ><v-icon>{{ mdiPhoneRing }}</v-icon></v-btn
+      >
       <v-btn
         @click="onFavor"
         v-if="login"
@@ -120,17 +140,20 @@ import {
   mdiCommentProcessing,
   mdiHeart,
   mdiMicrophone,
-  mdiMicrophoneSettings
+  mdiMicrophoneSettings,
+  mdiPhoneRing
 } from '@mdi/js'
 import {
   defineComponent,
   onMounted,
   onUnmounted,
-  ref
+  ref,
+  watch
 } from '@vue/composition-api'
 import dayjs from 'dayjs'
 import { gsap } from 'gsap'
 
+import CardCreateStream from '@/components/organisms/CardCreateStream.vue'
 import { useFirestore } from '@/core/useFirestore'
 import { messageReference } from '@/core/useFirestoreReference'
 import { enterRoom, favor } from '@/repositories/users'
@@ -156,7 +179,8 @@ export default defineComponent({
     ChipDate: () => import('@/components/atoms/ChipDate.vue'),
     SkeletonLoaderMessageSet: () =>
       import('@/components/molecules/SkeletonLoaderMessageSet.vue'),
-    CardRoomShare: () => import('@/components/molecules/CardRoomShare.vue')
+    CardRoomShare: () => import('@/components/molecules/CardRoomShare.vue'),
+    CardCreateStream
   },
 
   setup(_, { root }) {
@@ -171,6 +195,7 @@ export default defineComponent({
     const dialog = ref(false)
     const text = ref('')
     const isEmpty = ref(false)
+    const dialogState = ref<'video' | 'create' | ''>('')
 
     const { collectionRef } = messageReference()
 
@@ -212,6 +237,24 @@ export default defineComponent({
       await favor()
     }
 
+    const onCloseDialog = () => {
+      dialog.value = false
+    }
+
+    watch(dialog, (now) => {
+      if (!now) {
+        setTimeout(() => {
+          dialogState.value = ''
+        }, 300)
+      }
+    })
+
+    const onCreateVideo = () => {
+      // dialogState.value = 'video'
+      // dialog.value = true
+      root.$router.push(`${root.$route.params.id}/stream`)
+    }
+
     const onPostend = async () => {
       await root.$nextTick()
       scrollTo(0, document.body.clientHeight)
@@ -226,9 +269,13 @@ export default defineComponent({
     })
 
     return {
+      onCloseDialog,
+      dialogState,
+      onCreateVideo,
       mdiAlertCircleOutline,
       mdiCheckBoxOutline,
       mdiCheckboxBlank,
+      mdiPhoneRing,
       onClose,
       messages,
       sheet,
