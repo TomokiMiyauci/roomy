@@ -7,6 +7,7 @@
     :value="value"
     @click:append="show = !show"
     v-on="$listeners"
+    autocomplete="current-password"
     outlined
     dense
     placeholder="Enter password"
@@ -22,7 +23,7 @@ import { isValidEmail, required } from '@/utils/validator'
 export default defineComponent({
   props: {
     value: {
-      type: String || Number,
+      type: [String, Number],
       default: ''
     }
   },

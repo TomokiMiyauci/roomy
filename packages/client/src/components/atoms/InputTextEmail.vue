@@ -6,6 +6,7 @@
     :value="value"
     v-on="$listeners"
     type="email"
+    autocomplete="email"
     placeholder="Enter email address"
     outlined
     clearable

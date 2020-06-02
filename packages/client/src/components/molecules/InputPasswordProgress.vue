@@ -7,6 +7,7 @@
     :value="value"
     @click:append="show = !show"
     v-on="$listeners"
+    autocomplete="new-password"
     outlined
     dense
     counter
