@@ -4,10 +4,9 @@
     <the-navigation-drawer-right
       :view-histories="viewHistories"
       :favorite-rooms="favoriteRooms"
-      :rooms="rooms"
       @open:qrcode="onOpenQrcode"
     />
-    <the-app-bar-chat :title="room ? room.name : ''" />
+    <the-app-bar-chat />
 
     <v-content>
       <transition name="fade">
@@ -23,9 +22,7 @@ import { computed, defineComponent } from '@vue/composition-api'
 import TheAppBarChat from '@/components/organisms/TheAppBarChat.vue'
 import TheNavigationDrawerLeft from '@/components/organisms/TheNavigationDrawerLeft.vue'
 import TheNavigationDrawerRight from '@/components/organisms/TheNavigationDrawerRight.vue'
-import { useFirestore } from '@/core/useFirestore'
-import { firestore } from '@/plugins/firebase'
-import { favoriteRoom, publicRoom, viewHistory } from '@/store'
+import { favoriteRoom, viewHistory } from '@/store'
 import { PublicRoom } from '~types/core'
 
 export default defineComponent({
@@ -40,16 +37,10 @@ export default defineComponent({
       root.$nuxt.$emit('open:qrcode', room)
     }
 
-    const room = useFirestore(
-      firestore.collection('rooms').doc(root.$route.params.id)
-    )
-
     return {
-      rooms: computed(() => publicRoom.rooms),
       viewHistories: computed(() => viewHistory.viewHistories),
       favoriteRooms: computed(() => favoriteRoom.favoriteRooms),
-      onOpenQrcode,
-      room
+      onOpenQrcode
     }
   }
 })
