@@ -4097,9 +4097,9 @@
   integrity sha512-BneGN0J9ke24lBRn44hVHNeDlrXRYF+VRp0HbSUNnEZahXGAysHZIqnf/hER6aabdBgzM4YOV4jrR8gj4Zfi0g==
 
 "@types/node@^12.6.8":
-  version "12.12.42"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.42.tgz#d0d1149336bd07540dd1ea576692829d575dec34"
-  integrity sha512-R/9QdYFLL9dE9l5cWWzWIZByVGFd7lk7JVOJ7KD+E1SJ4gni7XJRLz9QTjyYQiHIqEAgku9VgxdLjMlhhUaAFg==
+  version "12.12.43"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.43.tgz#b60ce047822e526e7a9252e50844eee79d5386ff"
+  integrity sha512-KUyZdkGCnVPuXfsKmDUu2XLui65LZIJ2s0M57noy5e+ixUT2oK33ep7zlvgzI8LElcWqbf8AR+o/3GqAPac2zA==
 
 "@types/node@^13.13.5":
   version "13.13.5"
@@ -19199,9 +19199,9 @@ sisteransi@^1.0.4:
   integrity sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==
 
 skyway-js@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/skyway-js/-/skyway-js-3.0.0.tgz#c5402224810c776d1f59517423899d84d4bef057"
-  integrity sha512-7uoVgJJSL4hQ7d/q2Ms78N5z+JA6F+aT8S3d3djMT7FzRL5nzKtnhywfABVLxA1rTQEdYwMmCq8OcLIkz7/9Jg==
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/skyway-js/-/skyway-js-3.0.1.tgz#088e16e45282d27a0e177400a1a1458749ab4810"
+  integrity sha512-j7boTiHdTIV02pO1oK2msdoQA1+OiV0FoaNd6vBc++bDTA+vchIfB/jERYeFL1ZSRLTR34/BhlePGtSZg2tZPg==
   dependencies:
     "@types/node" "^12.6.8"
     detect-browser "^4.6.0"
