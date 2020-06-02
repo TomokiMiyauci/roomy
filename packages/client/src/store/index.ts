@@ -19,7 +19,7 @@ export const actions: ActionTree<any, any> = {
     { req }: Context
   ) => {
     if (!req.headers.cookie) return
-    const token = parse(req.headers.cookie).access_token
+    const token = parse(req.headers.cookie).__session
     if (!token) return
 
     let admin: any

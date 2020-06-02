@@ -9,12 +9,12 @@ const authenticator: Middleware = () => {
     auth.onAuthStateChanged(async (user) => {
       if (user) {
         const token = await user.getIdToken(true)
-        set('access_token', token)
+        set('__session', token)
 
         userStore.setUser(user)
       } else {
         userStore.removeUser()
-        remove('access_token')
+        remove('__session')
       }
     })
   }
