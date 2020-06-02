@@ -9,6 +9,7 @@
     solo
     rounded
     clearable
+    aria-label="search"
     placeholder="Enter keywords"
   />
 </template>
