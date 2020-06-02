@@ -7,6 +7,12 @@
         color="primary"
         width="600px"
       >
+        <div
+          class="white--text"
+          style="position:absolute;left:200px;font-size:20rem;writing-mode: vertical-rl;"
+        >
+          Roomy
+        </div>
       </v-navigation-drawer>
     </client-only>
 
