@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-btn @click="onClick" color="success">text</v-btn>
-    <video ref="video" width="300px" muted autoplay>
-      <track default kind="captions" />
+    <video ref="video" width="300px">
+      <track kind="captions" />
     </video>
   </div>
 </template>
