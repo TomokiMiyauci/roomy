@@ -14,6 +14,8 @@ import { useMediaStream } from '@/core/useMediaStream'
 export default defineComponent({
   setup() {
     const video = ref<HTMLVideoElement>()
+    video.value!.muted = true
+    video.value!.autoplay = true
     const onClick = async () => {
       const mediaStream = await useMediaStream({
         video: true
