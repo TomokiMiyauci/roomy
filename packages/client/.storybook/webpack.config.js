@@ -4,20 +4,14 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 
 module.exports = ({ config }) => {
   config.resolve.alias['@'] = rootPath
-  config.resolve.alias['~'] = rootPath
   config.resolve.alias['@mock'] = path.resolve(__dirname, '../__mock__/')
   config.resolve.alias['~mock'] = path.resolve(__dirname, '../../share/__mock__/')
-  config.resolve.extensions.push('.ts')
+  config.resolve.alias['~types'] = path.resolve(__dirname, '../../share/')
+  config.resolve.extensions.push('.ts', '.vue')
 
-  config.module.rules.push({
-    test: /\.vue$/,
-    loader: 'vue-docgen-loader',
-    enforce: 'post'
-  })
 
   config.module.rules.push({
     test: /\.ts$/,
-    exclude: /node_modules/,
     use: [
       {
         loader: 'ts-loader',
@@ -27,7 +21,7 @@ module.exports = ({ config }) => {
         }
       }
     ],
-    exclude: [/vendor/, /\.nuxt/]
+    exclude: [/node_modules/, /\.nuxt/, /middleware/]
   })
 
   config.module.rules.push({
@@ -38,7 +32,10 @@ module.exports = ({ config }) => {
         options: { parser: 'typescript' },
       }
     ],
+
+    exclude: [/node_modules/, /\.nuxt/],
     enforce: 'pre',
+
   })
 
   config.module.rules.push({
@@ -53,7 +50,9 @@ module.exports = ({ config }) => {
       }
     , 'sass-loader'
     ],
-    include: rootPath,
+    exclude: [/node_modules/, /\.nuxt/],
+    include: rootPath
+
   });
 
   config.plugins.push(new ForkTsCheckerWebpackPlugin())
