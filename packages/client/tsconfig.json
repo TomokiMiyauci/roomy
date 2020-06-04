@@ -41,6 +41,8 @@
     "dist"
   ],
   "include": [
-    "./src/**/*"
+    "src/**/*",
+    "stories/**/*",
+    "test/**/*"
   ]
 }
