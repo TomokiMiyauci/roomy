@@ -7,7 +7,7 @@ module.exports = ({ config }) => {
   config.resolve.alias['@mock'] = path.resolve(__dirname, '../__mock__/')
   config.resolve.alias['~mock'] = path.resolve(__dirname, '../../share/__mock__/')
   config.resolve.alias['~types'] = path.resolve(__dirname, '../../share/')
-  config.resolve.extensions.push('.ts', '.vue')
+  config.resolve.extensions.push('.ts')
 
 
   config.module.rules.push({
