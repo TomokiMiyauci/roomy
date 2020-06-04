@@ -120,6 +120,7 @@
     "prettier": "^1.16.4",
     "storybook-addon-vue-info": "^1.4.1",
     "storybook-chromatic": "^3.5.2",
+    "storybook-mobile": "^0.1.24",
     "style-loader": "^1.1.2",
     "stylelint": "^13.0.0",
     "stylelint-config-prettier": "^8.0.1",
