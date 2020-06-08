@@ -177,9 +177,6 @@ const config: Configuration = {
    ** Build configuration
    */
   build: {
-    parallel: true,
-    cache: true,
-    hardSource: true,
     extractCSS: process.env.NODE_ENV === 'production',
     postcss: {
       plugins: [
@@ -247,19 +244,6 @@ const config: Configuration = {
       ]
     },
 
-    // optimization: {
-    //   splitChunks: {
-    //     cacheGroups: {
-    //       styles: {
-    //         name: 'styles',
-    //         test: /\.(css|vue)$/,
-    //         chunks: 'all',
-    //         enforce: true
-    //       }
-    //     }
-    //   }
-    // },
-
     terser: {
       terserOptions: {
         compress: { drop_console: process.env.NODE_ENV === 'production' }
@@ -286,7 +270,10 @@ const config: Configuration = {
     typeCheck: {
       vue: true,
       memoryLimit: 4096,
-      eslint: true
+      eslint: true,
+      measureCompilationTime: true,
+      reportFiles: ['src/**/*'],
+      checkSyntacticErrors: true
     }
   },
 
