@@ -4,7 +4,7 @@ import * as admin from 'firebase-admin'
 
 const firestore = admin.firestore()
 
-export const createPublicRoomMessage = functions
+module.exports.createPublicRoomMessage = functions
   .region('asia-northeast1')
   .firestore.document('public-rooms/{roomId}/messages/{messageId}')
   .onCreate(async (snapshot, { params }) => {

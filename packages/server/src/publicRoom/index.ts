@@ -3,7 +3,7 @@ import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 const firestore = admin.firestore()
 
-export const createPublicRoom = functions
+module.exports.createPublicRoom = functions
   .region('asia-northeast1')
   .firestore.document('public-rooms/{roomId}')
   .onCreate(async (snapshot) => {
