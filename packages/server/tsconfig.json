@@ -18,6 +18,9 @@
       "~types/*": [
         "../share/*"
       ],
+      "~mock/*":[
+        "../share/__mock__/*"
+      ],
       "@/*": [
         "src/*"
       ]
@@ -25,7 +28,8 @@
   },
   "compileOnSave": true,
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "test/**/*"
   ],
   "exclude": ["node_modules"],
   // "references": [
