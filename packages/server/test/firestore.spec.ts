@@ -1,8 +1,9 @@
 import * as firebase from '@firebase/testing'
 import fs from 'fs'
-import { publicRoom } from '~mock/'
+import { publicRoom } from '~mock/index'
 
 const PROJECT_ID = 'test'
+const timestamp = firebase.firestore.FieldValue.serverTimestamp()
 
 describe('firestore', () => {
   //実行前に一度だけ実行（初期化）
@@ -29,7 +30,7 @@ describe('firestore', () => {
   //auth : {uid:'alice'}
   //auth : {uid:'alice', admin:true} admin
   //auth : null 未認証
-  function authedApp(auth: any): firebase.firestore.Firestore {
+  function authedApp(auth: {}): firebase.firestore.Firestore {
     return firebase
       .initializeTestApp({
         projectId: PROJECT_ID,
@@ -53,7 +54,16 @@ describe('firestore', () => {
       })
       const publicRooms = firestore.collection('public-rooms')
 
-      await firebase.assertSucceeds(publicRooms.add(publicRoom))
+      await firebase.assertSucceeds(
+        publicRooms.add({
+          ...publicRoom,
+          createdAt: timestamp,
+          updatedAt: timestamp,
+          recent: {
+            updatedAt: timestamp
+          }
+        })
+      )
     })
 
     it('should not get', async () => {
