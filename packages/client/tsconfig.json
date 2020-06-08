@@ -27,7 +27,7 @@
         "../share/*"
       ],
       "~mock/*": [
-        "../share/__mock__/index"
+        "../share/__mock__/*"
       ],
       "@mock/*": [
         "__mock__/index"
