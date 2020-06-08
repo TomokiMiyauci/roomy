@@ -18,7 +18,7 @@
       </v-btn>
     </v-snackbar>
 
-    <transition name="fade-transition">
+    <!-- <transition name="fade-transition">
       <v-row v-if="isLoad" justify="space-between" align="start">
         <transition-group name="fab-transition" tag="div" class="pa-3 row">
           <v-col
@@ -43,7 +43,7 @@
           color="primary"
         />
       </v-row>
-    </transition>
+    </transition> -->
 
     <client-only>
       <template v-if="$vuetify.breakpoint.mdAndDown">
@@ -97,6 +97,7 @@
       />
       <form-user-profile :displayName="displayName" v-else-if="isOpenEdit" />
     </v-dialog>
+    <carousel-rooms :rooms="rooms" />
   </v-container>
 </template>
 
@@ -145,7 +146,8 @@ export default defineComponent({
     CardQrcodeScanner: () =>
       import('@/components/organisms/CardQrcodeScanner.vue'),
     FormUserProfile: () => import('@/components/organisms/FormUserProfile.vue'),
-    CardPublicRoom
+    CardPublicRoom,
+    CarouselRooms: () => import('@/components/organisms/CarouselRooms.vue')
   },
 
   setup(_, { root }) {
@@ -297,38 +299,5 @@ export default defineComponent({
 
 .fade-enter-active {
   transition: opacity 2s;
-}
-</style>
-
-<style>
-@keyframes rocking {
-  0%,
-  100% {
-    transform: rotateZ(-10deg);
-  }
-  50% {
-    transform: rotateZ(10deg);
-  }
-}
-
-.vue-typer {
-  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-}
-.vue-typer .custom.char.typed {
-  color: #009688;
-}
-.vue-typer .custom.char.selected {
-  color: #e91e63;
-}
-
-.vue-typer .custom.caret {
-  animation: rocking 1s ease-in-out 0s infinite;
-}
-.vue-typer .custom.caret.typing {
-  background-color: #009688;
-}
-.vue-typer .custom.caret.selecting {
-  display: inline-block;
-  background-color: #e91e63;
 }
 </style>
