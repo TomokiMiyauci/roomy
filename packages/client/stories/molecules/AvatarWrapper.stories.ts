@@ -1,7 +1,7 @@
 import { boolean, number, text } from '@storybook/addon-knobs'
 
 import AvatarWrapper from '@/components/molecules/AvatarWrapper.vue'
-import { displayName, photoURL } from '~mock/'
+import { displayName, photoURL } from '~mock/index'
 export default {
   title: `molecules|AvatarWrapper`,
   parameters: {
