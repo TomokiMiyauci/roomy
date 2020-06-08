@@ -1,7 +1,7 @@
 import { object } from '@storybook/addon-knobs'
 
 import RoomSet from '@/components/molecules/RoomSet.vue'
-import { publicRoom } from '~mock/'
+import { publicRoom } from '~mock/index'
 export default {
   title: `molecules|RoomSet`,
   parameters: {
