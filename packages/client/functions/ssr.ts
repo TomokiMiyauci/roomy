@@ -6,7 +6,7 @@ const nuxt = new Nuxt({
 })
 
 export default functions
-  .region('us-east1')
+  .region('us-central1')
   .runWith({ memory: '2GB' })
   .https.onRequest(async (req, res) => {
     await nuxt.ready()
