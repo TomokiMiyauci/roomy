@@ -3,7 +3,7 @@ import * as admin from 'firebase-admin'
 import { Profile } from '~types/core'
 const firestore = admin.firestore()
 
-module.exports.onCreateUser = functions
+export default functions
   .region('asia-northeast1')
   .auth.user()
   .onCreate(async (user) => {
