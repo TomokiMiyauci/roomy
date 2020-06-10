@@ -8,14 +8,14 @@ const files = {
 }
 
 const loadFunctions = (filesObj: { [key: string]: string }): void => {
-  Object.keys(filesObj).forEach((files) => {
+  Object.keys(filesObj).forEach(async (files) => {
     if (
       !process.env.FUNCTION_NAME ||
       process.env.FUNCTION_NAME.startsWith(files)
     ) {
       console.log(11, process.env.FUNCTION_NAME)
 
-      module.exports[files] = require(filesObj[files])
+      module.exports[files] = await import(filesObj[files])
     }
   })
 }
