@@ -1,13 +1,10 @@
-import * as functions from 'firebase-functions'
+const files = {
+  ssr: './ssr'
+}
 
-const { Nuxt } = require('nuxt')
-const nuxt = new Nuxt({
-  dev: false
-})
-
-exports.ssr = functions
-  .runWith({ memory: '2GB' })
-  .https.onRequest(async (req, res) => {
-    await nuxt.ready()
-    return nuxt.render(req, res)
-  })
+if (
+  !process.env.FUNCTION_NAME ||
+  process.env.FUNCTION_NAME.startsWith(files.ssr)
+) {
+  module.exports.ssr = require(files.ssr).default
+}
