@@ -2,8 +2,8 @@
   "functions": {
     "source": ".",
     "predeploy": [
-      "yarn eslint functions/index.ts",
-      "yarn tsc functions/index.ts"
+      "yarn eslint functions/index.ts functions/ssr.ts",
+      "yarn tsc functions/index.ts functions/ssr.ts"
     ]
   },
   "hosting": {
