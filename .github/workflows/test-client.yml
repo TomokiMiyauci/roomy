@@ -268,6 +268,12 @@ jobs:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-build-${{ github.sha }}
 
+      - name: cache build
+        uses: actions/cache@v2
+        with:
+          path: ./packages/client/.nuxt/
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-build-nuxt-${{ github.sha }}
+
   deploy-storybook:
     needs: [lint, audit, test-unit, test-snapshot]
     runs-on: ${{ matrix.os }}
@@ -321,6 +327,17 @@ jobs:
         with:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-build-${{ github.sha }}
+
+      - name: restore build
+        uses: actions/cache@v2
+        with:
+          path: ./packages/server/
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-build-nuxt-${{ github.sha }}
+
+      - name: debug
+        run: |
+          cd packages/server
+          ls
 
       - name: prepare-deploy
         run: yarn workspace client build:copy
