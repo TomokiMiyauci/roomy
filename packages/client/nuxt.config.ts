@@ -263,6 +263,7 @@ const config: Configuration = {
           devtool: 'source-map'
         })
       }
+      return Object.assign({}, config, {})
     }
 
     // publicPath: process.env.AUTH_DOMAIN
