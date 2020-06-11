@@ -274,6 +274,17 @@ jobs:
           path: ./packages/client/.nuxt/
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-build-nuxt-${{ github.sha }}
 
+      - name: build functions
+        run: yarn tsc ./packages/client/functions/index.ts ./packages/client/functions/ssr.ts
+
+      - name: cache build functions
+        uses: actions/cache@v1
+        with:
+          path: |
+             ./packages/client/functions/index.js
+             ./packages/client/functions/ssr.js
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-build-functions-${{ github.sha }}
+
   deploy-storybook:
     needs: [lint, audit, test-unit, test-snapshot]
     runs-on: ${{ matrix.os }}
@@ -342,6 +353,14 @@ jobs:
         with:
           path: ./packages/client/.nuxt/
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-build-nuxt-${{ github.sha }}
+
+      - name: restore build functions
+        uses: actions/cache@v1
+        with:
+          path: |
+             ./packages/client/functions/index.js
+             ./packages/client/functions/ssr.js
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-build-functions-${{ github.sha }}
 
       - name: debug
         run: |
