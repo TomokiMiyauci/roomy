@@ -331,20 +331,17 @@ jobs:
       - name: checkout
         uses: actions/checkout@master
 
-      - name: install
-        run: yarn --check-files --frozen-lockfile --non-interactive --ignore-engines --prod
-
       # - name: restore build deliverable cache
       #   uses: actions/cache@v1
       #   with:
       #     path: ${{ github.workspace }}
       #     key: ${{ matrix.os }}-node-v${{ matrix.node }}-build-${{ github.sha }}
 
-      # - name: restore workspace cache
-      #   uses: actions/cache@v1
-      #   with:
-      #     path: ${{ github.workspace }}
-      #     key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
+      - name: restore workspace cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
 
       - name: restore build
         uses: actions/cache@v1
@@ -352,24 +349,26 @@ jobs:
           path: ./packages/client/.nuxt/
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-build-nuxt-${{ github.sha }}
 
-      - name: restore build functions
-        uses: actions/cache@v1
-        with:
-          path: ./packages/client/functions
-          key: ${{ matrix.os }}-node-v${{ matrix.node }}-build-functions-${{ github.sha }}
-
-      - name: debug
-        run: |
-          cd packages/client
-          ls -a
-
-      - name: prepare-deploy
+      - name: prepare deploy
         run: yarn workspace client build:copy
 
-      - name: deploy to Firebase
+      - name: deploy to hosting to Firebase
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only functions:ssr,hosting
+          args: deploy --only hosting
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_DEV }}
+          PROJECT_PATH: ./packages/client
+
+      - name: weight saving
+        run: |
+          rm -rf ./packages/client/public
+          rm -rf ./packages/client/src
+
+      - name: deploy to functions to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only functions:ssr
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_DEV }}
           PROJECT_PATH: ./packages/client
