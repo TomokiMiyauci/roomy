@@ -262,14 +262,14 @@ jobs:
           SKYWAY_KEY: ${{ secrets.SKYWAY_KEY_DEV }}
         run: yarn workspace client build
 
-      - name: cache build deliverable
-        uses: actions/cache@v1
-        with:
-          path: ${{ github.workspace }}
-          key: ${{ matrix.os }}-node-v${{ matrix.node }}-build-${{ github.sha }}
+      # - name: cache build deliverable
+      #   uses: actions/cache@v1
+      #   with:
+      #     path: ${{ github.workspace }}
+      #     key: ${{ matrix.os }}-node-v${{ matrix.node }}-build-${{ github.sha }}
 
       - name: cache build
-        uses: actions/cache@v2
+        uses: actions/cache@v1
         with:
           path: ./packages/client/.nuxt/
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-build-nuxt-${{ github.sha }}
@@ -319,24 +319,30 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - name: checkout
-        uses: actions/checkout@master
+      # - name: checkout
+      #   uses: actions/checkout@master
 
-      - name: restore build deliverable cache
+      # - name: restore build deliverable cache
+      #   uses: actions/cache@v1
+      #   with:
+      #     path: ${{ github.workspace }}
+      #     key: ${{ matrix.os }}-node-v${{ matrix.node }}-build-${{ github.sha }}
+
+      - name: restore workspace cache
         uses: actions/cache@v1
         with:
           path: ${{ github.workspace }}
-          key: ${{ matrix.os }}-node-v${{ matrix.node }}-build-${{ github.sha }}
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
 
       - name: restore build
-        uses: actions/cache@v2
+        uses: actions/cache@v1
         with:
-          path: ./packages/server/
+          path: ./packages/client/.nuxt/
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-build-nuxt-${{ github.sha }}
 
       - name: debug
         run: |
-          cd packages/server
+          cd packages/client
           ls
 
       - name: prepare-deploy
