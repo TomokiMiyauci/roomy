@@ -319,8 +319,11 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      # - name: checkout
-      #   uses: actions/checkout@master
+      - name: checkout
+        uses: actions/checkout@master
+
+      - name: install
+        run: yarn --check-files --frozen-lockfile --non-interactive --ignore-engines --prod
 
       # - name: restore build deliverable cache
       #   uses: actions/cache@v1
@@ -328,11 +331,11 @@ jobs:
       #     path: ${{ github.workspace }}
       #     key: ${{ matrix.os }}-node-v${{ matrix.node }}-build-${{ github.sha }}
 
-      - name: restore workspace cache
-        uses: actions/cache@v1
-        with:
-          path: ${{ github.workspace }}
-          key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
+      # - name: restore workspace cache
+      #   uses: actions/cache@v1
+      #   with:
+      #     path: ${{ github.workspace }}
+      #     key: ${{ matrix.os }}-node-v${{ matrix.node }}-nuxt-${{ github.sha }}
 
       - name: restore build
         uses: actions/cache@v1
@@ -343,7 +346,7 @@ jobs:
       - name: debug
         run: |
           cd packages/client
-          ls
+          ls -a
 
       - name: prepare-deploy
         run: yarn workspace client build:copy
