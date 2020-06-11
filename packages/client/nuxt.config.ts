@@ -258,9 +258,11 @@ const config: Configuration = {
         : undefined,
 
     extend(config) {
-      return Object.assign({}, config, {
-        devtool: 'source-map'
-      })
+      if (process.env.NODE_ENV !== 'production') {
+        return Object.assign({}, config, {
+          devtool: 'source-map'
+        })
+      }
     }
 
     // publicPath: process.env.AUTH_DOMAIN
