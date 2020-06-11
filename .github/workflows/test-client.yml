@@ -280,9 +280,7 @@ jobs:
       - name: cache build functions
         uses: actions/cache@v1
         with:
-          path: |
-             ./packages/client/functions/index.js
-             ./packages/client/functions/ssr.js
+          path: ./packages/client/functions
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-build-functions-${{ github.sha }}
 
   deploy-storybook:
@@ -357,9 +355,7 @@ jobs:
       - name: restore build functions
         uses: actions/cache@v1
         with:
-          path: |
-             ./packages/client/functions/index.js
-             ./packages/client/functions/ssr.js
+          path: ./packages/client/functions
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-build-functions-${{ github.sha }}
 
       - name: debug
