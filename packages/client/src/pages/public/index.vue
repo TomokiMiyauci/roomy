@@ -97,7 +97,7 @@
       />
       <form-user-profile :displayName="displayName" v-else-if="isOpenEdit" />
     </v-dialog>
-    <carousel-rooms :rooms="rooms" />
+    <carousel-rooms :rooms="rooms" @open:qrcode="qrcode" />
   </v-container>
 </template>
 
