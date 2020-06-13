@@ -115,7 +115,9 @@ const config: Configuration = {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/robots',
-    '@nuxtjs/sentry'
+    '@nuxtjs/sentry',
+    '@nuxtjs/device'
+
     // Doc: https://github.com/nuxt-community/dotenv-module
     // ['nuxt-i18n', i18n]
   ],
