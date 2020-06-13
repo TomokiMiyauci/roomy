@@ -1,4 +1,4 @@
-import 'firebase/firestore'
+import 'firebase/firestore/memory'
 import 'firebase/storage'
 import 'firebase/auth'
 
