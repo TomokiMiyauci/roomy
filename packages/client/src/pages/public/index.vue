@@ -97,7 +97,7 @@
       />
       <form-user-profile :displayName="displayName" v-else-if="isOpenEdit" />
     </v-dialog>
-    <carousel-rooms :rooms="rooms" @open:qrcode="qrcode" />
+    <carousel-rooms :rooms="rooms" v-if="rooms.length" @open:qrcode="qrcode" />
   </v-container>
 </template>
 
@@ -126,6 +126,7 @@ import { getPublicRoomsLatest } from '@/repositories/publicRoom'
 import { favoriteRoom, user, viewHistory } from '@/store'
 import { generateInviteURL } from '@/utils/firestore'
 import { PublicRoomMerged } from '~types/core'
+
 export default defineComponent({
   head() {
     return {
@@ -133,7 +134,9 @@ export default defineComponent({
     }
   },
 
-  layout: 'publicRooms',
+  layout({ isMobile }: any) {
+    return isMobile ? 'mobile/publicRooms' : 'publicRooms'
+  },
 
   components: {
     TheRooms: () => import('@/components/organisms/TheRooms.vue'),
