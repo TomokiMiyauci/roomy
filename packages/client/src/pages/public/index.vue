@@ -1,9 +1,5 @@
 <template>
   <v-container :class="{ 'fill-height': !isLoad }">
-    <v-subheader inset>
-      <v-icon left>{{ mdiChatAlert }}</v-icon
-      >Recent</v-subheader
-    >
     <v-snackbar
       @input="reset"
       v-model="snackbar"
@@ -17,33 +13,6 @@
         Close
       </v-btn>
     </v-snackbar>
-
-    <!-- <transition name="fade-transition">
-      <v-row v-if="isLoad" justify="space-between" align="start">
-        <transition-group name="fab-transition" tag="div" class="pa-3 row">
-          <v-col
-            v-for="room in rooms"
-            :key="room.id"
-            xs="12"
-            cols="12"
-            sm="6"
-            md="6"
-            lg="4"
-          >
-            <CardPublicRoom :room="room" max-width="500px" />
-          </v-col>
-        </transition-group>
-      </v-row>
-
-      <v-row v-else justify="center" align="center" class="fill-height">
-        <v-progress-circular
-          :width="8"
-          indeterminate
-          size="100"
-          color="primary"
-        />
-      </v-row>
-    </transition> -->
 
     <client-only>
       <template v-if="$vuetify.breakpoint.mdAndDown">
@@ -97,7 +66,21 @@
       />
       <form-user-profile :displayName="displayName" v-else-if="isOpenEdit" />
     </v-dialog>
-    <carousel-rooms :rooms="rooms" v-if="rooms.length" @open:qrcode="qrcode" />
+
+    <client-only>
+      <v-subheader v-if="!mobile" inset>
+        <v-icon left>{{ mdiChatAlert }}</v-icon
+        >Recent</v-subheader
+      >
+    </client-only>
+
+    <client-only>
+      <carousel-rooms
+        :rooms="rooms"
+        v-if="!mobile && rooms.length"
+        @open:qrcode="qrcode"
+      />
+    </client-only>
   </v-container>
 </template>
 
