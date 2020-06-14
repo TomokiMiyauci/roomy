@@ -9,9 +9,7 @@
     />
 
     <v-content>
-      <transition name="fade">
-        <nuxt :nuxt-child-key="$route.fullPath" />
-      </transition>
+      <nuxt :nuxt-child-key="$route.fullPath" />
     </v-content>
 
     <the-bottom-navigation :login="login" />
@@ -48,13 +46,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style lang="scss">
-.fade-enter {
-  opacity: 0;
-}
-
-.fade-enter-active {
-  transition: opacity 2s;
-}
-</style>

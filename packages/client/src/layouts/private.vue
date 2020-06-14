@@ -10,9 +10,7 @@
     />
 
     <v-content>
-      <transition name="fade">
-        <nuxt />
-      </transition>
+      <nuxt />
     </v-content>
     <client-only>
       <the-bottom-navigation v-if="$vuetify.breakpoint.mdAndDown" />
@@ -58,13 +56,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style lang="scss">
-.fade-enter {
-  opacity: 0;
-}
-
-.fade-enter-active {
-  transition: opacity 2s;
-}
-</style>

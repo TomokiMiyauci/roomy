@@ -2,9 +2,7 @@
   <v-app>
     <the-app-bar :login="login" :photo-u-r-l="photoURL" />
     <v-content>
-      <transition name="fade">
-        <nuxt />
-      </transition>
+      <nuxt />
     </v-content>
     <the-bottom-navigation />
   </v-app>
@@ -28,13 +26,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style lang="scss">
-.fade-enter {
-  opacity: 0;
-}
-
-.fade-enter-active {
-  transition: opacity 2s;
-}
-</style>

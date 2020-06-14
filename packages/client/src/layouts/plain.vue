@@ -1,9 +1,12 @@
 <template>
   <v-app>
+    <v-app-bar app>
+      <v-toolbar-title>
+        hello
+      </v-toolbar-title>
+    </v-app-bar>
     <v-content>
-      <transition name="fade">
-        <nuxt />
-      </transition>
+      <nuxt />
     </v-content>
   </v-app>
 </template>
@@ -13,13 +16,3 @@ import { defineComponent } from '@vue/composition-api'
 
 export default defineComponent({})
 </script>
-
-<style lang="scss">
-.fade-enter {
-  opacity: 0;
-}
-
-.fade-enter-active {
-  transition: opacity 2s;
-}
-</style>

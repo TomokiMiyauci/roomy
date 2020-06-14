@@ -5,9 +5,7 @@
     <the-app-bar-chat />
 
     <v-content>
-      <transition name="fade">
-        <nuxt />
-      </transition>
+      <nuxt />
     </v-content>
   </v-app>
 </template>
@@ -41,13 +39,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style lang="scss">
-.fade-enter {
-  opacity: 0;
-}
-
-.fade-enter-active {
-  transition: opacity 2s;
-}
-</style>
