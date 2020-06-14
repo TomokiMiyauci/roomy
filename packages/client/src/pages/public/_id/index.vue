@@ -169,6 +169,8 @@ export default defineComponent({
 
   layout: 'public-chat',
 
+  transition: 'slide-in',
+
   components: {
     ButtonImage: () => import('@/components/molecules/ButtonImage.vue'),
     BoxCallout: () => import('@/components/atoms/SpeechBalloon.vue'),
