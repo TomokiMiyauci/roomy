@@ -29,7 +29,7 @@ export default defineComponent({
   setup() {
     const { collectionRef } = roomReference()
 
-    const rooms = useFirestore(
+    const { data: rooms } = useFirestore(
       collectionRef.value
         .where('isPrivate', '==', false)
         .orderBy('recent.updatedAt', 'desc')

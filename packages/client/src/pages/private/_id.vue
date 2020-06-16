@@ -165,7 +165,9 @@ export default defineComponent({
     console.log(111, collectionRef)
     reference.setRoomId(root.$route.params.id)
 
-    const a = useFirestore(collectionRef.value.orderBy('createdAt', 'asc'))
+    const { data: a } = useFirestore(
+      collectionRef.value.orderBy('createdAt', 'asc')
+    )
 
     const beforeEnter = (el: any) => {
       el.style.opacity = 0
@@ -228,21 +230,6 @@ export default defineComponent({
       await root.$nextTick()
       scrollTo(0, document.body.clientHeight)
     }
-    // const unsubsribe = firestore
-    //   .collection('public')
-    //   .onSnapshot((snapshots) => {
-    //     snapshots.docChanges().forEach((change) => {
-    //       switch (change.type) {
-    //         case 'added': {
-    //           store.value.push(change.doc.data())
-    //         }
-    //       }
-    //       console.log(change.type)
-
-    //       // store.value.push(snapshot.data())
-    //       // console.log(snapshot.data())
-    //     })
-    //   })
 
     return {
       mdiAlertCircleOutline,

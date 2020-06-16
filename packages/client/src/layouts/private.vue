@@ -41,7 +41,7 @@ export default defineComponent({
 
   setup(_, { root }) {
     const { collectionRef } = roomReference()
-    const rooms = useFirestore(
+    const { data: rooms } = useFirestore(
       collectionRef.value
         .where('isPrivate', '==', true)
         .where('members', 'array-contains', user.id)

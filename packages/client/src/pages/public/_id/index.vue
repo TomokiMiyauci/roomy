@@ -201,7 +201,7 @@ export default defineComponent({
 
     const { collectionRef } = messageReference()
 
-    const messages = useFirestore<Message>(
+    const { data: messages } = useFirestore<Message>(
       collectionRef.value.orderBy('createdAt', 'asc')
     )
 

@@ -1,15 +1,16 @@
 <template>
   <v-container>
-    <!-- <video
-      id="local_video"
-      autoplay
-      style="width:400px;border:1px solid black"
-    />
+    <video id="local_video" autoplay style="width:400px;border:1px solid black">
+      <track default kind="captions" srclang="en" />
+    </video>
+
     <video
       id="global_video"
       autoplay
       style="width:500px;border:1px solid black"
-    /> -->
+    >
+      <track default kind="captions" srclang="en" />
+    </video>
   </v-container>
 </template>
 
@@ -88,7 +89,7 @@ export default defineComponent({
       playVideo(el, mediaStream)
     }
 
-    const store = useFirestore(firestore.collection('p2p').doc('1'))
+    const { data: store } = useFirestore(firestore.collection('p2p').doc('1'))
 
     const stop = watch(store, (now, prev) => {
       if (!!now && 'offerSDP' in now && !prev) {

@@ -2,18 +2,22 @@
   <v-container class="fill-height">
     <v-row class="fill-height">
       <v-col>
-        <!-- <video
+        <video
           id="local_video"
           autoplay
           style="width:100%;height:100%;border: 1px solid black;"
-        ></video> -->
+        >
+          <track default kind="captions" srclang="en" />
+        </video>
       </v-col>
       <v-col>
-        <!-- <video
+        <video
           id="global_video"
           autoplay
           style="width:100%;height:100%;border:1px solid black;"
-        ></video> -->
+        >
+          <track default kind="captions" srclang="en" />
+        </video>
       </v-col>
     </v-row>
     <v-btn @click="init" color="success">INIT</v-btn>
@@ -46,7 +50,7 @@ export default defineComponent({
       localStream: undefined
     })
 
-    const store = useFirestore(firestore.collection('p2p').doc('1'))
+    const { data: store } = useFirestore(firestore.collection('p2p').doc('1'))
 
     const setLocalVideo = (mediaStream: MediaStream) => {
       const el = document.getElementById('local_video') as HTMLVideoElement
