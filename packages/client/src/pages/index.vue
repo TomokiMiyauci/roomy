@@ -131,6 +131,10 @@ import { defineComponent, ref } from '@vue/composition-api'
 export default defineComponent({
   layout: 'landing',
 
+  head: {
+    title: 'Home'
+  },
+
   setup() {
     const model = ref(0)
     const colors = ['primary', 'secondary', 'yellow darken-2', 'red', 'orange']
