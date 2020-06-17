@@ -1,4 +1,4 @@
-import { onBeforeMount, onUnmounted, Ref, ref } from '@vue/composition-api'
+import { onUnmounted, Ref, ref } from '@vue/composition-api'
 
 import firebase from '@/plugins/firebase'
 import { Id } from '~types/core'
@@ -28,58 +28,49 @@ export const getData = <T>(
 
 export function useFirestore<T extends firebase.firestore.DocumentData>(
   docRef: firebase.firestore.DocumentReference<T>,
-  autoSync?: boolean,
   errorHandler?: (err: Error) => void
-): { data: Ref<(T & Id) | null>; asyncSnapshot: () => Promise<void> }
+): { dataRef: Ref<(T & Id) | null>; asyncState: Promise<void> }
 export function useFirestore<T extends firebase.firestore.DocumentData>(
   docRef: firebase.firestore.Query,
-  autoSync?: boolean,
   errorHandler?: (err: Error) => void
-): { data: Ref<(T & Id)[]>; asyncSnapshot: () => Promise<void> }
+): { dataRef: Ref<(T & Id)[]>; asyncState: Promise<void> }
 export function useFirestore<T extends firebase.firestore.DocumentData>(
   docRef: FirebaseDocRef<T>,
-  autoSync = true,
   errorHandler = (err: Error) => {
     console.log(err)
   }
 ) {
   const close = ref<() => void>(() => {})
-  const asyncSnapshot = ref<() => Promise<void>>(() => Promise.resolve())
-
-  onBeforeMount(async () => {
-    if (!autoSync) return
-    await asyncSnapshot.value()
-  })
 
   onUnmounted(() => {
     close.value()
   })
 
   if (docRef instanceof firebase.firestore.DocumentReference) {
-    const data = ref<T | null>(null)
+    const dataRef = ref<T | null>(null)
 
-    asyncSnapshot.value = (): Promise<void> => {
+    const asyncState = (): Promise<void> => {
       return new Promise((resolve) => {
         close.value = docRef.onSnapshot((snapshot) => {
-          data.value = getData(snapshot) || null
+          dataRef.value = getData(snapshot) || null
           resolve()
         }, errorHandler)
       })
     }
 
-    return { data, asyncSnapshot: asyncSnapshot.value }
+    return { asyncState: asyncState(), dataRef }
   } else {
-    const data = ref<T[]>([])
-
-    asyncSnapshot.value = (): Promise<void> => {
+    const dataRef = ref<T[]>([])
+    const asyncSnapshot = (): Promise<void> => {
       return new Promise((resolve) => {
         close.value = docRef.onSnapshot((snapshot) => {
-          data.value = snapshot.docs.map(getData).filter(isDef)
+          dataRef.value = snapshot.docs.map(getData).filter(isDef)
+
           resolve()
         }, errorHandler)
       })
     }
 
-    return { data, asyncSnapshot: asyncSnapshot.value }
+    return { asyncState: asyncSnapshot(), dataRef }
   }
 }
