@@ -65,6 +65,7 @@
     "skyway-js": "^3.0.0",
     "vue-advanced-cropper": "^0.16.1",
     "vue-filter-pretty-bytes": "^0.1.4",
+    "vue-promised": "^1.2.2",
     "vue-qrcode-reader": "^2.2.0",
     "vue-typer": "^1.2.0",
     "vuex-module-decorators": "^0.16.1"
