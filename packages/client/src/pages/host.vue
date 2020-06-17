@@ -50,7 +50,9 @@ export default defineComponent({
       localStream: undefined
     })
 
-    const { data: store } = useFirestore(firestore.collection('p2p').doc('1'))
+    const { dataRef: store } = useFirestore(
+      firestore.collection('p2p').doc('1')
+    )
 
     const setLocalVideo = (mediaStream: MediaStream) => {
       const el = document.getElementById('local_video') as HTMLVideoElement

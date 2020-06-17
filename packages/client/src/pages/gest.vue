@@ -89,7 +89,9 @@ export default defineComponent({
       playVideo(el, mediaStream)
     }
 
-    const { data: store } = useFirestore(firestore.collection('p2p').doc('1'))
+    const { dataRef: store } = useFirestore(
+      firestore.collection('p2p').doc('1')
+    )
 
     const stop = watch(store, (now, prev) => {
       if (!!now && 'offerSDP' in now && !prev) {

@@ -18,7 +18,7 @@ export default defineComponent({
   },
 
   setup() {
-    const { data: rooms } = useFirestore(firestore.collection('rooms'))
+    const { dataRef: rooms } = useFirestore(firestore.collection('rooms'))
 
     return { rooms }
   }

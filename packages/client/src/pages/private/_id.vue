@@ -165,7 +165,7 @@ export default defineComponent({
     console.log(111, collectionRef)
     reference.setRoomId(root.$route.params.id)
 
-    const { data: a } = useFirestore(
+    const { dataRef: a } = useFirestore(
       collectionRef.value.orderBy('createdAt', 'asc')
     )
 
