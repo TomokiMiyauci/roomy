@@ -4,18 +4,17 @@
       <recording-studio @close="onClose" />
     </v-bottom-sheet>
 
-    <v-container v-if="!messages.length" class="fill-height pa-10">
-      <v-row class="flex-column">
-        <transition-group name="fade">
-          <template v-if="!isEmpty">
-            <SkeletonLoaderMessageSet
-              v-for="i in 10"
-              :key="i"
-              class="pb-4"
-            ></SkeletonLoaderMessageSet>
-          </template>
-
-          <v-row key="suggest" v-else align="center" class="flex-column">
+    <Promised :promise="asyncState">
+      <template #pending>
+        <SkeletonLoaderMessageSet
+          v-for="i in 10"
+          :key="i"
+          class="pb-4"
+        ></SkeletonLoaderMessageSet>
+      </template>
+      <template #default>
+        <v-container v-if="!messages.length" class="fill-height pa-10">
+          <v-row key="suggest" align="center" class="flex-column">
             <v-col cols="auto">
               <v-icon size="50">{{ mdiCommentProcessing }}</v-icon>
             </v-col>
@@ -24,56 +23,55 @@
               <span class="display-1 grey-darken-1--text">No message </span>
             </v-col>
           </v-row>
-        </transition-group>
-      </v-row>
-    </v-container>
+        </v-container>
 
-    <v-container v-else style="padding-bottom:62px;">
-      <v-row class="flex-column">
-        <v-col>
-          <transition-group
-            :css="false"
-            @before-enter="beforeEnter"
-            @enter="enter"
-            name="list"
-            appear
-          >
-            <template v-for="(message, index) in messages">
-              <v-row
-                v-if="
-                  index !== 0 &&
-                    message.createdAt &&
-                    !dayjs(messages[index - 1].createdAt.seconds * 1000).isSame(
-                      message.createdAt.seconds * 1000,
-                      'day'
-                    )
-                "
-                :key="message.id + 4"
-                style="border-top:1px solid grey;"
-                justify="center"
+        <v-container v-else style="padding-bottom:62px;">
+          <v-row class="flex-column">
+            <v-col>
+              <transition-group
+                :css="false"
+                @before-enter="beforeEnter"
+                @enter="enter"
+                name="list"
+                appear
               >
-                <v-col cols="auto" align-self="center">
-                  <chip-date
-                    :unixtime="message.createdAt.seconds * 1000"
-                    format="YYYY-MM-DD"
-                  />
-                </v-col>
-              </v-row>
+                <template v-for="(message, index) in messages">
+                  <v-row
+                    v-if="
+                      index !== 0 &&
+                        message.createdAt &&
+                        !dayjs(
+                          messages[index - 1].createdAt.seconds * 1000
+                        ).isSame(message.createdAt.seconds * 1000, 'day')
+                    "
+                    :key="message.id + 4"
+                    style="border-top:1px solid grey;"
+                    justify="center"
+                  >
+                    <v-col cols="auto" align-self="center">
+                      <chip-date
+                        :unixtime="message.createdAt.seconds * 1000"
+                        format="YYYY-MM-DD"
+                      />
+                    </v-col>
+                  </v-row>
 
-              <message-set
-                :key="message.id"
-                :message="message"
-                :is-own="isOwn(message)"
-              />
-              <v-divider
-                v-show="!$vuetify.breakpoint.mdAndDown"
-                :key="`${index}divider`"
-              />
-            </template>
-          </transition-group>
-        </v-col>
-      </v-row>
-    </v-container>
+                  <message-set
+                    :key="message.id"
+                    :message="message"
+                    :is-own="isOwn(message)"
+                  />
+                  <v-divider
+                    v-show="!$vuetify.breakpoint.mdAndDown"
+                    :key="`${index}divider`"
+                  />
+                </template>
+              </transition-group>
+            </v-col>
+          </v-row>
+        </v-container>
+      </template>
+    </Promised>
 
     <v-dialog
       v-model="dialog"
@@ -152,6 +150,7 @@ import {
 } from '@vue/composition-api'
 import dayjs from 'dayjs'
 import { gsap } from 'gsap'
+import { Promised } from 'vue-promised'
 
 import CardCreateStream from '@/components/organisms/CardCreateStream.vue'
 import { useFirestore } from '@/core/useFirestore'
@@ -160,6 +159,7 @@ import { enterRoom, favor } from '@/repositories/users'
 import { publicRoom, reference, user, viewHistory } from '@/store'
 import { generateInviteURL, isOwn } from '@/utils/firestore'
 import { Message, PublicRoom } from '~types/core'
+
 export default defineComponent({
   head() {
     return {
@@ -182,7 +182,8 @@ export default defineComponent({
     SkeletonLoaderMessageSet: () =>
       import('@/components/molecules/SkeletonLoaderMessageSet.vue'),
     CardRoomShare: () => import('@/components/molecules/CardRoomShare.vue'),
-    CardCreateStream
+    CardCreateStream,
+    Promised
   },
 
   setup(_, { root }) {
@@ -196,18 +197,13 @@ export default defineComponent({
     const sheet = ref(false)
     const dialog = ref(false)
     const text = ref('')
-    const isEmpty = ref(false)
     const dialogState = ref<'video' | 'create' | ''>('')
 
     const { collectionRef } = messageReference()
 
-    const { data: messages } = useFirestore<Message>(
+    const { dataRef: messages, asyncState } = useFirestore<Message>(
       collectionRef.value.orderBy('createdAt', 'asc')
     )
-
-    setTimeout(() => {
-      isEmpty.value = true
-    }, 3000)
 
     const beforeEnter = (el: HTMLLIElement) => {
       el.style.opacity = '0'
@@ -291,10 +287,10 @@ export default defineComponent({
       dialog,
       text,
       mdiCommentProcessing,
-      isEmpty,
       mdiHeart,
       login: user.login,
-      onFavor
+      onFavor,
+      asyncState
     }
   }
 })
