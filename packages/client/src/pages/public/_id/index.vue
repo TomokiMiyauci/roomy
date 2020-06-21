@@ -3,75 +3,86 @@
     <v-bottom-sheet v-model="sheet">
       <recording-studio @close="onClose" />
     </v-bottom-sheet>
+    <v-row class="fill-height" no-gutters>
+      <v-col :cols="videos ? 9 : 12">
+        <Promised :promise="asyncState">
+          <template #pending>
+            <SkeletonLoaderMessageSet
+              v-for="i in 10"
+              :key="i"
+              class="pb-4"
+            ></SkeletonLoaderMessageSet>
+          </template>
+          <template #default>
+            <v-container v-if="!messages.length" class="fill-height pa-10">
+              <v-row key="suggest" align="center" class="flex-column">
+                <v-col cols="auto">
+                  <v-icon size="50">{{ mdiCommentProcessing }}</v-icon>
+                </v-col>
 
-    <Promised :promise="asyncState">
-      <template #pending>
-        <SkeletonLoaderMessageSet
-          v-for="i in 10"
-          :key="i"
-          class="pb-4"
-        ></SkeletonLoaderMessageSet>
-      </template>
-      <template #default>
-        <v-container v-if="!messages.length" class="fill-height pa-10">
-          <v-row key="suggest" align="center" class="flex-column">
-            <v-col cols="auto">
-              <v-icon size="50">{{ mdiCommentProcessing }}</v-icon>
-            </v-col>
+                <v-col cols="auto">
+                  <span class="display-1 grey-darken-1--text">No message </span>
+                </v-col>
+              </v-row>
+            </v-container>
 
-            <v-col cols="auto">
-              <span class="display-1 grey-darken-1--text">No message </span>
-            </v-col>
-          </v-row>
-        </v-container>
-
-        <v-container v-else style="padding-bottom:62px;">
-          <v-row class="flex-column">
-            <v-col>
-              <transition-group
-                :css="false"
-                @before-enter="beforeEnter"
-                @enter="enter"
-                name="list"
-                appear
-              >
-                <template v-for="(message, index) in messages">
-                  <v-row
-                    v-if="
-                      index !== 0 &&
-                        message.createdAt &&
-                        !dayjs(
-                          messages[index - 1].createdAt.seconds * 1000
-                        ).isSame(message.createdAt.seconds * 1000, 'day')
-                    "
-                    :key="message.id + 4"
-                    style="border-top:1px solid grey;"
-                    justify="center"
+            <v-container v-else style="padding-bottom:62px;">
+              <v-row class="flex-column">
+                <v-col>
+                  <transition-group
+                    :css="false"
+                    @before-enter="beforeEnter"
+                    @enter="enter"
+                    name="list"
+                    appear
                   >
-                    <v-col cols="auto" align-self="center">
-                      <chip-date
-                        :unixtime="message.createdAt.seconds * 1000"
-                        format="YYYY-MM-DD"
-                      />
-                    </v-col>
-                  </v-row>
+                    <template v-for="(message, index) in messages">
+                      <v-row
+                        v-if="
+                          index !== 0 &&
+                            message.createdAt &&
+                            !dayjs(
+                              messages[index - 1].createdAt.seconds * 1000
+                            ).isSame(message.createdAt.seconds * 1000, 'day')
+                        "
+                        :key="message.id + 4"
+                        style="border-top:1px solid grey;"
+                        justify="center"
+                      >
+                        <v-col cols="auto" align-self="center">
+                          <chip-date
+                            :unixtime="message.createdAt.seconds * 1000"
+                            format="YYYY-MM-DD"
+                          />
+                        </v-col>
+                      </v-row>
 
-                  <message-set
-                    :key="message.id"
-                    :message="message"
-                    :is-own="isOwn(message)"
-                  />
-                  <v-divider
-                    v-show="!$vuetify.breakpoint.mdAndDown"
-                    :key="`${index}divider`"
-                  />
-                </template>
-              </transition-group>
-            </v-col>
-          </v-row>
-        </v-container>
-      </template>
-    </Promised>
+                      <message-set
+                        :key="message.id"
+                        :message="message"
+                        :is-own="isOwn(message)"
+                      />
+                      <v-divider
+                        v-show="!$vuetify.breakpoint.mdAndDown"
+                        :key="`${index}divider`"
+                      />
+                    </template>
+                  </transition-group>
+                </v-col>
+              </v-row>
+            </v-container>
+          </template>
+        </Promised>
+      </v-col>
+      <v-col v-if="videos" style="border:1px solid grey;" cols="3">
+        <v-subheader inset>
+          Video
+        </v-subheader>
+        <v-card v-for="i in videos" :key="i" class="ma-5">
+          <v-card-title></v-card-title>
+        </v-card>
+      </v-col>
+    </v-row>
 
     <v-dialog
       v-model="dialog"
@@ -102,18 +113,42 @@
       style="position:fixed;bottom:0;background-color:rgb(255,255,255);"
     >
       <the-post @postend="onPostend" @audio="sheet = true" />
-      <v-btn
-        @click="onCreateVideo"
-        v-if="login"
-        color="primary"
-        dark
-        absolute
-        fab
-        small
-        style="bottom:160px"
-        right
-        ><v-icon>{{ mdiPhoneRing }}</v-icon></v-btn
-      >
+      <v-dialog v-if="login" max-width="600px" transition="slide-x-transition">
+        <template #activator="{on}">
+          <v-btn
+            v-on="on"
+            color="primary"
+            dark
+            absolute
+            fab
+            small
+            style="bottom:160px"
+            right
+            ><v-icon>{{ mdiPhoneRing }}</v-icon></v-btn
+          >
+        </template>
+        <v-card>
+          <v-toolbar color="primary">
+            <button-close color="secondary" />
+            <v-toolbar-title class="white--text"
+              >New Stream Room</v-toolbar-title
+            >
+          </v-toolbar>
+          <v-card-title>
+            Stream Room Name
+          </v-card-title>
+
+          <v-card-text>
+            <v-text-field outlined value="Room1" label="Stream Room Name" />
+          </v-card-text>
+          <v-divider />
+          <v-card-actions>
+            <v-spacer />
+            <v-btn color="primary">Create</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
       <v-btn
         @click="onFavor"
         v-if="login"
@@ -173,6 +208,7 @@ export default defineComponent({
 
   components: {
     ButtonImage: () => import('@/components/molecules/ButtonImage.vue'),
+    ButtonClose: () => import('@/components/molecules/ButtonClose.vue'),
     BoxCallout: () => import('@/components/atoms/SpeechBalloon.vue'),
     MessageSet: () => import('@/components/molecules/MessageSet.vue'),
     ThePost: () => import('@/components/organisms/ThePost.vue'),
@@ -204,6 +240,8 @@ export default defineComponent({
     const { dataRef: messages, asyncState } = useFirestore<Message>(
       collectionRef.value.orderBy('createdAt', 'asc')
     )
+
+    const videos = ref(1)
 
     const beforeEnter = (el: HTMLLIElement) => {
       el.style.opacity = '0'
@@ -290,18 +328,9 @@ export default defineComponent({
       mdiHeart,
       login: user.login,
       onFavor,
-      asyncState
+      asyncState,
+      videos
     }
   }
 })
 </script>
-
-<style lang="scss">
-.fade-enter {
-  opacity: 0;
-}
-
-.fade-enter-active {
-  transition: opacity 2s;
-}
-</style>
