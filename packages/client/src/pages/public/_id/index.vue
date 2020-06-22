@@ -4,7 +4,7 @@
       <recording-studio @close="onClose" />
     </v-bottom-sheet>
     <v-row class="fill-height" no-gutters>
-      <v-col :cols="videos ? 9 : 12">
+      <v-col :cols="streams.length && !$vuetify.breakpoint.mdAndDown ? 9 : 12">
         <Promised :promise="asyncState">
           <template #pending>
             <SkeletonLoaderMessageSet
@@ -74,14 +74,37 @@
           </template>
         </Promised>
       </v-col>
-      <v-col v-if="videos" style="border:1px solid grey;" cols="3">
-        <v-subheader inset>
-          Video
-        </v-subheader>
-        <v-card v-for="i in videos" :key="i" class="ma-5">
-          <v-card-title></v-card-title>
-        </v-card>
-      </v-col>
+      <Promised v-if="!$vuetify.breakpoint.mdAndDown" :promise="asyncStream">
+        <template #pending> </template>
+        <template #default>
+          <v-col
+            v-if="streams.length"
+            style="height:calc(100vh - 126px);overflow-y:scroll;border-right:1px solid grey;border-left:1px solid grey;border-radius: 5px;"
+            cols="3"
+          >
+            <v-subheader
+              style="position:sticky;top:0;z-index:5;background-color:grey;"
+            >
+              <v-icon left>{{ mdiMessageVideo }}</v-icon>
+              Video Chat
+              <v-spacer />
+              <v-btn color="secondary" raised><mdi-eye left />View All</v-btn>
+            </v-subheader>
+            <v-card
+              v-for="i in streams"
+              :to="`${$route.params.id}/${i.id}`"
+              :key="i.id"
+              min-width="200"
+              min-height="200"
+              class="ma-5"
+            >
+              <v-card-title>
+                {{ i.name }}
+              </v-card-title>
+            </v-card>
+          </v-col>
+        </template>
+      </Promised>
     </v-row>
 
     <v-dialog
@@ -139,12 +162,17 @@
           </v-card-title>
 
           <v-card-text>
-            <v-text-field outlined value="Room1" label="Stream Room Name" />
+            <v-text-field
+              v-model="roomName"
+              outlined
+              value="Room1"
+              label="Stream Room Name"
+            />
           </v-card-text>
           <v-divider />
           <v-card-actions>
             <v-spacer />
-            <v-btn color="primary">Create</v-btn>
+            <v-btn @click="create" color="primary">Create</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -172,6 +200,7 @@ import {
   mdiCheckBoxOutline,
   mdiCommentProcessing,
   mdiHeart,
+  mdiMessageVideo,
   mdiMicrophone,
   mdiMicrophoneSettings,
   mdiPhoneRing
@@ -190,11 +219,11 @@ import { Promised } from 'vue-promised'
 import CardCreateStream from '@/components/organisms/CardCreateStream.vue'
 import { useFirestore } from '@/core/useFirestore'
 import { messageReference } from '@/core/useFirestoreReference'
+import { firestore } from '@/plugins/firebase'
 import { enterRoom, favor } from '@/repositories/users'
 import { publicRoom, reference, user, viewHistory } from '@/store'
 import { generateInviteURL, isOwn } from '@/utils/firestore'
 import { Message, PublicRoom } from '~types/core'
-
 export default defineComponent({
   head() {
     return {
@@ -218,6 +247,7 @@ export default defineComponent({
     SkeletonLoaderMessageSet: () =>
       import('@/components/molecules/SkeletonLoaderMessageSet.vue'),
     CardRoomShare: () => import('@/components/molecules/CardRoomShare.vue'),
+    MdiEye: () => import('@/components/atoms/icons/MdiEye.vue'),
     CardCreateStream,
     Promised
   },
@@ -241,7 +271,15 @@ export default defineComponent({
       collectionRef.value.orderBy('createdAt', 'asc')
     )
 
-    const videos = ref(1)
+    const { dataRef: streams, asyncState: asyncStream } = useFirestore(
+      firestore
+        .collection('public-rooms')
+        .doc(root.$route.params.id)
+        .collection('streams')
+    )
+
+    const videos = ref(100)
+    const roomName = ref('Room1')
 
     const beforeEnter = (el: HTMLLIElement) => {
       el.style.opacity = '0'
@@ -273,8 +311,16 @@ export default defineComponent({
       await favor()
     }
 
-    const onCloseDialog = () => {
+    const onCloseDialog = (): void => {
       dialog.value = false
+    }
+
+    const create = () => {
+      return firestore
+        .collection('public-rooms')
+        .doc(root.$route.params.id)
+        .collection('streams')
+        .add({ name: roomName.value })
     }
 
     watch(dialog, (now) => {
@@ -319,6 +365,7 @@ export default defineComponent({
       enter,
       mdiMicrophone,
       mdiMicrophoneSettings,
+      mdiMessageVideo,
       onPostend,
       dayjs,
       isOwn,
@@ -329,7 +376,11 @@ export default defineComponent({
       login: user.login,
       onFavor,
       asyncState,
-      videos
+      videos,
+      create,
+      streams,
+      asyncStream,
+      roomName
     }
   }
 })
