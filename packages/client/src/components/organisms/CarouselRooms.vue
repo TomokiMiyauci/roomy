@@ -135,13 +135,7 @@ import {
   mdiEye,
   mdiLinkVariant
 } from '@mdi/js'
-import {
-  computed,
-  defineComponent,
-  PropType,
-  ref,
-  watch
-} from '@vue/composition-api'
+import { computed, defineComponent, PropType, ref } from '@vue/composition-api'
 
 import MdiNewBox from '@/components/atoms/icons/MdiNewBox.vue'
 import MessageCounter from '@/components/molecules/MessageCounter.vue'
@@ -167,12 +161,6 @@ export default defineComponent({
   setup(props) {
     const model = ref<number | null>(0)
     const overlay = ref(false)
-
-    watch(model, (now) => {
-      if (typeof now === 'number') {
-        overlay.value = false
-      }
-    })
 
     const selectingRoom = computed(() => {
       if (typeof model.value !== 'number') return props.rooms[0]
