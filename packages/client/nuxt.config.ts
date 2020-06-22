@@ -1,6 +1,6 @@
 import { Configuration } from '@nuxt/types'
+import fs from 'fs'
 import path from 'path'
-
 // import i18n from './nuxt-i18n.config'
 
 const autoprefixer = require('autoprefixer')
@@ -68,7 +68,7 @@ const config: Configuration = {
    */
   css: ['~/assets/css/transition.scss'],
 
-  transition: {
+  pageTransition: {
     name: 'fade'
   },
 
@@ -179,7 +179,7 @@ const config: Configuration = {
    ** Build configuration
    */
   build: {
-    cache: true,
+    hardSource: true,
     extractCSS: process.env.NODE_ENV === 'production',
     postcss: {
       plugins: [
@@ -287,7 +287,19 @@ const config: Configuration = {
     alias: {
       '@': path.resolve(__dirname, 'src')
     }
-  }
+  },
+
+  server:
+    process.env.NODE_ENV === 'https'
+      ? {
+          port: 3000,
+          host: '0.0.0.0',
+          https: {
+            key: fs.readFileSync(path.resolve(__dirname, 'localhost-key.pem')),
+            cert: fs.readFileSync(path.resolve(__dirname, 'localhost.pem'))
+          }
+        }
+      : undefined
 }
 
 export default config
