@@ -136,7 +136,12 @@
       style="position:fixed;bottom:0;background-color:rgb(255,255,255);"
     >
       <the-post @postend="onPostend" @audio="sheet = true" />
-      <v-dialog v-if="login" max-width="600px" transition="slide-x-transition">
+      <v-dialog
+        v-if="login"
+        v-model="d"
+        max-width="600px"
+        transition="slide-x-transition"
+      >
         <template #activator="{on}">
           <v-btn
             v-on="on"
@@ -152,7 +157,7 @@
         </template>
         <v-card>
           <v-toolbar color="primary">
-            <button-close color="secondary" />
+            <button-close @click="d = false" color="secondary" />
             <v-toolbar-title class="white--text"
               >New Stream Room</v-toolbar-title
             >
@@ -350,6 +355,8 @@ export default defineComponent({
       root.$nuxt.$off(['open:qrcode'])
     })
 
+    const d = ref(false)
+
     return {
       onCloseDialog,
       dialogState,
@@ -380,7 +387,8 @@ export default defineComponent({
       create,
       streams,
       asyncStream,
-      roomName
+      roomName,
+      d
     }
   }
 })
