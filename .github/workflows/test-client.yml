@@ -323,6 +323,10 @@ jobs:
         os: [ubuntu-latest]
         node: [10]
 
+    defaults:
+      run:
+        working-directory: ./packages/client
+
     steps:
       - uses: actions/setup-node@v2-beta
         with:
@@ -346,32 +350,30 @@ jobs:
       - name: restore build
         uses: actions/cache@v1
         with:
-          path: ./packages/client/.nuxt/
+          path: .nuxt
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-build-nuxt-${{ github.sha }}
 
       - name: prepare deploy
-        run: yarn workspace client build:copy
+        run: yarn build:copy
 
       - name: deploy to hosting to Firebase
-        uses: w9jds/firebase-action@master
+        uses: pizzafox/firebase-action@1.0.7
         with:
           args: deploy --only hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_DEV }}
-          PROJECT_PATH: ./packages/client
 
       - name: weight saving
         run: |
-          rm -rf ./packages/client/public
-          rm -rf ./packages/client/src
+          rm -rf ./public
+          rm -rf ./src
 
       - name: deploy to functions to Firebase
-        uses: w9jds/firebase-action@master
+        uses: pizzafox/firebase-action@1.0.7
         with:
           args: deploy --only functions:ssr
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_DEV }}
-          PROJECT_PATH: ./packages/client
 
   lighthouse-mobile:
     runs-on: ubuntu-latest
