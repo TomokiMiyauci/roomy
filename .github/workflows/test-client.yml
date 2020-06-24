@@ -359,11 +359,12 @@ jobs:
           yarn build:copy
 
       - name: deploy to hosting to Firebase
-        uses: pizzafox/firebase-action@1.0.7
+        uses: w9jds/firebase-action@v1.3.1
         with:
           args: deploy --only hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_DEV }}
+          PROJECT_PATH: ${{ github.workspace }}/packages/client/
 
       - name: weight saving
         run: |
@@ -371,11 +372,12 @@ jobs:
           rm -rf ./src
 
       - name: deploy to functions to Firebase
-        uses: pizzafox/firebase-action@1.0.7
+        uses: w9jds/firebase-action@v1.3.1
         with:
           args: deploy --only functions:ssr
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_DEV }}
+          PROJECT_PATH: ${{ github.workspace }}/packages/client/
 
   lighthouse-mobile:
     runs-on: ubuntu-latest
