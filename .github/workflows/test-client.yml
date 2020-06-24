@@ -350,7 +350,7 @@ jobs:
       - name: restore build
         uses: actions/cache@v1
         with:
-          path: .nuxt
+          path:  ${{ github.workspace }}/packages/client/.nuxt/
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-build-nuxt-${{ github.sha }}
 
       - name: prepare deploy
