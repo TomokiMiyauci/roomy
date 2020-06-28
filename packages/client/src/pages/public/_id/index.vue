@@ -1,7 +1,7 @@
 <template>
   <div class="fill-height">
     <v-bottom-sheet v-model="sheet">
-      <recording-studio @close="onClose" />
+      <recording-studio @close="onCloseSheet" />
     </v-bottom-sheet>
     <v-row class="fill-height" no-gutters>
       <v-col :cols="streams.length && !$vuetify.breakpoint.mdAndDown ? 9 : 12">
@@ -75,7 +75,13 @@
         </Promised>
       </v-col>
       <Promised v-if="!$vuetify.breakpoint.mdAndDown" :promise="asyncStream">
-        <template #pending> </template>
+        <template #pending>
+          <v-progress-circular
+            :width="3"
+            color="red"
+            indeterminate
+          ></v-progress-circular>
+        </template>
         <template #default>
           <v-col
             v-if="streams.length"
@@ -92,7 +98,7 @@
             </v-subheader>
             <v-card
               v-for="i in streams"
-              :to="`${$route.params.id}/${i.id}`"
+              @click="onJoin"
               :key="i.id"
               min-width="200"
               min-height="200"
@@ -118,15 +124,27 @@
       max-width="600px"
       hide-overlay
     >
-      <card-create-stream
-        v-if="dialogState === 'video'"
-        @close="onCloseDialog"
-      />
+      <card-create-stream v-if="dialogState === 'video'" @close="onClose" />
       <card-room-share
         v-else-if="dialogState === 'create'"
         :url="text"
-        @close="dialog = false"
+        @close="onClose"
       />
+
+      <card-media-stream
+        v-else-if="dialogState === 'stream'"
+        @close="onClose"
+      />
+    </v-dialog>
+    <v-dialog
+      v-model="isShowLocal"
+      transition="scale-transition"
+      origin="bottom right"
+      max-width="600px"
+    >
+      <v-card min-height="400">
+        <video-player :stream="stream" scope="LOCAL" />
+      </v-card>
     </v-dialog>
 
     <div
@@ -195,6 +213,15 @@
         ><v-icon>{{ mdiHeart }}</v-icon></v-btn
       >
     </div>
+    <transition name="fa">
+      <div
+        v-if="isShowGlobal"
+        class="ma-3"
+        style="position:fixed;right:0;bottom:0;z-index:10;min-width:300px;min-height:200px;background-color:black;border:1px solid grey;border-radius:5px;"
+      >
+        <video-player :stream="stream" scope="GLOBAL" />
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -211,6 +238,7 @@ import {
   mdiPhoneRing
 } from '@mdi/js'
 import {
+  computed,
   defineComponent,
   onMounted,
   onUnmounted,
@@ -224,9 +252,10 @@ import { Promised } from 'vue-promised'
 import CardCreateStream from '@/components/organisms/CardCreateStream.vue'
 import { useFirestore } from '@/core/useFirestore'
 import { messageReference } from '@/core/useFirestoreReference'
+import { wait } from '@/core/useTime'
 import { firestore } from '@/plugins/firebase'
 import { enterRoom, favor } from '@/repositories/users'
-import { publicRoom, reference, user, viewHistory } from '@/store'
+import { publicRoom, reference, user, userMedia, viewHistory } from '@/store'
 import { generateInviteURL, isOwn } from '@/utils/firestore'
 import { Message, PublicRoom } from '~types/core'
 export default defineComponent({
@@ -252,9 +281,11 @@ export default defineComponent({
     SkeletonLoaderMessageSet: () =>
       import('@/components/molecules/SkeletonLoaderMessageSet.vue'),
     CardRoomShare: () => import('@/components/molecules/CardRoomShare.vue'),
+    CardMediaStream: () => import('@/components/organisms/CardMediaStream.vue'),
     MdiEye: () => import('@/components/atoms/icons/MdiEye.vue'),
     CardCreateStream,
-    Promised
+    Promised,
+    VideoPlayer: () => import('@/components/organisms/VideoPlayer.vue')
   },
 
   setup(_, { root }) {
@@ -268,7 +299,7 @@ export default defineComponent({
     const sheet = ref(false)
     const dialog = ref(false)
     const text = ref('')
-    const dialogState = ref<'video' | 'create' | ''>('')
+    const dialogState = ref<'video' | 'create' | 'stream' | ''>('')
 
     const { collectionRef } = messageReference()
 
@@ -291,7 +322,7 @@ export default defineComponent({
       el.style.transform = 'translateX(50px)'
     }
 
-    const onClose = async () => {
+    const onCloseSheet = async () => {
       sheet.value = false
       await onPostend()
     }
@@ -316,7 +347,7 @@ export default defineComponent({
       await favor()
     }
 
-    const onCloseDialog = (): void => {
+    const onClose = (): void => {
       dialog.value = false
     }
 
@@ -328,17 +359,7 @@ export default defineComponent({
         .add({ name: roomName.value })
     }
 
-    watch(dialog, (now) => {
-      if (!now) {
-        setTimeout(() => {
-          dialogState.value = ''
-        }, 300)
-      }
-    })
-
     const onCreateVideo = () => {
-      // dialogState.value = 'video'
-      // dialog.value = true
       root.$router.push(`${root.$route.params.id}/stream`)
     }
 
@@ -356,16 +377,32 @@ export default defineComponent({
     })
 
     const d = ref(false)
+    const onJoin = () => {
+      dialogState.value = 'stream'
+    }
+
+    watch(dialogState, (now) => {
+      if (now) {
+        dialog.value = true
+      }
+    })
+
+    watch(dialog, async (now) => {
+      if (!now) {
+        await wait(300)
+        dialogState.value = ''
+      }
+    })
 
     return {
-      onCloseDialog,
+      onClose,
       dialogState,
       onCreateVideo,
       mdiAlertCircleOutline,
       mdiCheckBoxOutline,
       mdiCheckboxBlank,
       mdiPhoneRing,
-      onClose,
+      onCloseSheet,
       messages,
       sheet,
       beforeEnter,
@@ -388,8 +425,30 @@ export default defineComponent({
       streams,
       asyncStream,
       roomName,
-      d
+      d,
+      onJoin,
+      stream: computed(() => userMedia.userMedia),
+      isShowLocal: computed(() => userMedia.isShowLocal),
+      isShowGlobal: computed(() => userMedia.isShowGlobal),
+      switch: userMedia.switch
     }
   }
 })
 </script>
+
+<style scoped>
+.fa-enter,
+.fa-leave-to {
+  transform: translate(-50px, -50px);
+  opacity: 0;
+}
+
+.fa-enter-active,
+.fa-leave-active {
+  transition: all 0.3s ease;
+}
+
+.fa-enter-to {
+  transform: translate(0, 0);
+}
+</style>
