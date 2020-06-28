@@ -10,6 +10,7 @@ import Rtc from '@/store/rtc'
 import User from '@/store/user'
 import FavoriteRoom from '@/store/user/favorite-room'
 import ViewHistory from '@/store/user/view-history'
+import UserMedia from '@/store/userMedia'
 
 let reference: Reference
 let rtc: Rtc
@@ -18,6 +19,7 @@ let privateRoom: Private
 let publicRoom: Public
 let viewHistory: ViewHistory
 let favoriteRoom: FavoriteRoom
+let userMedia: UserMedia
 
 function initializeStores(store: Store<any>): void {
   reference = getModule(Reference, store)
@@ -27,6 +29,7 @@ function initializeStores(store: Store<any>): void {
   publicRoom = getModule(Public, store)
   viewHistory = getModule(ViewHistory, store)
   favoriteRoom = getModule(FavoriteRoom, store)
+  userMedia = getModule(UserMedia, store)
 }
 
 export {
@@ -37,5 +40,6 @@ export {
   privateRoom,
   publicRoom,
   viewHistory,
-  favoriteRoom
+  favoriteRoom,
+  userMedia
 }
