@@ -2,23 +2,22 @@
   <video
     ref="video"
     v-bind="$attrs"
-    style="position:absolute;right:0;bottom:0;"
+    style="position:absolute;top:0;right:0;bottom:0;left:0;"
   >
     <track default kind="captions" />
   </video>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, PropType, ref } from '@vue/composition-api'
+import { defineComponent, onMounted, ref } from '@vue/composition-api'
 export default defineComponent({
   props: {
     stream: {
-      type: Object as PropType<MediaStream>,
       required: true
     }
   },
 
-  setup(props) {
+  setup(props: { stream: MediaStream }) {
     const video = ref<HTMLVideoElement>()
 
     onMounted(() => {
