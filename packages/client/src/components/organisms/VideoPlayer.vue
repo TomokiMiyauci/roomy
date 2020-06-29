@@ -8,7 +8,7 @@
     <v-fade-transition>
       <v-btn
         @click="onSwitch"
-        v-isShow="isShow"
+        v-show="isShow"
         icon
         absolute
         top
@@ -20,15 +20,15 @@
     </v-fade-transition>
 
     <video-autoplayer
-      :width="width"
-      :height="height"
       v-bind="$attrs"
       :stream="stream"
+      :width="width"
+      :height="height"
       style="background-color:black;"
     />
     <v-slide-y-reverse-transition>
       <v-row
-        v-isShow="isShow"
+        v-show="isShow"
         no-gutters
         class="pa-1"
         style="position:absolute;bottom:0;width:100%;background-color:rgba(0,0,0,0.4)"
@@ -55,7 +55,6 @@ import { userMedia } from '@/store'
 export default defineComponent({
   props: {
     stream: {
-      type: Object,
       required: true
     },
 
