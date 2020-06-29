@@ -47,12 +47,12 @@ export function useFirestore<T extends firebase.firestore.DocumentData>(
   })
 
   if (docRef instanceof firebase.firestore.DocumentReference) {
-    const dataRef = ref<T | null>(null)
+    const dataRef = ref<T | undefined>()
 
     const asyncState = (): Promise<void> => {
       return new Promise((resolve) => {
         close.value = docRef.onSnapshot((snapshot) => {
-          dataRef.value = getData(snapshot) || null
+          dataRef.value = getData(snapshot) || undefined
           resolve()
         }, errorHandler)
       })
