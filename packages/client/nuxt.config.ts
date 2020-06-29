@@ -66,7 +66,7 @@ const config: Configuration = {
   /*
    ** Global CSS
    */
-  css: ['~/assets/css/transition.scss'],
+  css: ['@/assets/css/transition.scss'],
 
   pageTransition: {
     name: 'fade'
@@ -121,6 +121,8 @@ const config: Configuration = {
     // Doc: https://github.com/nuxt-community/dotenv-module
     // ['nuxt-i18n', i18n]
   ],
+
+  components: true,
 
   sentry: {
     dsn: process.env.DSN!
