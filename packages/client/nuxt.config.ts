@@ -107,6 +107,18 @@ const config: Configuration = {
     //   }
     // ]
   ],
+
+  eslint: {
+    extensions: ['vue', 'ts'],
+    cache: true
+  },
+
+  stylelint: {
+    lintDirtyModulesOnly: true
+  },
+
+  typescript: { typeCheck: false },
+
   /*
    ** Nuxt.js modules
    */
@@ -272,17 +284,6 @@ const config: Configuration = {
     }
 
     // publicPath: process.env.AUTH_DOMAIN
-  },
-
-  typescript: {
-    typeCheck: {
-      vue: true,
-      memoryLimit: 4096,
-      eslint: true,
-      measureCompilationTime: true,
-      reportFiles: ['src/**/*'],
-      checkSyntacticErrors: true
-    }
   },
 
   resolve: {
