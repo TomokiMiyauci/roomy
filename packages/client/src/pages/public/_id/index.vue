@@ -1,227 +1,272 @@
 <template>
   <div class="fill-height">
-    <v-bottom-sheet v-model="sheet">
-      <recording-studio @close="onCloseSheet" />
-    </v-bottom-sheet>
-    <v-row class="fill-height" no-gutters>
-      <v-col :cols="streams.length && !$vuetify.breakpoint.mdAndDown ? 9 : 12">
-        <Promised :promise="asyncState">
-          <template #pending>
-            <SkeletonLoaderMessageSet
-              v-for="i in 10"
-              :key="i"
-              class="pb-4"
-            ></SkeletonLoaderMessageSet>
-          </template>
-          <template #default>
-            <v-container v-if="!messages.length" class="fill-height pa-10">
-              <v-row key="suggest" align="center" class="flex-column">
-                <v-col cols="auto">
-                  <v-icon size="50">{{ mdiCommentProcessing }}</v-icon>
-                </v-col>
-
-                <v-col cols="auto">
-                  <span class="display-1 grey-darken-1--text">No message </span>
-                </v-col>
-              </v-row>
-            </v-container>
-
-            <v-container v-else style="padding-bottom:62px;">
-              <v-row class="flex-column">
-                <v-col>
-                  <transition-group
-                    :css="false"
-                    @before-enter="beforeEnter"
-                    @enter="enter"
-                    name="list"
-                    appear
-                  >
-                    <template v-for="(message, index) in messages">
-                      <v-row
-                        v-if="
-                          index !== 0 &&
-                            message.createdAt &&
-                            !dayjs(
-                              messages[index - 1].createdAt.seconds * 1000
-                            ).isSame(message.createdAt.seconds * 1000, 'day')
-                        "
-                        :key="message.id + 4"
-                        style="border-top:1px solid grey;"
-                        justify="center"
-                      >
-                        <v-col cols="auto" align-self="center">
-                          <chip-date
-                            :unixtime="message.createdAt.seconds * 1000"
-                            format="YYYY-MM-DD"
-                          />
-                        </v-col>
-                      </v-row>
-
-                      <message-set
-                        :key="message.id"
-                        :message="message"
-                        :is-own="isOwn(message)"
-                      />
-                      <v-divider
-                        v-show="!$vuetify.breakpoint.mdAndDown"
-                        :key="`${index}divider`"
-                      />
-                    </template>
-                  </transition-group>
-                </v-col>
-              </v-row>
-            </v-container>
-          </template>
-        </Promised>
-      </v-col>
-      <Promised v-if="!$vuetify.breakpoint.mdAndDown" :promise="asyncStream">
-        <template #pending>
-          <v-progress-circular
-            :width="3"
-            color="red"
-            indeterminate
-          ></v-progress-circular>
-        </template>
-        <template #default>
+    <v-tabs-items v-model="tabRef">
+      <v-tab-item value="message">
+        <v-bottom-sheet v-model="sheet">
+          <recording-studio @close="onCloseSheet" />
+        </v-bottom-sheet>
+        <v-row class="fill-height" no-gutters>
           <v-col
-            v-if="streams.length"
-            style="height:calc(100vh - 126px);overflow-y:scroll;border-right:1px solid grey;border-left:1px solid grey;border-radius: 5px;"
-            cols="3"
+            :cols="streams.length && !$vuetify.breakpoint.mdAndDown ? 9 : 12"
           >
-            <v-subheader
-              style="position:sticky;top:0;z-index:5;background-color:grey;"
-            >
-              <v-icon left>{{ mdiMessageVideo }}</v-icon>
-              Video Chat
-              <v-spacer />
-              <v-btn color="secondary" raised><mdi-eye left />View All</v-btn>
-            </v-subheader>
-            <v-card
-              v-for="i in streams"
-              @click="onJoin"
-              :key="i.id"
-              min-width="200"
-              min-height="200"
-              class="ma-5"
-            >
-              <v-card-title>
-                {{ i.name }}
-              </v-card-title>
-            </v-card>
+            <Promised :promise="asyncState">
+              <template #pending>
+                <SkeletonLoaderMessageSet
+                  v-for="i in 10"
+                  :key="i"
+                  class="pb-4"
+                ></SkeletonLoaderMessageSet>
+              </template>
+              <template #default>
+                <v-container v-if="!messages.length" class="fill-height pa-10">
+                  <v-row key="suggest" align="center" class="flex-column">
+                    <v-col cols="auto">
+                      <v-icon size="50">{{ mdiCommentProcessing }}</v-icon>
+                    </v-col>
+
+                    <v-col cols="auto">
+                      <span class="display-1 grey-darken-1--text"
+                        >No message
+                      </span>
+                    </v-col>
+                  </v-row>
+                </v-container>
+
+                <v-container v-else style="padding-bottom:62px;">
+                  <v-row class="flex-column">
+                    <v-col>
+                      <transition-group
+                        :css="false"
+                        @before-enter="beforeEnter"
+                        @enter="enter"
+                        name="list"
+                        appear
+                      >
+                        <template v-for="(message, index) in messages">
+                          <v-row
+                            v-if="
+                              index !== 0 &&
+                                message.createdAt &&
+                                !dayjs(
+                                  messages[index - 1].createdAt.seconds * 1000
+                                ).isSame(
+                                  message.createdAt.seconds * 1000,
+                                  'day'
+                                )
+                            "
+                            :key="message.id + 4"
+                            style="border-top:1px solid grey;"
+                            justify="center"
+                          >
+                            <v-col cols="auto" align-self="center">
+                              <chip-date
+                                :unixtime="message.createdAt.seconds * 1000"
+                                format="YYYY-MM-DD"
+                              />
+                            </v-col>
+                          </v-row>
+
+                          <message-set
+                            :key="message.id"
+                            :message="message"
+                            :is-own="isOwn(message)"
+                          />
+                          <v-divider
+                            v-show="!$vuetify.breakpoint.mdAndDown"
+                            :key="`${index}divider`"
+                          />
+                        </template>
+                      </transition-group>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </template>
+            </Promised>
           </v-col>
-        </template>
-      </Promised>
-    </v-row>
+          <Promised
+            v-if="!$vuetify.breakpoint.mdAndDown"
+            :promise="asyncStream"
+          >
+            <template #pending>
+              <v-progress-circular
+                :width="3"
+                color="red"
+                indeterminate
+              ></v-progress-circular>
+            </template>
+            <template #default>
+              <v-col
+                v-if="streams.length"
+                style="height:calc(100vh - 126px);overflow-y:scroll;border-right:1px solid grey;border-left:1px solid grey;border-radius: 5px;"
+                cols="3"
+              >
+                <v-subheader
+                  style="position:sticky;top:0;z-index:5;background-color:grey;"
+                >
+                  <v-icon left>{{ mdiMessageVideo }}</v-icon>
+                  Video Chat
+                  <v-spacer />
+                  <v-btn color="secondary" raised
+                    ><mdi-eye left />View All</v-btn
+                  >
+                </v-subheader>
+                <v-card
+                  v-for="i in streams"
+                  @click="onJoin"
+                  :key="i.id"
+                  min-width="200"
+                  min-height="200"
+                  class="ma-5"
+                >
+                  <v-card-title>
+                    {{ i.name }}
+                  </v-card-title>
+                </v-card>
+              </v-col>
+            </template>
+          </Promised>
+        </v-row>
 
-    <v-dialog
-      v-model="dialog"
-      :fullscreen="$vuetify.breakpoint.mdAndDown"
-      :transition="
-        $vuetify.breakpoint.mdAndDown
-          ? 'dialog-bottom-transition'
-          : 'fab-transition'
-      "
-      max-width="600px"
-      hide-overlay
-    >
-      <card-create-stream v-if="dialogState === 'video'" @close="onClose" />
-      <card-room-share
-        v-else-if="dialogState === 'create'"
-        :url="text"
-        @close="onClose"
-      />
+        <v-dialog
+          v-model="dialog"
+          :fullscreen="$vuetify.breakpoint.mdAndDown"
+          :transition="
+            $vuetify.breakpoint.mdAndDown
+              ? 'dialog-bottom-transition'
+              : 'fab-transition'
+          "
+          max-width="600px"
+          hide-overlay
+        >
+          <card-create-stream v-if="dialogState === 'video'" @close="onClose" />
+          <card-room-share
+            v-else-if="dialogState === 'create'"
+            :url="text"
+            @close="onClose"
+          />
 
-      <card-media-stream
-        v-else-if="dialogState === 'stream'"
-        @close="onClose"
-      />
-    </v-dialog>
-    <v-dialog
-      v-model="isShowLocal"
-      transition="scale-transition"
-      origin="bottom right"
-      max-width="600px"
-    >
-      <v-card min-height="400">
-        <video-player :stream="stream" scope="LOCAL" />
-      </v-card>
-    </v-dialog>
+          <card-media-stream
+            v-else-if="dialogState === 'stream'"
+            @close="onClose"
+            :minHeight="$vuetify.breakpoint.mdAndDown ? '100%' : '400px'"
+          />
+        </v-dialog>
+        <v-dialog
+          v-model="isShowLocal"
+          transition="scale-transition"
+          origin="bottom right"
+          max-width="600px"
+        >
+          <v-card>
+            <video-player :stream="stream" scope="LOCAL" />
+          </v-card>
+        </v-dialog>
 
-    <div
-      :style="{
-        width: $vuetify.breakpoint.mdAndDown ? '100%' : 'calc(75% - 56px)'
-      }"
-      style="position:fixed;bottom:0;background-color:rgb(255,255,255);"
-    >
-      <the-post @postend="onPostend" @audio="sheet = true" />
-      <v-dialog
-        v-if="login"
-        v-model="d"
-        max-width="600px"
-        transition="slide-x-transition"
-      >
-        <template #activator="{on}">
+        <div
+          :style="{
+            width: $vuetify.breakpoint.mdAndDown ? '100%' : 'calc(75% - 56px)'
+          }"
+          style="position:fixed;bottom:0;background-color:rgb(255,255,255);"
+        >
+          <the-post @postend="onPostend" @audio="sheet = true" />
+          <v-dialog
+            v-if="login"
+            v-model="d"
+            fullscreen
+            max-width="600px"
+            transition="slide-x-transition"
+          >
+            <template #activator="{on}">
+              <v-btn
+                v-on="on"
+                color="primary"
+                dark
+                absolute
+                fab
+                small
+                style="bottom:160px"
+                right
+                ><v-icon>{{ mdiPhoneRing }}</v-icon></v-btn
+              >
+            </template>
+            <v-card>
+              <v-toolbar color="primary">
+                <button-close @click="d = false" color="secondary" />
+                <v-toolbar-title class="white--text"
+                  >New Stream Room</v-toolbar-title
+                >
+              </v-toolbar>
+              <v-card-title>
+                Stream Room Name
+              </v-card-title>
+
+              <v-card-text>
+                <v-text-field
+                  v-model="roomName"
+                  outlined
+                  value="Room1"
+                  label="Stream Room Name"
+                />
+              </v-card-text>
+              <v-divider />
+              <v-card-actions>
+                <v-spacer />
+                <v-btn @click="create" color="primary">Create</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+
           <v-btn
-            v-on="on"
-            color="primary"
+            @click="onFavor"
+            v-if="login"
+            color="pink"
             dark
             absolute
             fab
             small
-            style="bottom:160px"
+            style="bottom:95px"
             right
-            ><v-icon>{{ mdiPhoneRing }}</v-icon></v-btn
+            ><v-icon>{{ mdiHeart }}</v-icon></v-btn
           >
-        </template>
-        <v-card>
-          <v-toolbar color="primary">
-            <button-close @click="d = false" color="secondary" />
-            <v-toolbar-title class="white--text"
-              >New Stream Room</v-toolbar-title
-            >
-          </v-toolbar>
-          <v-card-title>
-            Stream Room Name
-          </v-card-title>
-
-          <v-card-text>
-            <v-text-field
-              v-model="roomName"
-              outlined
-              value="Room1"
-              label="Stream Room Name"
-            />
-          </v-card-text>
-          <v-divider />
-          <v-card-actions>
-            <v-spacer />
-            <v-btn @click="create" color="primary">Create</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-
-      <v-btn
-        @click="onFavor"
-        v-if="login"
-        color="pink"
-        dark
-        absolute
-        fab
-        small
-        style="bottom:95px"
-        right
-        ><v-icon>{{ mdiHeart }}</v-icon></v-btn
-      >
-    </div>
-    <transition name="fa">
-      <div
-        v-if="isShowGlobal"
-        class="ma-3"
-        style="position:fixed;right:0;bottom:0;z-index:10;min-width:300px;min-height:200px;background-color:black;border:1px solid grey;border-radius:5px;"
-      >
-        <video-player :stream="stream" scope="GLOBAL" />
-      </div>
-    </transition>
+        </div>
+        <transition name="fa">
+          <div
+            v-if="isShowGlobal"
+            class="ma-3"
+            style="position:fixed;right:0;bottom:0;z-index:10;min-width:300px;min-height:200px;background-color:black;border:1px solid grey;border-radius:5px;"
+          >
+            <video-player :stream="stream" scope="GLOBAL" />
+          </div>
+        </transition>
+      </v-tab-item>
+      <v-tab-item value="stream">
+        <Promised v-if="$vuetify.breakpoint.mdAndDown" :promise="asyncStream">
+          <template #pending>
+            <v-progress-circular
+              :width="3"
+              color="red"
+              indeterminate
+            ></v-progress-circular>
+          </template>
+          <template #default>
+            <v-col cols="3">
+              <v-card
+                v-for="i in streams"
+                @click="onJoin"
+                :key="i.id"
+                min-width="200"
+                min-height="200"
+                class="ma-5"
+              >
+                <v-card-title>
+                  {{ i.name }}
+                </v-card-title>
+              </v-card>
+            </v-col>
+          </template>
+        </Promised>
+      </v-tab-item>
+    </v-tabs-items>
   </div>
 </template>
 
@@ -368,12 +413,17 @@ export default defineComponent({
       scrollTo(0, document.body.clientHeight)
     }
 
+    const tabRef = ref('message')
+
     onMounted(() => {
       root.$nuxt.$on('open:qrcode', qrcode)
+      root.$nuxt.$on('tabchange', (tab: 'message' | 'stream') => {
+        tabRef.value = tab
+      })
     })
 
     onUnmounted(() => {
-      root.$nuxt.$off(['open:qrcode'])
+      root.$nuxt.$off(['open:qrcode', 'tabchange'])
     })
 
     const d = ref(false)
@@ -430,7 +480,8 @@ export default defineComponent({
       stream: computed(() => userMedia.userMedia),
       isShowLocal: computed(() => userMedia.isShowLocal),
       isShowGlobal: computed(() => userMedia.isShowGlobal),
-      switch: userMedia.switch
+      switch: userMedia.switch,
+      tabRef
     }
   }
 })
