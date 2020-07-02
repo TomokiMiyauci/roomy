@@ -272,16 +272,16 @@ const config: Configuration = {
         ? {
             layouts: true
           }
-        : undefined,
+        : undefined
 
-    extend(config) {
-      if (process.env.NODE_ENV !== 'production') {
-        return Object.assign({}, config, {
-          devtool: 'source-map'
-        })
-      }
-      return Object.assign({}, config, {})
-    }
+    // extend(config) {
+    //   if (process.env.NODE_ENV !== 'production') {
+    //     return Object.assign({}, config, {
+    //       devtool: 'source-map'
+    //     })
+    //   }
+    //   return Object.assign({}, config, {})
+    // }
 
     // publicPath: process.env.AUTH_DOMAIN
   },
