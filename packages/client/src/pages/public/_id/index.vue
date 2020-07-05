@@ -240,6 +240,16 @@
         </transition>
       </v-tab-item>
       <v-tab-item value="stream">
+        <v-btn
+          @click="dialogState = 'video'"
+          color="primary"
+          fab
+          fixed
+          bottom
+          right
+        >
+          <v-icon>{{ mdiVideoPlus }}</v-icon>
+        </v-btn>
         <Promised v-if="$vuetify.breakpoint.mdAndDown" :promise="asyncStream">
           <template #pending>
             <v-progress-circular
@@ -280,7 +290,8 @@ import {
   mdiMessageVideo,
   mdiMicrophone,
   mdiMicrophoneSettings,
-  mdiPhoneRing
+  mdiPhoneRing,
+  mdiVideoPlus
 } from '@mdi/js'
 import {
   computed,
@@ -481,7 +492,8 @@ export default defineComponent({
       isShowLocal: computed(() => userMedia.isShowLocal),
       isShowGlobal: computed(() => userMedia.isShowGlobal),
       switch: userMedia.switch,
-      tabRef
+      tabRef,
+      mdiVideoPlus
     }
   }
 })
