@@ -3,9 +3,10 @@
     ref="video"
     v-bind="$attrs"
     style="position:absolute;top:0;right:0;bottom:0;left:0;"
-  >
-    <track default kind="captions" />
-  </video>
+    autoplay
+    playsinline
+    muted="true"
+  />
 </template>
 
 <script lang="ts">
