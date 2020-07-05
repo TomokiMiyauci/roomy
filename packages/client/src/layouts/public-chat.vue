@@ -6,7 +6,7 @@
       :favorite-rooms="favoriteRooms"
       @open:qrcode="onOpenQrcode"
     />
-    <the-app-bar-chat />
+    <the-app-bar-chat @tabchange="$nuxt.$emit('tabchange', $event)" />
 
     <v-content>
       <nuxt />
@@ -35,10 +35,15 @@ export default defineComponent({
       root.$nuxt.$emit('open:qrcode', room)
     }
 
+    const onChange = () => {
+      root.$nuxt.$emit('tabchange')
+    }
+
     return {
       viewHistories: computed(() => viewHistory.viewHistories),
       favoriteRooms: computed(() => favoriteRoom.favoriteRooms),
-      onOpenQrcode
+      onOpenQrcode,
+      onChange
     }
   }
 })
