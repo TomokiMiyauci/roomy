@@ -8,7 +8,7 @@
     <v-fade-transition>
       <v-btn
         @click="onSwitch"
-        v-show="isShow"
+        v-show="autoShowButton || isShow"
         icon
         absolute
         top
@@ -28,7 +28,7 @@
     />
     <v-slide-y-reverse-transition>
       <v-row
-        v-show="isShow"
+        v-show="autoShowButton || isShow"
         no-gutters
         class="pa-1"
         style="position:absolute;bottom:0;width:100%;background-color:rgba(0,0,0,0.4)"
@@ -63,6 +63,11 @@ export default defineComponent({
       required: true
     },
 
+    autoShow: {
+      type: Boolean,
+      default: false
+    },
+
     width: {
       type: [String, Number],
       default: '100%'
@@ -78,12 +83,16 @@ export default defineComponent({
     VideoAutoplayer: () => import('@/components/molecules/VideoAutoplayer.vue')
   },
 
-  setup(props, { emit }) {
+  setup(props, { emit, root }) {
     const isShow = ref(false)
     const onSwitch = () => {
       userMedia.switch(props.scope === 'GLOBAL' ? 'LOCAL' : 'GLOBAL')
       emit('switch')
     }
+
+    const autoShowButton = computed(() => {
+      return root.$vuetify.breakpoint.mdAndDown ? true : props.autoShow
+    })
 
     const switchIcon = computed(() => {
       return props.scope === 'GLOBAL'
@@ -101,7 +110,8 @@ export default defineComponent({
       onHandUp,
       switchIcon,
       mdiPhoneHangup,
-      isShow
+      isShow,
+      autoShowButton
     }
   }
 })
